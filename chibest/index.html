@@ -143,14 +143,15 @@
   <section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-borderSubtle py-12 lg:py-16">
     
     <!-- Background Ambient Atmospheric Lighting (Blurred Video Glow) -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-20 filter blur-[70px] scale-110">
-      <video autoplay loop muted playsinline class="w-full h-full object-cover">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-50 filter blur-[40px] scale-105" style="opacity: 0.50;">
+      <video autoplay loop muted playsinline class="w-full h-full object-cover filter contrast-110 brightness-105">
         <source src="assets/hero_stream.mp4" type="video/mp4">
       </video>
     </div>
     
-    <!-- Subtle Radial Vignette Gradient -->
-    <div class="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/90 to-obsidian pointer-events-none"></div>
+    <!-- Luxury Atmospheric Vignette Gradient -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(7,8,10,0.35)_0%,_rgba(7,8,10,0.65)_55%,_#07080A_100%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-obsidian/60 via-transparent to-obsidian pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
