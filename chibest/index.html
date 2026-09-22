@@ -248,10 +248,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       
       <!-- Look 1: Sovereign Agbada (product_14) -->
-      <div class="group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
+      <div class="product-card group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
         <div>
           <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-onyx mb-4">
-            <img src="assets/chibest_product_14_portrait.jpg" alt="The Sovereign Agbada in Obsidian & Gold" class="w-full h-full object-cover object-top filter contrast-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="assets/chibest_product_14_portrait.jpg" alt="The Sovereign Agbada in Obsidian & Gold" class="look-photo w-full h-full object-cover object-top filter contrast-110 brightness-95 group-hover:opacity-0 transition-opacity duration-700">
+            <video loop muted playsinline class="look-video absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <source src="assets/product_14_loop.mp4" type="video/mp4">
+            </video>
             <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
               Ceremonial 3-Piece
             </div>
@@ -275,10 +278,13 @@
       </div>
 
       <!-- Look 2: Diplomat Senator in Burgundy Pinstripe (product_2) -->
-      <div class="group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
+      <div class="product-card group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
         <div>
           <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-onyx mb-4">
-            <img src="assets/chibest_product_2_portrait.jpg" alt="Diplomat Senator in Burgundy Pinstripe" class="w-full h-full object-cover object-top filter contrast-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="assets/chibest_product_2_portrait.jpg" alt="Diplomat Senator in Burgundy Pinstripe" class="look-photo w-full h-full object-cover object-top filter contrast-110 brightness-95 group-hover:opacity-0 transition-opacity duration-700">
+            <video loop muted playsinline class="look-video absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <source src="assets/product_2_loop.mp4" type="video/mp4">
+            </video>
             <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
               Executive 2-Piece
             </div>
@@ -302,10 +308,13 @@
       </div>
 
       <!-- Look 3: Midnight Moroccan Royal Kaftan (product_8) -->
-      <div class="group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
+      <div class="product-card group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
         <div>
           <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-onyx mb-4">
-            <img src="assets/chibest_product_8_portrait.jpg" alt="Midnight Moroccan Royal Kaftan" class="w-full h-full object-cover object-top filter contrast-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="assets/chibest_product_8_portrait.jpg" alt="Midnight Moroccan Royal Kaftan" class="look-photo w-full h-full object-cover object-top filter contrast-110 brightness-95 group-hover:opacity-0 transition-opacity duration-700">
+            <video loop muted playsinline class="look-video absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <source src="assets/product_8_loop.mp4" type="video/mp4">
+            </video>
             <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
               Floor-Length Luxury
             </div>
@@ -329,10 +338,13 @@
       </div>
 
       <!-- Look 4: Commander Military Safari (product_10) -->
-      <div class="group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
+      <div class="product-card group bg-surface/40 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-4 transition-all flex flex-col justify-between">
         <div>
           <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-onyx mb-4">
-            <img src="assets/chibest_product_10_portrait.jpg" alt="Commander Military Safari" class="w-full h-full object-cover object-top filter contrast-110 group-hover:scale-105 transition-transform duration-700">
+            <img src="assets/chibest_product_10_portrait.jpg" alt="Commander Military Safari" class="look-photo w-full h-full object-cover object-top filter contrast-110 brightness-95 group-hover:opacity-0 transition-opacity duration-700">
+            <video loop muted playsinline class="look-video absolute inset-0 w-full h-full object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+              <source src="assets/product_10_loop.mp4" type="video/mp4">
+            </video>
             <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
               Executive Safari
             </div>
@@ -478,5 +490,18 @@
   </footer>
 
   <script src="nav.js"></script>
+  <script>
+    // Hover Video Playback for Runway Showcase Cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      const video = card.querySelector('.look-video');
+      if (video) {
+        card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+        card.addEventListener('mouseleave', () => {
+          video.pause();
+          video.currentTime = 0;
+        });
+      }
+    });
+  </script>
 </body>
 </html>
