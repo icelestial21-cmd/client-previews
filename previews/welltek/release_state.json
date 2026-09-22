@@ -1,0 +1,13 @@
+{
+  "client_id": "welltek",
+  "client_name": "Welltek Auto Diagnostics",
+  "client_email": "welltekdiagnostics@hotmail.com",
+  "reveal_mode": "scheduled",
+  "status": "teaser",
+  "scheduled_reveal_utc": "2026-09-15T14:00:00Z",
+  "delivery_buffer_days": 3,
+  "notification_email_queued": true,
+  "notification_email_sent": false,
+  "notification_sent_at": null,
+  "portal_url": "https://audits.icelestial.com/previews/welltek/compare.html"
+}

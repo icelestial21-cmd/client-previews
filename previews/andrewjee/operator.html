@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>[OPERATOR QA] Jee Law, PLLC | Architecture Review &amp; Handover Console</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://www.paypal.com/sdk/js?client-id=AXaafhSLnjkBIKTSe7hvLRBGdu_4SF32OgWjIQ6oE-7SdEuyjsTw7rvUuaMJPTsBrPgtZATrv0lHHD-U&currency=USD"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .heading-serif { font-family: 'Cinzel', serif; }
+    .phone-mockup {
+      width: 390px;
+      height: 844px;
+      border: 12px solid #1e293b;
+      border-radius: 44px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #1e293b;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 30;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-white h-[100dvh] flex flex-col overflow-hidden select-none">
+
+  <!-- TOP APP HEADER -->
+  <header class="bg-slate-950 border-b border-slate-800 px-3 py-1 sm:px-5 lg:py-1.5 lg:px-6 shrink-0 z-30">
+    <div class="w-full flex items-center justify-between gap-2 lg:gap-4">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <span class="font-bold text-amber-400 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 select-none">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Jee Law, PLLC <span class="text-amber-500/80 font-normal">&bull; Operator Console</span>
+        </span>
+        <span class="hidden 2xl:inline text-xs text-slate-400 border-l border-slate-800 pl-3">
+          Internal Architecture Staging &amp; QA
+        </span>
+      </div>
+
+      <!-- DESKTOP VIEWPORT CONTROLS -->
+      <div class="hidden lg:flex items-center gap-1 bg-slate-900 p-0.5 rounded-md border border-slate-800 text-xs">
+        <button id="btnSplit" onclick="setViewMode('split')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold bg-slate-800 text-amber-400 flex items-center gap-1 transition cursor-pointer">
+          <span>⚖️ Split 50/50</span>
+        </button>
+
+        <button id="btnMobile" onclick="setViewMode('mobile')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>📱 Mobile (390px)</span>
+        </button>
+
+        <button id="btnFullscreen" onclick="setViewMode('fullscreen')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>⛶ Fullscreen</span>
+        </button>
+
+        <a href="./compare.html" target="_blank" rel="noopener noreferrer"
+           class="px-2.5 py-1 rounded font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition border border-emerald-500/30 bg-emerald-950/40"
+           title="Inspect Public Client View">
+          <span>Public View ↗</span>
+        </a>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <button onclick="openReleaseModal()" 
+                class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-md text-xs uppercase tracking-wider shadow transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+          <span>⚙️ Handover &amp; Release</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE / TABLET SEGMENTED TAB SWITCHER -->
+    <div class="flex lg:hidden items-center justify-center gap-2 mt-1.5 pt-1.5 border-t border-slate-900">
+      <div class="grid grid-cols-2 w-full max-w-sm bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs">
+        <button id="tabMobileOld" onclick="setMobileTab('old')"
+                class="py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer">
+          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+          <span>Current Site</span>
+        </button>
+        <button id="tabMobileNew" onclick="setMobileTab('new')"
+                class="py-1.5 px-3 rounded-md font-bold bg-slate-800 text-emerald-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Proposed Upgrade</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- OPERATOR COMMAND & SUBPAGE QA TOOLBAR -->
+  <div id="operatorBar" class="bg-slate-900 border-b border-amber-500/40 px-3 sm:px-5 lg:px-6 py-1.5 shrink-0 z-40">
+    <div class="w-full flex flex-wrap items-center justify-between gap-2">
+      <!-- Left: Operator Badge & Status -->
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40 text-[10px] tracking-wide uppercase">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Operator QA
+        </span>
+        <span id="opStatusPill" class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800 text-[10px] font-medium whitespace-nowrap">
+          Loading status...
+        </span>
+      </div>
+
+      <!-- Center: Multi-Page Staging Switcher -->
+      <div class="flex items-center gap-1 bg-slate-950 p-0.5 rounded border border-slate-800 text-xs overflow-x-auto">
+        <span class="text-slate-500 font-bold px-1.5 text-[10px] uppercase shrink-0">Inspect Page:</span>
+        <button id="btnSubHome" onclick="loadSubPage('index.html', this)" class="op-subpage-btn px-2.5 py-0.5 rounded font-bold bg-amber-500 text-slate-950 transition cursor-pointer whitespace-nowrap text-xs">
+          🏠 Home
+        </button>
+        <button id="btnSubAttorneys" onclick="loadSubPage('attorneys.html', this)" class="op-subpage-btn px-2.5 py-0.5 rounded font-semibold text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap text-xs">
+          ⚖️ Attorneys
+        </button>
+        <button id="btnSubPractice" onclick="loadSubPage('practice-areas.html', this)" class="op-subpage-btn px-2.5 py-0.5 rounded font-semibold text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap text-xs">
+          📋 Practice Areas
+        </button>
+        <button id="btnSubVerdicts" onclick="loadSubPage('verdicts.html', this)" class="op-subpage-btn px-2.5 py-0.5 rounded font-semibold text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap text-xs">
+          🏆 Verdicts
+        </button>
+        <button id="btnSubContact" onclick="loadSubPage('contact.html', this)" class="op-subpage-btn px-2.5 py-0.5 rounded font-semibold text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap text-xs">
+          ✉️ Privileged Intake
+        </button>
+        <a id="opPopoutLink" href="./index.html" target="_blank" rel="noopener noreferrer" class="px-2 py-0.5 text-amber-400 hover:underline font-bold text-xs shrink-0" title="Open selected page in full tab">
+          Pop-out ↗
+        </a>
+      </div>
+
+      <!-- Right: Direct Link to Public Client View -->
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="./compare.html" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded border border-slate-700 text-xs transition flex items-center gap-1.5" title="View public client comparison page">
+          <span>👁️ Test Client View</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPERATOR BANNER -->
+  <aside class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 px-3 sm:px-5 lg:px-6 py-1 shrink-0">
+    <div class="w-full flex items-center justify-between gap-2 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="text-amber-400 font-semibold">Staged Directory:</span>
+        <span class="font-mono text-slate-300">/previews/andrewjee/</span>
+        <span class="text-slate-600">|</span>
+        <span id="bannerStatusText">Verifying staging state with release engine...</span>
+      </div>
+      <div class="hidden sm:block text-slate-500 text-[11px]">
+        Autonomous Release Engine Active (Port 8095)
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN COMPARISON VIEWPORT CONTAINER -->
+  <main id="mainComparison" class="flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative">
+    
+    <!-- LEFT: CURRENT LIVE SITE -->
+    <div id="leftPane" class="hidden lg:flex relative w-full h-full flex-col bg-slate-950 transition-all duration-300">
+      <div class="absolute top-3 left-3 right-3 z-10 flex flex-wrap gap-2 pointer-events-none">
+        <span class="px-2.5 py-1 rounded bg-rose-950/90 border border-rose-600 text-rose-200 text-[11px] font-bold shadow-lg backdrop-blur">
+          &times; 100% Contact Inputs Unlabeled (ADA Exposure)
+        </span>
+        <span class="px-2.5 py-1 rounded bg-rose-950/90 border border-rose-600 text-rose-200 text-[11px] font-bold shadow-lg backdrop-blur">
+          &times; Obsolete CAPTCHA Breaks on Mobile Browsers
+        </span>
+      </div>
+      <iframe src="https://www.andrewjee.com/" class="w-full h-full border-0 bg-white opacity-95"></iframe>
+    </div>
+
+    <!-- RIGHT: PROPOSED MODERN UPGRADE -->
+    <div id="rightPane" class="relative w-full h-full flex flex-col items-center justify-center bg-slate-950 transition-all duration-300 overflow-auto p-0">
+      
+      <!-- Fullscreen Return Bar -->
+      <div id="fullscreenReturnBar" class="hidden absolute top-4 right-4 z-40">
+        <button onclick="setViewMode('split')" 
+                class="bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 px-4 py-2 rounded-lg text-xs font-bold shadow-2xl flex items-center gap-2 backdrop-blur transition cursor-pointer">
+          <span>&larr; Exit Fullscreen (Return to Split)</span>
+        </button>
+      </div>
+
+      <!-- Callout Pills -->
+      <div id="rightBadges" class="absolute top-3 left-3 right-3 z-10 hidden sm:flex flex-wrap gap-2 pointer-events-none">
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Grade A (98/100) ADA Compliance
+        </span>
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Prominent $100M+ Verdict Grid
+        </span>
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Mobile Tap-to-Call Retention Line
+        </span>
+      </div>
+
+      <!-- Iframe Wrapper -->
+      <div id="iframeWrapper" class="w-full h-full relative transition-all duration-300">
+        <div id="phoneNotch" class="hidden phone-notch"></div>
+        <iframe id="upgradeIframe" src="./index.html" class="w-full h-full border-0 bg-white"></iframe>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- HANDOVER & STAGING RELEASE CONTROL MODAL -->
+  <div id="releaseModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-xl shadow-2xl overflow-hidden text-left animate-fadeIn">
+      
+      <!-- Modal Header -->
+      <div class="bg-slate-950 border-b border-slate-800 px-5 py-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span>
+          <h3 class="font-bold text-white text-sm uppercase tracking-wider">Staging Handover &amp; Release Engine</h3>
+        </div>
+        <button onclick="closeReleaseModal()" class="text-slate-400 hover:text-white text-lg font-bold transition cursor-pointer">&times;</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4 max-h-[80vh] overflow-y-auto text-xs sm:text-sm">
+        
+        <!-- Status Indicator -->
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-bold text-slate-400">Current Client View Status</span>
+            <div id="modalStatusDisplay" class="font-bold text-amber-400 text-xs sm:text-sm">Loading...</div>
+          </div>
+          <span id="modalBufferBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-500/40">
+            3-Day Buffer Active
+          </span>
+        </div>
+
+        <!-- Release Mode Selector -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Select Reveal Timing Mode</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-slate-800 bg-slate-950/60 hover:border-slate-700 cursor-pointer transition">
+              <input type="radio" name="modalRevealMode" value="scheduled" checked onchange="updateModalFormMode()" class="mt-0.5 text-amber-500 focus:ring-0">
+              <div>
+                <span class="font-bold text-white text-xs block">⏳ Scheduled Reveal</span>
+                <span class="text-[11px] text-slate-400 leading-tight block mt-0.5">Keep teaser active until scheduled date. Staging buffer for handover review.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-slate-800 bg-slate-950/60 hover:border-slate-700 cursor-pointer transition">
+              <input type="radio" name="modalRevealMode" value="instant" onchange="updateModalFormMode()" class="mt-0.5 text-emerald-500 focus:ring-0">
+              <div>
+                <span class="font-bold text-white text-xs block">⚡ Instant Reveal</span>
+                <span class="text-[11px] text-slate-400 leading-tight block mt-0.5">Finalize complete multi-page architecture for client review immediately.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scheduled Timing Options -->
+        <div id="scheduledOptionsBlock" class="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-3">
+          <label class="block text-[11px] font-bold text-slate-300 uppercase tracking-wide">Quick Delivery Presets</label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
+            <button type="button" onclick="setPresetBuffer(24)" class="preset-btn px-2 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition cursor-pointer">
+              +24h (Next Day)
+            </button>
+            <button type="button" onclick="setPresetBuffer(48)" class="preset-btn px-2 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition cursor-pointer">
+              +48h (2 Bus. Days)
+            </button>
+            <button type="button" onclick="setPresetBuffer(72)" class="preset-btn px-2 py-1.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/50 text-[11px] transition cursor-pointer">
+              +72h (3 Bus. Days)
+            </button>
+            <button type="button" onclick="setPresetBuffer(120)" class="preset-btn px-2 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition cursor-pointer">
+              +5 Days (Dev Buffer)
+            </button>
+            <button type="button" onclick="setPresetBuffer(240)" class="preset-btn px-2 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold border border-slate-700 text-[11px] transition cursor-pointer">
+              +10 Days (Complex)
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-[11px] text-slate-400 font-medium mb-1">Custom Reveal Target Date/Time (UTC / Local)</label>
+            <input type="datetime-local" id="customDatetimeInput" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white focus:border-amber-400 focus:outline-none">
+          </div>
+        </div>
+
+        <!-- Client Handover Email Notification Configuration -->
+        <div class="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 cursor-pointer font-bold text-xs text-white">
+              <input type="checkbox" id="chkNotifyEmail" checked class="rounded bg-slate-900 border-slate-700 text-indigo-500 focus:ring-0">
+              <span>Send Handover Notification Email to Client</span>
+            </label>
+            <button type="button" onclick="sendTestEmail()" class="text-[11px] text-amber-400 hover:text-amber-300 underline font-semibold cursor-pointer">
+              ✉️ Send Test Copy to Me
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Client Contact Name</span>
+              <input type="text" id="clientContactName" value="Andrew Jee, Esq." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:border-amber-400 focus:outline-none">
+            </div>
+            <div>
+              <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Client Email Address</span>
+              <input type="email" id="clientContactEmail" value="ajee@andrewjee.com" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white focus:border-amber-400 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 bg-slate-900/80 p-2.5 rounded border border-slate-800">
+            <span class="font-bold text-slate-300">Automated Dispatch Notice:</span> When the reveal triggers (or immediately if Instant is chosen), Brevo will deliver an executive handover notification briefing the client that their full multi-page architecture is finalized and ready for review.
+          </div>
+        </div>
+
+        <!-- Feedback Alert Container -->
+        <div id="releaseAlert" class="hidden p-2.5 rounded text-xs font-semibold"></div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-950 border-t border-slate-800 px-5 py-3 flex items-center justify-between">
+        <button onclick="closeReleaseModal()" class="px-3 py-1.5 rounded border border-slate-700 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer">
+          Cancel
+        </button>
+        <button onclick="saveReleaseSettings()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow transition">
+          <span>💾 Save &amp; Apply Release Settings</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const CLIENT_ID = 'andrewjee';
+    let currentClientState = null;
+
+    // Viewport Modes
+    function setViewMode(mode) {
+      const leftPane = document.getElementById('leftPane');
+      const rightPane = document.getElementById('rightPane');
+      const mainGrid = document.getElementById('mainComparison');
+      const iframeWrapper = document.getElementById('iframeWrapper');
+      const phoneNotch = document.getElementById('phoneNotch');
+      const returnBar = document.getElementById('fullscreenReturnBar');
+      const rightBadges = document.getElementById('rightBadges');
+
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-amber-400');
+        btn.classList.add('text-slate-400');
+      });
+
+      if (mode === 'split') {
+        document.getElementById('btnSplit').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnSplit').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex');
+        iframeWrapper.className = "w-full h-full relative flex flex-col";
+        phoneNotch.classList.add('hidden');
+        returnBar.classList.add('hidden');
+        if (rightBadges) rightBadges.classList.remove('hidden');
+      } else if (mode === 'mobile') {
+        document.getElementById('btnMobile').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnMobile').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex', 'items-center', 'justify-center', 'p-6', 'bg-slate-900/50');
+        iframeWrapper.className = "phone-mockup relative";
+        phoneNotch.classList.remove('hidden');
+        returnBar.classList.add('hidden');
+        if (rightBadges) rightBadges.classList.remove('hidden');
+      } else if (mode === 'fullscreen') {
+        document.getElementById('btnFullscreen').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnFullscreen').classList.remove('text-slate-400');
+        leftPane.classList.add('hidden');
+        leftPane.classList.remove('lg:flex');
+        rightPane.classList.remove('hidden');
+        rightPane.classList.add('flex-1');
+        iframeWrapper.className = "w-full h-full relative flex flex-col";
+        phoneNotch.classList.add('hidden');
+        returnBar.classList.remove('hidden');
+        if (rightBadges) rightBadges.classList.add('hidden');
+      }
+    }
+
+    // Mobile / Tablet Tab Switcher
+    function setMobileTab(tab) {
+      const leftPane = document.getElementById('leftPane');
+      const rightPane = document.getElementById('rightPane');
+      const tabOld = document.getElementById('tabMobileOld');
+      const tabNew = document.getElementById('tabMobileNew');
+
+      if (tab === 'old') {
+        tabOld.className = "py-1.5 px-3 rounded-md font-bold bg-slate-800 text-rose-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        tabNew.className = "py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('flex');
+        rightPane.classList.add('hidden');
+      } else {
+        tabNew.className = "py-1.5 px-3 rounded-md font-bold bg-slate-800 text-emerald-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        tabOld.className = "py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        leftPane.classList.add('hidden');
+        leftPane.classList.remove('flex');
+        rightPane.classList.remove('hidden');
+      }
+    }
+
+    // Subpage loader for Operator Review
+    function loadSubPage(pageUrl, btn) {
+      document.getElementById('upgradeIframe').src = pageUrl;
+      document.querySelectorAll('.op-subpage-btn').forEach(b => {
+        b.className = "op-subpage-btn px-2.5 py-0.5 rounded font-semibold text-slate-400 hover:text-white transition cursor-pointer whitespace-nowrap text-xs";
+      });
+      if (btn) {
+        btn.className = "op-subpage-btn px-2.5 py-0.5 rounded font-bold bg-amber-500 text-slate-950 transition cursor-pointer whitespace-nowrap text-xs";
+      }
+      const popout = document.getElementById('opPopoutLink');
+      if (popout) popout.href = pageUrl;
+    }
+
+    // Fetch and render client release state
+    async function fetchReleaseState() {
+      try {
+        const resp = await fetch(`https://audits.icelestial.com/api/status?client=${CLIENT_ID}`);
+        if (resp.ok) {
+          const state = await resp.json();
+          currentClientState = state;
+          applyClientState(state);
+        }
+      } catch (e) {
+        console.warn('Unable to load server release state, using defaults:', e);
+      }
+    }
+
+    function applyClientState(state) {
+      if (!state) return;
+      const statusPill = document.getElementById('opStatusPill');
+      const modalStatus = document.getElementById('modalStatusDisplay');
+      const modalBadge = document.getElementById('modalBufferBadge');
+      const bannerStatusText = document.getElementById('bannerStatusText');
+
+      const isRevealed = state.status === 'revealed' || (state.status === 'scheduled' && new Date() >= new Date(state.scheduled_reveal_utc));
+
+      if (isRevealed) {
+        if (statusPill) statusPill.innerHTML = '<span class="text-emerald-400 font-bold">🟢 Live Revealed</span>';
+        if (modalStatus) modalStatus.innerHTML = '<span class="text-emerald-400 font-bold">🟢 Full Multi-Page Live Revealed</span>';
+        if (modalBadge) modalBadge.innerText = 'Delivered / Live';
+        if (bannerStatusText) bannerStatusText.innerText = 'Status: Finalized & Revealed to Client.';
+      } else {
+        const dateStr = state.scheduled_reveal_utc ? new Date(state.scheduled_reveal_utc).toLocaleDateString(undefined, {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'}) : '2-3 Business Days';
+        if (statusPill) statusPill.innerHTML = `<span class="text-amber-400 font-bold">⏳ Scheduled: ${dateStr}</span>`;
+        if (modalStatus) modalStatus.innerHTML = `<span class="text-amber-400 font-bold">⏳ Teaser Active (Reveals ${dateStr})</span>`;
+        if (modalBadge) modalBadge.innerText = `${state.delivery_buffer_days || 3}-Day Buffer Active`;
+        if (bannerStatusText) bannerStatusText.innerText = `Status: Teaser staged for client review. Reveal scheduled for ${dateStr}.`;
+      }
+    }
+
+    // Modal controls
+    function openReleaseModal() {
+      document.getElementById('releaseModal').classList.remove('hidden');
+      if (currentClientState) {
+        document.getElementById('clientContactName').value = currentClientState.client_name || '';
+        document.getElementById('clientContactEmail').value = currentClientState.client_email || '';
+        
+        const modeRadios = document.getElementsByName('modalRevealMode');
+        modeRadios.forEach(r => {
+          r.checked = (r.value === (currentClientState.reveal_mode || 'scheduled'));
+        });
+
+        if (currentClientState.scheduled_reveal_utc) {
+          const d = new Date(currentClientState.scheduled_reveal_utc);
+          const localIso = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+          document.getElementById('customDatetimeInput').value = localIso;
+        }
+        updateModalFormMode();
+      }
+    }
+
+    function closeReleaseModal() {
+      document.getElementById('releaseModal').classList.add('hidden');
+      const alertBox = document.getElementById('releaseAlert');
+      if (alertBox) alertBox.classList.add('hidden');
+    }
+
+    function updateModalFormMode() {
+      const mode = document.querySelector('input[name="modalRevealMode"]:checked')?.value;
+      const schedBlock = document.getElementById('scheduledOptionsBlock');
+      if (mode === 'instant') {
+        schedBlock.classList.add('opacity-40', 'pointer-events-none');
+      } else {
+        schedBlock.classList.remove('opacity-40', 'pointer-events-none');
+      }
+    }
+
+    function setPresetBuffer(hours) {
+      const targetDate = new Date(Date.now() + hours * 3600 * 1000);
+      const localIso = new Date(targetDate.getTime() - targetDate.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+      document.getElementById('customDatetimeInput').value = localIso;
+    }
+
+    async function saveReleaseSettings() {
+      const alertBox = document.getElementById('releaseAlert');
+      alertBox.className = "p-2.5 rounded text-xs font-semibold bg-blue-900/60 border border-blue-500 text-blue-200 block";
+      alertBox.innerText = "Deploying release configuration to server...";
+
+      const mode = document.querySelector('input[name="modalRevealMode"]:checked')?.value || 'scheduled';
+      const clientName = document.getElementById('clientContactName').value.trim();
+      const clientEmail = document.getElementById('clientContactEmail').value.trim();
+      const notifyEmail = document.getElementById('chkNotifyEmail').checked;
+      const customDatetime = document.getElementById('customDatetimeInput').value;
+
+      let scheduledUtc = null;
+      if (customDatetime) {
+        scheduledUtc = new Date(customDatetime).toISOString();
+      } else {
+        scheduledUtc = new Date(Date.now() + 72 * 3600 * 1000).toISOString();
+      }
+
+      const payload = {
+        client_id: CLIENT_ID,
+        client_name: clientName,
+        client_email: clientEmail,
+        reveal_mode: mode,
+        scheduled_reveal_utc: scheduledUtc,
+        notification_email_queued: notifyEmail,
+        delivery_buffer_days: mode === 'instant' ? 0 : 3
+      };
+
+      try {
+        const resp = await fetch('https://audits.icelestial.com/api/release/save', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+
+        const data = await resp.json();
+        if (data.success) {
+          currentClientState = data.state;
+          applyClientState(data.state);
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-emerald-950 border border-emerald-500 text-emerald-300 block";
+          alertBox.innerText = mode === 'instant' 
+            ? "⚡ Instant Reveal Deployed! Full multi-page architecture is now live for client." 
+            : `⏳ Scheduled Release Active! Handover staged for ${new Date(scheduledUtc).toLocaleString()}.`;
+          setTimeout(() => closeReleaseModal(), 1800);
+        } else {
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+          alertBox.innerText = "Error saving settings: " + (data.message || 'Unknown error');
+        }
+      } catch (e) {
+        alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+        alertBox.innerText = "Network error communicating with server: " + e.message;
+      }
+    }
+
+    async function sendTestEmail() {
+      const alertBox = document.getElementById('releaseAlert');
+      alertBox.className = "p-2.5 rounded text-xs font-semibold bg-amber-950/80 border border-amber-500 text-amber-300 block";
+      alertBox.innerText = "Dispatching test handover notification to i.celestial21@gmail.com...";
+
+      try {
+        const resp = await fetch('https://audits.icelestial.com/api/release/test_email', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            client_id: CLIENT_ID,
+            client_name: document.getElementById('clientContactName').value.trim() || 'Andrew Jee, Esq.',
+            test_email: 'i.celestial21@gmail.com'
+          })
+        });
+
+        const data = await resp.json();
+        if (data.success) {
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-emerald-950 border border-emerald-500 text-emerald-300 block";
+          alertBox.innerText = "✉️ Test notification delivered to i.celestial21@gmail.com via Brevo!";
+        } else {
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+          alertBox.innerText = "Email error: " + (data.message || 'Dispatch failed');
+        }
+      } catch (e) {
+        alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+        alertBox.innerText = "Network error: " + e.message;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchReleaseState();
+    });
+  </script>
+
+</body>
+</html>

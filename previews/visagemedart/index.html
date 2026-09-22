@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visage MedArt | Physician-Owned Medical Aesthetics Clinic | Nashville, TN</title>
+  <meta name="description" content="Nashville's premier physician-owned and operated medical aesthetics clinic. Face & body sculpting, skin tightening, hormone optimization & hair restoration. Call (615) 321-5005.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            visage: {
+              navy: '#0F2C59',
+              navyDark: '#081B38',
+              champagne: '#DAC0A3',
+              champagneLight: '#F8F4EF',
+              slate: '#5A6270',
+              cream: '#FDFBF9',
+              charcoal: '#222222'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-visage-cream text-visage-charcoal font-sans antialiased selection:bg-visage-navy selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-visage-navy focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- TOP BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-visage-navyDark text-visage-champagneLight text-xs py-2 px-4 border-b border-visage-navy">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/20 text-amber-200 border border-amber-400/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% WCAG 2.1 AA Title III Accessible Consultation</strong> &bull; Zero Server Latency.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Nashville Clinic: <a href="tel:+16153215005" class="text-white hover:text-visage-champagne font-bold transition-colors">(615) 321-5005</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-visage-champagneLight shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Visage MedArt Home">
+        <img src="https://www.visagemedart.com/wp-content/uploads/2015/09/Visage-Logo1.png" alt="Visage MedArt - Nashville Medical Spa" class="h-10 sm:h-12 w-auto object-contain" onerror="this.onerror=null; this.innerHTML='<span class=\'font-serif font-bold text-2xl text-visage-navy tracking-wider\'>VISAGE <span class=\'text-visage-champagne\'>MEDART</span></span>';">
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-serif uppercase tracking-widest font-semibold text-visage-navy">
+        <a href="#face-body" class="hover:text-visage-champagne transition-colors">Face &amp; Body Sculpting</a>
+        <a href="#physician" class="hover:text-visage-champagne transition-colors">Physician Led</a>
+        <a href="#anti-aging" class="hover:text-visage-champagne transition-colors">Hormone &amp; Hair</a>
+        <a href="#consultation" class="hover:text-visage-champagne transition-colors">Appointments</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+16153215005" class="hidden sm:inline-flex items-center gap-2 bg-visage-champagneLight hover:bg-amber-100/50 text-visage-navy px-4 py-2.5 rounded text-xs font-serif uppercase tracking-wider font-semibold transition-colors">
+          <svg class="w-3.5 h-3.5 text-visage-navy" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>(615) 321-5005</span>
+        </a>
+        <a href="#consultation" class="bg-visage-navy hover:bg-visage-navyDark text-white px-5 py-2.5 rounded text-xs font-serif uppercase tracking-widest font-semibold shadow transition-colors">
+          Consultation
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-visage-navy text-white py-20 sm:py-28 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 border border-white/20 text-visage-champagne text-xs font-serif uppercase tracking-widest mb-6">
+            <span>Nashville, Tennessee &bull; Physician Owned &amp; Operated</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-wide leading-tight mb-6">
+            Sculpting Beauty Through <span class="text-visage-champagne italic">Medical Precision.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-visage-champagneLight/90 font-light leading-relaxed mb-8">
+            At VISAGE MedArt, we take face and body sculpting to a new level with safe, effective, and customized techniques. Minimally invasive procedures engineered for transformative, long-term results with zero unnecessary downtime.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a href="#consultation" class="bg-visage-champagne hover:bg-amber-600 text-visage-navyDark font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded text-center text-xs shadow-xl transition-all">
+              Schedule Physician Consultation &rarr;
+            </a>
+            <a href="#face-body" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-serif uppercase tracking-widest font-semibold px-6 py-3.5 rounded text-xs transition-colors">
+              Explore Face &amp; Body Sculpting
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 pt-10 mt-10 border-t border-white/15 text-xs">
+            <div>
+              <span class="block text-visage-champagne font-serif text-2xl font-bold">Physician Led</span>
+              <span class="text-slate-300">Doctor-Guided Safety</span>
+            </div>
+            <div>
+              <span class="block text-visage-champagne font-serif text-2xl font-bold">Zero Downtime</span>
+              <span class="text-slate-300">Minimally Invasive</span>
+            </div>
+            <div>
+              <span class="block text-visage-champagne font-serif text-2xl font-bold">Bespoke</span>
+              <span class="text-slate-300">Customized Treatment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE SPECIALTIES -->
+    <section id="face-body" class="py-16 sm:py-24 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-serif uppercase tracking-widest text-visage-champagne font-bold">Clinical Offerings</span>
+          <h2 class="text-3xl font-serif font-bold text-visage-navy mt-2">Specialized Aesthetic &amp; Longevity Services</h2>
+          <div class="w-16 h-0.5 bg-visage-champagne mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="bg-visage-champagneLight p-8 rounded-xl border border-visage-champagne/40 shadow-sm">
+            <span class="text-2xl mb-4 block">💎</span>
+            <h3 class="font-serif font-bold text-lg text-visage-navy mb-2">Face &amp; Neck Sculpting</h3>
+            <p class="text-xs text-visage-slate leading-relaxed mb-4">
+              Precision jawline contouring, cheek volume restoration, and non-surgical thread lifting to restore youthful structural definition.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-visage-navy hover:text-visage-champagne">Learn More &rarr;</a>
+          </div>
+
+          <div class="bg-visage-champagneLight p-8 rounded-xl border border-visage-champagne/40 shadow-sm">
+            <span class="text-2xl mb-4 block">🔥</span>
+            <h3 class="font-serif font-bold text-lg text-visage-navy mb-2">Targeted Fat Reduction &amp; Tightening</h3>
+            <p class="text-xs text-visage-slate leading-relaxed mb-4">
+              Advanced non-surgical body contouring to eliminate stubborn fat deposits and stimulate deep subdermal elastin remodeling.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-visage-navy hover:text-visage-champagne">Learn More &rarr;</a>
+          </div>
+
+          <div class="bg-visage-champagneLight p-8 rounded-xl border border-visage-champagne/40 shadow-sm">
+            <span class="text-2xl mb-4 block">🌿</span>
+            <h3 class="font-serif font-bold text-lg text-visage-navy mb-2">Hormone Optimization &amp; Hair Restoration</h3>
+            <p class="text-xs text-visage-slate leading-relaxed mb-4">
+              Bioidentical hormone replacement therapy (BHRT) and regenerative platelet hair rejuvenation protocols for comprehensive vitality.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-visage-navy hover:text-visage-champagne">Learn More &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSULTATION FORM (100% WCAG 2.1 AA COMPLIANT) -->
+    <section id="consultation" class="py-16 sm:py-24 bg-visage-navy text-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+          <span class="text-xs font-serif uppercase tracking-widest text-visage-champagne font-bold">Confidential Consultation</span>
+          <h2 class="text-3xl font-serif font-bold text-white mt-2">Request Your Physician Assessment</h2>
+          <p class="text-sm text-visage-champagneLight/80 mt-2">
+            Schedule a personalized one-on-one aesthetic evaluation at our Nashville clinic.
+          </p>
+        </div>
+
+        <div class="bg-white text-visage-charcoal p-8 sm:p-10 rounded-xl shadow-2xl border border-visage-champagne/30">
+          
+          <form id="visageIntakeForm" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reaching out to VISAGE MedArt. A clinic coordinator will contact you to schedule your appointment.');">
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="vClientName" class="block text-xs font-serif uppercase tracking-wider font-bold text-visage-navy mb-1.5">
+                  Full Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="vClientName" name="vClientName" required
+                       placeholder="e.g. Lauren Vance"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-visage-navy focus:ring-2 focus:ring-visage-navy/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="vClientPhone" class="block text-xs font-serif uppercase tracking-wider font-bold text-visage-navy mb-1.5">
+                  Cell Phone Number <span class="text-rose-600">*</span>
+                </label>
+                <input type="tel" id="vClientPhone" name="vClientPhone" required
+                       placeholder="(615) 000-0000"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-visage-navy focus:ring-2 focus:ring-visage-navy/20 text-sm outline-none transition">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="vClientEmail" class="block text-xs font-serif uppercase tracking-wider font-bold text-visage-navy mb-1.5">
+                  Email Address <span class="text-rose-600">*</span>
+                </label>
+                <input type="email" id="vClientEmail" name="vClientEmail" required
+                       placeholder="lauren@example.com"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-visage-navy focus:ring-2 focus:ring-visage-navy/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="vServiceFocus" class="block text-xs font-serif uppercase tracking-wider font-bold text-visage-navy mb-1.5">
+                  Treatment Interest <span class="text-rose-600">*</span>
+                </label>
+                <select id="vServiceFocus" name="vServiceFocus" required
+                        class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-visage-navy focus:ring-2 focus:ring-visage-navy/20 text-sm outline-none transition bg-white">
+                  <option value="">-- Select Interest --</option>
+                  <option value="Face Sculpting">Face &amp; Neck Sculpting</option>
+                  <option value="Body Contouring">Fat Reduction &amp; Body Tightening</option>
+                  <option value="Injectables">Botox / Dermal Fillers</option>
+                  <option value="Hormone Therapy">Bioidentical Hormone Replacement (BHRT)</option>
+                  <option value="Hair Restoration">Platelet-Rich Hair Restoration</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="vGoals" class="block text-xs font-serif uppercase tracking-wider font-bold text-visage-navy mb-1.5">
+                What Are Your Primary Aesthetic Or Wellness Goals? <span class="text-rose-600">*</span>
+              </label>
+              <textarea id="vGoals" name="vGoals" rows="3" required
+                        placeholder="Please describe what areas you would like to improve or any specific concerns you have..."
+                        class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-visage-navy focus:ring-2 focus:ring-visage-navy/20 text-sm outline-none transition"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <span class="text-xs text-slate-500">
+                🔒 Physician Confidentiality Assured
+              </span>
+              <button type="submit" 
+                      class="w-full sm:w-auto bg-visage-navy hover:bg-visage-navyDark text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded text-xs shadow-lg transition">
+                Request Appointment &rarr;
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-visage-navyDark text-slate-400 text-xs py-10 border-t border-visage-navy">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-white font-serif font-bold text-sm">VISAGE MedArt | Nashville, Tennessee</p>
+        <p class="mt-1">Physician Owned &amp; Operated &bull; Call (615) 321-5005 &bull; info@visagemedart.com</p>
+      </div>
+      <div class="text-center md:text-right">
+        <p>&copy; 2026 VISAGE MedArt. All rights reserved.</p>
+        <p class="mt-1 text-slate-500">Modern Architecture &bull; 100% WCAG 2.1 AA Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CALL CONDUIT -->
+  <div class="fixed bottom-0 inset-x-0 bg-visage-navy border-t border-visage-champagne/40 p-2.5 flex items-center justify-between z-50 md:hidden shadow-2xl">
+    <a href="tel:+16153215005" class="flex-1 bg-visage-champagne hover:bg-amber-600 text-visage-navyDark font-serif uppercase tracking-wider font-bold py-2.5 px-3 rounded text-center text-xs flex items-center justify-center gap-2">
+      <svg class="w-4 h-4 text-visage-navyDark" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Tap To Call (615) 321-5005</span>
+    </a>
+    <a href="#consultation" class="ml-2 bg-white/10 text-white font-serif uppercase tracking-wider font-semibold py-2.5 px-3 rounded text-xs">
+      Consult
+    </a>
+  </div>
+
+  <!-- ADA ACCESSIBILITY FLOATING TOOLBAR -->
+  <script src="./accessibility-widget.js"></script>
+</body>
+</html>

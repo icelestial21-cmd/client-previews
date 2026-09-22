@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Green Mark Build | Digital Architecture &amp; Compliance Review</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- PayPal JavaScript SDK (USD, Client-side capture) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AXaafhSLnjkBIKTSe7hvLRBGdu_4SF32OgWjIQ6oE-7SdEuyjsTw7rvUuaMJPTsBrPgtZATrv0lHHD-U&currency=USD"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .phone-mockup {
+      width: 390px;
+      height: 844px;
+      border: 12px solid #1e293b;
+      border-radius: 44px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #1e293b;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 30;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-white h-[100dvh] flex flex-col overflow-hidden select-none">
+
+  <!-- TOP APP HEADER -->
+  <header class="bg-slate-950 border-b border-slate-800 px-3 py-1 sm:px-5 lg:py-1.5 lg:px-6 shrink-0 z-30">
+    <div class="w-full flex items-center justify-between gap-2 lg:gap-4">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <span id="brandTitle" class="font-bold text-amber-400 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 select-none">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Green Mark Build <span class="hidden md:inline text-slate-400 font-normal">&bull; Architecture Review</span>
+        </span>
+        <span class="hidden 2xl:inline text-xs text-slate-400 border-l border-slate-800 pl-3">
+          Prepared for Lane &amp; Executive Team
+        </span>
+      </div>
+
+      <!-- DESKTOP VIEWPORT CONTROLS (Screen width >= 1024px) -->
+      <div class="hidden lg:flex items-center gap-1 bg-slate-900 p-0.5 rounded-md border border-slate-800 text-xs">
+        <button id="btnSplit" onclick="setViewMode('split')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold bg-slate-800 text-amber-400 flex items-center gap-1 transition cursor-pointer">
+          <span>⚖️ Split 50/50</span>
+        </button>
+
+        <button id="btnMobile" onclick="setViewMode('mobile')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>📱 Mobile (390px)</span>
+        </button>
+
+        <button id="btnFullscreen" onclick="setViewMode('fullscreen')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>⛶ Fullscreen</span>
+        </button>
+
+        <a href="./index.html" target="_blank" rel="noopener noreferrer"
+           class="px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition"
+           title="Open in new tab">
+          <span>Tab ↗</span>
+        </a>
+      </div>
+
+      <!-- CTA & PRICING -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div class="hidden sm:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800/80 px-2.5 py-1 rounded-md text-xs whitespace-nowrap">
+          <span class="text-[10px] text-slate-400 uppercase font-semibold">50% Deposit:</span>
+          <span class="font-bold text-emerald-400">$297.50 USD</span>
+        </div>
+        <button onclick="openCheckoutModal()" 
+                class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-1.5 rounded-md text-xs uppercase tracking-wider shadow transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+          <span>Claim &amp; Deploy</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MOBILE / TABLET SEGMENTED TAB SWITCHER (Visible on screens < 1024px) -->
+    <div class="flex lg:hidden items-center justify-center gap-2 mt-1.5 pt-1.5 border-t border-slate-900">
+      <div class="grid grid-cols-2 w-full max-w-sm bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs">
+        <button id="tabMobileOld" onclick="setMobileTab('old')"
+                class="py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer">
+          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+          <span>Current Site</span>
+        </button>
+        <button id="tabMobileNew" onclick="setMobileTab('new')"
+                class="py-1.5 px-3 rounded-md font-bold bg-slate-800 text-emerald-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Proposed Upgrade</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROMINENT DEMO STAGING DISCLAIMER BANNER (Dynamic 1-Line on Desktop) -->
+  <aside id="publicDemoBanner" class="bg-gradient-to-r from-blue-950 via-indigo-950 to-blue-950 border-b border-blue-500/40 px-3 sm:px-5 lg:px-6 py-1 shrink-0 shadow" role="note" aria-label="Demo Prototype Notice">
+    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 text-left overflow-hidden">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
+        <button id="publicNoticeBtn" onclick="openCheckoutModal()" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-500/30 hover:bg-blue-500/40 border border-blue-400 text-blue-300 text-[11px] font-bold uppercase tracking-wider shrink-0 transition cursor-pointer" title="View handover timeline">
+          <span id="publicNoticeDot" class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping"></span>
+          <span id="publicNoticeLabel">Demo Notice</span>
+          <span class="md:hidden text-[10px] text-blue-300 font-normal underline ml-1">Timeline &rarr;</span>
+        </button>
+        <p id="publicNoticeText" class="hidden md:block text-[11px] xl:text-xs 2xl:text-[13px] text-blue-100 font-medium whitespace-nowrap overflow-hidden text-ellipsis leading-tight">
+          <strong class="text-white">Homepage &amp; core components currently shown.</strong>
+          The complete multi-page website <span class="text-amber-300 font-semibold">(About Us 6-Step Process, Full Portfolios, Estimate Intake)</span> is staged for handover in <strong class="text-emerald-400 underline decoration-emerald-500 underline-offset-2">2 to 3 business days</strong>.
+        </p>
+      </div>
+      <div class="shrink-0 hidden lg:block">
+        <span id="publicBadge" class="text-[10px] xl:text-[11px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/60 px-2 py-0.5 rounded whitespace-nowrap">
+          Zero-Downtime DNS Cutover
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- SUB-BAR AUDIT PILLS (Desktop only) -->
+  <div id="subBar" class="hidden lg:flex bg-slate-900 border-b border-slate-800 px-4 lg:px-6 py-1 items-center justify-between text-[11px] shrink-0">
+    <div id="leftSubLabel" class="flex items-center gap-2 text-rose-400 font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+      <span class="w-2 h-2 rounded-full bg-rose-500 shrink-0"></span>
+      CURRENT SITE: Legacy WordPress &bull; Unlabeled Inputs (ADA Risk) &bull; No Call Button
+    </div>
+    <div class="flex items-center gap-2 text-emerald-400 font-semibold whitespace-nowrap overflow-hidden text-ellipsis shrink-0">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+      PROPOSED 2026 BUILD: 100% ADA Title III Compliant &bull; Native Tap-to-Call &bull; Floating Accessibility Toolbar
+    </div>
+  </div>
+
+  <!-- MAIN COMPARISON VIEWPORT CONTAINER -->
+  <main id="mainComparison" class="flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative">
+    
+    <!-- LEFT PANE: CURRENT ORIGINAL SITE -->
+    <div id="leftPane" class="hidden lg:flex relative w-full h-full flex-col bg-slate-950 transition-all duration-300">
+      <div class="absolute top-3 left-3 right-3 z-10 flex flex-wrap gap-2 pointer-events-none">
+        <span class="px-2.5 py-1 rounded bg-rose-950/90 border border-rose-600 text-rose-200 text-[11px] font-bold shadow-lg backdrop-blur">
+          &times; 100% Quote Form Inputs Unlabeled (ADA Risk)
+        </span>
+        <span class="px-2.5 py-1 rounded bg-rose-950/90 border border-rose-600 text-rose-200 text-[11px] font-bold shadow-lg backdrop-blur">
+          &times; No Mobile Tap-to-Call Conduit
+        </span>
+      </div>
+      <iframe src="https://greenmarkbuild.com/" class="w-full h-full border-0 bg-white opacity-95"></iframe>
+    </div>
+
+    <!-- RIGHT PANE: PROPOSED MODERN UPGRADE -->
+    <div id="rightPane" class="relative w-full h-full flex flex-col items-center justify-center bg-slate-950 transition-all duration-300 overflow-auto p-0">
+      
+      <!-- Fullscreen Return Bar (Desktop Fullscreen Mode) -->
+      <div id="fullscreenReturnBar" class="hidden absolute top-4 right-4 z-40">
+        <button onclick="setViewMode('split')" 
+                class="bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 px-4 py-2 rounded-lg text-xs font-bold shadow-2xl flex items-center gap-2 backdrop-blur transition cursor-pointer">
+          <span>&larr; Exit Fullscreen (Return to Split)</span>
+        </button>
+      </div>
+
+      <!-- Compliance Callout Badges -->
+      <div id="rightBadges" class="absolute top-3 left-3 right-3 z-10 hidden sm:flex flex-wrap gap-2 pointer-events-none">
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Grade A (98/100) ADA Compliance
+        </span>
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Native Mobile Sticky Tap-to-Call
+        </span>
+        <span class="px-2 py-0.5 rounded bg-emerald-950/90 border border-emerald-500 text-emerald-200 text-[10px] sm:text-[11px] font-bold shadow-lg backdrop-blur">
+          &check; Sub-Second Performance (35 KB)
+        </span>
+      </div>
+
+      <!-- Iframe Wrapper -->
+      <div id="iframeWrapper" class="w-full h-full relative transition-all duration-300">
+        <div id="phoneNotch" class="hidden phone-notch"></div>
+        <iframe id="upgradeIframe" src="./index.html" class="w-full h-full border-0 bg-white"></iframe>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- CHECKOUT & DEPLOYMENT MODAL -->
+  <div id="checkoutModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative text-white animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl p-1 leading-none transition cursor-pointer" aria-label="Close modal">&times;</button>
+
+      <!-- Step 1: Pre-Payment View -->
+      <div id="checkoutFormView">
+        <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Turnkey Production Deployment
+        </div>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">Claim Green Mark Build Upgrade</h3>
+        <!-- DEMO NOTICE DISCLAIMER INSIDE MODAL -->
+        <div class="bg-blue-950/70 border border-blue-800/80 rounded-xl p-3 sm:p-3.5 mb-4 text-xs text-blue-100 flex items-start gap-2.5">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-500/30 border border-blue-400 text-blue-300 text-[10px] font-bold uppercase tracking-wider shrink-0 mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping"></span>
+            Demo Notice
+          </span>
+          <p class="leading-relaxed text-[11px] sm:text-xs">
+            <strong>Homepage and core components are currently being shown.</strong>
+            The complete multi-page website <span class="text-amber-300 font-semibold">(About Us 6-Step Process, Full Residential &amp; Commercial Portfolios, Estimate Intake)</span> is staged in our production queue for handover in <strong class="text-emerald-400 underline decoration-emerald-500 underline-offset-2">2 to 3 business days</strong> upon deposit.
+          </p>
+        </div>
+
+        <!-- Terms Box -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-4 mb-4 text-xs space-y-2">
+          <div class="flex justify-between items-center text-slate-300">
+            <span>Total Turnkey Investment:</span>
+            <span class="font-semibold text-slate-200">$595.00 USD</span>
+          </div>
+          <div class="flex justify-between items-center text-emerald-400 font-bold text-sm pt-1 border-t border-slate-800">
+            <span>50% Staging &amp; Cutover Deposit:</span>
+            <span>$297.50 USD</span>
+          </div>
+          <p class="text-[11px] text-slate-400 italic pt-1 leading-normal">
+            * The remaining 50% ($297.50) is invoiced only after the full multi-page site is live and verified on your domain.
+          </p>
+        </div>
+
+        <!-- Inclusions -->
+        <ul class="text-xs text-slate-300 space-y-2 mb-5">
+          <li class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">&check;</span> Complete multi-page site handover (Ready in 2–3 business days)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">&check;</span> Universal Floating Accessibility Toolbar (WCAG 2.1 AA Certified)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">&check;</span> Zero-downtime DNS cutover assistance (No passwords required)
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">&check;</span> 14-day warranty &amp; dedicated post-launch support
+          </li>
+        </ul>
+
+        <!-- PayPal Smart Buttons Container -->
+        <div id="paypal-button-container" class="min-h-[120px]"></div>
+
+        <p class="text-[10px] text-slate-500 text-center mt-3 flex items-center justify-center gap-2">
+          <span>🔒 256-Bit SSL Encrypted</span> &bull; <span>Corporate Cards &amp; PayPal Accepted</span>
+        </p>
+      </div>
+
+      <!-- Step 2: Post-Payment Success View -->
+      <div id="checkoutSuccessView" class="hidden text-center py-2">
+        <div class="w-16 h-16 bg-emerald-950/80 border border-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-emerald-400 text-3xl font-bold">
+          &check;
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-1">Deposit Confirmed!</h3>
+        <p class="text-xs text-slate-400 mb-4">Transaction ID: <span id="paymentTxId" class="font-mono text-emerald-400"></span></p>
+        
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-left mb-5">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
+            Next Step: Point Your Domain (Zero Passwords Needed)
+          </div>
+          <p class="text-xs text-slate-300 mb-3 leading-relaxed">
+            Add these two records in your domain registrar (GoDaddy, Namecheap, Cloudflare), or forward them to your webmaster:
+          </p>
+          <div class="bg-slate-900 rounded-lg p-3 font-mono text-xs text-slate-200 space-y-1.5 border border-slate-800">
+            <div><span class="text-slate-500">Type:</span> <strong class="text-slate-300">A</strong> &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">Host:</span> <strong class="text-slate-300">@</strong> &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-500">Value:</span> <span class="text-emerald-400 font-bold">2.25.79.204</span></div>
+            <div><span class="text-slate-500">Type:</span> <strong class="text-slate-300">CNAME</strong> <span class="text-slate-500">Host:</span> <strong class="text-slate-300">www</strong> &nbsp;&nbsp;<span class="text-slate-500">Value:</span> <span class="text-emerald-400 font-bold">audits.icelestial.com</span></div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-400 mb-5 leading-relaxed">
+          Our engineering team has been notified. We will verify propagation and confirm your live site within 2 to 3 business days.
+        </p>
+
+        <a href="mailto:outreach@icelestial.com?subject=Deployment%20Deposit%20Paid%20-%20Green%20Mark%20Build" 
+           class="inline-block w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2.5 rounded-lg text-xs uppercase tracking-wider transition text-center">
+          Notify Senior Engineer Directly
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const CLIENT_ID = 'greenmark';
+
+    // Desktop Viewport Modes
+    function setViewMode(mode) {
+      const leftPane = document.getElementById('leftPane');
+      const rightPane = document.getElementById('rightPane');
+      const mainGrid = document.getElementById('mainComparison');
+      const iframeWrapper = document.getElementById('iframeWrapper');
+      const phoneNotch = document.getElementById('phoneNotch');
+      const returnBar = document.getElementById('fullscreenReturnBar');
+      const leftSubLabel = document.getElementById('leftSubLabel');
+      const rightBadges = document.getElementById('rightBadges');
+
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-amber-400');
+        btn.classList.add('text-slate-400');
+      });
+
+      if (mode === 'split') {
+        document.getElementById('btnSplit').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnSplit').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex');
+        iframeWrapper.className = "w-full h-full relative flex flex-col";
+        phoneNotch.classList.add('hidden');
+        returnBar.classList.add('hidden');
+        if (leftSubLabel) leftSubLabel.classList.remove('hidden');
+        if (rightBadges) rightBadges.classList.remove('hidden');
+      } else if (mode === 'mobile') {
+        document.getElementById('btnMobile').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnMobile').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex', 'items-center', 'justify-center', 'p-6', 'bg-slate-900/50');
+        iframeWrapper.className = "phone-mockup relative";
+        phoneNotch.classList.remove('hidden');
+        returnBar.classList.add('hidden');
+        if (leftSubLabel) leftSubLabel.classList.remove('hidden');
+        if (rightBadges) rightBadges.classList.remove('hidden');
+      } else if (mode === 'fullscreen') {
+        document.getElementById('btnFullscreen').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnFullscreen').classList.remove('text-slate-400');
+        leftPane.classList.add('hidden');
+        leftPane.classList.remove('lg:flex');
+        rightPane.classList.remove('hidden');
+        rightPane.classList.add('flex-1');
+        iframeWrapper.className = "w-full h-full relative flex flex-col";
+        phoneNotch.classList.add('hidden');
+        returnBar.classList.remove('hidden');
+        if (leftSubLabel) leftSubLabel.classList.add('hidden');
+        if (rightBadges) rightBadges.classList.add('hidden');
+      }
+    }
+
+    // Mobile & Tablet Segmented Tab Switching
+    function setMobileTab(tab) {
+      const leftPane = document.getElementById('leftPane');
+      const rightPane = document.getElementById('rightPane');
+      const tabOld = document.getElementById('tabMobileOld');
+      const tabNew = document.getElementById('tabMobileNew');
+
+      if (tab === 'old') {
+        tabOld.className = "py-1.5 px-3 rounded-md font-bold bg-slate-800 text-rose-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        tabNew.className = "py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('flex');
+        rightPane.classList.add('hidden');
+      } else {
+        tabNew.className = "py-1.5 px-3 rounded-md font-bold bg-slate-800 text-emerald-400 shadow transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        tabOld.className = "py-1.5 px-3 rounded-md font-bold text-slate-400 transition text-center flex items-center justify-center gap-1.5 cursor-pointer";
+        leftPane.classList.add('hidden');
+        leftPane.classList.remove('flex');
+        rightPane.classList.remove('hidden');
+      }
+    }
+
+    // Modal and Checkout Logic
+    function openCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('hidden');
+      initPayPalButtons();
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+    }
+
+    document.getElementById('checkoutModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCheckoutModal();
+      }
+    });
+
+    let paypalInitialized = false;
+    function initPayPalButtons() {
+      if (paypalInitialized) return;
+      if (typeof paypal === 'undefined') {
+        console.error('PayPal SDK not loaded');
+        return;
+      }
+
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color:  'gold',
+          shape:  'rect',
+          label:  'paypal'
+        },
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [{
+              reference_id: 'greenmark_50pct_deposit',
+              description: 'Green Mark Build - 50% Staging & Deployment Deposit',
+              amount: {
+                currency_code: 'USD',
+                value: '297.50'
+              }
+            }],
+            application_context: {
+              brand_name: 'iCelestial Digital Infrastructure',
+              user_action: 'PAY_NOW'
+            }
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            document.getElementById('checkoutFormView').classList.add('hidden');
+            document.getElementById('checkoutSuccessView').classList.remove('hidden');
+            document.getElementById('paymentTxId').innerText = details.id || (data && data.orderID) || 'CONFIRMED';
+          });
+        },
+        onError: function(err) {
+          console.error('PayPal Checkout Error:', err);
+        }
+      }).render('#paypal-button-container');
+
+      paypalInitialized = true;
+    }
+
+    // Dynamic Release State Checker (Client-facing only)
+    async function fetchReleaseState() {
+      try {
+        const resp = await fetch(`https://audits.icelestial.com/api/status?client=${CLIENT_ID}`);
+        if (resp.ok) {
+          const state = await resp.json();
+          const publicBannerText = document.getElementById('publicNoticeText');
+          const publicNoticeDot = document.getElementById('publicNoticeDot');
+          const publicNoticeLabel = document.getElementById('publicNoticeLabel');
+          const publicBadge = document.getElementById('publicBadge');
+
+          const isRevealed = state.status === 'revealed' || (state.status === 'scheduled' && new Date() >= new Date(state.scheduled_reveal_utc));
+
+          if (isRevealed) {
+            if (publicBannerText) {
+              publicBannerText.innerHTML = '<strong class="text-white">✨ Full Multi-Page Architecture Finalized:</strong> All core sections have completed technical QA and are staged for your executive review. Click Claim &amp; Deploy to initiate live domain cutover.';
+            }
+            if (publicNoticeDot) publicNoticeDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse';
+            if (publicNoticeLabel) publicNoticeLabel.innerText = 'Full Build Active';
+            if (publicBadge) publicBadge.innerText = 'Ready for DNS Cutover';
+          }
+        }
+      } catch (e) {
+        // Silently preserve default staging notice
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchReleaseState();
+    });
+  </script>
+
+</body>
+</html>

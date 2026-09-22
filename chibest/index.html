@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHIBEST ATELIER — Bespoke Haute Couture & Vision Sizing</title>
+  <meta name="description" content="Chibest Fashion Worldwide: Bespoke African Haute Couture, Ceremonial Agbadas, Senator Suits, and Computer Vision Anthropometric Sizing. Worldwide Express Shipping to UK, US, EU, Canada.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#0A0B0E',
+            surface: '#12141A',
+            surfaceLight: '#1B1E28',
+            borderSubtle: '#262A38',
+            gold: {
+              400: '#F3E5AB',
+              500: '#D4AF37',
+              600: '#AA8822',
+              700: '#856A18'
+            },
+            royalEmerald: '#0F4C3A',
+            emeraldAccent: '#10B981'
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/30 selection:text-gold-400">
+
+  <!-- Luxury Announcement Bar -->
+  <div class="bg-gradient-to-r from-stone-900 via-yellow-950/40 to-stone-900 border-b border-gold-500/20 text-xs py-2 px-4 text-center tracking-widest text-gold-400/90 font-cinzel uppercase flex items-center justify-center gap-3">
+    <span>Accra Flagship Atelier</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Worldwide DHL Express to London, New York, Toronto, Paris</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span class="text-gray-300">1.55M+ Community</span>
+  </div>
+
+  <!-- Primary Header & Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-obsidian/85 border-b border-borderSubtle/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex flex-col items-start group">
+        <span class="font-cinzel text-2xl sm:text-3xl font-bold tracking-[0.2em] text-white group-hover:text-gold-400 transition-colors">
+          CHIBEST
+        </span>
+        <span class="text-[9px] tracking-[0.35em] text-gold-500 uppercase -mt-1 font-mono">
+          Haute Couture Worldwide
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm tracking-wide">
+        <a href="#collections" class="text-gray-300 hover:text-gold-400 transition-colors font-medium">Collections</a>
+        <a href="#vision-studio" class="text-gold-400 hover:text-gold-300 transition-colors font-medium flex items-center gap-1.5">
+          <i data-lucide="scan" class="w-4 h-4 text-gold-500 animate-pulse"></i>
+          <span>Vision Sizing Studio</span>
+        </a>
+        <a href="#retail-vault" class="text-gray-300 hover:text-gold-400 transition-colors font-medium">Ready-to-Wear</a>
+        <a href="#craftsmanship" class="text-gray-300 hover:text-gold-400 transition-colors font-medium">The Atelier</a>
+        <a href="#docket-section" class="text-gray-300 hover:text-gold-400 transition-colors font-medium">Tailor Docket</a>
+      </nav>
+
+      <!-- Utility & Actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Currency Selector -->
+        <div class="relative inline-block text-left">
+          <select id="currency-select" class="bg-surface border border-borderSubtle text-gold-400 text-xs rounded px-2.5 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GHS">GHS (GH₵)</option>
+          </select>
+        </div>
+
+        <!-- WhatsApp VIP Button -->
+        <a href="https://wa.me/233554916910?text=Hello%20Chibest%20Atelier%2C%20I%20am%20inquiring%20about%20a%20bespoke%20commission." target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 text-xs px-3.5 py-2 rounded font-medium transition-all shadow-lg shadow-emerald-950/40">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+          <span>Tailor Line</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-borderSubtle bg-surface px-4 py-5 space-y-3">
+      <a href="#collections" class="block text-gray-300 hover:text-gold-400 py-1.5 font-medium">Collections</a>
+      <a href="#vision-studio" class="block text-gold-400 hover:text-gold-300 py-1.5 font-medium">Vision Sizing Studio</a>
+      <a href="#retail-vault" class="block text-gray-300 hover:text-gold-400 py-1.5 font-medium">Ready-to-Wear</a>
+      <a href="#craftsmanship" class="block text-gray-300 hover:text-gold-400 py-1.5 font-medium">The Atelier</a>
+      <a href="#docket-section" class="block text-gray-300 hover:text-gold-400 py-1.5 font-medium">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 py-2 font-medium flex items-center gap-2">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-borderSubtle/50">
+    <!-- Ambient Background Lighting -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-yellow-950/20 via-obsidian to-obsidian pointer-events-none"></div>
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gold-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      
+      <!-- Subtle Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/5 text-gold-400 text-xs tracking-wider uppercase mb-8 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-ping"></span>
+        <span>Patented Algorithmic Bespoke Intake</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-6">
+        THE SOVEREIGN ART OF <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-amber-200 to-gold-600">
+          AFRICAN HAUTE COUTURE
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="font-serif italic text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10 font-normal">
+        Handcrafted ceremonial Agbadas, Senator suits, and luxury Kaftans cut from imported Italian wools in Accra. Measured with algorithmic millimetric precision for the global African diaspora.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+        <a href="#vision-studio" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-gold-600 via-gold-500 to-amber-500 text-obsidian font-bold tracking-wide shadow-xl shadow-gold-500/20 hover:brightness-110 transition-all flex items-center justify-center gap-3">
+          <i data-lucide="scan" class="w-5 h-5"></i>
+          <span>Launch Vision Sizing Studio</span>
+        </a>
+        <a href="#collections" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-surfaceLight/80 hover:bg-surfaceLight border border-borderSubtle text-white font-medium tracking-wide transition-all flex items-center justify-center gap-2">
+          <span>Explore Bespoke Lookbook</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-gold-400"></i>
+        </a>
+      </div>
+
+      <!-- Credibility Badges -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border-t border-borderSubtle/60 pt-8 text-left">
+        <div class="p-3 rounded border border-borderSubtle/40 bg-surface/40">
+          <div class="text-gold-400 font-cinzel text-xl font-bold">1,556,000+</div>
+          <div class="text-xs text-gray-400 font-sans mt-0.5">Global Followers on Meta</div>
+        </div>
+        <div class="p-3 rounded border border-borderSubtle/40 bg-surface/40">
+          <div class="text-gold-400 font-cinzel text-xl font-bold">Accra Flagship</div>
+          <div class="text-xs text-gray-400 font-sans mt-0.5">Pantang Hospital Rd Workshop</div>
+        </div>
+        <div class="p-3 rounded border border-borderSubtle/40 bg-surface/40">
+          <div class="text-gold-400 font-cinzel text-xl font-bold">Sub-5mm</div>
+          <div class="text-xs text-gray-400 font-sans mt-0.5">Computer Vision Sizing</div>
+        </div>
+        <div class="p-3 rounded border border-borderSubtle/40 bg-surface/40">
+          <div class="text-gold-400 font-cinzel text-xl font-bold">DHL Express</div>
+          <div class="text-xs text-gray-400 font-sans mt-0.5">3–5 Day Diaspora Dispatch</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive 3D / Dual-View Anthropometric Vision Studio -->
+  <section id="vision-studio" class="py-24 bg-surface/60 border-b border-borderSubtle relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-gold-400 uppercase tracking-widest bg-gold-500/10 px-3 py-1 rounded border border-gold-500/20 mb-3">
+          <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+          <span>Proprietary Dual-Orthogonal Photogrammetry</span>
+        </div>
+        <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mb-4">
+          COMPUTER VISION SIZING STUDIO
+        </h2>
+        <p class="font-serif italic text-lg sm:text-xl text-gray-300">
+          Eliminate measuring tape errors. Our algorithm reconstructs your 14 bespoke anatomical tailoring dimensions from two standardized photographs with sub-5mm repeatability.
+        </p>
+      </div>
+
+      <!-- Studio Interactive Console -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Column: Vision Scanner & Landmarks Canvas (7 cols) -->
+        <div class="lg:col-span-7 bg-obsidian rounded-2xl border border-borderSubtle p-6 shadow-2xl relative overflow-hidden">
+          
+          <!-- Viewport Header -->
+          <div class="flex items-center justify-between border-b border-borderSubtle/80 pb-4 mb-4">
+            <div class="flex items-center gap-3">
+              <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+              </span>
+              <span class="text-xs font-mono text-gray-300 uppercase tracking-wider">Vision Engine v2.4 · Online</span>
+            </div>
+            
+            <!-- Angle Switcher -->
+            <div class="flex items-center bg-surfaceLight rounded-lg p-1 border border-borderSubtle text-xs font-mono">
+              <button id="view-front-btn" class="px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all">
+                Coronal (Front A-Pose)
+              </button>
+              <button id="view-side-btn" class="px-3 py-1 rounded text-gray-400 hover:text-white transition-all">
+                Sagittal (90° Profile)
+              </button>
+            </div>
+          </div>
+
+          <!-- The Interactive Anthropometric Canvas Viewport -->
+          <div class="relative w-full aspect-[4/5] bg-gradient-to-b from-stone-950 via-obsidian to-stone-950 rounded-xl border border-borderSubtle/60 flex items-center justify-center overflow-hidden group">
+            
+            <!-- Grid Lines Background -->
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293715_1px,transparent_1px),linear-gradient(to_bottom,#1f293715_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+            <!-- Virtual Metric Height Ruler (Left Edge) -->
+            <div class="absolute left-3 top-6 bottom-6 flex flex-col justify-between text-[10px] font-mono text-gray-500 select-none border-l border-gold-500/30 pl-1 pointer-events-none">
+              <span id="ruler-top">190cm</span>
+              <span>150cm</span>
+              <span>110cm</span>
+              <span>70cm</span>
+              <span>30cm</span>
+              <span>0cm</span>
+            </div>
+
+            <!-- Main Canvas for Silhouette & Skeletal Landmark Drawing -->
+            <canvas id="vision-canvas" width="600" height="750" class="w-full h-full object-contain relative z-10"></canvas>
+
+            <!-- Real-Time Caliper Overlay Labels -->
+            <div id="caliper-overlay" class="absolute inset-0 pointer-events-none z-20"></div>
+
+            <!-- Scanning Laser Line Animation -->
+            <div id="scan-laser" class="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent shadow-[0_0_15px_#D4AF37] pointer-events-none z-30 transition-all duration-700 opacity-60"></div>
+
+            <!-- Upload Custom Photo Overlay Prompt -->
+            <div class="absolute bottom-4 right-4 z-30 flex items-center gap-2 bg-surfaceLight/90 backdrop-blur border border-borderSubtle px-3 py-2 rounded-lg text-xs">
+              <label class="cursor-pointer text-gold-400 hover:text-gold-300 font-medium flex items-center gap-1.5">
+                <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                <span>Upload Test Photo</span>
+                <input type="file" id="user-photo-input" accept="image/*" class="hidden">
+              </label>
+            </div>
+          </div>
+
+          <!-- Environmental Sensor & Orientation Guard -->
+          <div class="mt-4 grid grid-cols-3 gap-3 text-xs font-mono">
+            <div class="bg-surfaceLight/50 p-2.5 rounded border border-borderSubtle">
+              <div class="text-gray-400 text-[10px]">DEVICE PITCH</div>
+              <div class="text-emerald-400 font-semibold mt-0.5 flex items-center gap-1">
+                <i data-lucide="check-circle" class="w-3 h-3"></i> 89.8° (Calibrated)
+              </div>
+            </div>
+            <div class="bg-surfaceLight/50 p-2.5 rounded border border-borderSubtle">
+              <div class="text-gray-400 text-[10px]">DISTANCE TO LENS</div>
+              <div class="text-gold-400 font-semibold mt-0.5">2.82 meters</div>
+            </div>
+            <div class="bg-surfaceLight/50 p-2.5 rounded border border-borderSubtle">
+              <div class="text-gray-400 text-[10px]">SCALE FACTOR</div>
+              <div class="text-white font-semibold mt-0.5" id="scale-factor-display">0.74 mm/px</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Controls, Calibration & Computed Measurements (5 cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Calibration Controls Box -->
+          <div class="bg-obsidian rounded-2xl border border-borderSubtle p-6 shadow-xl space-y-5">
+            <h3 class="font-cinzel text-lg font-bold text-white flex items-center justify-between border-b border-borderSubtle pb-3">
+              <span>Metric Calibration Anchor</span>
+              <span class="text-xs font-mono text-gold-400 font-normal">Ground Truth</span>
+            </h3>
+
+            <!-- Height Input Slider & Units -->
+            <div>
+              <div class="flex items-center justify-between text-xs mb-2">
+                <label for="height-slider" class="text-gray-300 font-medium">Barefoot Standing Stature</label>
+                <div class="flex items-center gap-2">
+                  <span id="height-val-display" class="font-mono text-gold-400 font-bold text-sm">185 cm</span>
+                  <span class="text-gray-500 font-mono text-xs">(6' 1")</span>
+                </div>
+              </div>
+              <input type="range" id="height-slider" min="150" max="210" value="185" class="w-full h-2 bg-surfaceLight rounded-lg appearance-none cursor-pointer accent-gold-500">
+            </div>
+
+            <!-- Body Archetype Presets -->
+            <div>
+              <label class="text-xs text-gray-400 block mb-2 font-medium">Anthropometric Build Archetype</label>
+              <div class="grid grid-cols-3 gap-2 text-xs font-mono">
+                <button class="build-btn py-2 px-3 rounded border border-borderSubtle bg-surfaceLight text-gray-300 hover:border-gold-500 transition-all active" data-build="athletic">
+                  Athletic
+                </button>
+                <button class="build-btn py-2 px-3 rounded border border-borderSubtle bg-surfaceLight text-gray-300 hover:border-gold-500 transition-all" data-build="broad">
+                  Regal / Broad
+                </button>
+                <button class="build-btn py-2 px-3 rounded border border-borderSubtle bg-surfaceLight text-gray-300 hover:border-gold-500 transition-all" data-build="slender">
+                  Slim / Modern
+                </button>
+              </div>
+            </div>
+
+            <!-- Garment Ease Allowance Selector -->
+            <div>
+              <label class="text-xs text-gray-400 block mb-2 font-medium">Target Garment Cut & Ease</label>
+              <select id="garment-type-select" class="w-full bg-surface border border-borderSubtle text-gray-200 text-xs rounded-lg p-2.5 font-sans focus:outline-none focus:border-gold-500">
+                <option value="agbada">Ceremonial Agbada (+75mm Drape Ease)</option>
+                <option value="senator" selected>The Senator Suit (+28mm Tailored Ease)</option>
+                <option value="kaftan">Grand Kaftan (+40mm Comfort Ease)</option>
+                <option value="safari">Safari Executive (+20mm Military Ease)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 14 Computed Anatomical Measurements List -->
+          <div class="bg-obsidian rounded-2xl border border-borderSubtle p-6 shadow-xl">
+            <div class="flex items-center justify-between border-b border-borderSubtle pb-3 mb-4">
+              <h3 class="font-cinzel text-lg font-bold text-white">Computed Tailoring Docket</h3>
+              <div class="flex items-center gap-1.5 text-xs font-mono text-gray-400">
+                <button id="unit-cm-btn" class="px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold">cm</button>
+                <span>/</span>
+                <button id="unit-in-btn" class="px-2 py-0.5 rounded text-gray-400 hover:text-white">inches</button>
+              </div>
+            </div>
+
+            <!-- Scrollable 14-Point Grid -->
+            <div id="measurements-grid" class="grid grid-cols-2 gap-2.5 max-h-[360px] overflow-y-auto pr-1">
+              <!-- Rendered Dynamically via app.js -->
+            </div>
+
+            <!-- Generate Docket Action -->
+            <div class="mt-6 pt-4 border-t border-borderSubtle flex flex-col gap-3">
+              <button id="generate-docket-btn" class="w-full py-3.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-obsidian font-bold text-sm tracking-wide transition-all shadow-lg shadow-gold-500/10 flex items-center justify-center gap-2">
+                <i data-lucide="file-check" class="w-4 h-4"></i>
+                <span>Compile Official Tailor Docket (PDF)</span>
+              </button>
+              <a id="dispatch-whatsapp-btn" href="#" target="_blank" class="w-full py-3 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 font-medium text-xs tracking-wide transition-all flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Transmit Docket to Head Tailor on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Curated Haute Couture Lookbook -->
+  <section id="collections" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-xs font-mono text-gold-500 uppercase tracking-widest">Bespoke Commissions</span>
+      <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">
+        THE ACCRA MASTERWORKS
+      </h2>
+      <p class="font-serif italic text-lg sm:text-xl text-gray-300">
+        Every garment is cut from individual patterns drafted to your computer-vision dimensions. Hand-embroidered over 60 hours by our master craftsmen in Pantang, Accra.
+      </p>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Look 1: Royal Imperial Agbada -->
+      <div class="bg-surface rounded-xl border border-borderSubtle overflow-hidden hover:border-gold-500/60 transition-all duration-300 group flex flex-col">
+        <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10"></div>
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop" alt="The Royal Imperial Agbada" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter contrast-125 brightness-90">
+          <div class="absolute top-3 right-3 z-20 bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-xs border border-gold-500/30">
+            Ceremonial 3-Piece
+          </div>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition-colors">
+              The Royal Imperial Agbada
+            </h3>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">
+              Three-piece ceremonial robe in midnight damask with high-density gold bullion thread embroidery. Includes inner tunic and tailored trousers.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-borderSubtle flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-gray-500 uppercase font-mono">Commission From</div>
+              <div class="text-gold-400 font-cinzel text-lg font-bold price-tag" data-usd="480" data-gbp="380" data-eur="440" data-ghs="7200">
+                $480 USD
+              </div>
+            </div>
+            <button class="configure-look-btn px-3 py-1.5 rounded bg-surfaceLight hover:bg-gold-500 hover:text-obsidian text-xs font-mono transition-all border border-borderSubtle" data-look="agbada">
+              Configure & Fit &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 2: The Diplomat Senator -->
+      <div class="bg-surface rounded-xl border border-borderSubtle overflow-hidden hover:border-gold-500/60 transition-all duration-300 group flex flex-col">
+        <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10"></div>
+          <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop" alt="The Diplomat Senator" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter contrast-125 brightness-90">
+          <div class="absolute top-3 right-3 z-20 bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-xs border border-gold-500/30">
+            Executive 2-Piece
+          </div>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition-colors">
+              The Diplomat Senator
+            </h3>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">
+              Structured Senator suit cut from Italian Super 140s wool blend. Features hand-finished mandarin collar and concealed magnetic placket.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-borderSubtle flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-gray-500 uppercase font-mono">Commission From</div>
+              <div class="text-gold-400 font-cinzel text-lg font-bold price-tag" data-usd="320" data-gbp="250" data-eur="295" data-ghs="4800">
+                $320 USD
+              </div>
+            </div>
+            <button class="configure-look-btn px-3 py-1.5 rounded bg-surfaceLight hover:bg-gold-500 hover:text-obsidian text-xs font-mono transition-all border border-borderSubtle" data-look="senator">
+              Configure & Fit &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 3: The Sovereign Kaftan -->
+      <div class="bg-surface rounded-xl border border-borderSubtle overflow-hidden hover:border-gold-500/60 transition-all duration-300 group flex flex-col">
+        <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10"></div>
+          <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=800&auto=format&fit=crop" alt="The Sovereign Kaftan" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter contrast-125 brightness-90">
+          <div class="absolute top-3 right-3 z-20 bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-xs border border-gold-500/30">
+            Linen Luxury
+          </div>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition-colors">
+              The Sovereign Kaftan
+            </h3>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">
+              Bespoke tunic in heavyweight Irish linen with understated monochrome geometric embroidery along the chest split. Unmatched climate comfort.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-borderSubtle flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-gray-500 uppercase font-mono">Commission From</div>
+              <div class="text-gold-400 font-cinzel text-lg font-bold price-tag" data-usd="260" data-gbp="205" data-eur="240" data-ghs="3900">
+                $260 USD
+              </div>
+            </div>
+            <button class="configure-look-btn px-3 py-1.5 rounded bg-surfaceLight hover:bg-gold-500 hover:text-obsidian text-xs font-mono transition-all border border-borderSubtle" data-look="kaftan">
+              Configure & Fit &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 4: The Executive Safari Ensemble -->
+      <div class="bg-surface rounded-xl border border-borderSubtle overflow-hidden hover:border-gold-500/60 transition-all duration-300 group flex flex-col">
+        <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent z-10"></div>
+          <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=800&auto=format&fit=crop" alt="The Executive Safari Ensemble" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter contrast-125 brightness-90">
+          <div class="absolute top-3 right-3 z-20 bg-obsidian/80 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-xs border border-gold-500/30">
+            Military Bespoke
+          </div>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-gold-400 transition-colors">
+              The Executive Safari Ensemble
+            </h3>
+            <p class="text-xs text-gray-400 mt-2 line-clamp-2">
+              Structured four-pocket safari jacket with genuine horn buttons and notched collar, paired with crisp straight-leg pleated trousers.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-borderSubtle flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-gray-500 uppercase font-mono">Commission From</div>
+              <div class="text-gold-400 font-cinzel text-lg font-bold price-tag" data-usd="290" data-gbp="230" data-eur="265" data-ghs="4350">
+                $290 USD
+              </div>
+            </div>
+            <button class="configure-look-btn px-3 py-1.5 rounded bg-surfaceLight hover:bg-gold-500 hover:text-obsidian text-xs font-mono transition-all border border-borderSubtle" data-look="safari">
+              Configure & Fit &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- The Two-Speed Retail Vault: Zero-Sizing-Risk Accessories -->
+  <section id="retail-vault" class="py-20 bg-surfaceLight/30 border-y border-borderSubtle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-mono text-gold-500 uppercase tracking-widest">Track A · Immediate Dispatch</span>
+          <h2 class="font-cinzel text-2xl sm:text-4xl font-bold text-white mt-1">
+            THE LUXURY ACCESSORY VAULT
+          </h2>
+          <p class="text-gray-400 text-sm mt-1">Zero sizing friction. In stock for immediate worldwide express courier dispatch.</p>
+        </div>
+        <div class="mt-4 md:mt-0 flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1.5 rounded">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Instant Card & Paystack Checkout</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Accessory 1 -->
+        <div class="bg-obsidian rounded-lg border border-borderSubtle p-4 hover:border-gold-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-square bg-stone-900 rounded mb-4 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            </div>
+            <h4 class="font-cinzel text-base font-bold text-white">Handwoven Velvet Fila Cap</h4>
+            <p class="text-xs text-gray-400 mt-1">Traditional Yoruba royal headdress hand-embroidered with metallic gold cord.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-borderSubtle/60 flex items-center justify-between">
+            <span class="text-gold-400 font-cinzel font-bold text-base price-tag" data-usd="65" data-gbp="52" data-eur="60" data-ghs="975">$65 USD</span>
+            <button class="instant-buy-btn text-xs bg-gold-500 text-obsidian px-3 py-1.5 rounded font-bold hover:bg-gold-400 transition-colors">Quick Buy</button>
+          </div>
+        </div>
+
+        <!-- Accessory 2 -->
+        <div class="bg-obsidian rounded-lg border border-borderSubtle p-4 hover:border-gold-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-square bg-stone-900 rounded mb-4 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            </div>
+            <h4 class="font-cinzel text-base font-bold text-white">Engraved Brass & Onyx Cufflinks</h4>
+            <p class="text-xs text-gray-400 mt-1">Heavy brass cufflinks hand-inscribed with Adinkra symbols of sovereignty.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-borderSubtle/60 flex items-center justify-between">
+            <span class="text-gold-400 font-cinzel font-bold text-base price-tag" data-usd="45" data-gbp="36" data-eur="42" data-ghs="675">$45 USD</span>
+            <button class="instant-buy-btn text-xs bg-gold-500 text-obsidian px-3 py-1.5 rounded font-bold hover:bg-gold-400 transition-colors">Quick Buy</button>
+          </div>
+        </div>
+
+        <!-- Accessory 3 -->
+        <div class="bg-obsidian rounded-lg border border-borderSubtle p-4 hover:border-gold-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-square bg-stone-900 rounded mb-4 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            </div>
+            <h4 class="font-cinzel text-base font-bold text-white">Embroidered Silk Sash</h4>
+            <p class="text-xs text-gray-400 mt-1">Draped ceremonial sash worn over the shoulder for chieftaincy & weddings.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-borderSubtle/60 flex items-center justify-between">
+            <span class="text-gold-400 font-cinzel font-bold text-base price-tag" data-usd="50" data-gbp="40" data-eur="46" data-ghs="750">$50 USD</span>
+            <button class="instant-buy-btn text-xs bg-gold-500 text-obsidian px-3 py-1.5 rounded font-bold hover:bg-gold-400 transition-colors">Quick Buy</button>
+          </div>
+        </div>
+
+        <!-- Accessory 4 -->
+        <div class="bg-obsidian rounded-lg border border-borderSubtle p-4 hover:border-gold-500/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="aspect-square bg-stone-900 rounded mb-4 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            </div>
+            <h4 class="font-cinzel text-base font-bold text-white">Italian Wool Bolt (4-Yards)</h4>
+            <p class="text-xs text-gray-400 mt-1">Direct imported Italian damask wool bolt for personal tailoring commissions.</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-borderSubtle/60 flex items-center justify-between">
+            <span class="text-gold-400 font-cinzel font-bold text-base price-tag" data-usd="180" data-gbp="145" data-eur="165" data-ghs="2700">$180 USD</span>
+            <button class="instant-buy-btn text-xs bg-gold-500 text-obsidian px-3 py-1.5 rounded font-bold hover:bg-gold-400 transition-colors">Quick Buy</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tailor Docket Preview Modal / Drawer -->
+  <section id="docket-section" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-surface rounded-2xl border-2 border-gold-500/30 p-8 shadow-2xl relative">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-borderSubtle pb-6 gap-4">
+        <div>
+          <span class="text-xs font-mono text-gold-500 uppercase tracking-widest">Official Tailor Docket #CB-2026-9481</span>
+          <h3 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mt-1">BESPOKE WORKSHOP SPECIFICATION</h3>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-gray-400 font-mono">STATUS</div>
+          <div class="text-emerald-400 font-mono font-bold text-sm uppercase">Ready For Workshop Cutting</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6 text-sm">
+        <div class="bg-obsidian p-4 rounded border border-borderSubtle">
+          <span class="text-xs text-gray-500 block font-mono">CLIENT IDENTIFIER</span>
+          <span class="font-cinzel font-bold text-white text-base">Diaspora Commission (UK/US)</span>
+        </div>
+        <div class="bg-obsidian p-4 rounded border border-borderSubtle">
+          <span class="text-xs text-gray-500 block font-mono">SELECTED SILHOUETTE</span>
+          <span id="docket-silhouette" class="font-cinzel font-bold text-gold-400 text-base">The Senator Suit</span>
+        </div>
+        <div class="bg-obsidian p-4 rounded border border-borderSubtle">
+          <span class="text-xs text-gray-500 block font-mono">FABRIC GRADE</span>
+          <span class="font-cinzel font-bold text-white text-base">Super 140s Italian Wool</span>
+        </div>
+      </div>
+
+      <!-- Measurements Summary Table -->
+      <div class="border border-borderSubtle rounded-lg overflow-hidden my-6">
+        <table class="w-full text-left text-xs font-mono">
+          <thead class="bg-surfaceLight text-gold-400 uppercase border-b border-borderSubtle">
+            <tr>
+              <th class="p-3">Measurement</th>
+              <th class="p-3">Computed Metric</th>
+              <th class="p-3">Imperial</th>
+              <th class="p-3">Tailor Ease</th>
+            </tr>
+          </thead>
+          <tbody id="docket-table-body" class="divide-y divide-borderSubtle text-gray-300">
+            <!-- Dynamically Populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-borderSubtle">
+        <div class="text-xs text-gray-400 flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-gold-500"></i>
+          <span>Signed with Bespoke Craftsmanship Non-Refundable Custom Cutting Waiver.</span>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button id="print-docket-btn" class="px-4 py-2.5 rounded bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-mono text-gray-300 transition-colors">
+            Print Docket
+          </button>
+          <a id="docket-wa-link" href="https://wa.me/233554916910" target="_blank" class="px-6 py-2.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono transition-colors flex items-center gap-2">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Send to Master Tailor</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Atelier Craftsmanship & Heritage -->
+  <section id="craftsmanship" class="py-24 bg-surface/40 border-t border-borderSubtle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-xs font-mono text-gold-500 uppercase tracking-widest">Pantang, Accra · Established Heritage</span>
+          <h2 class="font-cinzel text-3xl sm:text-5xl font-bold text-white mt-2 mb-6">
+            BREADTH OF TRADITION, RIGOR OF PRECISION
+          </h2>
+          <div class="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed font-sans">
+            <p>
+              Chibest Fashion Worldwide was born out of a relentless dedication to West African textile majesty. Located near the Pantang Hospital in Greater Accra, our workshop houses over thirty master cutters, seamstresses, and freehand embroidery artisans.
+            </p>
+            <p>
+              While our craftsmanship remains steeped in centuries-old West African ceremonial tailoring traditions, our intake engine operates on modern computational geometry. We bridge the distance between Accra and our brothers and sisters across London, Atlanta, Houston, and Toronto.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-borderSubtle">
+            <div>
+              <div class="font-cinzel text-2xl font-bold text-gold-400">100%</div>
+              <div class="text-xs text-gray-400 mt-1">Hand-Cut & Sewn</div>
+            </div>
+            <div>
+              <div class="font-cinzel text-2xl font-bold text-gold-400">30+</div>
+              <div class="text-xs text-gray-400 mt-1">Master Artisans</div>
+            </div>
+            <div>
+              <div class="font-cinzel text-2xl font-bold text-gold-400">3-5 Days</div>
+              <div class="text-xs text-gray-400 mt-1">Global Delivery</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden border border-borderSubtle shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover">
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-obsidian/95 border border-gold-500/40 p-5 rounded-xl shadow-2xl max-w-xs backdrop-blur">
+            <div class="text-xs font-mono text-gold-400 uppercase">Master Tailor Guarantee</div>
+            <div class="text-sm text-gray-200 mt-1 font-serif italic">"Every cut honors the ancestors; every stitch is calibrated for the future."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Footer -->
+  <footer class="bg-obsidian border-t border-borderSubtle py-16 text-xs text-gray-400 font-sans">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <span class="font-cinzel text-2xl font-bold text-white tracking-widest">CHIBEST ATELIER</span>
+        <p class="text-gray-500 mt-1">Pantang Hospital Road, Accra, Ghana · Worldwide Courier Dispatch</p>
+      </div>
+
+      <div class="flex items-center space-x-6 font-mono text-xs text-gray-400">
+        <a href="https://www.facebook.com/chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">Facebook (1.55M)</a>
+        <a href="https://youtube.com/@chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">YouTube</a>
+        <a href="https://wa.me/233554916910" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp Line</a>
+      </div>
+
+      <div class="text-gray-600 font-mono text-[11px]">
+        &copy; 2026 Chibest Fashion Worldwide. All Rights Reserved. Engineered by Moradin Runeworks.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

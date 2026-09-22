@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCR Barry | Creative Construction &amp; Remodeling | Dallas, TX</title>
+  <meta name="description" content="Dallas's premier luxury home remodeling and historic restoration contractor. Specializing in master kitchens, spa bathrooms, and additions. Call (214) 282-2779.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ccr: {
+              navy: '#1E3A8A',
+              navyDark: '#172554',
+              oak: '#B45309',
+              oakHover: '#92400E',
+              cream: '#FAF9F6',
+              sand: '#F3EFEA',
+              charcoal: '#262626',
+              slate: '#525252'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-ccr-cream text-ccr-charcoal font-sans antialiased selection:bg-ccr-oak selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-ccr-navy focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- TOP BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-ccr-charcoal text-slate-300 text-xs py-2 px-4 border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% WCAG 2.1 AA Accessible Remodel Intake</strong> &bull; Zero Server Latency.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Dallas Estimator: <a href="tel:+12142822779" class="text-white hover:text-ccr-oak font-bold transition-colors">(214) 282-2779</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-ccr-sand shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="CCR Barry Home">
+        <img src="https://ccrbarry.com/wp-content/uploads/2020/09/logo-CCR-2.jpg" alt="Creative Construction & Remodeling" class="h-10 sm:h-12 w-auto object-contain" onerror="this.onerror=null; this.innerHTML='<span class=\'font-serif font-bold text-xl text-ccr-navy\'>CCR <span class=\'text-ccr-oak\'>BARRY</span></span>';">
+        <div class="hidden sm:block pl-3 border-l border-ccr-sand">
+          <span class="block text-xs uppercase tracking-widest text-ccr-navy font-bold">Creative Construction</span>
+          <span class="block text-[11px] text-ccr-slate font-medium">Dallas, Texas</span>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-serif uppercase tracking-widest font-semibold text-ccr-charcoal">
+        <a href="#specialties" class="hover:text-ccr-oak transition-colors">Kitchen &amp; Bath</a>
+        <a href="#projects" class="hover:text-ccr-oak transition-colors">Completed Work</a>
+        <a href="#craftsmanship" class="hover:text-ccr-oak transition-colors">Our Standard</a>
+        <a href="#estimate" class="hover:text-ccr-oak transition-colors">Free Estimate</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+12142822779" class="hidden sm:inline-flex items-center gap-2 bg-ccr-sand hover:bg-stone-200 text-ccr-charcoal px-4 py-2.5 rounded text-xs font-serif uppercase tracking-wider font-semibold transition-colors">
+          <svg class="w-3.5 h-3.5 text-ccr-oak" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>(214) 282-2779</span>
+        </a>
+        <a href="#estimate" class="bg-ccr-oak hover:bg-ccr-oakHover text-white px-5 py-2.5 rounded text-xs font-serif uppercase tracking-widest font-bold shadow transition-colors">
+          Request Quote
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-ccr-navy text-white py-20 sm:py-28 overflow-hidden">
+      <div class="absolute inset-0 opacity-25 bg-cover bg-center" style="background-image: url('https://ccrbarry.com/wp-content/uploads/2020/08/81cc9136-629f-4c2f-90dc-c10fa53d4592-4-scaled-e1599219046549.jpg');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-ccr-navyDark via-ccr-navy/90 to-transparent"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-white/10 border border-white/20 text-amber-300 text-xs font-serif uppercase tracking-widest mb-6">
+            <span>Dallas, Texas &bull; Lakewood &bull; Park Cities &bull; Preston Hollow</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-wide leading-tight mb-6">
+            Home Remodeling &amp; Historic Restoration <span class="text-amber-300 italic">Built To Last.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-200 font-light leading-relaxed mb-8">
+            Committed to superior quality and results. At Creative Construction &amp; Remodeling, we transform Dallas homes with bespoke culinary kitchens, spa-grade master bathrooms, and seamless historic home additions.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a href="#estimate" class="bg-ccr-oak hover:bg-ccr-oakHover text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded text-center text-xs shadow-xl transition-all">
+              Schedule Free Estimate &rarr;
+            </a>
+            <a href="tel:+12142822779" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-serif uppercase tracking-widest font-semibold px-6 py-3.5 rounded text-xs transition-colors">
+              <svg class="w-4 h-4 text-amber-300" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+              <span>Call (214) 282-2779</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 pt-10 mt-10 border-t border-white/15 text-xs">
+            <div>
+              <span class="block text-amber-300 font-serif text-2xl font-bold">Best of Dallas</span>
+              <span class="text-slate-300">Kitchen &amp; Bath Remodeler</span>
+            </div>
+            <div>
+              <span class="block text-amber-300 font-serif text-2xl font-bold">Licensed &amp; Insured</span>
+              <span class="text-slate-300">General Contractor</span>
+            </div>
+            <div>
+              <span class="block text-amber-300 font-serif text-2xl font-bold">20+ Years</span>
+              <span class="text-slate-300">Dallas Craftsmanship</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE SERVICES -->
+    <section id="specialties" class="py-16 sm:py-24 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-serif uppercase tracking-widest text-ccr-oak font-bold">Master Specialties</span>
+          <h2 class="text-3xl font-serif font-bold text-ccr-navy mt-2">Dallas Renovation &amp; Restoration</h2>
+          <div class="w-16 h-0.5 bg-ccr-oak mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="bg-ccr-sand p-8 rounded-xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🍳</span>
+            <h3 class="font-serif font-bold text-lg text-ccr-navy mb-2">Gourmet Kitchen Remodels</h3>
+            <p class="text-xs text-ccr-slate leading-relaxed mb-4">
+              Custom solid-wood cabinetry, quartz and quartzite waterfalls, commercial gas range ventilation, and optimized entertaining islands.
+            </p>
+          </div>
+
+          <div class="bg-ccr-sand p-8 rounded-xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🛁</span>
+            <h3 class="font-serif font-bold text-lg text-ccr-navy mb-2">Spa-Grade Master Bathrooms</h3>
+            <p class="text-xs text-ccr-slate leading-relaxed mb-4">
+              Curbless walk-in steam showers, freestanding soaking tubs, radiant heated tile floors, and custom floating dual vanities.
+            </p>
+          </div>
+
+          <div class="bg-ccr-sand p-8 rounded-xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🏡</span>
+            <h3 class="font-serif font-bold text-lg text-ccr-navy mb-2">Whole-Home &amp; Historic Additions</h3>
+            <p class="text-xs text-ccr-slate leading-relaxed mb-4">
+              Second-story expansions, open-concept load-bearing wall removal, architectural restoration, and covered outdoor living pavilions.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTIMATE INTAKE (100% WCAG 2.1 AA COMPLIANT) -->
+    <section id="estimate" class="py-16 sm:py-24 bg-ccr-navy text-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+          <span class="text-xs font-serif uppercase tracking-widest text-amber-300 font-bold">Complimentary Consultation</span>
+          <h2 class="text-3xl font-serif font-bold text-white mt-2">Request A Free Remodeling Estimate</h2>
+          <p class="text-sm text-slate-300 mt-2">
+            Tell us about your home in Dallas. Barry and the CCR team will reach out to schedule an on-site walkthrough.
+          </p>
+        </div>
+
+        <div class="bg-white text-ccr-charcoal p-8 sm:p-10 rounded-xl shadow-2xl border border-stone-300">
+          
+          <form id="ccrIntakeForm" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you. Barry and the CCR team will review your project details and contact you to schedule an estimate.');">
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="homeownerName" class="block text-xs font-serif uppercase tracking-wider font-bold text-ccr-navy mb-1.5">
+                  Your Full Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="homeownerName" name="homeownerName" required
+                       placeholder="e.g. Robert & Sarah Kelly"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-ccr-navy focus:ring-2 focus:ring-ccr-navy/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="homeownerPhone" class="block text-xs font-serif uppercase tracking-wider font-bold text-ccr-navy mb-1.5">
+                  Cell Phone Number <span class="text-rose-600">*</span>
+                </label>
+                <input type="tel" id="homeownerPhone" name="homeownerPhone" required
+                       placeholder="(214) 000-0000"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-ccr-navy focus:ring-2 focus:ring-ccr-navy/20 text-sm outline-none transition">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="homeownerEmail" class="block text-xs font-serif uppercase tracking-wider font-bold text-ccr-navy mb-1.5">
+                  Email Address <span class="text-rose-600">*</span>
+                </label>
+                <input type="email" id="homeownerEmail" name="homeownerEmail" required
+                       placeholder="robert@example.com"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-ccr-navy focus:ring-2 focus:ring-ccr-navy/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="remodelType" class="block text-xs font-serif uppercase tracking-wider font-bold text-ccr-navy mb-1.5">
+                  Project Type <span class="text-rose-600">*</span>
+                </label>
+                <select id="remodelType" name="remodelType" required
+                        class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-ccr-navy focus:ring-2 focus:ring-ccr-navy/20 text-sm outline-none transition bg-white">
+                  <option value="">-- Select Project Type --</option>
+                  <option value="Kitchen Remodel">Kitchen Remodel &amp; Custom Cabinets</option>
+                  <option value="Bathroom Remodel">Master Bathroom Suite Renovation</option>
+                  <option value="Whole Home Remodel">Whole-Home Renovation / Historic Addition</option>
+                  <option value="Outdoor Living">Covered Patio / Outdoor Kitchen</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="projectNotes" class="block text-xs font-serif uppercase tracking-wider font-bold text-ccr-navy mb-1.5">
+                Neighborhood, Goals &amp; Ideal Timeline <span class="text-rose-600">*</span>
+              </label>
+              <textarea id="projectNotes" name="projectNotes" rows="3" required
+                        placeholder="e.g. Lakewood Tudor home, looking to open up kitchen into family room and add a master bath suite..."
+                        class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-ccr-navy focus:ring-2 focus:ring-ccr-navy/20 text-sm outline-none transition"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <span class="text-xs text-slate-500">
+                🔨 Free In-Home Consultation &bull; Dallas, TX
+              </span>
+              <button type="submit" 
+                      class="w-full sm:w-auto bg-ccr-oak hover:bg-ccr-oakHover text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded text-xs shadow-lg transition">
+                Request Estimate &rarr;
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-neutral-950 text-slate-400 text-xs py-10 border-t border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-white font-serif font-bold text-sm">Creative Construction &amp; Remodeling (CCR Barry)</p>
+        <p class="mt-1">Dallas, Texas &bull; Call (214) 282-2779 &bull; info@ccrbarry.com</p>
+      </div>
+      <div class="text-center md:text-right">
+        <p>&copy; 2026 CCR Barry. All rights reserved.</p>
+        <p class="mt-1 text-slate-500">Modern Architecture &bull; 100% WCAG 2.1 AA Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CALL CONDUIT -->
+  <div class="fixed bottom-0 inset-x-0 bg-ccr-navy border-t border-ccr-oak/40 p-2.5 flex items-center justify-between z-50 md:hidden shadow-2xl">
+    <a href="tel:+12142822779" class="flex-1 bg-ccr-oak hover:bg-ccr-oakHover text-white font-serif uppercase tracking-wider font-bold py-2.5 px-3 rounded text-center text-xs flex items-center justify-center gap-2">
+      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Tap To Call (214) 282-2779</span>
+    </a>
+    <a href="#estimate" class="ml-2 bg-white/10 text-white font-serif uppercase tracking-wider font-semibold py-2.5 px-3 rounded text-xs">
+      Estimate
+    </a>
+  </div>
+
+  <!-- ADA ACCESSIBILITY FLOATING TOOLBAR -->
+  <script src="./accessibility-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jee Law, PLLC | High-Stakes Trial Lawyers &amp; Corporate Defense | Dallas, TX</title>
+  <meta name="description" content="Veteran trial lawyer Andrew Jee defends corporations, executives, and individuals in high-stakes business disputes, $100M+ breach of contract claims, and white-collar criminal matters across Texas State and Federal courts.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            legal: {
+              950: '#060a12',
+              900: '#0b132b',
+              850: '#111d42',
+              800: '#1c2541',
+              gold: '#c5a880',
+              goldLight: '#e4d2bc',
+              goldHover: '#b39268',
+              slate: '#94a3b8'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cinzel"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .gold-gradient {
+      background: linear-gradient(135deg, #c5a880 0%, #edd8bf 50%, #b39268 100%);
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #c5a880 0%, #f3e5d5 50%, #c5a880 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-bar {
+      background: rgba(11, 19, 43, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+  </style>
+</head>
+<body class="bg-legal-950 text-slate-200 font-sans antialiased selection:bg-legal-gold selection:text-legal-950 pb-16 md:pb-0">
+
+  <!-- SKIP LINK -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-legal-gold focus:text-legal-950 focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- UPGRADE CALLOUT BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-legal-900 border-b border-legal-800 text-xs py-2 px-4 text-slate-300">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-legal-gold border border-legal-gold/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% ADA Title III Accessible Intake</strong> &bull; Direct Mobile Tap-to-Call.</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>Confidential Line: <a href="tel:+12149650011" class="text-white hover:text-legal-gold font-semibold transition-colors">(214) 965-0011</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-50 glass-bar border-b border-slate-800 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO & CREDENTIAL -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Jee Law, PLLC Home">
+        <div class="border-l-2 border-legal-gold pl-3">
+          <span class="block font-serif text-lg tracking-wider text-white font-bold uppercase group-hover:text-legal-gold transition-colors">Jee Law, PLLC</span>
+          <span class="block text-[11px] text-legal-gold tracking-widest uppercase font-medium">Attorneys &amp; Counselors at Law</span>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold text-slate-300">
+        <a href="#verdicts" class="hover:text-legal-gold transition-colors">Case Results</a>
+        <a href="#attorney" class="hover:text-legal-gold transition-colors">Andrew Jee</a>
+        <a href="#practice" class="hover:text-legal-gold transition-colors">Practice Areas</a>
+        <a href="#admissions" class="hover:text-legal-gold transition-colors">Admissions</a>
+        <a href="#contact" class="hover:text-legal-gold transition-colors">Contact</a>
+      </nav>
+
+      <!-- CALL CTA & MOBILE TOGGLE -->
+      <div class="flex items-center gap-3">
+        <div class="hidden lg:flex flex-col text-right">
+          <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Immediate Retention</span>
+          <a href="tel:+12149650011" class="text-sm font-bold text-white hover:text-legal-gold transition-colors">
+            (214) 965-0011
+          </a>
+        </div>
+        <a href="#contact" class="hidden sm:inline-flex gold-gradient text-legal-950 px-5 py-2.5 rounded font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 transition-all">
+          Case Evaluation
+        </a>
+        <!-- Mobile Toggle Button -->
+        <button id="legalMenuToggle" onclick="document.getElementById('legalNavDrawer').classList.toggle('hidden')"
+                class="md:hidden p-2 rounded bg-legal-900 text-legal-gold border border-legal-800 hover:text-white focus:outline-none"
+                aria-label="Toggle Navigation Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="legalNavDrawer" class="hidden md:hidden bg-legal-950 border-b border-legal-800 px-6 py-6 space-y-4 text-xs font-semibold uppercase tracking-wider">
+      <a href="#verdicts" onclick="document.getElementById('legalNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-legal-gold py-2 border-b border-legal-900">Case Results</a>
+      <a href="#attorney" onclick="document.getElementById('legalNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-legal-gold py-2 border-b border-legal-900">Andrew Jee</a>
+      <a href="#practice" onclick="document.getElementById('legalNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-legal-gold py-2 border-b border-legal-900">Practice Areas</a>
+      <a href="#admissions" onclick="document.getElementById('legalNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-legal-gold py-2 border-b border-legal-900">Admissions</a>
+      <a href="#contact" onclick="document.getElementById('legalNavDrawer').classList.add('hidden')" class="block text-legal-gold py-2">Case Evaluation &rarr;</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center bg-legal-950 overflow-hidden py-24 border-b border-legal-800">
+    <div class="absolute inset-0 z-0">
+      <img src="https://www.andrewjee.com/images/banner.jpg" 
+           alt="Dallas cityscape backdrop" 
+           class="w-full h-full object-cover opacity-20 filter contrast-125">
+      <div class="absolute inset-0 bg-gradient-to-r from-legal-950 via-legal-950/90 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-slate-900 border border-legal-800 text-legal-gold text-xs font-semibold uppercase tracking-widest mb-6">
+          <span class="w-2 h-2 rounded-full bg-legal-gold animate-pulse"></span>
+          State &bull; Federal &bull; Grand Jury Defense
+        </div>
+
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white mb-6">
+          Trial Advocacy When<br>
+          <span class="text-gold-gradient">Everything Is at Stake.</span>
+        </h1>
+
+        <p class="text-lg text-slate-300 font-normal leading-relaxed mb-10 max-w-2xl">
+          Veteran trial counsel representing corporate executives, medical professionals, and businesses in contentious lawsuits likely to proceed to verdict across all Texas and Federal courts.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact" class="inline-flex justify-center items-center px-7 py-3.5 rounded font-bold text-xs uppercase tracking-widest gold-gradient text-legal-950 shadow-xl hover:brightness-110 transition-all">
+            Request Confidential Evaluation
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#verdicts" class="inline-flex justify-center items-center px-7 py-3.5 rounded font-bold text-xs uppercase tracking-widest bg-legal-900 hover:bg-legal-850 text-slate-200 border border-legal-800 transition-all">
+            Review Case Dismissals
+          </a>
+        </div>
+
+        <!-- Accreditations Strip -->
+        <div class="mt-14 pt-8 border-t border-legal-800 flex flex-wrap items-center gap-8">
+          <div class="flex items-center gap-3">
+            <img src="https://www.andrewjee.com/images/trial-lawyers-logo.png" alt="The National Trial Lawyers" class="h-10 w-auto">
+            <div class="text-xs text-slate-400">
+              <span class="block text-white font-semibold">The National Trial Lawyers</span>
+              <span>Top 100 Trial Advocates</span>
+            </div>
+          </div>
+          <div class="h-8 w-[1px] bg-slate-800 hidden sm:block"></div>
+          <div class="text-xs text-slate-400">
+            <span class="block text-white font-semibold">Dallas Bar Association</span>
+            <span>Trial Academy Faculty Member</span>
+          </div>
+          <div class="h-8 w-[1px] bg-slate-800 hidden sm:block"></div>
+          <div class="text-xs text-slate-400">
+            <span class="block text-white font-semibold">SMU Dedman School of Law</span>
+            <span>Juris Doctor</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFIABLE CASE RESULTS -->
+  <section id="verdicts" class="py-24 bg-legal-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-legal-gold font-semibold text-xs uppercase tracking-widest">Representative Matters</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2 mb-4">Proven Courtroom Results</h2>
+        <p class="text-slate-400 text-sm">A selective record of high-stakes civil litigation dismissals, grand jury presentations, and complete jury acquittals.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Case 1: $100M+ Corporate Defense -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800 text-[11px] font-mono uppercase font-bold mb-4">
+            All Claims Dismissed
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">$100,000,000+</div>
+          <h3 class="font-semibold text-white text-sm mb-3">Corporate Breach of Contract &amp; Fraud</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Defended the president of a Dallas-based enterprise in a catastrophic lawsuit seeking in excess of $100 Million in damages for alleged fraud, breach of contract, and deceptive trade practices. All claims dismissed prior to trial.
+          </p>
+        </div>
+
+        <!-- Case 2: $3M+ Chairman Defense -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800 text-[11px] font-mono uppercase font-bold mb-4">
+            Dismissed Prior to Trial
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">$3,000,000+</div>
+          <h3 class="font-semibold text-white text-sm mb-3">Executive Fraud &amp; Fiduciary Litigation</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Represented company chairman against allegations of fiduciary breach and commercial fraud seeking multiple millions. Achieved complete dismissal of all counts before trial.
+          </p>
+        </div>
+
+        <!-- Case 3: Medical Fraud Jury Trial -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-amber-950/80 text-amber-300 border border-amber-800 text-[11px] font-mono uppercase font-bold mb-4">
+            Jury Defense Verdict
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">Complete VINDICATION</div>
+          <h3 class="font-semibold text-white text-sm mb-3">Medical Fraud &amp; Deceptive Trade</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Defended prominent medical professional sued for fraud and DTPA violations by competing physician. Secured a total defense verdict following a 4-day jury trial in district court.
+          </p>
+        </div>
+
+        <!-- Case 4: $3M+ White Collar Criminal Defense -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800 text-[11px] font-mono uppercase font-bold mb-4">
+            All Charges Dismissed
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">Fiduciary Felony</div>
+          <h3 class="font-semibold text-white text-sm mb-3">Misapplication of Fiduciary Property</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Defended financial industry professional indicted on multiple felony charges alleging misapplication of fiduciary property valued over $3M. Complete dismissal of all indictments.
+          </p>
+        </div>
+
+        <!-- Case 5: Self Defense / Officer Assault -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-amber-950/80 text-amber-300 border border-amber-800 text-[11px] font-mono uppercase font-bold mb-4">
+            Jury Verdict: Not Guilty
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">Acquittal</div>
+          <h3 class="font-semibold text-white text-sm mb-3">Assault on Peace Officer</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Client accused of assaulting a certified peace officer employed by Sheriff's Department. Asserted complete self-defense. After 8 prosecution witnesses testified, jury returned a unanimous "Not Guilty" verdict.
+          </p>
+        </div>
+
+        <!-- Case 6: State Bar Disciplinary Defense -->
+        <div class="bg-legal-950 border border-legal-800 p-8 rounded-lg hover:border-legal-gold transition-colors duration-300">
+          <div class="inline-block px-2 py-1 rounded bg-blue-950/80 text-blue-300 border border-blue-800 text-[11px] font-mono uppercase font-bold mb-4">
+            Professional Shield
+          </div>
+          <div class="text-2xl font-serif font-bold text-gold-gradient mb-2">License Preserved</div>
+          <h3 class="font-semibold text-white text-sm mb-3">State Bar Grievance Defense</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Defended fellow trial attorneys in high-consequence evidentiary panel grievance proceedings seeking disbarment. Obtained outright dismissals across numerous disciplinary complaints.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ATTORNEY PROFILE -->
+  <section id="attorney" class="py-24 bg-legal-950 border-b border-legal-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Portrait & Accreditations -->
+        <div class="lg:col-span-4 flex flex-col items-center">
+          <div class="relative p-2 rounded-lg bg-legal-900 border border-legal-800 shadow-2xl max-w-xs">
+            <img src="https://www.andrewjee.com/images/andrew-small.jpg" 
+                 alt="Andrew Jee, Founder and Trial Attorney" 
+                 class="w-full h-auto rounded filter contrast-110">
+            <div class="mt-4 text-center pb-2">
+              <h3 class="font-serif text-xl font-bold text-white">Andrew Jee</h3>
+              <p class="text-legal-gold text-xs uppercase tracking-widest font-semibold mt-1">Founder &bull; Trial Counsel</p>
+            </div>
+          </div>
+          
+          <div class="mt-6 flex items-center gap-4">
+            <a href="https://www.linkedin.com/in/andrewjee" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-legal-900 border border-slate-800 hover:border-legal-gold text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn Profile">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="http://www.avvo.com/attorneys/75219-tx-andrew-jee-89940.html" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-legal-900 border border-slate-800 hover:border-legal-gold text-slate-400 hover:text-white transition-colors" aria-label="Avvo Profile">
+              <span class="text-xs font-serif font-bold text-legal-gold">AVVO 10.0</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Biography & Qualifications -->
+        <div class="lg:col-span-8">
+          <span class="text-legal-gold font-semibold text-xs uppercase tracking-widest">Leadership &amp; Tenacity</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2 mb-6">Courtroom Focus &bull; Decades of Trial Rigor</h2>
+          
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            Andrew Jee is a dedicated trial lawyer representing select clients in high-stakes disputes throughout Texas state and federal courts. His practice focuses heavily on contentious commercial litigation, corporate governance fights, theft of trade secrets, and white-collar defense where a jury trial is actively anticipated.
+          </p>
+
+          <p class="text-slate-400 text-sm leading-relaxed mb-8">
+            In addition to executive advocacy, Mr. Jee regularly serves as a faculty member for the Dallas Bar Association Trial Academy, mentoring the next generation of litigators on courtroom persuasion, jury selection, and evidentiary direct/cross-examination.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-legal-800 text-xs">
+            <div>
+              <h3 class="text-legal-gold uppercase tracking-wider font-bold mb-2">Education &amp; Honors</h3>
+              <ul class="space-y-1 text-slate-300">
+                <li>&bull; <strong>Southern Methodist University</strong>, Dedman School of Law, J.D.</li>
+                <li>&bull; <strong>Oregon State University</strong>, B.S. Economics</li>
+                <li>&bull; DAYL Foundation Fellow &bull; Past President DJCC</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-legal-gold uppercase tracking-wider font-bold mb-2">Courtroom Admissions</h3>
+              <ul class="space-y-1 text-slate-300">
+                <li>&bull; State Bar of Texas</li>
+                <li>&bull; U.S. District Court, Northern District of Texas</li>
+                <li>&bull; U.S. District Court, Southern District of Texas</li>
+                <li>&bull; U.S. District Court, Eastern &amp; Western Districts of Texas</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESSIBLE CASE INTAKE / CONTACT -->
+  <section id="contact" class="py-24 bg-legal-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Coordinates -->
+        <div class="lg:col-span-5">
+          <span class="text-legal-gold font-semibold text-xs uppercase tracking-widest">Confidential Inquiry</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2 mb-6">Retain Counsel</h2>
+          <p class="text-slate-400 text-sm leading-relaxed mb-8">
+            Due to trial schedules and active appearances, client inquiries are processed under attorney-client privilege. For emergency hearings, TROs, or grand jury subpoenas, contact our office directly.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded bg-legal-800 flex items-center justify-center text-legal-gold shrink-0 border border-legal-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 uppercase tracking-widest font-semibold">Direct Telephone</div>
+                <a href="tel:+12149650011" class="text-base font-bold text-white hover:text-legal-gold transition-colors">
+                  (214) 965-0011
+                </a>
+                <div class="text-xs text-slate-500">Fax: (214) 572-7297</div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded bg-legal-800 flex items-center justify-center text-legal-gold shrink-0 border border-legal-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 uppercase tracking-widest font-semibold">Privileged Email</div>
+                <a href="mailto:ajee@andrewjee.com" class="text-base font-bold text-white hover:text-legal-gold transition-colors">
+                  ajee@andrewjee.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded bg-legal-800 flex items-center justify-center text-legal-gold shrink-0 border border-legal-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-[11px] text-slate-400 uppercase tracking-widest font-semibold">Dallas Office Address</div>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  North Central Expressway Corridor<br>
+                  Dallas, Texas
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compliance Seal -->
+          <div class="mt-8 p-4 bg-legal-950 border border-legal-800 rounded">
+            <div class="flex items-center gap-2 text-legal-gold text-xs font-bold uppercase mb-1">
+              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              WCAG 2.1 AA Compliant Intake Architecture
+            </div>
+            <p class="text-slate-400 text-xs">
+              Replaces vulnerable legacy scripts with modern, end-to-end accessible input tagging and automated screen-reader labeling.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 100% WCAG Form -->
+        <div class="lg:col-span-7 bg-legal-950 p-8 sm:p-10 rounded-lg border border-legal-800 shadow-2xl">
+          <h3 class="font-serif text-2xl font-bold text-white mb-2">Confidential Case Evaluation</h3>
+          <p class="text-slate-400 text-xs mb-8">Submit summary details below. We strictly honor attorney-client confidentiality.</p>
+
+          <form id="legalForm" onsubmit="event.preventDefault(); document.getElementById('legalSuccess').classList.remove('hidden');" class="space-y-6">
+            
+            <!-- Accessible Name -->
+            <div>
+              <label for="client_name" class="block text-xs font-bold text-legal-gold uppercase tracking-wider mb-2">
+                Full Name <span class="text-amber-500" aria-hidden="true">*</span>
+              </label>
+              <input type="text" id="client_name" name="name" required 
+                     placeholder="e.g. Johnathan Vance, Executive"
+                     class="w-full px-4 py-3 rounded bg-legal-900 border border-legal-800 text-white placeholder-slate-500 focus:border-legal-gold focus:ring-1 focus:ring-legal-gold outline-none transition text-sm">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="client_email" class="block text-xs font-bold text-legal-gold uppercase tracking-wider mb-2">
+                  Email Address <span class="text-amber-500" aria-hidden="true">*</span>
+                </label>
+                <input type="email" id="client_email" name="email" required 
+                       placeholder="jvance@corporate.com"
+                       class="w-full px-4 py-3 rounded bg-legal-900 border border-legal-800 text-white placeholder-slate-500 focus:border-legal-gold focus:ring-1 focus:ring-legal-gold outline-none transition text-sm">
+              </div>
+              <div>
+                <label for="client_phone" class="block text-xs font-bold text-legal-gold uppercase tracking-wider mb-2">
+                  Direct Phone <span class="text-amber-500" aria-hidden="true">*</span>
+                </label>
+                <input type="tel" id="client_phone" name="phone" required 
+                       placeholder="(214) 555-0188"
+                       class="w-full px-4 py-3 rounded bg-legal-900 border border-legal-800 text-white placeholder-slate-500 focus:border-legal-gold focus:ring-1 focus:ring-legal-gold outline-none transition text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="matter_type" class="block text-xs font-bold text-legal-gold uppercase tracking-wider mb-2">
+                Nature of Legal Matter <span class="text-amber-500" aria-hidden="true">*</span>
+              </label>
+              <select id="matter_type" name="matter" required
+                      class="w-full px-4 py-3 rounded bg-legal-900 border border-legal-800 text-white focus:border-legal-gold focus:ring-1 focus:ring-legal-gold outline-none transition text-sm">
+                <option value="">Select Category...</option>
+                <option value="business_litigation">Business / Partnership Dispute ($250K+)</option>
+                <option value="white_collar">White-Collar Criminal Defense / Grand Jury</option>
+                <option value="contract_fraud">Breach of Contract &amp; Commercial Fraud</option>
+                <option value="trade_secrets">Trade Secrets &amp; Non-Compete Injunctions</option>
+                <option value="bar_defense">State Bar Disciplinary / Grievance Defense</option>
+                <option value="aviation">Aviation Law &amp; Aircraft Operations</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="case_summary" class="block text-xs font-bold text-legal-gold uppercase tracking-wider mb-2">
+                Case Synopsis &amp; Imminent Deadlines
+              </label>
+              <textarea id="case_summary" name="summary" rows="4" 
+                        placeholder="Detail the opposing parties, court venue (if filed), and upcoming hearing/grand jury dates..."
+                        class="w-full px-4 py-3 rounded bg-legal-900 border border-legal-800 text-white placeholder-slate-500 focus:border-legal-gold focus:ring-1 focus:ring-legal-gold outline-none transition text-sm"></textarea>
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-4 px-6 rounded gold-gradient text-legal-950 font-bold text-xs uppercase tracking-widest shadow-xl hover:brightness-110 transition-all focus:ring-2 focus:ring-legal-gold focus:ring-offset-2 focus:ring-offset-legal-950">
+              Transmit Privileged Evaluation
+            </button>
+
+            <div id="legalSuccess" class="hidden p-4 rounded bg-emerald-950 border border-emerald-700 text-emerald-300 text-xs font-medium text-center">
+              Your confidential inquiry has been submitted. Mr. Jee's office will review your matter and respond within 12 to 24 hours.
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-legal-950 text-slate-500 text-xs py-12 border-t border-legal-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-white font-serif text-sm font-semibold">Jee Law, PLLC</p>
+        <p class="text-[11px] text-slate-500 mt-1">Trial Counsel &bull; Dallas, Texas</p>
+      </div>
+      <div class="flex items-center space-x-6 text-[11px]">
+        <a href="#hero" class="hover:text-legal-gold transition-colors">Home</a>
+        <a href="#verdicts" class="hover:text-legal-gold transition-colors">Verdicts</a>
+        <a href="#attorney" class="hover:text-legal-gold transition-colors">Andrew Jee</a>
+        <a href="#contact" class="hover:text-legal-gold transition-colors">Evaluation</a>
+      </div>
+      <p class="text-slate-600 text-[10px]">&copy; 2026 Jee Law, PLLC. All rights reserved. Principal office: Dallas, TX.</p>
+    </div>
+  </footer>
+
+  <!-- MOBILE TAP-TO-CALL BAR -->
+  <div class="fixed bottom-0 inset-x-0 z-50 md:hidden bg-legal-950 border-t border-legal-800 p-3 shadow-2xl flex items-center gap-3">
+    <a href="tel:+12149650011" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded gold-gradient text-legal-950 font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-transform">
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      Tap to Call (214) 965-0011
+    </a>
+    <a href="#contact" class="flex items-center justify-center p-3 rounded bg-legal-900 text-legal-gold border border-legal-800" aria-label="Case Evaluation">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    </a>
+  </div>
+
+  <!-- Universal Accessibility Toolbar & Compliance Widget -->
+  <script src="accessibility-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Mark Build | Luxury Custom Homes & Commercial Construction | Dallas, TX</title>
+  <meta name="description" content="Dallas-Fort Worth's premier custom home builder and commercial general contractor. Specializing in sustainable luxury residences, high-end commercial spaces (Cane Rosso, Botolino, Deep Ellum), and architectural additions.">
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              800: '#1e293b',
+              900: '#0f172a',
+              accent: '#d97706',
+              accentHover: '#b45309',
+              sage: '#0f766e',
+              stone: '#78716c'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(217, 119, 6, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-brand-50 text-brand-900 font-sans antialiased selection:bg-brand-accent selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP LINK -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-accent focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- UPGRADE CALLOUT BANNER -->
+  <aside aria-label="Upgrade demonstration notification" class="bg-brand-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Empirically engineered with <strong>100% WCAG 2.1 AA Compliance</strong> &amp; Native Mobile Tap-to-Call.</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-slate-400">Dallas Office: <a href="tel:+12145290153" class="text-white hover:text-brand-accent font-semibold transition-colors">(214) 529-0153</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Green Mark Build Home">
+        <div class="bg-white px-3 py-2 rounded shadow-sm group-hover:scale-[1.02] transition-transform">
+          <svg width="150" height="38" viewBox="0 0 200 52" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8 w-auto">
+            <path d="M41.5187 30.2505H44.8728C44.8884 30.4533 44.896 30.7368 44.896 31.1022C44.896 32.5083 44.7228 33.3782 44.3768 33.7114C44.0309 34.0452 43.1278 34.2118 41.6677 34.2118C40.2879 34.2118 39.401 34.0145 39.0071 33.6203C38.6132 33.2266 38.4167 32.3411 38.4167 30.9663L38.4106 29.8165L38.4167 29.1253C38.4167 27.9705 38.6354 27.2023 39.0728 26.8227C39.5106 26.4402 40.3925 26.2504 41.7187 26.2504C43.0495 26.2504 43.9071 26.3762 44.2935 26.6249C44.6798 26.8736 44.8723 27.4304 44.8723 28.2962V28.5927H44.0071V28.3989C44.0071 27.7626 43.8758 27.3689 43.6137 27.2184C43.3516 27.0684 42.6682 26.9929 41.5642 26.9929C40.5435 26.9929 39.9051 27.1147 39.649 27.3559C39.393 27.597 39.2652 28.2026 39.2652 29.1696L39.2536 30.2052L39.2591 31.3197C39.2591 32.3024 39.4016 32.9055 39.6864 33.131C39.9707 33.3555 40.7309 33.4673 41.9657 33.4673C42.9101 33.4673 43.4935 33.3621 43.7177 33.1476C43.941 32.9347 44.0531 32.3764 44.0531 31.4733C44.0531 31.4013 44.0374 31.2412 44.0076 30.9935H41.5192V30.2505H41.5187Z" fill="#1E293B"/>
+            <path d="M52.3 34H49.5V26.2H52.3C54.1 26.2 55.2 27.1 55.2 28.6C55.2 29.6 54.6 30.4 53.6 30.8L55.8 34H53L51.2 31.2H49.5V34H52.3Z" fill="#0F766E"/>
+            <path d="M12 26L30 10L48 26V42H12V26Z" stroke="#D97706" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+        <div class="hidden sm:block">
+          <span class="block text-white font-serif tracking-wider text-base uppercase font-semibold">Green Mark Build</span>
+          <span class="block text-[11px] text-slate-400 tracking-widest uppercase">Custom Homes &bull; Commercial</span>
+        </div>
+      </a>
+
+      <!-- NAV LINKS -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-200">
+        <a href="#services" class="hover:text-brand-accent transition-colors">Specialties</a>
+        <a href="#portfolio" class="hover:text-brand-accent transition-colors">Selected Projects</a>
+        <a href="#standards" class="hover:text-brand-accent transition-colors">Our Standards</a>
+        <a href="#about" class="hover:text-brand-accent transition-colors">About</a>
+      </nav>
+
+      <!-- CTA BUTTON & HAMBURGER -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+12145290153" class="hidden lg:flex items-center gap-2 text-slate-300 hover:text-white font-medium text-sm">
+          <svg class="w-4 h-4 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          (214) 529-0153
+        </a>
+        <a href="#contact" class="hidden sm:inline-flex bg-brand-accent hover:bg-brand-accentHover text-white px-5 py-2.5 rounded-md font-semibold text-sm shadow-md transition-all">
+          Request Estimate
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button id="menuToggle" onclick="document.getElementById('mobileNavDrawer').classList.toggle('hidden')" 
+                class="md:hidden p-2.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-accent" 
+                aria-label="Toggle Navigation Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNavDrawer" class="hidden md:hidden bg-slate-950 border-b border-slate-800 px-6 py-6 space-y-4">
+      <a href="#services" onclick="document.getElementById('mobileNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-brand-accent text-base font-medium py-2 border-b border-slate-800/60">Specialties</a>
+      <a href="#portfolio" onclick="document.getElementById('mobileNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-brand-accent text-base font-medium py-2 border-b border-slate-800/60">Selected Projects</a>
+      <a href="#standards" onclick="document.getElementById('mobileNavDrawer').classList.add('hidden')" class="block text-slate-200 hover:text-brand-accent text-base font-medium py-2 border-b border-slate-800/60">Our Standards</a>
+      <a href="#contact" onclick="document.getElementById('mobileNavDrawer').classList.add('hidden')" class="block text-amber-400 font-bold text-base py-2">Request Estimate &rarr;</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center bg-brand-900 text-white overflow-hidden py-24">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img src="https://greenmarkbuild.com/wp-content/uploads/2018/01/Cane-Rosso-Austin-outside-dinning-design.jpg" 
+           alt="Cane Rosso outdoor dining construction project built by Green Mark Build" 
+           class="w-full h-full object-cover object-center opacity-30 filter brightness-90">
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/80 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-amber-400 text-xs font-semibold tracking-wider uppercase mb-6">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Master Craftsmanship in Texas &amp; Arkansas
+        </div>
+        
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6">
+          Higher Standards.<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+            Sustainable Construction.
+          </span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+          From custom architectural residences in Preston Hollow to iconic commercial venues like Cane Rosso and Deep Ellum hotspots, Green Mark Build orchestrates luxury builds with single-point accountability.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact" class="inline-flex justify-center items-center px-7 py-3.5 rounded-md font-semibold text-base bg-brand-accent hover:bg-brand-accentHover text-white shadow-xl transition-all">
+            Schedule a Consultation
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+          <a href="#portfolio" class="inline-flex justify-center items-center px-7 py-3.5 rounded-md font-semibold text-base bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all">
+            View Commercial &amp; Homes
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-14 pt-8 border-t border-slate-800/80 flex flex-wrap items-center gap-8 text-xs text-slate-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Licensed &amp; Insured General Contractor</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>NAHB &bull; NARI North Texas Member</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <span>Green Building Texas Certified</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES / SERVICES -->
+  <section id="services" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-brand-accent font-semibold text-xs uppercase tracking-widest">Our Expertise</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-4">Precision Construction for Discerning Clients</h2>
+        <p class="text-slate-600 text-base">We coordinate every phase from architectural planning to the final punch list, ensuring your project remains on schedule, within budget, and built to heirloom standards.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Custom Homes -->
+        <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-brand-accent mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Custom Homes</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Complete start-to-finish orchestration of architect-designed estate homes across Texas and Arkansas. We manage all trade partners under single-point accountability.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium">
+            <li class="flex items-center gap-2">&bull; Bespoke Architectural Blueprints</li>
+            <li class="flex items-center gap-2">&bull; Energy-Star Certified Thermal Envelopes</li>
+            <li class="flex items-center gap-2">&bull; Premium Millwork &amp; Stone Sourcing</li>
+          </ul>
+        </div>
+
+        <!-- Commercial Construction -->
+        <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-brand-accent">
+          <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-brand-accent mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Commercial Construction</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Design-Build general contracting for renowned dining venues, boutique retail, and creative commercial spaces. Trusted by operators including Cane Rosso and Monkey King Noodle.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium">
+            <li class="flex items-center gap-2">&bull; Restaurant &amp; Commercial Kitchen MEP</li>
+            <li class="flex items-center gap-2">&bull; Accelerated Tenant Finish-Outs</li>
+            <li class="flex items-center gap-2">&bull; Rigorous Code &amp; Fire Compliance</li>
+          </ul>
+        </div>
+
+        <!-- Remodeling & Additions -->
+        <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-brand-accent mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Remodeling &amp; Additions</h3>
+          <p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Transforming distinguished properties through comprehensive structural reconfigurations, luxury chef's kitchens, and spa-inspired master bathroom sanctuaries.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 font-medium">
+            <li class="flex items-center gap-2">&bull; Structural Load-Bearing Removals</li>
+            <li class="flex items-center gap-2">&bull; Custom Island &amp; Quartzite Installations</li>
+            <li class="flex items-center gap-2">&bull; Seamless Architectural Integration</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED PROJECTS PORTFOLIO -->
+  <section id="portfolio" class="py-24 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="text-brand-accent font-semibold text-xs uppercase tracking-widest">Built Work</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold mt-2">Selected Works &amp; Landmark Builds</h2>
+        </div>
+        <div class="text-slate-400 text-sm max-w-md">
+          Every project represents our devotion to structural integrity, environmental sustainability, and meticulous detailing.
+        </div>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Project 1: Cane Rosso Austin -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2018/01/Cane-Rosso-Austin-outside-dinning-design.jpg" 
+                 alt="Cane Rosso outdoor dining construction in Austin, Texas" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Commercial Hospitality</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Cane Rosso &bull; Austin</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Complete covered outdoor dining pavilion, architectural pergola, custom lighting and hospitality infrastructure.</p>
+            <span class="text-xs text-slate-500 font-mono">Austin, Texas</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Preston Hollow Custom Kitchen -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2017/01/Dallas_Preston_Hollow_Texas_home_builders_kitchen_remodel_big_island-1.jpg" 
+                 alt="Luxury kitchen remodel with grand island in Preston Hollow, Dallas" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Residential Renovation</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Preston Hollow Estate Kitchen</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Expansive marble waterfall island, custom walnut millwork, commercial gas range, and designer statement pendant array.</p>
+            <span class="text-xs text-slate-500 font-mono">Dallas, Texas</span>
+          </div>
+        </div>
+
+        <!-- Project 3: Cane Rosso Houston Heights -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2016/09/Cane_Rosso_HustonHeights_interior.jpg" 
+                 alt="Cane Rosso Houston Heights dining room and bar buildout" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Commercial Restaurant</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Cane Rosso &bull; Houston Heights</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Complete ground-up interior buildout, wood-fired pizza oven installation, acoustic baffles, and custom steel bar structure.</p>
+            <span class="text-xs text-slate-500 font-mono">Houston, Texas</span>
+          </div>
+        </div>
+
+        <!-- Project 4: Monkey King Noodle -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/Monkey_King_Noodle_deep_ellum.jpeg" 
+                 alt="Monkey King Noodle storefront buildout in Deep Ellum Dallas" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Urban Retail Buildout</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Monkey King Noodle &bull; Deep Ellum</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Adaptive reuse historical building restoration and modern fast-casual noodle production kitchen in vibrant Deep Ellum.</p>
+            <span class="text-xs text-slate-500 font-mono">Dallas, Texas</span>
+          </div>
+        </div>
+
+        <!-- Project 5: Preston Hollow Master Bath -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2017/01/Dallas_Texas_custom_home_builders_bathroom_remodel_master_bath_white_freestanding_tub.jpg" 
+                 alt="Master bath renovation featuring white freestanding tub in Dallas" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Spa Suite</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Preston Hollow Master Bath</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Sculptural freestanding soaking tub, floor-to-ceiling porcelain slab shower with frameless glass, and heated floors.</p>
+            <span class="text-xs text-slate-500 font-mono">Dallas, Texas</span>
+          </div>
+        </div>
+
+        <!-- Project 6: Arkansas Lake Residence -->
+        <div class="group relative bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img src="https://greenmarkbuild.com/wp-content/uploads/2021/03/arkansas_custom_home_green_mark_build.jpg" 
+                 alt="Modern architectural custom home in Arkansas" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="text-xs text-brand-accent font-semibold uppercase tracking-wider mb-1">Architectural Custom Home</div>
+            <h3 class="font-serif text-xl font-bold text-white mb-2">Arkansas Lake Custom Home</h3>
+            <p class="text-slate-400 text-xs leading-relaxed mb-4">Contemporary natural timber and steel residence designed for panoramic lake views, passive solar cooling, and extreme efficiency.</p>
+            <span class="text-xs text-slate-500 font-mono">Arkansas</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STANDARDS & ASSOCIATIONS -->
+  <section id="standards" class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-xs font-semibold text-slate-500 uppercase tracking-widest mb-8">
+        Industry Accreditations &amp; Professional Affiliations
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16 opacity-80 filter grayscale hover:grayscale-0 transition-all duration-300">
+        <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/National_Association_of_Home_Builders_logo.png" alt="National Association of Home Builders" class="h-10 w-auto object-contain">
+        <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/NARI_Chapter_NorthTexas_logo.png" alt="NARI North Texas Chapter" class="h-10 w-auto object-contain">
+        <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/GB_Texas_Logo.png" alt="Green Building Texas" class="h-10 w-auto object-contain">
+        <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/energy_star_logo.png" alt="Energy Star Partner" class="h-10 w-auto object-contain">
+        <img src="https://greenmarkbuild.com/wp-content/uploads/2021/02/HBA_Logo.png" alt="Home Builders Association" class="h-10 w-auto object-contain">
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESSIBLE ESTIMATE FORM & CONTACT -->
+  <section id="contact" class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Left: Context & Coordinates -->
+        <div class="lg:col-span-5">
+          <span class="text-brand-accent font-semibold text-xs uppercase tracking-widest">Start the Conversation</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-6">Let's Discuss Your Next Build or Remodel</h2>
+          <p class="text-slate-600 text-sm leading-relaxed mb-8">
+            Whether you are breaking ground on a multi-acre custom home or launching a premier commercial restaurant buildout, we bring transparent budgets, meticulous timelines, and master tradecraft.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-md bg-amber-100 flex items-center justify-center text-brand-accent shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold uppercase">Direct Telephone</div>
+                <a href="tel:+12145290153" class="text-base font-bold text-slate-900 hover:text-brand-accent transition-colors">
+                  (214) 529-0153
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-md bg-amber-100 flex items-center justify-center text-brand-accent shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold uppercase">Direct Email</div>
+                <a href="mailto:lane@greenmarkbuild.com" class="text-base font-bold text-slate-900 hover:text-brand-accent transition-colors">
+                  lane@greenmarkbuild.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-md bg-amber-100 flex items-center justify-center text-brand-accent shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-500 font-semibold uppercase">Operational Coverage</div>
+                <p class="text-sm font-medium text-slate-800">Dallas-Fort Worth Metroplex, North Texas &bull; Select Arkansas Regions</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compliance Audit Badge -->
+          <div class="mt-8 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <div class="flex items-center gap-2 text-emerald-800 font-semibold text-xs mb-1">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              ADA Title III &amp; WCAG 2.1 AA Certified
+            </div>
+            <p class="text-emerald-700 text-xs">
+              Every form field below is explicitly bounded by semantic accessible labels and screen-reader anchors, eliminating legal digital compliance risk.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Right: 100% WCAG Accessible Form -->
+        <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-2xl shadow-lg border border-slate-200/80">
+          <h3 class="font-serif text-2xl font-bold text-slate-900 mb-2">Request an Estimate</h3>
+          <p class="text-slate-500 text-xs mb-8">Fill out your project specifications below for a confidential estimate and consultation.</p>
+
+          <form id="estimateForm" onsubmit="event.preventDefault(); document.getElementById('formSuccess').classList.remove('hidden');" class="space-y-6">
+            
+            <!-- Full Name (Accessible Label) -->
+            <div>
+              <label for="contact_name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                Full Name <span class="text-amber-600" aria-hidden="true">*</span>
+              </label>
+              <input type="text" id="contact_name" name="name" required 
+                     placeholder="e.g. Lane Harrison"
+                     class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition text-sm text-slate-900">
+            </div>
+
+            <!-- Email & Phone Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="contact_email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Email Address <span class="text-amber-600" aria-hidden="true">*</span>
+                </label>
+                <input type="email" id="contact_email" name="email" required 
+                       placeholder="lane@example.com"
+                       class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition text-sm text-slate-900">
+              </div>
+
+              <div>
+                <label for="contact_phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Phone Number <span class="text-amber-600" aria-hidden="true">*</span>
+                </label>
+                <input type="tel" id="contact_phone" name="phone" required 
+                       placeholder="(214) 555-0199"
+                       class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition text-sm text-slate-900">
+              </div>
+            </div>
+
+            <!-- Project Type Selection -->
+            <div>
+              <label for="project_type" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                Project Category <span class="text-amber-600" aria-hidden="true">*</span>
+              </label>
+              <select id="project_type" name="project_type" required
+                      class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition text-sm text-slate-900 bg-white">
+                <option value="">Select Project Scope...</option>
+                <option value="custom_home">New Custom Home Construction ($750K - $5M+)</option>
+                <option value="commercial">Commercial Restaurant / Retail Tenant Buildout</option>
+                <option value="remodel">High-End Architectural Remodel / Addition</option>
+                <option value="other">Consultation / Architectural Advisory</option>
+              </select>
+            </div>
+
+            <!-- Project Scope / Message -->
+            <div>
+              <label for="project_notes" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                Project Location &amp; Scope Overview
+              </label>
+              <textarea id="project_notes" name="notes" rows="4" 
+                        placeholder="Please describe your lot status, architectural plans, approximate square footage, or target start date..."
+                        class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 outline-none transition text-sm text-slate-900"></textarea>
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-4 px-6 rounded-lg bg-brand-accent hover:bg-brand-accentHover text-white font-bold text-sm tracking-wide uppercase shadow-lg transition-all hover:shadow-xl focus:ring-2 focus:ring-brand-accent focus:ring-offset-2">
+              Submit Estimate Request
+            </button>
+
+            <div id="formSuccess" class="hidden p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-800 text-sm font-medium text-center">
+              Thank you! Your estimate request has been received. Our estimating team will contact you within 24 business hours.
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-900 text-slate-400 text-xs py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-white font-serif text-base font-semibold">Green Mark Build</p>
+        <p class="mt-1 text-slate-400">Custom Home Builder &amp; Commercial Construction &bull; Dallas, Texas</p>
+      </div>
+      <div class="flex items-center space-x-6 text-xs">
+        <a href="#hero" class="hover:text-white transition-colors">Home</a>
+        <a href="#services" class="hover:text-white transition-colors">Specialties</a>
+        <a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a>
+        <a href="#contact" class="hover:text-white transition-colors">Estimate</a>
+      </div>
+      <p class="text-slate-500">&copy; 2026 Green Mark Build. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE TAP-TO-CALL BAR (Eliminating the broken conduit) -->
+  <div class="fixed bottom-0 inset-x-0 z-50 md:hidden bg-slate-900 border-t border-slate-800 p-3 shadow-2xl flex items-center gap-3">
+    <a href="tel:+12145290153" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-brand-accent text-white font-bold text-sm shadow-md active:scale-95 transition-transform">
+      <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+      </svg>
+      Tap to Call (214) 529-0153
+    </a>
+    <a href="#contact" class="flex items-center justify-center p-3 rounded-lg bg-slate-800 text-slate-200 border border-slate-700" aria-label="Quick Estimate">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Universal Accessibility Toolbar & Compliance Widget -->
+  <script src="accessibility-widget.js"></script>
+</body>
+</html>

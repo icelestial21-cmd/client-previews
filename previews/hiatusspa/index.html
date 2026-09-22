@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiatus Day Spa + Med Spa | Award-Winning Texas Sanctuary</title>
+  <meta name="description" content="Texas's premier day spa & med spa. Experience award-winning massages, custom facials, Hydrafacial, Botox, and the acclaimed H-Circle monthly wellness membership. Call (512) 362-5777.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hiatus: {
+              indigo: '#1C174A',
+              indigoDark: '#120E30',
+              lavender: '#4D65FF',
+              sage: '#6E8B76',
+              champagne: '#FAF6F0',
+              cream: '#FDFCF9',
+              gold: '#C7A877',
+              slate: '#5A5675'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-hiatus-cream text-hiatus-indigo font-sans antialiased selection:bg-hiatus-indigo selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-hiatus-indigo focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- TOP BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-hiatus-indigoDark text-hiatus-champagne text-xs py-2 px-4 border-b border-hiatus-indigo">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/20 text-amber-200 border border-amber-400/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% WCAG 2.1 AA Title III Accessible Booking</strong> &bull; Zero Server Latency.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Sanctuary Concierge: <a href="tel:+15123625777" class="text-white hover:text-hiatus-gold font-semibold transition-colors">(512) 362-5777</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-hiatus-champagne shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Hiatus Spa Homepage">
+        <div class="tracking-[0.25em] font-serif uppercase text-2xl font-bold text-hiatus-indigo">
+          HIATUS
+        </div>
+        <div class="hidden sm:block pl-3 border-l border-hiatus-gold/40">
+          <span class="block text-[10px] uppercase tracking-widest text-hiatus-sage font-bold">Day Spa &bull; Med Spa</span>
+          <span class="block text-[11px] text-hiatus-slate">Texas Sanctuaries</span>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-serif uppercase tracking-widest font-semibold text-hiatus-indigo">
+        <a href="#services" class="hover:text-hiatus-gold transition-colors">Spa &amp; MedSpa</a>
+        <a href="#hcircle" class="hover:text-hiatus-gold transition-colors">H-Circle $99/mo</a>
+        <a href="#locations" class="hover:text-hiatus-gold transition-colors">Locations</a>
+        <a href="#book" class="hover:text-hiatus-gold transition-colors">Appointments</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+15123625777" class="hidden sm:inline-flex items-center gap-2 bg-hiatus-champagne hover:bg-amber-100/50 text-hiatus-indigo px-4 py-2.5 rounded-full text-xs font-serif tracking-wider font-semibold transition-colors">
+          <svg class="w-3.5 h-3.5 text-hiatus-sage" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>(512) 362-5777</span>
+        </a>
+        <a href="#book" class="bg-hiatus-indigo hover:bg-hiatus-indigoDark text-white px-5 py-2.5 rounded-full text-xs font-serif uppercase tracking-widest font-semibold shadow transition-colors">
+          Reserve Treatment
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-hiatus-indigo text-white py-20 sm:py-28 overflow-hidden">
+      <div class="absolute inset-0 opacity-30 bg-cover bg-center" style="background-image: url('https://cdn.prod.website-files.com/67f4fa247b6cb67ae59c7007/67f4fa247b6cb67ae59c70ce_BANNER%20IMG.webp');"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-hiatus-indigoDark via-hiatus-indigo/90 to-transparent"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-hiatus-gold text-xs font-serif uppercase tracking-widest mb-6">
+            <span>Austin &bull; Dallas &bull; Houston &bull; San Antonio</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-wide leading-tight mb-6">
+            Where Modern Aesthetics Meets <span class="italic text-hiatus-gold">Mindful Serenity.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-hiatus-champagne/90 font-light leading-relaxed mb-8">
+            An award-winning sanctuary designed to restore balance to your body and skin. From transformative medical aesthetics and Hydrafacial therapies to restorative hydrotherapy and bespoke massages.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a href="#book" class="bg-hiatus-gold hover:bg-amber-600 text-hiatus-indigoDark font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded-full text-center text-xs shadow-xl transition-all">
+              Book A Treatment &rarr;
+            </a>
+            <a href="#hcircle" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-serif uppercase tracking-widest font-semibold px-6 py-3.5 rounded-full text-xs transition-colors">
+              Explore H-Circle ($99/mo)
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 pt-10 mt-10 border-t border-white/15 text-xs">
+            <div>
+              <span class="block text-hiatus-gold font-serif text-2xl font-bold">Award-Winning</span>
+              <span class="text-slate-300">Best Spa in Texas</span>
+            </div>
+            <div>
+              <span class="block text-hiatus-gold font-serif text-2xl font-bold">H-Circle</span>
+              <span class="text-slate-300">$99 Monthly Ritual</span>
+            </div>
+            <div>
+              <span class="block text-hiatus-gold font-serif text-2xl font-bold">Board-Certified</span>
+              <span class="text-slate-300">Aesthetic Providers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- H-CIRCLE CALLOUT -->
+    <section id="hcircle" class="py-16 bg-hiatus-champagne border-b border-hiatus-gold/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl p-8 sm:p-12 border border-hiatus-gold/30 shadow-sm grid lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8">
+            <span class="text-xs font-serif uppercase tracking-widest text-hiatus-sage font-bold">Wellness Membership</span>
+            <h2 class="text-2xl sm:text-3xl font-serif font-bold text-hiatus-indigo mt-2">The H-Circle: A Monthly Sanctuary Ritual for $99</h2>
+            <p class="text-sm text-hiatus-slate mt-3 leading-relaxed">
+              Prioritize your wellbeing every month. Choose one core signature service each month—The Signature Massage, The Tailored Facial, or The One &amp; Only Mani/Pedi—plus enjoy 20% off all additional medspa services, product discounts, and roll-over privileges.
+            </p>
+          </div>
+          <div class="lg:col-span-4 text-center lg:text-right">
+            <div class="inline-block bg-hiatus-indigo text-white p-6 rounded-xl shadow-md text-center">
+              <span class="block text-xs uppercase tracking-widest text-hiatus-gold font-bold">Monthly Rate</span>
+              <span class="block font-serif text-4xl font-bold my-1">$99<span class="text-xs font-sans font-normal text-slate-300">/mo</span></span>
+              <span class="block text-[11px] text-slate-300 mb-4">No long term contract &bull; Roll-over credits</span>
+              <a href="#book" class="bg-hiatus-gold hover:bg-amber-500 text-hiatus-indigoDark font-serif uppercase tracking-widest font-bold py-2 px-6 rounded-full text-xs inline-block transition">
+                Join H-Circle
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNATURE SERVICES -->
+    <section id="services" class="py-16 sm:py-24 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-serif uppercase tracking-widest text-hiatus-sage font-bold">The Treatment Menu</span>
+          <h2 class="text-3xl font-serif font-bold text-hiatus-indigo mt-2">Curated Spa &amp; Medical Aesthetics</h2>
+          <div class="w-16 h-0.5 bg-hiatus-gold mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="bg-hiatus-cream p-8 rounded-xl border border-hiatus-gold/20 shadow-sm">
+            <span class="text-2xl mb-4 block">✨</span>
+            <h3 class="font-serif font-bold text-lg text-hiatus-indigo mb-2">Hydrafacial MD</h3>
+            <p class="text-xs text-hiatus-slate leading-relaxed mb-4">
+              Patented vortex technology to cleanse, extract, and hydrate. Delivers instant, glowing results with specialized booster serums tailored to hyperpigmentation or fine lines.
+            </p>
+            <span class="text-xs font-serif font-semibold text-hiatus-gold uppercase tracking-wider">From $195 &bull; 45-60 Mins</span>
+          </div>
+
+          <div class="bg-hiatus-cream p-8 rounded-xl border border-hiatus-gold/20 shadow-sm">
+            <span class="text-2xl mb-4 block">🌿</span>
+            <h3 class="font-serif font-bold text-lg text-hiatus-indigo mb-2">The Hiatus Signature Massage</h3>
+            <p class="text-xs text-hiatus-slate leading-relaxed mb-4">
+              Swedish, deep tissue, and custom aromatherapy techniques integrated with hot river stones and soothing foot reflexology to melt chronic tension.
+            </p>
+            <span class="text-xs font-serif font-semibold text-hiatus-gold uppercase tracking-wider">From $140 &bull; 60-90 Mins</span>
+          </div>
+
+          <div class="bg-hiatus-cream p-8 rounded-xl border border-hiatus-gold/20 shadow-sm">
+            <span class="text-2xl mb-4 block">💉</span>
+            <h3 class="font-serif font-bold text-lg text-hiatus-indigo mb-2">Medical Injectables (Botox &amp; Fillers)</h3>
+            <p class="text-xs text-hiatus-slate leading-relaxed mb-4">
+              Administered by seasoned aesthetic nurse practitioners. Natural, conservative rejuvenation for brow lines, crow's feet, and subtle cheek/lip volume restoration.
+            </p>
+            <span class="text-xs font-serif font-semibold text-hiatus-gold uppercase tracking-wider">Complimentary Consult</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING CONCIERGE (100% WCAG 2.1 AA COMPLIANT) -->
+    <section id="book" class="py-16 sm:py-24 bg-hiatus-indigo text-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+          <span class="text-xs font-serif uppercase tracking-widest text-hiatus-gold font-bold">Sanctuary Concierge</span>
+          <h2 class="text-3xl font-serif font-bold text-white mt-2">Reserve Your Spa Experience</h2>
+          <p class="text-sm text-hiatus-champagne/80 mt-2">
+            Select your preferred sanctuary location and treatment. Our concierge will coordinate your visit.
+          </p>
+        </div>
+
+        <div class="bg-white text-hiatus-indigo p-8 sm:p-10 rounded-2xl shadow-2xl border border-hiatus-gold/30">
+          
+          <form id="hiatusBookingForm" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reserving with Hiatus Spa + Med Spa. Our sanctuary concierge will contact you to finalize your appointment details.');">
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              
+              <!-- Location -->
+              <div>
+                <label for="spaLocation" class="block text-xs font-serif uppercase tracking-wider font-bold text-hiatus-indigo mb-1.5">
+                  Sanctuary Location <span class="text-rose-600">*</span>
+                </label>
+                <select id="spaLocation" name="spaLocation" required
+                        class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hiatus-indigo focus:ring-2 focus:ring-hiatus-indigo/20 text-sm outline-none transition bg-white">
+                  <option value="">-- Select Texas Location --</option>
+                  <option value="Austin - 5th Street">Austin - 5th Street Downtown</option>
+                  <option value="Dallas - Inwood Village">Dallas - Inwood Village</option>
+                  <option value="Dallas - The Hill">Dallas - The Hill</option>
+                  <option value="Houston - Tanglewood">Houston - Tanglewood</option>
+                  <option value="Plano">Plano</option>
+                  <option value="San Antonio - The Pearl">San Antonio - The Pearl</option>
+                </select>
+              </div>
+
+              <!-- Service -->
+              <div>
+                <label for="spaService" class="block text-xs font-serif uppercase tracking-wider font-bold text-hiatus-indigo mb-1.5">
+                  Desired Treatment <span class="text-rose-600">*</span>
+                </label>
+                <select id="spaService" name="spaService" required
+                        class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hiatus-indigo focus:ring-2 focus:ring-hiatus-indigo/20 text-sm outline-none transition bg-white">
+                  <option value="">-- Select Service --</option>
+                  <option value="Hiatus Signature Massage">Hiatus Signature Massage</option>
+                  <option value="Tailored Facial">The Tailored Facial</option>
+                  <option value="Hydrafacial MD">Hydrafacial MD</option>
+                  <option value="Botox / Medical Aesthetic">Botox / Dermal Filler Consultation</option>
+                  <option value="H-Circle Membership">Join H-Circle Monthly Membership</option>
+                  <option value="Couples Retreat">Couples Sanctuary Package</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="guestName" class="block text-xs font-serif uppercase tracking-wider font-bold text-hiatus-indigo mb-1.5">
+                  Your Full Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="guestName" name="guestName" required
+                       placeholder="e.g. Genevieve Clark"
+                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hiatus-indigo focus:ring-2 focus:ring-hiatus-indigo/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="guestPhone" class="block text-xs font-serif uppercase tracking-wider font-bold text-hiatus-indigo mb-1.5">
+                  Cell Phone Number <span class="text-rose-600">*</span>
+                </label>
+                <input type="tel" id="guestPhone" name="guestPhone" required
+                       placeholder="(512) 000-0000"
+                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hiatus-indigo focus:ring-2 focus:ring-hiatus-indigo/20 text-sm outline-none transition">
+              </div>
+            </div>
+
+            <div>
+              <label for="guestEmail" class="block text-xs font-serif uppercase tracking-wider font-bold text-hiatus-indigo mb-1.5">
+                Email Address <span class="text-rose-600">*</span>
+              </label>
+              <input type="email" id="guestEmail" name="guestEmail" required
+                     placeholder="genevieve@example.com"
+                     class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hiatus-indigo focus:ring-2 focus:ring-hiatus-indigo/20 text-sm outline-none transition">
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <span class="text-xs text-slate-500">
+                🌿 Mindful Relaxation &bull; Texas Sanctuaries
+              </span>
+              <button type="submit" 
+                      class="w-full sm:w-auto bg-hiatus-indigo hover:bg-hiatus-indigoDark text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded-full text-xs shadow-lg transition">
+                Request Reservation &rarr;
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-hiatus-indigoDark text-hiatus-champagne/70 text-xs py-10 border-t border-hiatus-indigo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-white font-serif font-bold text-sm tracking-widest uppercase">Hiatus Day Spa + Med Spa</p>
+        <p class="mt-1">Sanctuaries in Austin, Dallas, Houston, Plano &amp; San Antonio &bull; (512) 362-5777</p>
+      </div>
+      <div class="text-center md:text-right">
+        <p>&copy; 2026 Hiatus Spa. All rights reserved.</p>
+        <p class="mt-1 text-hiatus-champagne/50">Modernized Architecture &bull; 100% WCAG 2.1 AA Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CALL CONDUIT -->
+  <div class="fixed bottom-0 inset-x-0 bg-hiatus-indigo border-t border-hiatus-gold/40 p-2.5 flex items-center justify-between z-50 md:hidden shadow-2xl">
+    <a href="tel:+15123625777" class="flex-1 bg-hiatus-gold hover:bg-amber-600 text-hiatus-indigoDark font-serif uppercase tracking-wider font-bold py-2.5 px-3 rounded-full text-center text-xs flex items-center justify-center gap-2">
+      <svg class="w-4 h-4 text-hiatus-indigoDark" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Tap To Call (512) 362-5777</span>
+    </a>
+    <a href="#book" class="ml-2 bg-white/10 text-white font-serif uppercase tracking-wider font-semibold py-2.5 px-3 rounded-full text-xs">
+      Reserve
+    </a>
+  </div>
+
+  <!-- ADA ACCESSIBILITY FLOATING TOOLBAR -->
+  <script src="./accessibility-widget.js"></script>
+</body>
+</html>

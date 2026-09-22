@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthWellnessMD | Dr. Maryann Prewitt, MD, FACOG | Functional Medicine Dallas, TX</title>
+  <meta name="description" content="Dallas's premier functional medicine, bioidentical hormone replacement (BHRT), and cellular longevity practice. Led by Dr. Maryann Prewitt, MD, FACOG. (214) 363-2511.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hw: {
+              teal: '#0E7490',
+              tealDark: '#155E75',
+              coral: '#F97316',
+              coralHover: '#EA580C',
+              cream: '#FAFAF9',
+              sand: '#F5F5F4',
+              charcoal: '#1C1C1C',
+              slate: '#57534E'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="bg-hw-cream text-hw-charcoal font-sans antialiased selection:bg-hw-teal selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-hw-teal focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- TOP BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-hw-charcoal text-slate-300 text-xs py-2 px-4 border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% WCAG 2.1 AA Compliant Patient Intake</strong> &bull; Zero Server Latency.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Dallas Practice: <a href="tel:+12143632511" class="text-white hover:text-hw-coral font-bold transition-colors">(214) 363-2511</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-hw-sand shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="HealthWellnessMD Home">
+        <img src="https://www.healthwellnessmd.com/wp-content/uploads/2017/06/Healthwellnessmd-Logo.jpg" alt="HealthWellnessMD" class="h-10 sm:h-12 w-auto object-contain" onerror="this.onerror=null; this.innerHTML='<span class=\'font-serif font-bold text-xl text-hw-teal\'>HEALTH<span class=\'text-hw-coral\'>WELLNESS</span>MD</span>';">
+        <div class="hidden sm:block pl-3 border-l border-hw-sand">
+          <span class="block text-xs uppercase tracking-widest text-hw-teal font-serif font-bold">Dr. Maryann Prewitt, MD</span>
+          <span class="block text-[11px] text-hw-slate font-medium">Dallas, Texas</span>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-serif uppercase tracking-widest font-semibold text-hw-charcoal">
+        <a href="#longevity" class="hover:text-hw-teal transition-colors">Functional Longevity</a>
+        <a href="#hormones" class="hover:text-hw-teal transition-colors">Bioidentical BHRT</a>
+        <a href="#prewitt" class="hover:text-hw-teal transition-colors">Dr. Prewitt</a>
+        <a href="#consultation" class="hover:text-hw-teal transition-colors">Schedule Visit</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+12143632511" class="hidden sm:inline-flex items-center gap-2 bg-hw-sand hover:bg-stone-200 text-hw-charcoal px-4 py-2.5 rounded-full text-xs font-serif uppercase tracking-wider font-semibold transition-colors">
+          <svg class="w-3.5 h-3.5 text-hw-teal" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>(214) 363-2511</span>
+        </a>
+        <a href="#consultation" class="bg-hw-teal hover:bg-hw-tealDark text-white px-5 py-2.5 rounded-full text-xs font-serif uppercase tracking-widest font-semibold shadow transition-colors">
+          Optimize Health
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-white py-16 sm:py-24 border-b border-hw-sand overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-hw-teal text-xs font-serif uppercase tracking-widest font-semibold mb-6">
+              <span class="w-2 h-2 rounded-full bg-hw-teal"></span>
+              <span>Dallas, Texas &bull; Functional Medicine &amp; Longevity</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-hw-charcoal leading-tight mb-6">
+              Optimize Your Health. <br><span class="italic text-hw-teal">Reclaim Your Vitality.</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-hw-slate font-light leading-relaxed mb-8 max-w-xl">
+              Led by Dr. Maryann Prewitt, MD, FACOG, HealthWellnessMD bridges conventional clinical medicine with cutting-edge functional health, bioidentical hormones, and cellular longevity science to help you thrive at every stage of life.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <a href="#consultation" class="bg-hw-teal hover:bg-hw-tealDark text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded-full text-center text-xs shadow-xl transition-all">
+                Schedule Physician Assessment &rarr;
+              </a>
+              <a href="tel:+12143632511" class="inline-flex items-center justify-center gap-2 bg-hw-sand hover:bg-stone-200 text-hw-charcoal font-serif uppercase tracking-widest font-semibold px-6 py-3.5 rounded-full text-xs transition-colors">
+                <svg class="w-4 h-4 text-hw-teal" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+                <span>Call (214) 363-2511</span>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 pt-10 mt-10 border-t border-hw-sand text-xs">
+              <div>
+                <span class="block font-serif text-2xl font-bold text-hw-teal">Board-Certified</span>
+                <span class="text-hw-slate">MD &amp; FACOG Leadership</span>
+              </div>
+              <div>
+                <span class="block font-serif text-2xl font-bold text-hw-teal">Precision BHRT</span>
+                <span class="text-hw-slate">Hormone Optimization</span>
+              </div>
+              <div>
+                <span class="block font-serif text-2xl font-bold text-hw-teal">Longevity</span>
+                <span class="text-hw-slate">Cellular Anti-Aging</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="bg-teal-900 text-white rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+              <div class="relative z-10">
+                <span class="text-xs font-serif uppercase tracking-widest text-amber-300 font-bold">Physician Spotlight</span>
+                <h3 class="font-serif font-bold text-2xl mt-2 mb-3">Dr. Maryann Prewitt, MD</h3>
+                <p class="text-xs text-teal-100 leading-relaxed mb-6 font-light">
+                  "True health is not merely the absence of disease; it is an abundance of cellular energy, restorative sleep, balanced hormones, and sharp mental clarity."
+                </p>
+                <div class="border-t border-teal-700/60 pt-4 text-[11px] text-teal-200 space-y-1.5">
+                  <p>&bull; Fellow of the American College of Obstetricians &amp; Gynecologists</p>
+                  <p>&bull; Member of the Institute for Functional Medicine</p>
+                  <p>&bull; Dallas Medical Practice over 20+ Years</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FUNCTIONAL PILLARS -->
+    <section id="longevity" class="py-16 sm:py-24 bg-hw-sand border-b border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-serif uppercase tracking-widest text-hw-teal font-bold">Our Medical Model</span>
+          <h2 class="text-3xl font-serif font-bold text-hw-charcoal mt-2">Comprehensive Functional Wellness</h2>
+          <div class="w-16 h-0.5 bg-hw-coral mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🧬</span>
+            <h3 class="font-serif font-bold text-lg text-hw-charcoal mb-2">Bioidentical Hormones (BHRT)</h3>
+            <p class="text-xs text-hw-slate leading-relaxed mb-4">
+              Restoring thyroid, estrogen, progesterone, and testosterone balance using customized pellet and topical formulations based on comprehensive blood panels.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-hw-teal hover:text-hw-coral">Evaluate Hormones &rarr;</a>
+          </div>
+
+          <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🔬</span>
+            <h3 class="font-serif font-bold text-lg text-hw-charcoal mb-2">Cellular Longevity &amp; Peptides</h3>
+            <p class="text-xs text-hw-slate leading-relaxed mb-4">
+              Target mitochondrial health, chronic inflammation, metabolic reset, and cellular rejuvenation through evidence-based peptide and nutraceutical therapies.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-hw-teal hover:text-hw-coral">Evaluate Longevity &rarr;</a>
+          </div>
+
+          <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm">
+            <span class="text-2xl mb-4 block">🌸</span>
+            <h3 class="font-serif font-bold text-lg text-hw-charcoal mb-2">Sexual Wellness &amp; Aesthetics</h3>
+            <p class="text-xs text-hw-slate leading-relaxed mb-4">
+              Advanced regenerative treatments for feminine vitality, incontinence resolution, collagen remodeling, and holistic physical confidence.
+            </p>
+            <a href="#consultation" class="text-xs font-serif font-bold uppercase tracking-wider text-hw-teal hover:text-hw-coral">Explore Solutions &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTAKE FORM (100% WCAG 2.1 AA COMPLIANT) -->
+    <section id="consultation" class="py-16 sm:py-24 bg-teal-950 text-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+          <span class="text-xs font-serif uppercase tracking-widest text-amber-300 font-bold">New Patient Intake</span>
+          <h2 class="text-3xl font-serif font-bold text-white mt-2">Request A Consultation With Dr. Prewitt</h2>
+          <p class="text-sm text-teal-100 mt-2">
+            Dallas Practice (Highland Park / Preston Center) &bull; Confidential Assessment.
+          </p>
+        </div>
+
+        <div class="bg-white text-hw-charcoal p-8 sm:p-10 rounded-2xl shadow-2xl border border-teal-800">
+          
+          <form id="hwIntakeForm" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for requesting an appointment with HealthWellnessMD. Our patient coordinator will contact you shortly.');">
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="hwPatientName" class="block text-xs font-serif uppercase tracking-wider font-bold text-hw-teal mb-1.5">
+                  Full Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="hwPatientName" name="hwPatientName" required
+                       placeholder="e.g. Cynthia Rogers"
+                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hw-teal focus:ring-2 focus:ring-hw-teal/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="hwPatientPhone" class="block text-xs font-serif uppercase tracking-wider font-bold text-hw-teal mb-1.5">
+                  Phone Number <span class="text-rose-600">*</span>
+                </label>
+                <input type="tel" id="hwPatientPhone" name="hwPatientPhone" required
+                       placeholder="(214) 000-0000"
+                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hw-teal focus:ring-2 focus:ring-hw-teal/20 text-sm outline-none transition">
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label for="hwPatientEmail" class="block text-xs font-serif uppercase tracking-wider font-bold text-hw-teal mb-1.5">
+                  Email Address <span class="text-rose-600">*</span>
+                </label>
+                <input type="email" id="hwPatientEmail" name="hwPatientEmail" required
+                       placeholder="cynthia@example.com"
+                       class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hw-teal focus:ring-2 focus:ring-hw-teal/20 text-sm outline-none transition">
+              </div>
+
+              <div>
+                <label for="hwInterest" class="block text-xs font-serif uppercase tracking-wider font-bold text-hw-teal mb-1.5">
+                  Primary Area of Concern <span class="text-rose-600">*</span>
+                </label>
+                <select id="hwInterest" name="hwInterest" required
+                        class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hw-teal focus:ring-2 focus:ring-hw-teal/20 text-sm outline-none transition bg-white">
+                  <option value="">-- Select Focus Area --</option>
+                  <option value="Hormone Therapy">Bioidentical Hormone Optimization (BHRT)</option>
+                  <option value="Fatigue & Longevity">Chronic Fatigue &amp; Cellular Longevity</option>
+                  <option value="Weight & Metabolism">Metabolic Reset &amp; Weight Optimization</option>
+                  <option value="Sexual Health">Aesthetic Gynecology / Sexual Wellness</option>
+                  <option value="Comprehensive Consult">Executive Comprehensive Health Audit</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="hwSymptoms" class="block text-xs font-serif uppercase tracking-wider font-bold text-hw-teal mb-1.5">
+                Describe Your Primary Symptoms Or Health Goals <span class="text-rose-600">*</span>
+              </label>
+              <textarea id="hwSymptoms" name="hwSymptoms" rows="3" required
+                        placeholder="Please share what you are experiencing (e.g. brain fog, hot flashes, low stamina, stubborn weight gain)..."
+                        class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:border-hw-teal focus:ring-2 focus:ring-hw-teal/20 text-sm outline-none transition"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+              <span class="text-xs text-slate-500">
+                🔒 HIPAA Compliant &bull; 100% Confidential
+              </span>
+              <button type="submit" 
+                      class="w-full sm:w-auto bg-hw-teal hover:bg-hw-tealDark text-white font-serif uppercase tracking-widest font-bold px-8 py-3.5 rounded-full text-xs shadow-lg transition">
+                Request Appointment &rarr;
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-neutral-950 text-slate-400 text-xs py-10 border-t border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="text-white font-serif font-bold text-sm">HealthWellnessMD | Dr. Maryann Prewitt, MD, FACOG</p>
+        <p class="mt-1">Dallas Office: Preston Center &bull; Call (214) 363-2511 &bull; info@healthwellnessmd.com</p>
+      </div>
+      <div class="text-center md:text-right">
+        <p>&copy; 2026 HealthWellnessMD. All rights reserved.</p>
+        <p class="mt-1 text-slate-500">Modern Architecture &bull; 100% WCAG 2.1 AA Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CALL CONDUIT -->
+  <div class="fixed bottom-0 inset-x-0 bg-teal-950 border-t border-teal-800 p-2.5 flex items-center justify-between z-50 md:hidden shadow-2xl">
+    <a href="tel:+12143632511" class="flex-1 bg-hw-coral hover:bg-hw-coralHover text-white font-serif uppercase tracking-wider font-bold py-2.5 px-3 rounded-full text-center text-xs flex items-center justify-center gap-2">
+      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Tap To Call (214) 363-2511</span>
+    </a>
+    <a href="#consultation" class="ml-2 bg-white/10 text-white font-serif uppercase tracking-wider font-semibold py-2.5 px-3 rounded-full text-xs">
+      Intake
+    </a>
+  </div>
+
+  <!-- ADA ACCESSIBILITY FLOATING TOOLBAR -->
+  <script src="./accessibility-widget.js"></script>
+</body>
+</html>

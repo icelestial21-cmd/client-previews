@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ryan Krebs, M.D., J.D. | Austin Medical Malpractice Attorney &amp; Physician</title>
+  <meta name="description" content="Board-certified physician and veteran trial lawyer Dr. Ryan Krebs represents catastrophic medical malpractice, birth injury, and wrongful death victims across Texas. (512) 478-2072.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            krebs: {
+              navy: '#002B66',
+              navyDark: '#001D45',
+              parchment: '#F6F3EC',
+              parchmentLight: '#FAF8F4',
+              gold: '#C5A059',
+              goldLight: '#E0BF8C',
+              sand: '#CEC2AB',
+              charcoal: '#222831',
+              slate: '#4A5568'
+            }
+          },
+          fontFamily: {
+            serif: ['"Cinzel"', 'Georgia', 'serif'],
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .gold-border-gradient {
+      border-image: linear-gradient(to right, #C5A059, #E0BF8C, #C5A059) 1;
+    }
+    .hero-gradient {
+      background: linear-gradient(180deg, rgba(0,29,69,0.92) 0%, rgba(0,43,102,0.85) 100%);
+    }
+  </style>
+</head>
+<body class="bg-krebs-parchmentLight text-krebs-charcoal font-sans antialiased selection:bg-krebs-navy selection:text-white pb-16 md:pb-0">
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-krebs-navy focus:text-white focus:rounded">
+    Skip to main content
+  </a>
+
+  <!-- TOP COMPLIANCE & UPGRADE BANNER -->
+  <aside aria-label="Modernized preview notice" class="bg-krebs-navyDark text-krebs-parchment text-xs py-2 px-4 border-b border-krebs-navy">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-krebs-goldLight border border-krebs-gold/40">
+          PROPOSED 2026 ARCHITECTURE
+        </span>
+        <span>Re-engineered with <strong>100% WCAG 2.1 AA Title III Accessible Intake</strong> &bull; Direct Mobile Tap-to-Call.</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs">
+        <span>Confidential Intake: <a href="tel:+15124782072" class="text-white hover:text-krebs-gold font-semibold transition-colors">(512) 478-2072</a></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-krebs-sand/50 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#hero" class="flex items-center gap-3 group" aria-label="Ryan Krebs, M.D., J.D. Homepage">
+        <img src="https://ryankrebsmdjd.com/wp-content/uploads/logo-horizontal-280.png" alt="Ryan Krebs, M.D., J.D. - Austin Medical Malpractice Attorney" class="h-10 sm:h-12 w-auto object-contain" onerror="this.onerror=null; this.src='https://res.cloudinary.com/expertise-com/image/upload/f_auto,fl_lossy,q_auto/w_auto/remote_media/awards/tx_austin_medical-malpractice-attorney_2022.svg';">
+        <div class="hidden xl:block pl-3 border-l border-krebs-sand">
+          <span class="block text-xs uppercase tracking-widest text-krebs-navy font-serif font-bold">Doctor &bull; Lawyer</span>
+          <span class="block text-[11px] text-krebs-slate tracking-wider">Catastrophic Medical Injury</span>
+        </div>
+      </a>
+
+      <!-- NAV -->
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-serif uppercase tracking-widest font-semibold text-krebs-navy">
+        <a href="#duality" class="hover:text-krebs-gold transition-colors">The MD / JD Advantage</a>
+        <a href="#practice" class="hover:text-krebs-gold transition-colors">Practice Areas</a>
+        <a href="#credentials" class="hover:text-krebs-gold transition-colors">Credentials</a>
+        <a href="#results" class="hover:text-krebs-gold transition-colors">Case Evaluation</a>
+      </nav>
+
+      <!-- CTA BUTTON -->
+      <div class="flex items-center gap-3">
+        <a href="tel:+15124782072" class="hidden sm:inline-flex items-center gap-2 bg-krebs-navy hover:bg-krebs-navyDark text-white px-4 py-2.5 rounded text-xs font-serif uppercase tracking-wider font-semibold shadow transition-colors">
+          <svg class="w-3.5 h-3.5 text-krebs-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+          <span>(512) 478-2072</span>
+        </a>
+        <a href="#contact" class="bg-krebs-gold hover:bg-amber-600 text-white px-4 py-2.5 rounded text-xs font-serif uppercase tracking-wider font-bold shadow transition-colors">
+          Free Consultation
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-krebs-navy text-white overflow-hidden py-16 sm:py-24 border-b border-krebs-gold/30">
+      <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style="background-image: url('https://ryankrebsmdjd.com/wp-content/uploads/header-medical-malpractice-800x631.jpg');"></div>
+      <div class="absolute inset-0 hero-gradient z-0"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-krebs-gold/20 border border-krebs-gold/40 text-krebs-goldLight text-xs font-serif uppercase tracking-widest mb-6">
+            <span>Austin, Texas &bull; Statewide Medical Malpractice Representation</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white tracking-wide leading-tight mb-6">
+            When Medical Care Causes Catastrophic Harm, <span class="text-krebs-goldLight italic">You Need Both A Doctor And A Trial Lawyer.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-krebs-parchment/90 font-light leading-relaxed mb-8">
+            Dr. Ryan Krebs holds both a Doctor of Medicine (M.D.) and a Juris Doctor (J.D.). While ordinary law firms must hire outside medical experts to decipher hospital charts, Dr. Krebs analyzes complex surgical records, anesthesia logs, and fetal monitor strips directly to uncover malpractice that others miss.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a href="#contact" class="bg-krebs-gold hover:bg-amber-500 text-krebs-navyDark font-serif uppercase tracking-wider font-bold px-7 py-3.5 rounded text-center text-sm shadow-xl transition-all">
+              Request Confidential Physician-Attorney Review
+            </a>
+            <a href="tel:+15124782072" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-serif uppercase tracking-wider font-semibold px-6 py-3.5 rounded text-sm transition-colors">
+              <svg class="w-4 h-4 text-krebs-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+              <span>Call (512) 478-2072</span>
+            </a>
+          </div>
+
+          <!-- CREDENTIAL HIGHLIGHTS -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-10 mt-10 border-t border-krebs-sand/20 text-xs">
+            <div>
+              <span class="block text-krebs-goldLight font-serif font-bold text-lg">M.D. + J.D.</span>
+              <span class="text-slate-300">Physician &amp; Trial Counsel</span>
+            </div>
+            <div>
+              <span class="block text-krebs-goldLight font-serif font-bold text-lg">25+ Years</span>
+              <span class="text-slate-300">Austin &amp; Texas Practice</span>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+              <span class="block text-krebs-goldLight font-serif font-bold text-lg">No Win, No Fee</span>
+              <span class="text-slate-300">Contingency Representation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE DUALITY VALUE PROPOSITION -->
+    <section id="duality" class="py-16 sm:py-20 bg-white border-b border-krebs-sand/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs font-serif uppercase tracking-widest text-krebs-gold font-bold">Uncompromising Advocacy</span>
+          <h2 class="text-2xl sm:text-3xl font-serif font-bold text-krebs-navy mt-2">Why The Doctor-Lawyer Duality Wins Catastrophic Cases</h2>
+          <div class="w-16 h-0.5 bg-krebs-gold mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          
+          <div class="bg-krebs-parchmentLight p-8 rounded-lg border border-krebs-sand/50 shadow-sm">
+            <div class="w-12 h-12 rounded bg-krebs-navy text-krebs-goldLight flex items-center justify-center font-serif font-bold text-xl mb-6">
+              1
+            </div>
+            <h3 class="text-lg font-serif font-bold text-krebs-navy mb-3">Immediate Medical Record Deconstruction</h3>
+            <p class="text-sm text-krebs-slate leading-relaxed">
+              Hospital legal defense teams count on confusing medical terminology to obscure negligence. As a licensed medical doctor, Dr. Krebs conducts immediate in-house forensic audits of surgical notes, lab values, and pharmaceutical dosages.
+            </p>
+          </div>
+
+          <div class="bg-krebs-parchmentLight p-8 rounded-lg border border-krebs-sand/50 shadow-sm">
+            <div class="w-12 h-12 rounded bg-krebs-navy text-krebs-goldLight flex items-center justify-center font-serif font-bold text-xl mb-6">
+              2
+            </div>
+            <h3 class="text-lg font-serif font-bold text-krebs-navy mb-3">Superior Cross-Examination of Experts</h3>
+            <p class="text-sm text-krebs-slate leading-relaxed">
+              When insurance defense doctors take the stand to justify malpractice, Dr. Krebs speaks their exact clinical language. He exposes flawed testimony, breaches in standard of care, and medical omissions with surgical precision.
+            </p>
+          </div>
+
+          <div class="bg-krebs-parchmentLight p-8 rounded-lg border border-krebs-sand/50 shadow-sm">
+            <div class="w-12 h-12 rounded bg-krebs-navy text-krebs-goldLight flex items-center justify-center font-serif font-bold text-xl mb-6">
+              3
+            </div>
+            <h3 class="text-lg font-serif font-bold text-krebs-navy mb-3">Zero-Risk Contingency Retainer</h3>
+            <p class="text-sm text-krebs-slate leading-relaxed">
+              You pay nothing out of pocket. We advance all litigation costs, medical expert depositions, and trial preparation fees. We only receive attorney fees if we secure a financial settlement or jury verdict on your behalf.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICE AREAS -->
+    <section id="practice" class="py-16 sm:py-20 bg-krebs-parchment">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <span class="text-xs font-serif uppercase tracking-widest text-krebs-gold font-bold">Clinical &amp; Legal Focus</span>
+            <h2 class="text-2xl sm:text-3xl font-serif font-bold text-krebs-navy mt-2">Complex Medical Practice Areas</h2>
+          </div>
+          <p class="text-sm text-krebs-slate max-w-md mt-4 md:mt-0">
+            Representing families across Austin, Travis County, and Central Texas who have suffered life-altering injuries due to healthcare negligence.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Card 1: Birth Injuries -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/birth-injuries-800x630.jpg" alt="Birth Injury Legal Representation" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Birth Injuries</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Hypoxic Ischemic Encephalopathy (HIE), cerebral palsy, delayed C-section delivery, brachial plexus injuries, and fetal distress mismanagement.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Birth Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Brain & Spinal -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/brain-injury-800x630.jpg" alt="Brain and Spinal Cord Injury Litigation" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Brain &amp; Spinal Cord Injuries</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Anoxia from anesthesia errors, delayed diagnosis of stroke, failed spinal decompression, epidural abscesses, and permanent neurological paralysis.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Neurological Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Serious Surgical Injuries -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/header-serious-injuries-800x630.jpg" alt="Catastrophic Surgical Error Injuries" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Surgical Errors &amp; Negligence</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Organ perforation, retained surgical instruments, post-operative sepsis, wrong-site procedures, and failure to recognize postoperative hemorrhage.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Surgical Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Drug Related Injuries -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/header-drug-related-injuries-800x630.jpg" alt="Pharmaceutical and Medication Errors" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Medication &amp; Pharmacy Errors</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Fatal overdose, contra-indicated drug combinations, anesthesia toxicity, chemotherapy administration errors, and hospital pharmacy dispensing failures.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Medication Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 5: Wrongful Death -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/wrongful-death-800x630.jpg" alt="Wrongful Death Medical Malpractice" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Wrongful Death</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Providing grieving families with compassionate counsel and aggressive courtroom accountability when a hospital or physician error results in loss of life.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Death Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 6: Diagnostic Failures -->
+          <div class="bg-white rounded-lg overflow-hidden border border-krebs-sand/60 shadow-sm hover:shadow-md transition-shadow">
+            <img src="https://ryankrebsmdjd.com/wp-content/uploads/header-medical-malpractice-800x631.jpg" alt="Failure to Diagnose Medical Conditions" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="font-serif font-bold text-lg text-krebs-navy mb-2">Failure to Diagnose</h3>
+              <p class="text-xs text-krebs-slate leading-relaxed mb-4">
+                Misread radiology scans, delayed cancer diagnosis, missed cardiac events, emergency room discharge errors, and pulmonary embolism oversight.
+              </p>
+              <a href="#contact" class="text-xs font-serif font-bold uppercase tracking-wider text-krebs-navy hover:text-krebs-gold inline-flex items-center gap-1">
+                Evaluate Diagnostic Claim &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDENTIALS & AUSTIN PRACTICE -->
+    <section id="credentials" class="py-16 bg-white border-b border-krebs-sand/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          
+          <div class="lg:col-span-5 text-center lg:text-left">
+            <img src="https://res.cloudinary.com/expertise-com/image/upload/f_auto,fl_lossy,q_auto/w_auto/remote_media/awards/tx_austin_medical-malpractice-attorney_2022.svg" alt="Expertise.com Best Medical Malpractice Attorney Austin" class="h-44 mx-auto lg:mx-0 object-contain mb-4">
+            <h3 class="font-serif font-bold text-xl text-krebs-navy">Recognized Austin Medical Trial Firm</h3>
+            <p class="text-xs text-krebs-slate mt-1">Austin Bar Association &bull; State Bar of Texas &bull; American Association for Justice</p>
+          </div>
+
+          <div class="lg:col-span-7 bg-krebs-parchmentLight p-8 rounded-xl border border-krebs-sand">
+            <h3 class="font-serif font-bold text-xl text-krebs-navy mb-4">Academic &amp; Clinical Background</h3>
+            <div class="space-y-4 text-sm text-krebs-slate">
+              <div class="flex items-start gap-3">
+                <span class="font-serif font-bold text-krebs-gold text-lg">&bull;</span>
+                <div>
+                  <strong class="text-krebs-navy">Doctor of Medicine (M.D.):</strong> University of Texas Southwestern Medical School at Dallas.
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-serif font-bold text-krebs-gold text-lg">&bull;</span>
+                <div>
+                  <strong class="text-krebs-navy">Juris Doctor (J.D.):</strong> University of Texas School of Law (Austin, TX).
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-serif font-bold text-krebs-gold text-lg">&bull;</span>
+                <div>
+                  <strong class="text-krebs-navy">Undergraduate:</strong> Stanford University (B.S.).
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="font-serif font-bold text-krebs-gold text-lg">&bull;</span>
+                <div>
+                  <strong class="text-krebs-navy">Bar Admissions:</strong> Supreme Court of Texas, U.S. District Courts for the Western, Northern, and Southern Districts of Texas.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & CASE EVALUATION (100% WCAG 2.1 AA COMPLIANT) -->
+    <section id="contact" class="py-16 sm:py-24 bg-krebs-navy text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-10">
+          <span class="text-xs font-serif uppercase tracking-widest text-krebs-goldLight font-bold">Confidential Medical Inquiry</span>
+          <h2 class="text-3xl font-serif font-bold text-white mt-2">Request Your Case Evaluation</h2>
+          <p class="text-sm text-krebs-parchment/80 mt-2 max-w-lg mx-auto">
+            All consultations are 100% confidential. There is never a fee unless we agree to handle your claim and recover compensation.
+          </p>
+        </div>
+
+        <div class="bg-white text-krebs-charcoal p-8 sm:p-10 rounded-xl shadow-2xl border border-krebs-sand">
+          
+          <form id="krebsIntakeForm" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for reaching out to Ryan Krebs, M.D., J.D. Your confidential medical inquiry has been received. Our team will contact you promptly at the number provided.');">
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              
+              <!-- First Name -->
+              <div>
+                <label for="firstName" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                  First Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="firstName" name="firstName" required
+                       placeholder="e.g. Eleanor"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition">
+              </div>
+
+              <!-- Last Name -->
+              <div>
+                <label for="lastName" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                  Last Name <span class="text-rose-600">*</span>
+                </label>
+                <input type="text" id="lastName" name="lastName" required
+                       placeholder="e.g. Vance"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition">
+              </div>
+
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-6">
+              
+              <!-- Phone -->
+              <div>
+                <label for="phone" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                  Phone Number <span class="text-rose-600">*</span>
+                </label>
+                <input type="tel" id="phone" name="phone" required
+                       placeholder="(512) 000-0000"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition">
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                  Email Address <span class="text-rose-600">*</span>
+                </label>
+                <input type="email" id="email" name="email" required
+                       placeholder="eleanor@example.com"
+                       class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition">
+              </div>
+
+            </div>
+
+            <!-- Claim Type -->
+            <div>
+              <label for="claimType" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                Type of Medical Negligence <span class="text-rose-600">*</span>
+              </label>
+              <select id="claimType" name="claimType" required
+                      class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition bg-white">
+                <option value="">-- Please Select Claim Type --</option>
+                <option value="Birth Injury">Birth Injury / Pediatric Complication</option>
+                <option value="Brain or Spinal Injury">Brain or Spinal Cord Injury</option>
+                <option value="Surgical Negligence">Surgical Error or Anesthesia Complication</option>
+                <option value="Medication Error">Medication or Pharmacy Overdose</option>
+                <option value="Failure to Diagnose">Failure to Diagnose Cancer / Heart Attack / Sepsis</option>
+                <option value="Wrongful Death">Hospital Wrongful Death</option>
+                <option value="Other Medical Malpractice">Other Medical Injury</option>
+              </select>
+            </div>
+
+            <!-- Incident Summary -->
+            <div>
+              <label for="caseSummary" class="block text-xs font-serif uppercase tracking-wider font-bold text-krebs-navy mb-1.5">
+                Brief Description of Hospital, Doctor, and Injury <span class="text-rose-600">*</span>
+              </label>
+              <textarea id="caseSummary" name="caseSummary" rows="4" required
+                        placeholder="Please describe what occurred, the medical facility involved, and the current health condition..."
+                        class="w-full px-4 py-2.5 rounded border border-slate-300 focus:border-krebs-navy focus:ring-2 focus:ring-krebs-navy/20 text-sm outline-none transition"></textarea>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-xs text-slate-500">
+                🔒 Protected by Attorney-Client Confidentiality Privilege
+              </span>
+              <button type="submit" 
+                      class="bg-krebs-navy hover:bg-krebs-navyDark text-krebs-parchment font-serif font-bold uppercase tracking-wider px-8 py-3.5 rounded text-xs shadow-lg transition">
+                Submit For Review
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+        <div class="mt-10 text-center text-xs text-krebs-parchment/60">
+          <p>Office Address: 1104 Nueces Street, Austin, Texas 78701 &bull; Direct: (512) 478-2072 &bull; Email: info@ryankrebsmdjd.com</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-krebs-navyDark text-krebs-parchment/70 text-xs py-10 border-t border-krebs-navy">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-center md:text-left">
+        <p class="font-serif text-white font-bold text-sm">Ryan Krebs, M.D., J.D.</p>
+        <p class="mt-1">Licensed to practice law by the Supreme Court of Texas. Principal office located in Austin, TX.</p>
+      </div>
+      <div class="text-center md:text-right">
+        <p>&copy; 2026 Ryan Krebs, M.D., J.D. All rights reserved.</p>
+        <p class="mt-1 text-krebs-parchment/50">Modernized Architecture &bull; 100% WCAG 2.1 AA Compliant</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CALL CONDUIT (SUB-BAR) -->
+  <div class="fixed bottom-0 inset-x-0 bg-krebs-navy border-t border-krebs-gold/40 p-2.5 flex items-center justify-between z-50 md:hidden shadow-2xl">
+    <a href="tel:+15124782072" class="flex-1 bg-krebs-gold hover:bg-amber-600 text-krebs-navyDark font-serif uppercase tracking-wider font-bold py-2.5 px-3 rounded text-center text-xs flex items-center justify-center gap-2">
+      <svg class="w-4 h-4 text-krebs-navyDark" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/></svg>
+      <span>Tap To Call (512) 478-2072</span>
+    </a>
+    <a href="#contact" class="ml-2 bg-white/10 text-white font-serif uppercase tracking-wider font-semibold py-2.5 px-3 rounded text-xs">
+      Evaluate
+    </a>
+  </div>
+
+  <!-- ADA ACCESSIBILITY FLOATING TOOLBAR -->
+  <script src="./accessibility-widget.js"></script>
+</body>
+</html>

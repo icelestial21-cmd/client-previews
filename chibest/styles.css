@@ -1,0 +1,67 @@
+/* Custom CSS for Chibest Digital Atelier */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0C10;
+}
+::-webkit-scrollbar-thumb {
+  background: #272A38;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8822 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Laser Scan Animation */
+@keyframes laserSweep {
+  0% {
+    top: 5%;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 95%;
+    opacity: 0.2;
+  }
+}
+
+#scan-laser.scanning {
+  animation: laserSweep 3.5s ease-in-out infinite alternate;
+}
+
+/* Measurement Card Hover */
+.measurement-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.measurement-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.4);
+  background-color: rgba(27, 30, 40, 0.8);
+}
+
+/* Active Build Archetype Button */
+.build-btn.active {
+  border-color: #D4AF37 !important;
+  background-color: rgba(212, 175, 55, 0.15) !important;
+  color: #F3E5AB !important;
+  font-weight: 600;
+}
+
+/* Canvas Silhouette Styling */
+#vision-canvas {
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.15));
+}

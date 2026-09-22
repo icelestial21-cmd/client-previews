@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>[OPERATOR QA] Hiatus Spa | Architecture Review &amp; Handover Console</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-950 text-white h-[100dvh] flex flex-col overflow-hidden select-none">
+
+  <!-- TOP APP HEADER -->
+  <header class="bg-slate-950 border-b border-slate-800 px-3 py-1 sm:px-5 lg:py-1.5 lg:px-6 shrink-0 z-30">
+    <div class="w-full flex items-center justify-between gap-2 lg:gap-4">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <span class="font-bold text-amber-400 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-1.5 select-none">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Hiatus Spa <span class="text-amber-500/80 font-normal">&bull; Operator Console</span>
+        </span>
+      </div>
+
+      <!-- DESKTOP VIEWPORT CONTROLS -->
+      <div class="hidden lg:flex items-center gap-1 bg-slate-900 p-0.5 rounded-md border border-slate-800 text-xs">
+        <button id="btnSplit" onclick="setViewMode('split')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold bg-slate-800 text-amber-400 flex items-center gap-1 transition cursor-pointer">
+          <span>⚖️ Split 50/50</span>
+        </button>
+
+        <button id="btnMobile" onclick="setViewMode('mobile')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>📱 Mobile (390px)</span>
+        </button>
+
+        <button id="btnFullscreen" onclick="setViewMode('fullscreen')" 
+                class="view-btn px-2.5 py-1 rounded font-semibold text-slate-400 hover:text-white flex items-center gap-1 transition cursor-pointer">
+          <span>⛶ Fullscreen</span>
+        </button>
+
+        <a href="./compare.html" target="_blank" rel="noopener noreferrer"
+           class="px-2.5 py-1 rounded font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition border border-emerald-500/30 bg-emerald-950/40"
+           title="Inspect Public Client View">
+          <span>Public View ↗</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <button onclick="openReleaseModal()" 
+                class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-md text-xs uppercase tracking-wider shadow transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+          <span>⚙️ Handover &amp; Release</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- OPERATOR COMMAND TOOLBAR -->
+  <div id="operatorBar" class="bg-slate-900 border-b border-amber-500/40 px-3 sm:px-5 lg:px-6 py-1.5 shrink-0 z-40">
+    <div class="w-full flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40 text-[10px] tracking-wide uppercase">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          Operator QA
+        </span>
+        <span id="opStatusPill" class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800 text-[10px] font-medium whitespace-nowrap">
+          Loading status...
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="./compare.html" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded border border-slate-700 text-xs transition flex items-center gap-1.5" title="View public client comparison page">
+          <span>👁️ Test Client View</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN COMPARISON VIEWPORT CONTAINER -->
+  <main id="mainComparison" class="flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative">
+    <div id="leftPane" class="hidden lg:flex relative w-full h-full flex-col bg-slate-950 transition-all duration-300">
+      <iframe src="http://www.hiatusspa.com/" class="w-full h-full border-0 bg-white opacity-95"></iframe>
+    </div>
+
+    <div id="rightPane" class="relative w-full h-full flex flex-col items-center justify-center bg-slate-950 transition-all duration-300 overflow-auto p-0">
+      <div id="fullscreenReturnBar" class="hidden absolute top-4 right-4 z-40">
+        <button onclick="setViewMode('split')" 
+                class="bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 px-4 py-2 rounded-lg text-xs font-bold shadow-2xl flex items-center gap-2 backdrop-blur transition cursor-pointer">
+          <span>&larr; Exit Fullscreen (Return to Split)</span>
+        </button>
+      </div>
+
+      <div id="iframeWrapper" class="w-full h-full relative transition-all duration-300">
+        <iframe id="upgradeIframe" src="./index.html" class="w-full h-full border-0 bg-white"></iframe>
+      </div>
+    </div>
+  </main>
+
+  <!-- RELEASE MODAL -->
+  <div id="releaseModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl w-full max-w-xl shadow-2xl overflow-hidden text-left">
+      <div class="bg-slate-950 border-b border-slate-800 px-5 py-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span>
+          <h3 class="font-bold text-white text-sm uppercase tracking-wider">Staging Handover &amp; Release Engine</h3>
+        </div>
+        <button onclick="closeReleaseModal()" class="text-slate-400 hover:text-white text-lg font-bold transition cursor-pointer">&times;</button>
+      </div>
+
+      <div class="p-5 space-y-4 max-h-[80vh] overflow-y-auto text-xs sm:text-sm">
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-bold text-slate-400">Current Client View Status</span>
+            <div id="modalStatusDisplay" class="font-bold text-amber-400 text-xs sm:text-sm">Loading...</div>
+          </div>
+          <span id="modalBufferBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-500/40">
+            3-Day Buffer Active
+          </span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-2">Select Reveal Timing Mode</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-slate-800 bg-slate-950/60 hover:border-slate-700 cursor-pointer transition">
+              <input type="radio" name="modalRevealMode" value="scheduled" checked class="mt-0.5 text-amber-500 focus:ring-0">
+              <div>
+                <span class="font-bold text-white text-xs block">⏳ Scheduled Reveal</span>
+                <span class="text-[11px] text-slate-400 leading-tight block mt-0.5">Keep teaser active until scheduled date.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-slate-800 bg-slate-950/60 hover:border-slate-700 cursor-pointer transition">
+              <input type="radio" name="modalRevealMode" value="instant" class="mt-0.5 text-emerald-500 focus:ring-0">
+              <div>
+                <span class="font-bold text-white text-xs block">⚡ Instant Reveal</span>
+                <span class="text-[11px] text-slate-400 leading-tight block mt-0.5">Finalize complete multi-page architecture immediately.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/70 p-3.5 rounded-lg border border-slate-800 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 cursor-pointer font-bold text-xs text-white">
+              <input type="checkbox" id="chkNotifyEmail" checked class="rounded bg-slate-900 border-slate-700 text-indigo-500 focus:ring-0">
+              <span>Send Handover Notification Email to Client</span>
+            </label>
+            <button type="button" onclick="sendTestEmail()" class="text-[11px] text-amber-400 hover:text-amber-300 underline font-semibold cursor-pointer">
+              ✉️ Send Test Copy to Me
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Client Contact Name</span>
+              <input type="text" id="clientContactName" value="Hiatus Spa" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+            </div>
+            <div>
+              <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Client Email Address</span>
+              <input type="email" id="clientContactEmail" value="addison@hiatusspa.com" class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+            </div>
+          </div>
+        </div>
+
+        <div id="releaseAlert" class="hidden p-2.5 rounded text-xs font-semibold"></div>
+      </div>
+
+      <div class="bg-slate-950 border-t border-slate-800 px-5 py-3 flex items-center justify-between">
+        <button onclick="closeReleaseModal()" class="px-3 py-1.5 rounded border border-slate-700 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer">Cancel</button>
+        <button onclick="saveReleaseSettings()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-1.5 rounded text-xs uppercase tracking-wider cursor-pointer shadow transition">
+          💾 Save &amp; Apply Release Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CLIENT_ID = 'hiatusspa';
+    let currentClientState = null;
+
+    function setViewMode(mode) {
+      const leftPane = document.getElementById('leftPane');
+      const rightPane = document.getElementById('rightPane');
+      const mainGrid = document.getElementById('mainComparison');
+      const iframeWrapper = document.getElementById('iframeWrapper');
+      const returnBar = document.getElementById('fullscreenReturnBar');
+
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-amber-400');
+        btn.classList.add('text-slate-400');
+      });
+
+      if (mode === 'split') {
+        document.getElementById('btnSplit').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnSplit').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex');
+        returnBar.classList.add('hidden');
+      } else if (mode === 'mobile') {
+        document.getElementById('btnMobile').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnMobile').classList.remove('text-slate-400');
+        mainGrid.className = "flex-1 flex lg:grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800 overflow-hidden relative";
+        leftPane.classList.remove('hidden');
+        leftPane.classList.add('lg:flex');
+        rightPane.classList.remove('hidden', 'flex-1');
+        rightPane.classList.add('flex', 'items-center', 'justify-center', 'p-6', 'bg-slate-900/50');
+        returnBar.classList.add('hidden');
+      } else if (mode === 'fullscreen') {
+        document.getElementById('btnFullscreen').classList.add('bg-slate-800', 'text-amber-400');
+        document.getElementById('btnFullscreen').classList.remove('text-slate-400');
+        leftPane.classList.add('hidden');
+        leftPane.classList.remove('lg:flex');
+        rightPane.classList.remove('hidden');
+        rightPane.classList.add('flex-1');
+        returnBar.classList.remove('hidden');
+      }
+    }
+
+    function openReleaseModal() {
+      document.getElementById('releaseModal').classList.remove('hidden');
+    }
+
+    function closeReleaseModal() {
+      document.getElementById('releaseModal').classList.add('hidden');
+    }
+
+    async function fetchReleaseState() {
+      try {
+        const resp = await fetch(`https://audits.icelestial.com/api/status?client=${CLIENT_ID}`);
+        if (resp.ok) {
+          const state = await resp.json();
+          currentClientState = state;
+          const statusPill = document.getElementById('opStatusPill');
+          const modalStatus = document.getElementById('modalStatusDisplay');
+          const isRevealed = state.status === 'revealed' || (state.status === 'scheduled' && new Date() >= new Date(state.scheduled_reveal_utc));
+          if (isRevealed) {
+            if (statusPill) statusPill.innerHTML = '<span class="text-emerald-400 font-bold">🟢 Live Revealed</span>';
+            if (modalStatus) modalStatus.innerHTML = '<span class="text-emerald-400 font-bold">🟢 Full Multi-Page Live Revealed</span>';
+          } else {
+            const dateStr = state.scheduled_reveal_utc ? new Date(state.scheduled_reveal_utc).toLocaleDateString(undefined, {month:'short', day:'numeric'}) : '2-3 Days';
+            if (statusPill) statusPill.innerHTML = `<span class="text-amber-400 font-bold">⏳ Scheduled (${dateStr})</span>`;
+            if (modalStatus) modalStatus.innerHTML = `<span class="text-amber-400 font-bold">⏳ Teaser Staged</span>`;
+          }
+        }
+      } catch(e) {}
+    }
+
+    async function saveReleaseSettings() {
+      const alertBox = document.getElementById('releaseAlert');
+      alertBox.className = "p-2.5 rounded text-xs font-semibold bg-blue-900/60 border border-blue-500 text-blue-200 block";
+      alertBox.innerText = "Deploying release configuration...";
+
+      const mode = document.querySelector('input[name="modalRevealMode"]:checked')?.value || 'scheduled';
+      const clientName = document.getElementById('clientContactName').value.trim();
+      const clientEmail = document.getElementById('clientContactEmail').value.trim();
+      const notifyEmail = document.getElementById('chkNotifyEmail').checked;
+
+      const payload = {
+        client_id: CLIENT_ID,
+        client_name: clientName,
+        client_email: clientEmail,
+        reveal_mode: mode,
+        scheduled_reveal_utc: new Date(Date.now() + 72 * 3600 * 1000).toISOString(),
+        notification_email_queued: notifyEmail,
+        delivery_buffer_days: mode === 'instant' ? 0 : 3
+      };
+
+      try {
+        const resp = await fetch('https://audits.icelestial.com/api/release/save', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+        if (data.success) {
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-emerald-950 border border-emerald-500 text-emerald-300 block";
+          alertBox.innerText = "Settings saved successfully!";
+          setTimeout(closeReleaseModal, 1500);
+          fetchReleaseState();
+        }
+      } catch(e) {
+        alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+        alertBox.innerText = "Error: " + e.message;
+      }
+    }
+
+    async function sendTestEmail() {
+      const alertBox = document.getElementById('releaseAlert');
+      alertBox.className = "p-2.5 rounded text-xs font-semibold bg-amber-950/80 border border-amber-500 text-amber-300 block";
+      alertBox.innerText = "Dispatching test copy to i.celestial21@gmail.com...";
+      try {
+        const resp = await fetch('https://audits.icelestial.com/api/release/test_email', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            client_id: CLIENT_ID,
+            client_name: document.getElementById('clientContactName').value.trim(),
+            test_email: 'i.celestial21@gmail.com'
+          })
+        });
+        const data = await resp.json();
+        if (data.success) {
+          alertBox.className = "p-2.5 rounded text-xs font-semibold bg-emerald-950 border border-emerald-500 text-emerald-300 block";
+          alertBox.innerText = "✉️ Test notification dispatched!";
+        }
+      } catch(e) {
+        alertBox.className = "p-2.5 rounded text-xs font-semibold bg-rose-950 border border-rose-500 text-rose-300 block";
+        alertBox.innerText = "Error: " + e.message;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchReleaseState();
+    });
+  </script>
+
+</body>
+</html>
