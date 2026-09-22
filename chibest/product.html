@@ -326,97 +326,233 @@
   <script src="nav.js"></script>
   <script>
     // Product Catalog Database
-    const PRODUCT_CATALOG = {
-      'royal-imperial-agbada': {
-        title: 'The Royal Imperial Agbada',
-        category: 'Haute Couture Ceremonial 3-Piece',
+            const PRODUCT_CATALOG = {
+      'sovereign-agbada-knotwork': {
+        title: 'The Sovereign Agbada',
+        category: 'Ceremonial 3-Piece',
+        priceUsd: 1550,
+        priceGbp: 1225,
+        priceEur: 1425,
+        priceGhs: 23250,
+        desc: 'The crowning masterpiece of the Chibest atelier. Hand-cut from heavy imported obsidian wool, featuring over seventy hours of continuous gold bullion embroidery weaving ancestral knotwork across the chest plate and sleeve drapes. Accompanied by a matching structured Fila crown.',
+        image: 'assets/chibest_product_14_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Super 140s Obsidian Virgin Wool',
+        embroidery: '24K Gold Celtic-African Knotwork Bullion'
+      },
+      'cerulean-sky-agbada': {
+        title: 'The Cerulean Sky Agbada',
+        category: 'Ceremonial 3-Piece',
         priceUsd: 1450,
         priceGbp: 1145,
         priceEur: 1335,
         priceGhs: 21750,
-        desc: 'Commissioned for grand gala coronations, state affairs, and prestigious family unions. Cut from heavyweight imported Italian brocade and wool, featuring over sixty continuous hours of freehand bullion gold embroidery draped majestically over the shoulders.',
-        image: 'assets/chibest_product_6_portrait.jpg',
+        desc: 'An ethereal vision of West African prestige. Lustrous sky blue damask brocade contrasted by structural deep navy geometric bullion embroidery along the collar, placket, and shoulder cape. Complete with matching embroidered Fila cap.',
+        image: 'assets/chibest_product_3_portrait.jpg',
         video: 'assets/agbada_loop.mp4',
         garmentKey: 'agbada',
-        textile: 'Super 140s Italian Wool & Silk Damask',
-        embroidery: '24K Tone Bullion Threading'
+        textile: 'Cerulean Blue Royal Silk Damask',
+        embroidery: 'Geometric Deep Navy Bullion Fretwork'
       },
-      'diplomat-senator': {
+      'royal-ivory-agbada': {
+        title: 'The Royal Ivory Dynasty Agbada',
+        category: 'Ceremonial 3-Piece',
+        priceUsd: 1650,
+        priceGbp: 1300,
+        priceEur: 1520,
+        priceGhs: 24750,
+        desc: 'Reserved for family patriarchs, state inaugurations, and royal unions. Cut from double-faced ivory wool, embellished with hand-guided golden bullion elephant heraldry down the center, signifying ancient wisdom, strength, and sovereign heritage.',
+        image: 'assets/chibest_product_7_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Double-Faced Ivory Wool & Royal Brocade',
+        embroidery: 'Golden Dynastic Elephant Bullion Heraldry'
+      },
+      'imperial-monochrome-agbada': {
+        title: 'The Imperial Monochrome Agbada',
+        category: 'Ceremonial 3-Piece',
+        priceUsd: 1480,
+        priceGbp: 1170,
+        priceEur: 1360,
+        priceGhs: 22200,
+        desc: 'Monochromatic majesty in high contrast. Pure jet black wool with precise silver metallic geometric embroidery across the chest, bordered by razor-sharp white silk piping along every hem and cape perimeter for immaculate structural definition.',
+        image: 'assets/chibest_product_9_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'High-Twist Jet Black English Wool',
+        embroidery: 'Silver Filigree & White Silk Piping'
+      },
+      'emerald-tiger-agbada': {
+        title: 'The Emerald Tiger Agbada',
+        category: 'Ceremonial 3-Piece',
+        priceUsd: 1580,
+        priceGbp: 1250,
+        priceEur: 1455,
+        priceGhs: 23700,
+        desc: 'A breathtaking fusion of ancestral regalia and wild majesty. Crafted in deep charcoal wool with thousands of micro-glass emerald beads hand-sewn into an imposing tiger crest, framed by geometric Greek key gold bullion borders.',
+        image: 'assets/chibest_product_5_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Heavy Charcoal Wool & Satin Lining',
+        embroidery: 'Hand-Beaded Emerald Tiger & Greek Key Bullion'
+      },
+      'diplomat-senator-pinstripe': {
         title: 'The Diplomat Senator Suit',
-        category: 'Bespoke Executive 2-Piece',
+        category: 'Executive 2-Piece',
         priceUsd: 880,
         priceGbp: 695,
         priceEur: 810,
         priceGhs: 13200,
-        desc: 'Sleek continental lines paired with a structured high-mandarin collar, concealed zip placket, and subtle chest embroidery. Engineered for effortless authority in corporate boardrooms and international summits.',
-        image: 'assets/chibest_product_10_portrait.jpg',
+        desc: 'The benchmark executive ensemble. Tailored with architectural precision from navy high-twist wool with subtle burgundy pinstripes. Features a clean mandarin stand collar, concealed button placket, and bespoke chest flap pockets.',
+        image: 'assets/chibest_product_2_portrait.jpg',
         video: 'assets/senator_loop.mp4',
         garmentKey: 'senator',
-        textile: 'Super 140s Navy High-Twist Wool',
-        embroidery: 'Tone-on-Tone Silk Stitching'
+        textile: 'Navy & Burgundy Pinstripe Super 140s Wool',
+        embroidery: 'Concealed Placket & Structural Edge Topstitching'
       },
-      'sovereign-kaftan': {
-        title: 'The Sovereign Kaftan',
-        category: 'Linen Luxury Ensemble',
-        priceUsd: 720,
-        priceGbp: 568,
-        priceEur: 662,
-        priceGhs: 10800,
-        desc: 'Pure breathable emerald tropical weave with geometric hand-embroidered neckline. Tailored with generous side vents for ease of movement during warm-climate receptions.',
-        image: 'assets/chibest_product_5_portrait.jpg',
+      'lagos-sovereign-senator': {
+        title: 'The Lagos Sovereign Senator',
+        category: 'Bespoke Tunic & Trouser',
+        priceUsd: 840,
+        priceGbp: 665,
+        priceEur: 775,
+        priceGhs: 12600,
+        desc: 'Designed for high-profile summits and evening galas. Deep royal navy tropical wool with a mesmerizing concentric spiral motif embroidered directly over the chest plate in lustrous silk threading, cut with relaxed short sleeves for tropical comfort.',
+        image: 'assets/chibest_product_6_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'senator',
+        textile: 'Deep Royal Navy Tropical Weight Wool',
+        embroidery: 'Concentric Spiral Chest Bullion Embroidery'
+      },
+      'envoy-senator-tunic': {
+        title: 'The Envoy Senator Tunic',
+        category: 'Bespoke Tunic & Trouser',
+        priceUsd: 780,
+        priceGbp: 615,
+        priceEur: 720,
+        priceGhs: 11700,
+        desc: 'Commanding yet approachable. Striking cobalt blue gabardine accentuated by sharp geometric gold fretwork embroidery meticulously framing the left chest welt pocket and asymmetric neck closure.',
+        image: 'assets/chibest_product_1_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'senator',
+        textile: 'Cobalt Blue Fine Wool Blend',
+        embroidery: 'Geometric Gold Placket & Pocket Fretwork'
+      },
+      'midnight-royal-kaftan': {
+        title: 'The Royal Midnight Kaftan',
+        category: 'Floor-Length Luxury',
+        priceUsd: 820,
+        priceGbp: 645,
+        priceEur: 755,
+        priceGhs: 12300,
+        desc: 'Uncompromising luxury and ceremonial poise. A full floor-length silhouette cut from jet black high-twist wool. Features delicate tonal and gold beadwork encrusting the neckline, paired with generous side ease vents for majestic stride.',
+        image: 'assets/chibest_product_8_portrait.jpg',
         video: 'assets/agbada_loop.mp4',
         garmentKey: 'kaftan',
-        textile: '100% Pure West African Linen & Silk',
-        embroidery: 'Geometric Filigree Threading'
+        textile: 'Jet Black Moroccan High-Twist Wool',
+        embroidery: 'Hand-Beaded Sovereign Collar & Placket'
       },
-      'executive-safari': {
-        title: 'The Executive Safari Ensemble',
-        category: 'Bespoke Safari 2-Piece',
-        priceUsd: 790,
-        priceGbp: 625,
-        priceEur: 725,
-        priceGhs: 11850,
-        desc: 'Structured quadruple patch pockets with hand-carved horn buttons and military waist cinch. A timeless continental fusion tailored with sharp Savile Row shoulder roping.',
-        image: 'assets/chibest_product_14_portrait.jpg',
+      'accra-presidential-kaftan': {
+        title: 'The Accra Presidential Kaftan',
+        category: 'Ceremonial Kaftan',
+        priceUsd: 750,
+        priceGbp: 590,
+        priceEur: 690,
+        priceGhs: 11250,
+        desc: 'The quintessential daytime ceremonial garment for diplomatic leaders. Pure pristine white crisp cotton-wool blend with subtle vertical tone-on-tone channel embroidery that elongates the frame and breathes effortlessly under midday sun.',
+        image: 'assets/chibest_product_11_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'kaftan',
+        textile: 'Pristine White Crisp Cotton-Wool Blend',
+        embroidery: 'Tone-on-Tone Vertical Channel Threading'
+      },
+      'commander-military-safari': {
+        title: 'The Commander Safari Suit',
+        category: 'Executive Safari',
+        priceUsd: 890,
+        priceGbp: 705,
+        priceEur: 820,
+        priceGhs: 13350,
+        desc: 'Military discipline translated into sartorial elegance. Heavy black wool tailored with structured shoulder roping, polished Ghanaian brass crest buttons, sharp epaulettes, and gold zig-zag topstitching along every seam and flap.',
+        image: 'assets/chibest_product_10_portrait.jpg',
         video: 'assets/senator_loop.mp4',
         garmentKey: 'safari',
-        textile: 'English Wool & Cotton Gabardine',
-        embroidery: 'Precision Hand-Topstitched Seams'
+        textile: 'Heavyweight Black Wool Gabardine',
+        embroidery: 'Gold Zig-Zag Topstitching & Cast Brass Crests'
       },
-      'monarch-ceremonial-agbada': {
-        title: 'The Monarch Ceremonial Agbada',
-        category: 'Haute Couture Ceremonial 3-Piece',
-        priceUsd: 1350,
-        priceGbp: 1065,
-        priceEur: 1240,
-        priceGhs: 20250,
-        desc: 'Rich burgundy wool adorned with expansive chest bullion embroidery. Majestic shoulder drape calibrated to eliminate excess bulk while maximizing presence.',
-        image: 'assets/chibest_product_1_portrait.jpg',
-        video: 'assets/agbada_loop.mp4',
-        garmentKey: 'agbada',
-        textile: 'Burgundy Brocade & Super 130s Wool',
-        embroidery: 'Heavy Gold Bullion Work'
+      'sahara-bespoke-safari': {
+        title: 'The Sahara Bespoke Safari',
+        category: 'Executive Safari',
+        priceUsd: 860,
+        priceGbp: 680,
+        priceEur: 790,
+        priceGhs: 12900,
+        desc: 'Classic continental exploration silhouette tailored for the modern patriarch. Warm Sahara camel wool-linen blend featuring an architectural back and chest yoke, four box-pleated patch pockets, and genuine African horn buttons.',
+        image: 'assets/chibest_product_13_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'safari',
+        textile: 'Sahara Camel Wool & Linen Twill',
+        embroidery: 'Topstitched Architectural Yoke & Box Pleats'
       },
-      'ashanti-gold-agbada': {
-        title: 'The Ashanti Gold Agbada',
-        category: 'Haute Couture Ceremonial 3-Piece',
-        priceUsd: 1600,
-        priceGbp: 1265,
-        priceEur: 1470,
-        priceGhs: 24000,
-        desc: 'Sunburst gold bullion embroidery across the chest, shoulders, and sleeve drapes. The apex of West African sovereign dress, handcrafted exclusively for royalty and heads of state.',
+      'chancellor-safari-suit': {
+        title: 'The Chancellor Safari Suit',
+        category: 'Executive Safari',
+        priceUsd: 870,
+        priceGbp: 690,
+        priceEur: 800,
+        priceGhs: 13050,
+        desc: 'Understated authority in charcoal slate. Features deep bellows cargo pockets with hidden expansion pleats, pleated sleeve cuff details, and an internal drawstring cinch that contours the jacket perfectly to your waistline.',
+        image: 'assets/chibest_product_4_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'safari',
+        textile: 'Slate Grey English Worsted Wool',
+        embroidery: 'Pleated Sleeve Hemming & Bellows Detailing'
+      },
+      'master-tailor-safari': {
+        title: 'The Master Tailor Safari',
+        category: 'Artisan Short-Sleeve',
+        priceUsd: 820,
+        priceGbp: 645,
+        priceEur: 755,
+        priceGhs: 12300,
+        desc: 'The iconic working ensemble of Master Chibest. Mint sage green breathable gabardine tailored with crisp short sleeves, quadruple pockets, and a signature stand-fold collar. Designed for the master craftsman whose office is the cutting table.',
+        image: 'assets/chibest_product_15_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'safari',
+        textile: 'Mint Sage Green Tropical Gabardine',
+        embroidery: 'Double-Stitched Needlework & Tonal Pearl Buttons'
+      },
+      'master-cutting-commission': {
+        title: 'The Master Cutting Room Commission',
+        category: 'Bespoke Atelier Commission',
+        priceUsd: 2200,
+        priceGbp: 1740,
+        priceEur: 2025,
+        priceGhs: 33000,
+        desc: 'The ultimate private commission. Master Chibest personally strikes your pattern onto European raw silks or Super 160s wools on the Pantang cutting table. Includes custom embroidery drafting, video fitting consultations, and dedicated artisan allocation.',
         image: 'assets/chibest_product_12_portrait.jpg',
         video: 'assets/agbada_loop.mp4',
         garmentKey: 'agbada',
-        textile: 'Heavyweight Sovereign Gold Damask',
-        embroidery: 'Full-Coverage Imperial Bullion'
+        textile: 'Client Choice · Super 160s Wool, Raw Silk, or Brocade',
+        embroidery: 'Fully Bespoke Freehand Heraldic Bullion'
       }
     };
+    PRODUCT_CATALOG['sovereign-agbada-knotwork'] = PRODUCT_CATALOG['sovereign-agbada-knotwork'];
+    PRODUCT_CATALOG['diplomat-senator'] = PRODUCT_CATALOG['diplomat-senator-pinstripe'];
+    PRODUCT_CATALOG['sovereign-kaftan'] = PRODUCT_CATALOG['midnight-royal-kaftan'];
+    PRODUCT_CATALOG['executive-safari'] = PRODUCT_CATALOG['commander-military-safari'];
+    PRODUCT_CATALOG['ashanti-gold-agbada'] = PRODUCT_CATALOG['master-cutting-commission'];
+    PRODUCT_CATALOG['sovereign-agbada-knotwork'] = PRODUCT_CATALOG['sovereign-agbada-knotwork'];
+    PRODUCT_CATALOG['diplomat-senator'] = PRODUCT_CATALOG['diplomat-senator-pinstripe'];
+    PRODUCT_CATALOG['sovereign-kaftan'] = PRODUCT_CATALOG['midnight-royal-kaftan'];
+    PRODUCT_CATALOG['executive-safari'] = PRODUCT_CATALOG['commander-military-safari'];
+    PRODUCT_CATALOG['ashanti-gold-agbada'] = PRODUCT_CATALOG['master-cutting-commission'];
 
     // Load URL params
     const params = new URLSearchParams(window.location.search);
-    const productId = params.get('id') || 'royal-imperial-agbada';
-    const product = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['royal-imperial-agbada'];
+    const productId = params.get('id') || 'sovereign-agbada-knotwork';
+    const product = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['sovereign-agbada-knotwork'];
 
     // Render Product Data
     document.getElementById('breadcrumb-title').textContent = product.title;
@@ -437,6 +573,27 @@
     document.getElementById('fit-pavilion-link').href = `fitting-pavilion.html?garment=${product.garmentKey}`;
     const waText = encodeURIComponent(`Hello Master Chibest, I wish to commission ${product.title} ($${product.priceUsd} USD) from your Accra atelier.`);
     document.getElementById('whatsapp-inquire-link').href = `https://wa.me/233554916910?text=${waText}`;
+
+        // Render Dynamic Thumbnails for Selected Garment
+    const thumbContainer = document.querySelector('.grid.grid-cols-4.gap-4');
+    if (thumbContainer) {
+      thumbContainer.innerHTML = `
+        <button class="thumb-btn active aspect-square rounded-xl overflow-hidden border-2 border-gold-500 bg-surface opacity-100 transition-all p-0.5" data-src="${product.image}" data-mode="image">
+          <img src="${product.image}" class="w-full h-full object-cover">
+        </button>
+        <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5" data-src="assets/chibest_product_12_portrait.jpg" data-mode="image">
+          <img src="assets/chibest_product_12_portrait.jpg" class="w-full h-full object-cover">
+        </button>
+        <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5" data-src="assets/authentic_bullion_embroidery.jpg" data-mode="image">
+          <img src="assets/authentic_bullion_embroidery.jpg" class="w-full h-full object-cover">
+        </button>
+        <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5 flex flex-col items-center justify-center text-gold-400 font-mono text-[10px] text-center" data-src="${product.video}" data-mode="video">
+          <i data-lucide="video" class="w-5 h-5 mb-1 text-gold-500"></i>
+          <span>Motion Loop</span>
+        </button>
+      `;
+      if (window.lucide) lucide.createIcons();
+    }
 
     // Video Toggle
     const imgEl = document.getElementById('main-product-img');
