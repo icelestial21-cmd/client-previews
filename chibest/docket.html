@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-obsidian">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAILOR DOCKET #CB-2026-9481 — Chibest Haute Couture | Workshop Cutting Specification</title>
+  <meta name="description" content="Official Bespoke Workshop Cutting Specification Docket #CB-2026-9481 for Chibest Fashion Worldwide atelier in Pantang, Accra.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#07080A',
+            onyx: '#0F1117',
+            surface: '#151722',
+            surfaceLight: '#1E2130',
+            borderSubtle: '#26293B',
+            gold: {
+              300: '#FBF2D5',
+              400: '#F2DC9B',
+              500: '#D4AF37',
+              600: '#AA8822',
+              700: '#856A18',
+              800: '#5E490E'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
+
+  <!-- Announcement Bar (Hidden on print) -->
+  <div class="no-print bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
+    <span>Official Tailor Docket Specification</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Accra Flagship Cutting Rooms</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Ready for Workshop Transmission</span>
+  </div>
+
+  <!-- Primary Header (Hidden on print) -->
+  <header class="no-print sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      
+      <!-- Brand Emblem -->
+      <a href="index.html" class="flex items-center gap-3.5 group">
+        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+          <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+            CHIBEST
+          </span>
+          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+            Haute Couture · Accra
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-9 text-xs tracking-[0.18em] uppercase font-cinzel font-medium">
+        <a href="index.html" class="text-gray-300 hover:text-gold-400 transition-colors">Maison</a>
+        <a href="collections.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Lookbook</a>
+        <a href="fitting-pavilion.html" class="text-gray-300 hover:text-gold-400 transition-colors">Virtual Fitting</a>
+        <a href="ready-to-wear.html" class="text-gray-300 hover:text-gold-400 transition-colors">Ready-to-Wear</a>
+        <a href="atelier.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Atelier</a>
+        <a href="docket.html" class="text-gold-400 font-bold transition-colors">Tailor Docket</a>
+      </nav>
+
+      <!-- Utility -->
+      <div class="flex items-center space-x-4">
+        <button onclick="window.print()" class="px-4 py-2 rounded bg-surfaceLight hover:bg-surface border border-gold-500/40 text-gold-400 text-xs font-mono transition-all flex items-center gap-2">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>Print Docket</span>
+        </button>
+
+        <a id="header-wa-btn" href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+          <i data-lucide="send" class="w-4 h-4 text-emerald-400"></i>
+          <span>Transmit to Workshop</span>
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-1">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gray-300 hover:text-gold-400 py-1">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-1">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
+      <a href="docket.html" class="block text-gold-400 font-bold py-1">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
+      </a>
+    </div>
+  </header>
+
+  <!-- Breadcrumb (Hidden on print) -->
+  <div class="no-print border-b border-borderSubtle bg-onyx/30">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center space-x-2 text-xs font-mono text-gray-400">
+      <a href="index.html" class="hover:text-gold-400 transition-colors">Maison</a>
+      <span>/</span>
+      <a href="fitting-pavilion.html" class="hover:text-gold-400 transition-colors">Virtual Fitting Pavilion</a>
+      <span>/</span>
+      <span class="text-gold-400">Official Tailor Docket #CB-2026-9481</span>
+    </div>
+  </div>
+
+  <!-- Main Docket Container -->
+  <main class="py-12 sm:py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="docket-container" class="bg-surface rounded-2xl border-2 border-gold-500/40 p-6 sm:p-12 shadow-2xl relative">
+      
+      <!-- Docket Header & Atelier Seal -->
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between border-b border-borderSubtle pb-8 gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-full border-2 border-gold-500 p-1 bg-obsidian">
+            <img src="assets/fb_asset_0.jpg" alt="Chibest Seal" class="w-full h-full object-cover rounded-full">
+          </div>
+          <div>
+            <span class="text-xs font-mono text-gold-500 uppercase tracking-[0.25em] block">
+              Official Workshop Cutting Specification
+            </span>
+            <h1 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mt-0.5 tracking-wider">
+              DOCKET NO: #CB-2026-9481
+            </h1>
+            <p class="text-xs text-gray-400 font-mono mt-1">
+              Chibest Fashion Worldwide Atelier · Pantang Hospital Road, Greater Accra, Ghana
+            </p>
+          </div>
+        </div>
+
+        <div class="text-left sm:text-right space-y-1">
+          <div class="text-xs text-gray-400 font-mono">STATUS</div>
+          <div class="text-emerald-400 font-mono font-bold text-sm uppercase flex items-center sm:justify-end gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Verified for Workshop Cutting</span>
+          </div>
+          <div id="docket-timestamp" class="text-[11px] text-gray-500 font-mono">
+            Generated: 2026-09-22 15:20 GMT
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Dossier Matrix -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-8 text-xs font-mono">
+        <div class="docket-box bg-obsidian p-4 rounded-xl border border-borderSubtle">
+          <span class="text-gray-500 block uppercase">Client Identifier</span>
+          <span class="font-cinzel font-bold text-white text-sm block mt-1">Diaspora Commission</span>
+          <span class="text-[10px] text-gray-400 block">UK / US / Canada / EU</span>
+        </div>
+        <div class="docket-box bg-obsidian p-4 rounded-xl border border-borderSubtle">
+          <span class="text-gray-500 block uppercase">Selected Silhouette</span>
+          <span id="docket-garment-name" class="font-cinzel font-bold text-gold-400 text-sm block mt-1">The Senator Suit</span>
+          <span id="docket-garment-ease" class="text-[10px] text-emerald-400 block">+28mm Tailored Ease</span>
+        </div>
+        <div class="docket-box bg-obsidian p-4 rounded-xl border border-borderSubtle">
+          <span class="text-gray-500 block uppercase">Calibrated Stature</span>
+          <span id="docket-height" class="font-cinzel font-bold text-white text-sm block mt-1">185 cm (6' 1")</span>
+          <span id="docket-build" class="text-[10px] text-gold-500 block">Athletic (V-Taper) Frame</span>
+        </div>
+        <div class="docket-box bg-obsidian p-4 rounded-xl border border-borderSubtle">
+          <span class="text-gray-500 block uppercase">Master Cutter</span>
+          <span class="font-cinzel font-bold text-white text-sm block mt-1">Kwesi Mensah</span>
+          <span class="text-[10px] text-gray-400 block">Senior Freehand Cutter</span>
+        </div>
+      </div>
+
+      <!-- 14 Dimension Dynamic Table -->
+      <div class="my-8">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-cinzel text-lg font-bold text-white">14 ANTHROPOMETRIC CUTTING DIMENSIONS</h2>
+          <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-0.5 rounded">
+            Sub-5mm Photogrammetry Certified
+          </span>
+        </div>
+
+        <div class="border border-borderSubtle rounded-xl overflow-hidden shadow-lg">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-surfaceLight text-gold-400 uppercase border-b border-borderSubtle">
+              <tr>
+                <th class="p-3.5">#</th>
+                <th class="p-3.5">Anatomical Landmark</th>
+                <th class="p-3.5">Metric Dimension</th>
+                <th class="p-3.5">Imperial Dimension</th>
+                <th class="p-3.5">Calibrated Ease</th>
+                <th class="p-3.5">Workshop Cutting Metric</th>
+              </tr>
+            </thead>
+            <tbody id="docket-table-body" class="divide-y divide-borderSubtle text-gray-300">
+              <!-- Dynamically populated from JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Workshop Directives -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8 text-xs font-mono">
+        <div class="docket-box bg-obsidian p-5 rounded-xl border border-borderSubtle space-y-2">
+          <div class="text-gold-400 font-bold uppercase flex items-center gap-2">
+            <i data-lucide="scissors" class="w-4 h-4"></i>
+            <span>Cutting Room Technical Directives</span>
+          </div>
+          <ul class="space-y-1.5 text-gray-400 text-[11px] list-disc list-inside">
+            <li>Leave 1.5 inches (38mm) in side seams for diaspora alteration leeway.</li>
+            <li>Reinforce shoulder roping with lightweight canvas haircloth interfacing.</li>
+            <li>Collar and cuff embroidery to follow authentic Master Chibest geometry.</li>
+            <li>Hand-baste all pockets and vents for transcontinental DHL freight.</li>
+          </ul>
+        </div>
+
+        <div class="docket-box bg-obsidian p-5 rounded-xl border border-borderSubtle space-y-2">
+          <div class="text-gold-400 font-bold uppercase flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>Bespoke Commission Legal Waiver</span>
+          </div>
+          <p class="text-gray-400 text-[11px] leading-relaxed">
+            By commissioning this custom piece, the client accepts that cloth will be individually cut to the specific photogrammetric coordinates above. As a one-of-one handcrafted garment, cutting cannot be refunded once artisan shearing commences. Chibest covers alterations if discrepancy exceeds 10mm.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Conduits (Hidden on Print) -->
+      <div class="no-print pt-8 border-t border-borderSubtle flex flex-col sm:flex-row items-center justify-between gap-4">
+        <a href="fitting-pavilion.html" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-mono text-gray-300 hover:text-white transition-all text-center flex items-center justify-center gap-2">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Recalibrate Measurements</span>
+        </a>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button onclick="window.print()" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-onyx hover:bg-surface border border-gold-500/40 text-gold-400 text-xs font-mono transition-all flex items-center justify-center gap-2">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Print Docket PDF</span>
+          </button>
+
+          <a id="docket-wa-transmit" href="https://wa.me/233554916910" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 hover:brightness-110 text-white font-cinzel font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/50">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Transmit to Head Tailor</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Luxury Footer (Hidden on print) -->
+  <footer class="no-print bg-onyx border-t border-borderSubtle py-16 text-xs text-gray-400 font-sans mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <span class="font-cinzel text-2xl font-bold text-white tracking-widest">CHIBEST ATELIER</span>
+        <p class="text-gray-500 mt-1">Pantang Hospital Road, Accra, Ghana · Worldwide Courier Dispatch</p>
+      </div>
+
+      <div class="flex items-center space-x-6 font-mono text-xs text-gray-400">
+        <a href="https://www.facebook.com/chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">Facebook (1.55M)</a>
+        <a href="https://youtube.com/@chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">YouTube</a>
+        <a href="https://wa.me/233554916910" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp Line</a>
+      </div>
+
+      <div class="text-gray-600 font-mono text-[11px]">
+        &copy; 2026 Chibest Fashion Worldwide. All Rights Reserved. Engineered by Moradin Runeworks.
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    // Load docket data from localStorage or provide pristine default
+    const savedDataStr = localStorage.getItem('chibest_docket_data');
+    let docketData = null;
+
+    if (savedDataStr) {
+      try {
+        docketData = JSON.parse(savedDataStr);
+      } catch (e) {
+        console.error("Failed to parse docket data", e);
+      }
+    }
+
+    if (!docketData) {
+      docketData = {
+        heightCm: 185,
+        build: 'athletic',
+        garment: 'senator',
+        timestamp: new Date().toISOString(),
+        measurements: [
+          { name: 'Neck Circumference', value: 41.1, unit: 'cm', ease: '+1.5 cm', cut: 42.6 },
+          { name: 'Shoulder Width (Biacromial)', value: 49.6, unit: 'cm', ease: '+1.0 cm', cut: 50.6 },
+          { name: 'Chest / Bust Circumference', value: 104.7, unit: 'cm', ease: '+2.8 cm', cut: 107.5 },
+          { name: 'True Waist Circumference', value: 86.4, unit: 'cm', ease: '+2.0 cm', cut: 88.4 },
+          { name: 'Full Hip Circumference', value: 102.1, unit: 'cm', ease: '+2.5 cm', cut: 104.6 },
+          { name: 'Sleeve Length', value: 66.2, unit: 'cm', ease: '+1.5 cm', cut: 67.7 },
+          { name: 'Bicep Girth', value: 36.6, unit: 'cm', ease: '+2.0 cm', cut: 38.6 },
+          { name: 'Wrist Circumference', value: 18.1, unit: 'cm', ease: '+1.0 cm', cut: 19.1 },
+          { name: 'Tunic Center Back Length', value: 94.0, unit: 'cm', ease: '+0.0 cm', cut: 94.0 },
+          { name: 'Wingspan Drape Span', value: 148.0, unit: 'cm', ease: '+2.0 cm', cut: 150.0 },
+          { name: 'Agbada Grand Drop Length', value: 132.5, unit: 'cm', ease: '+0.0 cm', cut: 132.5 },
+          { name: 'Trouser Outseam Length', value: 108.0, unit: 'cm', ease: '+1.0 cm', cut: 109.0 },
+          { name: 'Trouser Inseam Length', value: 81.4, unit: 'cm', ease: '+0.5 cm', cut: 81.9 },
+          { name: 'Thigh Circumference', value: 58.1, unit: 'cm', ease: '+2.0 cm', cut: 60.1 }
+        ]
+      };
+    }
+
+    // Populate DOM
+    const garmentMap = {
+      agbada: { name: 'The Royal Imperial Agbada', ease: '+75mm Drape Ease' },
+      senator: { name: 'The Senator Suit', ease: '+28mm Tailored Ease' },
+      kaftan: { name: 'The Grand Kaftan', ease: '+40mm Comfort Ease' },
+      safari: { name: 'The Executive Safari', ease: '+20mm Military Ease' }
+    };
+
+    const gInfo = garmentMap[docketData.garment] || garmentMap.senator;
+    document.getElementById('docket-garment-name').textContent = gInfo.name;
+    document.getElementById('docket-garment-ease').textContent = gInfo.ease;
+
+    const feet = Math.floor(docketData.heightCm / 30.48);
+    const inches = Math.round((docketData.heightCm % 30.48) / 2.54);
+    document.getElementById('docket-height').textContent = `${docketData.heightCm} cm (${feet}' ${inches}")`;
+
+    const buildNames = { athletic: 'Athletic (V-Taper)', broad: 'Broad / Robust', slender: 'Slender / Ectomorph' };
+    document.getElementById('docket-build').textContent = `${buildNames[docketData.build] || 'Athletic'} Frame`;
+
+    if (docketData.timestamp) {
+      const dt = new Date(docketData.timestamp);
+      document.getElementById('docket-timestamp').textContent = `Generated: ${dt.toUTCString()}`;
+    }
+
+    // Populate Table
+    const tbody = document.getElementById('docket-table-body');
+    tbody.innerHTML = '';
+    let waMessage = `*OFFICIAL TAILOR DOCKET #CB-2026-9481*\n`;
+    waMessage += `*Maison:* Chibest Fashion Worldwide\n`;
+    waMessage += `*Garment:* ${gInfo.name} (${gInfo.ease})\n`;
+    waMessage += `*Height:* ${docketData.heightCm} cm | *Frame:* ${buildNames[docketData.build] || 'Athletic'}\n`;
+    waMessage += `----------------------------------------\n`;
+
+    docketData.measurements.forEach((m, idx) => {
+      const valCm = parseFloat(m.value);
+      const valIn = (valCm / 2.54).toFixed(1);
+      const cutCm = m.cut ? m.cut : (valCm + 2.0).toFixed(1);
+      const easeStr = m.ease || '+2.0 cm';
+
+      const row = document.createElement('tr');
+      row.className = 'hover:bg-surfaceLight/50 transition-colors';
+      row.innerHTML = `
+        <td class="p-3.5 text-gray-500 font-bold">${String(idx + 1).padStart(2, '0')}</td>
+        <td class="p-3.5 text-white font-medium">${m.name}</td>
+        <td class="p-3.5 text-gold-400 font-bold">${valCm.toFixed(1)} cm</td>
+        <td class="p-3.5 text-gray-400">${valIn} in</td>
+        <td class="p-3.5 text-emerald-400">${easeStr}</td>
+        <td class="p-3.5 text-gold-300 font-bold bg-surfaceLight/30">${cutCm} cm</td>
+      `;
+      tbody.appendChild(row);
+
+      waMessage += `${idx + 1}. ${m.name}: ${valCm.toFixed(1)}cm (Cut: ${cutCm}cm)\n`;
+    });
+
+    waMessage += `----------------------------------------\n`;
+    waMessage += `*Status:* Ready for workshop drafting. Signed with Bespoke Non-Refundable Waiver.`;
+
+    const waLink = `https://wa.me/233554916910?text=${encodeURIComponent(waMessage)}`;
+    document.getElementById('docket-wa-transmit').href = waLink;
+  </script>
+</body>
+</html>

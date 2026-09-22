@@ -107,7 +107,9 @@ const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 
 // Initialize Laser Animation
-scanLaser.classList.add('scanning');
+if (scanLaser) {
+  scanLaser.classList.add('scanning');
+}
 
 // Format unit value
 function formatUnit(cmVal) {
@@ -124,62 +126,67 @@ function computeMeasurements() {
   const ease = garmentEaseAllowances[state.garment].easeCm;
 
   return [
-    { id: 'M01', name: 'Neck Circumference', cm: H * ratios.neckRatio, ease: '+1.5 cm' },
-    { id: 'M02', name: 'Shoulder Width (Acromion)', cm: H * ratios.shoulderRatio, ease: 'Exact Pattern' },
-    { id: 'M03', name: 'Chest Circumference', cm: (H * ratios.chestRatio) + ease, ease: `+${ease} cm Ease` },
-    { id: 'M04', name: 'Natural Waist', cm: (H * ratios.waistRatio) + (ease * 0.5), ease: `+${(ease * 0.5).toFixed(1)} cm Ease` },
-    { id: 'M05', name: 'Hip / Seat Circumference', cm: (H * ratios.hipRatio) + (ease * 0.6), ease: `+${(ease * 0.6).toFixed(1)} cm Ease` },
-    { id: 'M06', name: 'Full Sleeve Length', cm: H * ratios.sleeveRatio, ease: 'Exact Pattern' },
-    { id: 'M07', name: 'Bicep Circumference', cm: H * ratios.bicepRatio, ease: '+2.0 cm Drape' },
-    { id: 'M08', name: 'Wrist Circumference', cm: H * ratios.wristRatio, ease: '+1.5 cm Cuff' },
-    { id: 'M09', name: 'Senator Tunic Length', cm: H * ratios.tunicRatio, ease: 'Mid-Thigh Drop' },
-    { id: 'M10', name: 'Agbada Wingspan', cm: H * ratios.wingspanRatio, ease: 'Grand Robe Span' },
-    { id: 'M11', name: 'Agbada Hem Drop', cm: H * ratios.agbadaDropRatio, ease: 'Ankle Drape' },
-    { id: 'M12', name: 'Trouser Outseam', cm: H * ratios.outseamRatio, ease: 'Floor Drop' },
-    { id: 'M13', name: 'Trouser Inseam', cm: H * ratios.inseamRatio, ease: 'Crotch Base' },
-    { id: 'M14', name: 'Thigh Circumference', cm: H * ratios.thighRatio, ease: '+4.0 cm Ease' }
+    { id: 'M01', name: 'Neck Circumference', cm: H * ratios.neckRatio, value: H * ratios.neckRatio, ease: '+1.5 cm' },
+    { id: 'M02', name: 'Shoulder Width (Acromion)', cm: H * ratios.shoulderRatio, value: H * ratios.shoulderRatio, ease: 'Exact Pattern' },
+    { id: 'M03', name: 'Chest Circumference', cm: (H * ratios.chestRatio) + ease, value: (H * ratios.chestRatio) + ease, ease: `+${ease} cm Ease` },
+    { id: 'M04', name: 'Natural Waist', cm: (H * ratios.waistRatio) + (ease * 0.5), value: (H * ratios.waistRatio) + (ease * 0.5), ease: `+${(ease * 0.5).toFixed(1)} cm Ease` },
+    { id: 'M05', name: 'Hip / Seat Circumference', cm: (H * ratios.hipRatio) + (ease * 0.6), value: (H * ratios.hipRatio) + (ease * 0.6), ease: `+${(ease * 0.6).toFixed(1)} cm Ease` },
+    { id: 'M06', name: 'Full Sleeve Length', cm: H * ratios.sleeveRatio, value: H * ratios.sleeveRatio, ease: 'Exact Pattern' },
+    { id: 'M07', name: 'Bicep Circumference', cm: H * ratios.bicepRatio, value: H * ratios.bicepRatio, ease: '+2.0 cm Drape' },
+    { id: 'M08', name: 'Wrist Circumference', cm: H * ratios.wristRatio, value: H * ratios.wristRatio, ease: '+1.5 cm Cuff' },
+    { id: 'M09', name: 'Senator Tunic Length', cm: H * ratios.tunicRatio, value: H * ratios.tunicRatio, ease: 'Mid-Thigh Drop' },
+    { id: 'M10', name: 'Agbada Wingspan', cm: H * ratios.wingspanRatio, value: H * ratios.wingspanRatio, ease: 'Grand Robe Span' },
+    { id: 'M11', name: 'Agbada Hem Drop', cm: H * ratios.agbadaDropRatio, value: H * ratios.agbadaDropRatio, ease: 'Ankle Drape' },
+    { id: 'M12', name: 'Trouser Outseam', cm: H * ratios.outseamRatio, value: H * ratios.outseamRatio, ease: 'Floor Drop' },
+    { id: 'M13', name: 'Trouser Inseam', cm: H * ratios.inseamRatio, value: H * ratios.inseamRatio, ease: 'Crotch Base' },
+    { id: 'M14', name: 'Thigh Circumference', cm: H * ratios.thighRatio, value: H * ratios.thighRatio, ease: '+4.0 cm Ease' }
   ];
 }
 
 // Render Measurements Grid in Studio
 function renderMeasurementsGrid() {
   const measurements = computeMeasurements();
-  measurementsGrid.innerHTML = '';
-  docketTableBody.innerHTML = '';
 
-  measurements.forEach(m => {
-    // 1. Studio Grid Card
-    const card = document.createElement('div');
-    card.className = 'measurement-card p-2.5 rounded-lg border border-borderSubtle bg-surfaceLight/60 text-xs flex flex-col justify-between';
-    card.innerHTML = `
-      <div class="flex items-center justify-between text-gray-400 font-mono text-[10px]">
-        <span>${m.id}</span>
-        <span class="text-gold-500/80">${m.ease}</span>
-      </div>
-      <div class="font-medium text-white truncate mt-1 text-[11px]">${m.name}</div>
-      <div class="font-mono text-gold-400 font-bold text-sm mt-1.5">${formatUnit(m.cm)}</div>
-    `;
-    measurementsGrid.appendChild(card);
+  if (measurementsGrid) {
+    measurementsGrid.innerHTML = '';
+    measurements.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'measurement-card p-3 rounded-xl border border-borderSubtle bg-surfaceLight/60 text-xs flex flex-col justify-between';
+      card.innerHTML = `
+        <div class="flex items-center justify-between text-gray-400 font-mono text-[10px]">
+          <span>${m.id}</span>
+          <span class="text-gold-500/80">${m.ease}</span>
+        </div>
+        <div class="font-medium text-white truncate mt-1 text-[11px]">${m.name}</div>
+        <div class="font-mono text-gold-400 font-bold text-sm mt-1.5">${formatUnit(m.cm)}</div>
+      `;
+      measurementsGrid.appendChild(card);
+    });
+  }
 
-    // 2. Docket Table Row
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td class="p-3 text-white font-medium">${m.name} (${m.id})</td>
-      <td class="p-3 text-gold-400 font-bold">${m.cm.toFixed(1)} cm</td>
-      <td class="p-3 text-gray-400">${(m.cm / 2.54).toFixed(1)} in</td>
-      <td class="p-3 text-emerald-400">${m.ease}</td>
-    `;
-    docketTableBody.appendChild(row);
-  });
+  if (docketTableBody) {
+    docketTableBody.innerHTML = '';
+    measurements.forEach(m => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="p-3 text-white font-medium">${m.name} (${m.id})</td>
+        <td class="p-3 text-gold-400 font-bold">${m.cm.toFixed(1)} cm</td>
+        <td class="p-3 text-gray-400">${(m.cm / 2.54).toFixed(1)} in</td>
+        <td class="p-3 text-emerald-400">${m.ease}</td>
+      `;
+      docketTableBody.appendChild(row);
+    });
+  }
 
-  // Update Docket Silhouette Label
-  const garmentNames = {
-    agbada: 'The Royal Imperial Agbada (3-Piece)',
-    senator: 'The Diplomat Senator Suit (2-Piece)',
-    kaftan: 'The Sovereign Kaftan Ensemble',
-    safari: 'The Executive Safari Ensemble'
-  };
-  docketSilhouette.textContent = garmentNames[state.garment] || 'The Senator Suit';
+  if (docketSilhouette) {
+    const garmentNames = {
+      agbada: 'The Royal Imperial Agbada (3-Piece)',
+      senator: 'The Diplomat Senator Suit (2-Piece)',
+      kaftan: 'The Sovereign Kaftan Ensemble',
+      safari: 'The Executive Safari Ensemble'
+    };
+    docketSilhouette.textContent = garmentNames[state.garment] || 'The Senator Suit';
+  }
 
   updateWhatsAppLinks(measurements);
 }
@@ -193,7 +200,7 @@ function updateWhatsAppLinks(measurements) {
     kaftan: 'The Sovereign Kaftan',
     safari: 'The Executive Safari Ensemble'
   };
-  const gName = garmentNames[state.garment];
+  const gName = garmentNames[state.garment] || 'The Senator Suit';
 
   let summary = `Hello Chibest Tailor, I have generated my bespoke Tailor Docket (${orderId}) for ${gName}.\n\n`;
   summary += `• Stature Height: ${state.heightCm} cm (${(state.heightCm / 30.48).toFixed(1)} ft)\n`;
@@ -206,8 +213,8 @@ function updateWhatsAppLinks(measurements) {
   summary += `Please confirm my production slot in Accra and send the fabric approval swatch video.`;
 
   const waUrl = `https://wa.me/233554916910?text=${encodeURIComponent(summary)}`;
-  dispatchWhatsAppBtn.href = waUrl;
-  docketWALink.href = waUrl;
+  if (dispatchWhatsAppBtn) dispatchWhatsAppBtn.href = waUrl;
+  if (docketWALink) docketWALink.href = waUrl;
 }
 
 // Draw Skeleton Landmarks & Silhouette on HTML5 Canvas
@@ -424,19 +431,25 @@ function drawCanvas() {
 }
 
 // Event Listeners
-heightSlider.addEventListener('input', (e) => {
-  state.heightCm = parseInt(e.target.value);
-  const feet = Math.floor(state.heightCm / 30.48);
-  const inches = Math.round((state.heightCm % 30.48) / 2.54);
-  heightDisplay.innerHTML = `${state.heightCm} cm <span class="text-gray-500 font-normal">(${feet}' ${inches}")</span>`;
+if (heightSlider) {
+  heightSlider.addEventListener('input', (e) => {
+    state.heightCm = parseInt(e.target.value);
+    const feet = Math.floor(state.heightCm / 30.48);
+    const inches = Math.round((state.heightCm % 30.48) / 2.54);
+    if (heightDisplay) {
+      heightDisplay.innerHTML = `${state.heightCm} cm <span class="text-gray-500 font-normal">(${feet}' ${inches}")</span>`;
+    }
 
-  // Scale factor calculation: 185cm / ~250px torso span
-  state.scaleFactor = (state.heightCm / 250).toFixed(2);
-  scaleFactorDisplay.textContent = `${state.scaleFactor} mm/px`;
+    // Scale factor calculation: 185cm / ~250px torso span
+    state.scaleFactor = (state.heightCm / 250).toFixed(2);
+    if (scaleFactorDisplay) {
+      scaleFactorDisplay.textContent = `${state.scaleFactor} mm/px`;
+    }
 
-  drawCanvas();
-  renderMeasurementsGrid();
-});
+    if (canvas) drawCanvas();
+    renderMeasurementsGrid();
+  });
+}
 
 // Build Archetype Switcher
 document.querySelectorAll('.build-btn').forEach(btn => {
@@ -444,105 +457,84 @@ document.querySelectorAll('.build-btn').forEach(btn => {
     document.querySelectorAll('.build-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     state.build = btn.dataset.build;
-    drawCanvas();
+    if (canvas) drawCanvas();
     renderMeasurementsGrid();
   });
 });
 
 // View Toggle (Front / Profile)
-viewFrontBtn.addEventListener('click', () => {
-  state.view = 'front';
-  viewFrontBtn.className = 'px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all';
-  viewSideBtn.className = 'px-3 py-1 rounded text-gray-400 hover:text-white transition-all';
-  drawCanvas();
-});
+if (viewFrontBtn && viewSideBtn) {
+  viewFrontBtn.addEventListener('click', () => {
+    state.view = 'front';
+    viewFrontBtn.className = 'px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all';
+    viewSideBtn.className = 'px-3 py-1 rounded text-gray-400 hover:text-white transition-all';
+    if (canvas) drawCanvas();
+  });
 
-viewSideBtn.addEventListener('click', () => {
-  state.view = 'side';
-  viewSideBtn.className = 'px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all';
-  viewFrontBtn.className = 'px-3 py-1 rounded text-gray-400 hover:text-white transition-all';
-  drawCanvas();
-});
+  viewSideBtn.addEventListener('click', () => {
+    state.view = 'side';
+    viewSideBtn.className = 'px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all';
+    viewFrontBtn.className = 'px-3 py-1 rounded text-gray-400 hover:text-white transition-all';
+    if (canvas) drawCanvas();
+  });
+}
 
 // Unit Toggle
-unitCmBtn.addEventListener('click', () => {
-  state.unit = 'cm';
-  unitCmBtn.className = 'px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold';
-  unitInBtn.className = 'px-2 py-0.5 rounded text-gray-400 hover:text-white';
-  renderMeasurementsGrid();
-});
+if (unitCmBtn && unitInBtn) {
+  unitCmBtn.addEventListener('click', () => {
+    state.unit = 'cm';
+    unitCmBtn.className = 'px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold';
+    unitInBtn.className = 'px-2 py-0.5 rounded text-gray-400 hover:text-white';
+    renderMeasurementsGrid();
+  });
 
-unitInBtn.addEventListener('click', () => {
-  state.unit = 'in';
-  unitInBtn.className = 'px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold';
-  unitCmBtn.className = 'px-2 py-0.5 rounded text-gray-400 hover:text-white';
-  renderMeasurementsGrid();
-});
+  unitInBtn.addEventListener('click', () => {
+    state.unit = 'in';
+    unitInBtn.className = 'px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold';
+    unitCmBtn.className = 'px-2 py-0.5 rounded text-gray-400 hover:text-white';
+    renderMeasurementsGrid();
+  });
+}
 
 // Garment Type Select
-garmentSelect.addEventListener('change', (e) => {
-  state.garment = e.target.value;
-  renderMeasurementsGrid();
-});
-
-// Currency Selector
-currencySelect.addEventListener('change', (e) => {
-  state.currency = e.target.value;
-  const config = currencyRates[state.currency];
-
-  document.querySelectorAll('.price-tag').forEach(tag => {
-    const rawVal = tag.dataset[state.currency.toLowerCase()];
-    if (rawVal) {
-      tag.textContent = `${config.symbol}${rawVal} ${config.suffix}`;
-    }
-  });
-});
-
-// Configure Look Buttons in Lookbook
-document.querySelectorAll('.configure-look-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const look = btn.dataset.look;
-    garmentSelect.value = look;
-    state.garment = look;
+if (garmentSelect) {
+  garmentSelect.addEventListener('change', (e) => {
+    state.garment = e.target.value;
     renderMeasurementsGrid();
-    document.getElementById('vision-studio').scrollIntoView({ behavior: 'smooth' });
   });
-});
+}
 
 // User Photo Upload
-userPhotoInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      const img = new Image();
-      img.onload = () => {
-        state.customImage = img;
-        drawCanvas();
+if (userPhotoInput) {
+  userPhotoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const img = new Image();
+        img.onload = () => {
+          state.customImage = img;
+          if (canvas) drawCanvas();
+        };
+        img.src = evt.target.result;
       };
-      img.src = evt.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
+      reader.readAsDataURL(file);
+    }
+  });
+}
 
 // Print Docket
-printDocketBtn.addEventListener('click', () => {
-  window.print();
-});
-
-// Generate Docket Button Scroll
-generateDocketBtn.addEventListener('click', () => {
-  document.getElementById('docket-section').scrollIntoView({ behavior: 'smooth' });
-});
-
-// Mobile Menu Toggle
-if (mobileMenuBtn) {
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
+if (printDocketBtn) {
+  printDocketBtn.addEventListener('click', () => {
+    window.print();
   });
 }
 
 // Initial Boot
-drawCanvas();
-renderMeasurementsGrid();
+if (canvas) drawCanvas();
+if (measurementsGrid) renderMeasurementsGrid();
+
+// Global API Exports
+window.computeMeasurements = computeMeasurements;
+window.state = state;
+window.renderMeasurementsGrid = renderMeasurementsGrid;

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-obsidian">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BESPOKE PIECE — Chibest Haute Couture | Handcrafted in Accra</title>
+  <meta name="description" content="Inspect bespoke craftsmanship details, authentic Italian wool specifications, and commission via Computer Vision Sizing.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#07080A',
+            onyx: '#0F1117',
+            surface: '#151722',
+            surfaceLight: '#1E2130',
+            borderSubtle: '#26293B',
+            gold: {
+              300: '#FBF2D5',
+              400: '#F2DC9B',
+              500: '#D4AF37',
+              600: '#AA8822',
+              700: '#856A18',
+              800: '#5E490E'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
+
+  <!-- Announcement Bar -->
+  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
+    <span>Pantang Flagship Atelier</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Individually Handcrafted Commissions</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>3–5 Days DHL Express Global Delivery</span>
+  </div>
+
+  <!-- Primary Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      
+      <!-- Brand Emblem -->
+      <a href="index.html" class="flex items-center gap-3.5 group">
+        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+          <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+            CHIBEST
+          </span>
+          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+            Haute Couture · Accra
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-9 text-xs tracking-[0.18em] uppercase font-cinzel font-medium">
+        <a href="index.html" class="text-gray-300 hover:text-gold-400 transition-colors">Maison</a>
+        <a href="collections.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Lookbook</a>
+        <a href="fitting-pavilion.html" class="text-gold-400 hover:text-gold-300 transition-colors flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping"></span>
+          <span>Virtual Fitting</span>
+        </a>
+        <a href="ready-to-wear.html" class="text-gray-300 hover:text-gold-400 transition-colors">Ready-to-Wear</a>
+        <a href="atelier.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Atelier</a>
+        <a href="docket.html" class="text-gray-300 hover:text-gold-400 transition-colors">Tailor Docket</a>
+      </nav>
+
+      <!-- Utility: Currency & Direct Concierge -->
+      <div class="flex items-center space-x-4">
+        <div class="relative inline-block text-left">
+          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GHS">GHS (GH₵)</option>
+          </select>
+        </div>
+
+        <a id="header-wa-btn" href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+          <span>Tailor Concierge</span>
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-1">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-1">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-1">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
+      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-1">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
+      </a>
+    </div>
+  </header>
+
+  <!-- Breadcrumb Navigation -->
+  <div class="border-b border-borderSubtle bg-onyx/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center space-x-2 text-xs font-mono text-gray-400">
+      <a href="index.html" class="hover:text-gold-400 transition-colors">Maison</a>
+      <span>/</span>
+      <a href="collections.html" class="hover:text-gold-400 transition-colors">The Lookbook</a>
+      <span>/</span>
+      <span id="breadcrumb-title" class="text-gold-400 truncate">The Royal Imperial Agbada</span>
+    </div>
+  </div>
+
+  <!-- Primary Bespoke Showcase -->
+  <main class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      
+      <!-- Left 7 Cols: Editorial Gallery & Video Motion Switcher -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Main Media Frame -->
+        <div class="relative aspect-[3/4] rounded-2xl overflow-hidden border-2 border-gold-500/30 bg-surface shadow-2xl">
+          <img id="main-product-img" src="assets/chibest_product_6_portrait.jpg" alt="Chibest Masterpiece" class="w-full h-full object-cover object-top filter contrast-105">
+          <video id="main-product-video" loop muted playsinline class="hidden w-full h-full object-cover object-top">
+            <source src="assets/agbada_loop.mp4" type="video/mp4">
+          </video>
+          
+          <!-- Silhouette & Origin Badge -->
+          <div class="absolute top-4 left-4 bg-obsidian/85 backdrop-blur px-3.5 py-1.5 rounded text-gold-400 font-mono text-xs border border-gold-500/30 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="media-badge">Pantang Atelier · Hand-Guided Bullion</span>
+          </div>
+
+          <!-- Video Motion Toggle -->
+          <button id="toggle-video-btn" class="absolute bottom-4 right-4 bg-obsidian/90 hover:bg-gold-500 hover:text-obsidian text-gold-400 px-4 py-2 rounded-lg border border-gold-500/40 text-xs font-mono uppercase tracking-wider backdrop-blur transition-all flex items-center gap-2 shadow-xl">
+            <i data-lucide="play" class="w-3.5 h-3.5"></i>
+            <span id="video-btn-text">View Motion Loop</span>
+          </button>
+        </div>
+
+        <!-- Thumbnail Strip -->
+        <div class="grid grid-cols-4 gap-4">
+          <button class="thumb-btn active aspect-square rounded-xl overflow-hidden border-2 border-gold-500 bg-surface opacity-100 transition-all p-0.5" data-src="assets/chibest_product_6_portrait.jpg" data-mode="image">
+            <img src="assets/chibest_product_6_portrait.jpg" class="w-full h-full object-cover">
+          </button>
+          <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5" data-src="assets/chibest_product_12_portrait.jpg" data-mode="image">
+            <img src="assets/chibest_product_12_portrait.jpg" class="w-full h-full object-cover">
+          </button>
+          <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5" data-src="assets/chibest_product_1_portrait.jpg" data-mode="image">
+            <img src="assets/chibest_product_1_portrait.jpg" class="w-full h-full object-cover">
+          </button>
+          <button class="thumb-btn aspect-square rounded-xl overflow-hidden border border-borderSubtle bg-surface opacity-60 hover:opacity-100 transition-all p-0.5 flex flex-col items-center justify-center text-gold-400 font-mono text-[10px] text-center" data-src="assets/agbada_loop.mp4" data-mode="video">
+            <i data-lucide="video" class="w-5 h-5 mb-1 text-gold-500"></i>
+            <span>Motion Loop</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Right 5 Cols: Provenance Narrative, Customization & Commissioning -->
+      <div class="lg:col-span-5 space-y-8">
+        
+        <div>
+          <span id="garment-category-tag" class="text-xs font-mono text-gold-500 uppercase tracking-[0.25em] block mb-2">
+            Haute Couture Ceremonial 3-Piece
+          </span>
+          <h1 id="garment-title" class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-wider leading-tight">
+            THE ROYAL IMPERIAL AGBADA
+          </h1>
+          <div class="flex items-center gap-4 mt-3">
+            <span id="garment-price" class="price-tag font-mono text-2xl text-gold-300 font-bold" data-usd="1450" data-gbp="1145" data-eur="1335" data-ghs="21750">
+              $1,450 USD
+            </span>
+            <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded">
+              Bespoke Made-to-Measure
+            </span>
+          </div>
+        </div>
+
+        <!-- Narrative Description -->
+        <p id="garment-desc" class="font-serif italic text-base sm:text-lg text-gray-300 leading-relaxed">
+          Commissioned for grand gala coronations, state affairs, and prestigious family unions. Cut from heavyweight imported Italian brocade and wool, featuring over sixty continuous hours of freehand bullion gold embroidery draped majestically over the shoulders.
+        </p>
+
+        <!-- Fabric & Sourcing Matrix -->
+        <div class="bg-surface/50 border border-borderSubtle rounded-xl p-5 space-y-3 font-mono text-xs">
+          <div class="text-gold-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span>Material Provenance & Construction</span>
+          </div>
+          <div class="flex justify-between border-b border-borderSubtle pb-2">
+            <span class="text-gray-400">Primary Textile:</span>
+            <span id="spec-textile" class="text-white font-medium">Super 140s Italian Wool & Silk Damask</span>
+          </div>
+          <div class="flex justify-between border-b border-borderSubtle pb-2">
+            <span class="text-gray-400">Embroidery:</span>
+            <span id="spec-embroidery" class="text-white font-medium">24K Tone Bullion Threading</span>
+          </div>
+          <div class="flex justify-between border-b border-borderSubtle pb-2">
+            <span class="text-gray-400">Artisan Production:</span>
+            <span class="text-white font-medium">60+ Hours by Senior Master Cutter</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Tailoring Standard:</span>
+            <span class="text-emerald-400 font-medium">Sub-5mm Computer Vision Photogrammetry</span>
+          </div>
+        </div>
+
+        <!-- Custom Bespoke Options -->
+        <div class="space-y-5">
+          <!-- Colorway Selector -->
+          <div>
+            <label class="block text-xs font-mono text-gold-500 uppercase tracking-wider mb-2">
+              Select Cloth Colorway
+            </label>
+            <div class="grid grid-cols-4 gap-2">
+              <button class="color-btn active py-2 px-3 rounded border border-gold-500 bg-gold-500/20 text-white text-xs font-cinzel text-center">
+                Royal Damask
+              </button>
+              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+                Midnight Navy
+              </button>
+              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+                Emerald
+              </button>
+              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+                Wine Brocade
+              </button>
+            </div>
+          </div>
+
+          <!-- Embroidery Monogram -->
+          <div>
+            <label class="block text-xs font-mono text-gold-500 uppercase tracking-wider mb-1">
+              Bespoke Monogram (Complimentary)
+            </label>
+            <input type="text" id="monogram-input" placeholder="e.g. C.J.V.H. (Inside Lapel Facing)" class="w-full bg-onyx border border-borderSubtle text-gray-200 text-xs rounded-lg px-4 py-2.5 font-mono focus:outline-none focus:border-gold-500">
+          </div>
+        </div>
+
+        <!-- Action Conduits -->
+        <div class="space-y-3 pt-4 border-t border-borderSubtle">
+          <!-- Primary: Sizing Studio -->
+          <a id="fit-pavilion-link" href="fitting-pavilion.html?garment=agbada" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-amber-500 text-obsidian font-cinzel font-bold text-sm tracking-[0.2em] uppercase shadow-2xl shadow-gold-500/30 hover:brightness-110 transition-all flex items-center justify-center gap-3">
+            <i data-lucide="scan" class="w-5 h-5"></i>
+            <span>Commission with Vision Sizing</span>
+          </a>
+
+          <!-- Secondary: WhatsApp Master Tailor Direct -->
+          <a id="whatsapp-inquire-link" href="https://wa.me/233554916910?text=Hello%20Master%20Chibest%2C%20I%20wish%20to%20commission%20The%20Royal%20Imperial%20Agbada%20from%20your%20Accra%20atelier." target="_blank" class="w-full py-3.5 rounded-xl bg-onyx hover:bg-surface border border-emerald-500/40 text-emerald-400 font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/40">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Consult Master Tailor on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Guarantees & Accordions -->
+        <div class="border-t border-borderSubtle pt-6 space-y-4 text-xs text-gray-400 font-sans">
+          <div class="flex items-start gap-3">
+            <i data-lucide="plane" class="w-5 h-5 text-gold-400 shrink-0 mt-0.5"></i>
+            <div>
+              <span class="text-white font-bold block font-cinzel">DHL Express Worldwide Air Dispatch</span>
+              <span class="mt-0.5 block">Delivered directly to your door in London, New York, Toronto, or Paris in 3–5 business days post-cutting. Full tracking provided.</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i data-lucide="shield-check" class="w-5 h-5 text-gold-400 shrink-0 mt-0.5"></i>
+            <div>
+              <span class="text-white font-bold block font-cinzel">Millimetric Fit Guarantee</span>
+              <span class="mt-0.5 block">Every commission is backed by our computer-vision photogrammetry guarantee. If ease adjustment is needed, we cover local bespoke alteration costs.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Luxury Footer -->
+  <footer class="bg-onyx border-t border-borderSubtle py-16 text-xs text-gray-400 font-sans mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <span class="font-cinzel text-2xl font-bold text-white tracking-widest">CHIBEST ATELIER</span>
+        <p class="text-gray-500 mt-1">Pantang Hospital Road, Accra, Ghana · Worldwide Courier Dispatch</p>
+      </div>
+
+      <div class="flex items-center space-x-6 font-mono text-xs text-gray-400">
+        <a href="https://www.facebook.com/chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">Facebook (1.55M)</a>
+        <a href="https://youtube.com/@chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">YouTube</a>
+        <a href="https://wa.me/233554916910" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp Line</a>
+      </div>
+
+      <div class="text-gray-600 font-mono text-[11px]">
+        &copy; 2026 Chibest Fashion Worldwide. All Rights Reserved. Engineered by Moradin Runeworks.
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    // Product Catalog Database
+    const PRODUCT_CATALOG = {
+      'royal-imperial-agbada': {
+        title: 'The Royal Imperial Agbada',
+        category: 'Haute Couture Ceremonial 3-Piece',
+        priceUsd: 1450,
+        priceGbp: 1145,
+        priceEur: 1335,
+        priceGhs: 21750,
+        desc: 'Commissioned for grand gala coronations, state affairs, and prestigious family unions. Cut from heavyweight imported Italian brocade and wool, featuring over sixty continuous hours of freehand bullion gold embroidery draped majestically over the shoulders.',
+        image: 'assets/chibest_product_6_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Super 140s Italian Wool & Silk Damask',
+        embroidery: '24K Tone Bullion Threading'
+      },
+      'diplomat-senator': {
+        title: 'The Diplomat Senator Suit',
+        category: 'Bespoke Executive 2-Piece',
+        priceUsd: 880,
+        priceGbp: 695,
+        priceEur: 810,
+        priceGhs: 13200,
+        desc: 'Sleek continental lines paired with a structured high-mandarin collar, concealed zip placket, and subtle chest embroidery. Engineered for effortless authority in corporate boardrooms and international summits.',
+        image: 'assets/chibest_product_10_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'senator',
+        textile: 'Super 140s Navy High-Twist Wool',
+        embroidery: 'Tone-on-Tone Silk Stitching'
+      },
+      'sovereign-kaftan': {
+        title: 'The Sovereign Kaftan',
+        category: 'Linen Luxury Ensemble',
+        priceUsd: 720,
+        priceGbp: 568,
+        priceEur: 662,
+        priceGhs: 10800,
+        desc: 'Pure breathable emerald tropical weave with geometric hand-embroidered neckline. Tailored with generous side vents for ease of movement during warm-climate receptions.',
+        image: 'assets/chibest_product_5_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'kaftan',
+        textile: '100% Pure West African Linen & Silk',
+        embroidery: 'Geometric Filigree Threading'
+      },
+      'executive-safari': {
+        title: 'The Executive Safari Ensemble',
+        category: 'Bespoke Safari 2-Piece',
+        priceUsd: 790,
+        priceGbp: 625,
+        priceEur: 725,
+        priceGhs: 11850,
+        desc: 'Structured quadruple patch pockets with hand-carved horn buttons and military waist cinch. A timeless continental fusion tailored with sharp Savile Row shoulder roping.',
+        image: 'assets/chibest_product_14_portrait.jpg',
+        video: 'assets/senator_loop.mp4',
+        garmentKey: 'safari',
+        textile: 'English Wool & Cotton Gabardine',
+        embroidery: 'Precision Hand-Topstitched Seams'
+      },
+      'monarch-ceremonial-agbada': {
+        title: 'The Monarch Ceremonial Agbada',
+        category: 'Haute Couture Ceremonial 3-Piece',
+        priceUsd: 1350,
+        priceGbp: 1065,
+        priceEur: 1240,
+        priceGhs: 20250,
+        desc: 'Rich burgundy wool adorned with expansive chest bullion embroidery. Majestic shoulder drape calibrated to eliminate excess bulk while maximizing presence.',
+        image: 'assets/chibest_product_1_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Burgundy Brocade & Super 130s Wool',
+        embroidery: 'Heavy Gold Bullion Work'
+      },
+      'ashanti-gold-agbada': {
+        title: 'The Ashanti Gold Agbada',
+        category: 'Haute Couture Ceremonial 3-Piece',
+        priceUsd: 1600,
+        priceGbp: 1265,
+        priceEur: 1470,
+        priceGhs: 24000,
+        desc: 'Sunburst gold bullion embroidery across the chest, shoulders, and sleeve drapes. The apex of West African sovereign dress, handcrafted exclusively for royalty and heads of state.',
+        image: 'assets/chibest_product_12_portrait.jpg',
+        video: 'assets/agbada_loop.mp4',
+        garmentKey: 'agbada',
+        textile: 'Heavyweight Sovereign Gold Damask',
+        embroidery: 'Full-Coverage Imperial Bullion'
+      }
+    };
+
+    // Load URL params
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id') || 'royal-imperial-agbada';
+    const product = PRODUCT_CATALOG[productId] || PRODUCT_CATALOG['royal-imperial-agbada'];
+
+    // Render Product Data
+    document.getElementById('breadcrumb-title').textContent = product.title;
+    document.getElementById('garment-title').textContent = product.title;
+    document.getElementById('garment-category-tag').textContent = product.category;
+    document.getElementById('garment-desc').textContent = product.desc;
+    document.getElementById('main-product-img').src = product.image;
+    document.getElementById('spec-textile').textContent = product.textile;
+    document.getElementById('spec-embroidery').textContent = product.embroidery;
+
+    const priceEl = document.getElementById('garment-price');
+    priceEl.setAttribute('data-usd', product.priceUsd);
+    priceEl.setAttribute('data-gbp', product.priceGbp);
+    priceEl.setAttribute('data-eur', product.priceEur);
+    priceEl.setAttribute('data-ghs', product.priceGhs);
+
+    // Update Links
+    document.getElementById('fit-pavilion-link').href = `fitting-pavilion.html?garment=${product.garmentKey}`;
+    const waText = encodeURIComponent(`Hello Master Chibest, I wish to commission ${product.title} ($${product.priceUsd} USD) from your Accra atelier.`);
+    document.getElementById('whatsapp-inquire-link').href = `https://wa.me/233554916910?text=${waText}`;
+
+    // Video Toggle
+    const imgEl = document.getElementById('main-product-img');
+    const vidEl = document.getElementById('main-product-video');
+    const toggleBtn = document.getElementById('toggle-video-btn');
+    const btnText = document.getElementById('video-btn-text');
+
+    toggleBtn.addEventListener('click', () => {
+      if (vidEl.classList.contains('hidden')) {
+        imgEl.classList.add('hidden');
+        vidEl.classList.remove('hidden');
+        vidEl.play().catch(() => {});
+        btnText.textContent = 'View Still Portrait';
+      } else {
+        vidEl.pause();
+        vidEl.classList.add('hidden');
+        imgEl.classList.remove('hidden');
+        btnText.textContent = 'View Motion Loop';
+      }
+    });
+
+    // Thumbnails Switcher
+    document.querySelectorAll('.thumb-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.thumb-btn').forEach(b => {
+          b.classList.remove('active', 'border-gold-500', 'opacity-100');
+          b.classList.add('border-borderSubtle', 'opacity-60');
+        });
+        btn.classList.add('active', 'border-gold-500', 'opacity-100');
+        btn.classList.remove('border-borderSubtle', 'opacity-60');
+
+        const mode = btn.dataset.mode;
+        const src = btn.dataset.src;
+        if (mode === 'image') {
+          vidEl.pause();
+          vidEl.classList.add('hidden');
+          imgEl.src = src;
+          imgEl.classList.remove('hidden');
+          btnText.textContent = 'View Motion Loop';
+        } else if (mode === 'video') {
+          imgEl.classList.add('hidden');
+          vidEl.classList.remove('hidden');
+          vidEl.play().catch(() => {});
+          btnText.textContent = 'View Still Portrait';
+        }
+      });
+    });
+
+    // Color buttons
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.color-btn').forEach(b => {
+          b.classList.remove('active', 'border-gold-500', 'bg-gold-500/20', 'text-white');
+          b.classList.add('border-borderSubtle', 'bg-surface', 'text-gray-400');
+        });
+        btn.classList.add('active', 'border-gold-500', 'bg-gold-500/20', 'text-white');
+        btn.classList.remove('border-borderSubtle', 'bg-surface', 'text-gray-400');
+      });
+    });
+  </script>
+</body>
+</html>

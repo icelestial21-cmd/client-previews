@@ -2,15 +2,15 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #07080A;
 }
 ::-webkit-scrollbar-thumb {
   background: #26293B;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #D4AF37;
@@ -69,4 +69,55 @@
 /* Lookbook Video Hover Transitions */
 .look-photo, .look-video {
   will-change: opacity, transform;
+}
+
+/* Filter Tab Active State */
+.filter-tab.active {
+  border-color: #D4AF37 !important;
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #FBF2D5 !important;
+  font-weight: 600;
+}
+
+/* Thumbnail Selection */
+.thumb-btn.active {
+  border-color: #D4AF37 !important;
+  opacity: 1 !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Print Optimization for Tailor Docket */
+@media print {
+  body {
+    background-color: #FFFFFF !important;
+    color: #111111 !important;
+  }
+  header, footer, nav, .no-print, button, #mobile-menu, #currency-select {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  #docket-container {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    padding: 20px !important;
+  }
+  .docket-box {
+    background: #F8F9FA !important;
+    border: 1px solid #CCCCCC !important;
+    color: #000000 !important;
+  }
+  table {
+    border-collapse: collapse !important;
+  }
+  th, td {
+    border: 1px solid #CCCCCC !important;
+    color: #000000 !important;
+  }
+  thead {
+    background: #EEEEEE !important;
+  }
 }

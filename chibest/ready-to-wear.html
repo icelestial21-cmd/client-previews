@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-obsidian">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>READY-TO-WEAR — Chibest Haute Couture | The Retail Vault</title>
+  <meta name="description" content="Discover ready-to-dispatch artisanal accessories, hand-embroidered ceremonial caps, silk stoles, and luxury essentials from Chibest Fashion Worldwide.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#07080A',
+            onyx: '#0F1117',
+            surface: '#151722',
+            surfaceLight: '#1E2130',
+            borderSubtle: '#26293B',
+            gold: {
+              300: '#FBF2D5',
+              400: '#F2DC9B',
+              500: '#D4AF37',
+              600: '#AA8822',
+              700: '#856A18',
+              800: '#5E490E'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
+
+  <!-- Announcement Bar -->
+  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
+    <span>The Retail Vault</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Immediate Worldwide Dispatch</span>
+    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+    <span>Pre-Cut Artisanal Essentials</span>
+  </div>
+
+  <!-- Primary Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      
+      <!-- Brand Emblem -->
+      <a href="index.html" class="flex items-center gap-3.5 group">
+        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+          <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+            CHIBEST
+          </span>
+          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+            Haute Couture · Accra
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-9 text-xs tracking-[0.18em] uppercase font-cinzel font-medium">
+        <a href="index.html" class="text-gray-300 hover:text-gold-400 transition-colors">Maison</a>
+        <a href="collections.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Lookbook</a>
+        <a href="fitting-pavilion.html" class="text-gold-400 hover:text-gold-300 transition-colors flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-ping"></span>
+          <span>Virtual Fitting</span>
+        </a>
+        <a href="ready-to-wear.html" class="text-gold-400 font-bold transition-colors">Ready-to-Wear</a>
+        <a href="atelier.html" class="text-gray-300 hover:text-gold-400 transition-colors">The Atelier</a>
+        <a href="docket.html" class="text-gray-300 hover:text-gold-400 transition-colors">Tailor Docket</a>
+      </nav>
+
+      <!-- Utility: Currency & Direct Concierge -->
+      <div class="flex items-center space-x-4">
+        <div class="relative inline-block text-left">
+          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider">
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GHS">GHS (GH₵)</option>
+          </select>
+        </div>
+
+        <a href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+          <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
+          <span>Tailor Concierge</span>
+        </a>
+
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-1">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-1">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gold-400 font-bold py-1">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
+      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-1">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
+      </a>
+    </div>
+  </header>
+
+  <!-- Editorial Hero -->
+  <section class="py-20 border-b border-borderSubtle bg-gradient-to-b from-onyx/70 via-obsidian to-obsidian">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400 text-xs font-mono tracking-widest uppercase mb-4">
+        <span>Handcrafted Accoutrements</span>
+      </div>
+      <h1 class="font-cinzel text-4xl sm:text-6xl font-bold text-white tracking-wider">
+        THE RETAIL VAULT
+      </h1>
+      <p class="font-serif italic text-lg sm:text-2xl text-gray-300 max-w-3xl mx-auto mt-4 leading-relaxed font-light">
+        Curated artisanal essentials finished and ready for immediate worldwide dispatch. Crafted with the same uncompromising hand-embroidery as our bespoke ceremonial robes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product Catalog Grid -->
+  <main class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+      <!-- Item 1: Hand-Embroidered Damask Fila Cap -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop" alt="Damask Fila Cap" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Ceremonial Headwear</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="180" data-gbp="142" data-eur="165" data-ghs="2700">$180 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            The Sovereign Damask Fila Cap
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Foldable royal cap tailored from heavy damask brocade with hand-threaded gold filigree. Structured with internal reinforcement for crisp, all-day presence.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Sovereign%20Damask%20Fila%20Cap%20($180%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 2: Ceremonial Horsehair Fly Whisk -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop" alt="Ceremonial Fly Whisk" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Elder Regalia</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="240" data-gbp="190" data-eur="220" data-ghs="3600">$240 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            Artisanal Horsehair Fly Whisk
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Genuine white horsehair bound to a hand-carved African ebony handle with embossed brass rings. Traditional symbol of nobility and leadership.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Artisanal%20Horsehair%20Fly%20Whisk%20($240%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 3: Pure Mulberry Silk Pocket Square Set -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?q=80&w=800&auto=format&fit=crop" alt="Mulberry Silk Pocket Square" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Silk Accoutrements</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="95" data-gbp="75" data-eur="87" data-ghs="1425">$95 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            Mulberry Silk Pocket Square & Flower Set
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Hand-rolled edges with metallic gold West African Adinkra filigree. Includes matching lapel boutonnière flower.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Mulberry%20Silk%20Pocket%20Square%20Set%20($95%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 4: African Buffalo Horn Cufflinks -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=800&auto=format&fit=crop" alt="Horn Cufflinks" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Hand-Carved Jewelry</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="120" data-gbp="95" data-eur="110" data-ghs="1800">$120 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            Polished Horn Cufflinks with Brass Inlay
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Ethically sourced African buffalo horn, individually lathe-turned and paired with hand-cast Ghanaian brass swivel backs.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Polished%20Horn%20Cufflinks%20($120%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 5: Velvet & Leather Atelier Slippers -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop" alt="Atelier Slippers" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Bespoke Footwear</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="340" data-gbp="268" data-eur="312" data-ghs="5100">$340 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            Velvet & Leather Crested Slippers
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Midnight black cotton velvet with hand-sewn bullion Chibest crest. Finished with soft calfskin lining and stitched leather soles.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Velvet%20Crested%20Slippers%20($340%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 6: Woven Silk & Linen Ceremonial Stole -->
+      <div class="bg-surface/50 rounded-2xl border border-borderSubtle hover:border-gold-500/50 p-5 transition-all flex flex-col justify-between group">
+        <div>
+          <div class="aspect-square rounded-xl overflow-hidden bg-onyx relative mb-5">
+            <img src="https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?q=80&w=800&auto=format&fit=crop" alt="Ceremonial Stole" class="w-full h-full object-cover filter contrast-105 group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-3 right-3 bg-obsidian/85 backdrop-blur px-2.5 py-1 rounded text-gold-400 font-mono text-[10px] border border-gold-500/30">
+              Immediate Dispatch
+            </div>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-[10px] font-mono text-gold-500 uppercase tracking-widest">Ceremonial Stole</span>
+            <span class="price-tag font-mono text-sm text-gold-300 font-bold" data-usd="160" data-gbp="126" data-eur="147" data-ghs="2400">$160 USD</span>
+          </div>
+          <h3 class="font-cinzel text-lg font-bold text-white mt-1 group-hover:text-gold-400 transition-colors">
+            Woven Silk & Linen Ceremonial Stole
+          </h3>
+          <p class="text-xs text-gray-400 font-serif italic mt-1 leading-relaxed">
+            Draped over Senator ensembles and bespoke Kaftans to impart sovereign ceremonial elevation during formal processions.
+          </p>
+        </div>
+        <div class="pt-5 mt-4 border-t border-borderSubtle">
+          <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20wish%20to%20order%20The%20Ceremonial%20Stole%20($160%20USD)." target="_blank" class="w-full py-2.5 rounded-lg bg-surfaceLight hover:bg-gold-500 hover:text-obsidian border border-borderSubtle text-xs font-mono text-center block transition-all">
+            Order for Dispatch
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Luxury Footer -->
+  <footer class="bg-onyx border-t border-borderSubtle py-16 text-xs text-gray-400 font-sans mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <span class="font-cinzel text-2xl font-bold text-white tracking-widest">CHIBEST ATELIER</span>
+        <p class="text-gray-500 mt-1">Pantang Hospital Road, Accra, Ghana · Worldwide Courier Dispatch</p>
+      </div>
+
+      <div class="flex items-center space-x-6 font-mono text-xs text-gray-400">
+        <a href="https://www.facebook.com/chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">Facebook (1.55M)</a>
+        <a href="https://youtube.com/@chibestfashionworldwide" target="_blank" class="hover:text-gold-400 transition-colors">YouTube</a>
+        <a href="https://wa.me/233554916910" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition-colors">WhatsApp Line</a>
+      </div>
+
+      <div class="text-gray-600 font-mono text-[11px]">
+        &copy; 2026 Chibest Fashion Worldwide. All Rights Reserved. Engineered by Moradin Runeworks.
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
