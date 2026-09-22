@@ -1,16 +1,16 @@
-/* Custom CSS for Chibest Digital Atelier */
+/* Luxury Atelier Stylesheet: Chibest Haute Couture */
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0C10;
+  background: #07080A;
 }
 ::-webkit-scrollbar-thumb {
-  background: #272A38;
-  border-radius: 3px;
+  background: #26293B;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #D4AF37;
@@ -18,7 +18,7 @@
 
 /* Gold Gradient Text */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA8822 100%);
+  background: linear-gradient(135deg, #FBF2D5 0%, #D4AF37 50%, #AA8822 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -30,7 +30,7 @@
     opacity: 0.2;
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.85;
   }
   100% {
     top: 95%;
@@ -44,24 +44,29 @@
 
 /* Measurement Card Hover */
 .measurement-card {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .measurement-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(212, 175, 55, 0.4);
-  background-color: rgba(27, 30, 40, 0.8);
+  border-color: rgba(212, 175, 55, 0.5);
+  background-color: rgba(30, 33, 48, 0.8);
 }
 
 /* Active Build Archetype Button */
 .build-btn.active {
   border-color: #D4AF37 !important;
-  background-color: rgba(212, 175, 55, 0.15) !important;
-  color: #F3E5AB !important;
+  background-color: rgba(212, 175, 55, 0.18) !important;
+  color: #FBF2D5 !important;
   font-weight: 600;
 }
 
 /* Canvas Silhouette Styling */
 #vision-canvas {
-  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.15));
+  filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.12));
+}
+
+/* Lookbook Video Hover Transitions */
+.look-photo, .look-video {
+  will-change: opacity, transform;
 }
