@@ -1,6 +1,6 @@
 /**
  * CHIBEST ATELIER — Master Application Logic
- * Computer Vision Anthropometric Engine & Luxury Commerce Controller
+ * Precision Digital Fitting Engine & Luxury Commerce Controller
  */
 
 // State Management
@@ -127,7 +127,7 @@ function computeMeasurements() {
 
   return [
     { id: 'M01', name: 'Neck Circumference', cm: H * ratios.neckRatio, value: H * ratios.neckRatio, ease: '+1.5 cm' },
-    { id: 'M02', name: 'Shoulder Width (Acromion)', cm: H * ratios.shoulderRatio, value: H * ratios.shoulderRatio, ease: 'Exact Pattern' },
+    { id: 'M02', name: 'Shoulder Width', cm: H * ratios.shoulderRatio, value: H * ratios.shoulderRatio, ease: 'Exact Pattern' },
     { id: 'M03', name: 'Chest Circumference', cm: (H * ratios.chestRatio) + ease, value: (H * ratios.chestRatio) + ease, ease: `+${ease} cm Ease` },
     { id: 'M04', name: 'Natural Waist', cm: (H * ratios.waistRatio) + (ease * 0.5), value: (H * ratios.waistRatio) + (ease * 0.5), ease: `+${(ease * 0.5).toFixed(1)} cm Ease` },
     { id: 'M05', name: 'Hip / Seat Circumference', cm: (H * ratios.hipRatio) + (ease * 0.6), value: (H * ratios.hipRatio) + (ease * 0.6), ease: `+${(ease * 0.6).toFixed(1)} cm Ease` },
@@ -309,7 +309,7 @@ function drawCanvas() {
       { name: 'Navel', x: cx, y: waistY },
       { name: 'L Hip', x: cx - hipSpan, y: hipY },
       { name: 'R Hip', x: cx + hipSpan, y: hipY },
-      { name: 'Perineum', x: cx, y: crotchY },
+      { name: 'Inseam Base', x: cx, y: crotchY },
       { name: 'L Knee', x: cx - kneeSpan, y: kneeY },
       { name: 'R Knee', x: cx + kneeSpan, y: kneeY },
       { name: 'L Ankle', x: cx - footSpan, y: ankleY },
@@ -401,15 +401,15 @@ function drawCanvas() {
 
     // Profile Landmarks
     const profileLandmarks = [
-      { name: 'Vertex', x: cx, y: headY - 40 },
-      { name: 'Nasion', x: cx + 26, y: headY - 5 },
-      { name: 'C7 Spine', x: cx - 25, y: neckY },
-      { name: 'Sternal Notch', x: cx + 25, y: neckY + 15 },
-      { name: 'Chest Prominence', x: cx + 45 * widthMultiplier, y: chestY },
-      { name: 'Lumbar Lordosis', x: cx - 20, y: waistY },
-      { name: 'Gluteal Apex', x: cx - 45 * widthMultiplier, y: hipY },
-      { name: 'Patella (Knee)', x: cx + 15, y: kneeY },
-      { name: 'Lateral Malleolus', x: cx, y: ankleY }
+      { name: 'Crown', x: cx, y: headY - 40 },
+      { name: 'Face Profile', x: cx + 26, y: headY - 5 },
+      { name: 'Neck Back', x: cx - 25, y: neckY },
+      { name: 'Neck Front', x: cx + 25, y: neckY + 15 },
+      { name: 'Chest Apex', x: cx + 45 * widthMultiplier, y: chestY },
+      { name: 'Waist Level', x: cx - 20, y: waistY },
+      { name: 'Seat Apex', x: cx - 45 * widthMultiplier, y: hipY },
+      { name: 'Knee Level', x: cx + 15, y: kneeY },
+      { name: 'Ankle Level', x: cx, y: ankleY }
     ];
 
     ctx.strokeStyle = 'rgba(16, 185, 129, 0.8)';
