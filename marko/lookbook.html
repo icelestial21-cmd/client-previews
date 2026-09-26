@@ -62,6 +62,12 @@
       margin-bottom: 18px;
       line-height: 1.5;
     }
+    .lookbook-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: auto;
+    }
   </style>
 </head>
 <body>
@@ -112,10 +118,10 @@
   <!-- Page Header -->
   <section style="background: radial-gradient(circle at center, #151D2A 0%, #07090E 100%); padding: 70px 24px; border-bottom: 1px solid var(--border-subtle); text-align: center;">
     <div class="section-container">
-      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">Runway Walk & Motion Lookbook</span>
+      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">Verified Runway Walk Archive</span>
       <h1 style="font-family:var(--font-serif); font-size:3.2rem; margin:10px 0 16px;">Garment Drape In Motion</h1>
       <p style="color:var(--text-secondary); max-width:620px; margin:0 auto; font-size:0.95rem;">
-        Experience authentic runway walk footage from our Baku seasonal showroom. Watch how the fabric falls, stretches, and articulates with the body.
+        Experience authentic runway walk footage from our Baku seasonal showroom. Watch how the double-mercerized knits, structured outerwear, and silk blends articulate with the body.
       </p>
     </div>
   </section>
@@ -124,74 +130,128 @@
   <section class="section-container" style="padding: 60px 24px;">
     <div class="lookbook-grid">
       
-      <!-- Look 1 -->
+      <!-- Look 01 -->
       <div class="lookbook-item">
         <div class="lookbook-video-wrap">
-          <video class="lookbook-video" controls loop playsinline poster="assets/MB-01_main.jpg" src="assets/video_lookbook_1.mp4"></video>
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-01_front.jpg" src="assets/MB-01_walk.mp4"></video>
         </div>
         <div class="lookbook-info">
           <span class="lookbook-tag">Look 01 • Smart Streetwear</span>
-          <h3 class="lookbook-title">Baku Monogram Heavyweight Silk-Cotton Tee</h3>
+          <h3 class="lookbook-title">Baku Monogram Silk-Cotton Tee</h3>
           <p class="lookbook-desc">
-            Model is 185 cm wearing Size L. Features double-mercerized Pima cotton with custom engineered shoulder drop and tailored torso drape.
+            Model is 185 cm, 80 kg, wearing Size L. Features 280 GSM double-mercerized Pima cotton with engineered shoulder drop and tailored torso drape.
           </p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
-            <span style="font-size:1.3rem; font-weight:700; color:var(--gold-light);">$55</span>
-            <button class="btn btn-primary" style="padding:10px 18px; font-size:0.8rem;" onclick="addToCart('MB-01')">Add Look to Bag</button>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-01')">Add to Bag • $55</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-01')">Inspect Specs</button>
           </div>
         </div>
       </div>
 
-      <!-- Look 2 -->
+      <!-- Look 02 -->
       <div class="lookbook-item">
         <div class="lookbook-video-wrap">
-          <video class="lookbook-video" controls loop playsinline poster="assets/MB-02_main.jpg" src="assets/video_lookbook_2.mp4"></video>
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-02_front.jpg" src="assets/MB-02_walk.mp4"></video>
         </div>
         <div class="lookbook-info">
           <span class="lookbook-tag">Look 02 • Caspian Resort</span>
-          <h3 class="lookbook-title">Caspian Textured Quarter-Zip Knit Polo</h3>
+          <h3 class="lookbook-title">Caspian Waffle Weave Zip Polo</h3>
           <p class="lookbook-desc">
-            Model is 182 cm wearing Size M. High-density breathable waffle knit providing natural airflow with a clean architectural collar structure.
+            Model is 182 cm, 76 kg, wearing Size M. High-density breathable honeycomb waffle weave offering natural temperature regulation and sharp collar retention.
           </p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
-            <span style="font-size:1.3rem; font-weight:700; color:var(--gold-light);">$45</span>
-            <button class="btn btn-primary" style="padding:10px 18px; font-size:0.8rem;" onclick="addToCart('MB-02')">Add Look to Bag</button>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-02')">Add to Bag • $35</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-02')">Inspect Specs</button>
           </div>
         </div>
       </div>
 
-      <!-- Look 3 -->
+      <!-- Look 03 -->
       <div class="lookbook-item">
         <div class="lookbook-video-wrap">
-          <video class="lookbook-video" controls loop playsinline poster="assets/MB-06_main.jpg" src="assets/video_lookbook_3.mp4"></video>
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-03_front.jpg" src="assets/MB-03_walk.mp4"></video>
         </div>
         <div class="lookbook-info">
-          <span class="lookbook-tag">Look 03 • Autumn Prestige</span>
-          <h3 class="lookbook-title">Prestige Autumn Tracksuit Set</h3>
+          <span class="lookbook-tag">Look 03 • Outerwear Layering</span>
+          <h3 class="lookbook-title">Micro-Suede Structured Overshirt</h3>
           <p class="lookbook-desc">
-            Full two-piece tracksuit in heavy technical interlock jersey. Unstructured elegance designed for international air travel.
+            Model is 185 cm, 81 kg, wearing Size XL. Italian-sourced Japanese micro-suede tailored with matte horn buttons and dual breast utility pockets.
           </p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
-            <span style="font-size:1.3rem; font-weight:700; color:var(--gold-light);">$110</span>
-            <button class="btn btn-primary" style="padding:10px 18px; font-size:0.8rem;" onclick="addToCart('MB-06')">Add Look to Bag</button>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-03')">Add to Bag • $85</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-03')">Inspect Specs</button>
           </div>
         </div>
       </div>
 
-      <!-- Look 4 -->
+      <!-- Look 04 -->
       <div class="lookbook-item">
         <div class="lookbook-video-wrap">
-          <video class="lookbook-video" controls loop playsinline poster="assets/MB-10_main.jpg" src="assets/video_lookbook_4.mp4"></video>
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-06_front.jpg" src="assets/MB-06_walk.mp4"></video>
         </div>
         <div class="lookbook-info">
-          <span class="lookbook-tag">Look 04 • Luxury Layering</span>
-          <h3 class="lookbook-title">Silk-Blend Fine Gauge Crewneck</h3>
+          <span class="lookbook-tag">Look 04 • Autumn Travel Prestige</span>
+          <h3 class="lookbook-title">Prestige Interlock Tracksuit Set</h3>
           <p class="lookbook-desc">
-            16-gauge silk and merino wool blend sweater engineered for seamless layering under blazers and leather overshirts.
+            Model is 186 cm, 82 kg, wearing Size XL. Full two-piece set in 340 GSM compact cotton interlock jersey. Unstructured elegance engineered for private aviation.
           </p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
-            <span style="font-size:1.3rem; font-weight:700; color:var(--gold-light);">$60</span>
-            <button class="btn btn-primary" style="padding:10px 18px; font-size:0.8rem;" onclick="addToCart('MB-10')">Add Look to Bag</button>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-06')">Add to Bag • $110</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-06')">Inspect Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 05 -->
+      <div class="lookbook-item">
+        <div class="lookbook-video-wrap">
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-07_front.jpg" src="assets/MB-07_walk.mp4"></video>
+        </div>
+        <div class="lookbook-info">
+          <span class="lookbook-tag">Look 05 • Knitwear Tailoring</span>
+          <h3 class="lookbook-title">Silk-Touch Striped Johnny Polo</h3>
+          <p class="lookbook-desc">
+            Model is 184 cm, 79 kg, wearing Size L. Silk-blended cotton jersey with jacquard micro-striping. Retains shape after long-haul transit.
+          </p>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-07')">Add to Bag • $50</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-07')">Inspect Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 06 -->
+      <div class="lookbook-item">
+        <div class="lookbook-video-wrap">
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-10_front.jpg" src="assets/MB-10_walk.mp4"></video>
+        </div>
+        <div class="lookbook-info">
+          <span class="lookbook-tag">Look 06 • Sartorial Knitwear</span>
+          <h3 class="lookbook-title">Silk-Merino Fine-Gauge Sweater</h3>
+          <p class="lookbook-desc">
+            Model is 185 cm, 80 kg, wearing Size L. 16-gauge silk and extra-fine Merino wool blend designed for featherweight thermal regulation under blazers.
+          </p>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-10')">Add to Bag • $60</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-10')">Inspect Specs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Look 07 -->
+      <div class="lookbook-item">
+        <div class="lookbook-video-wrap">
+          <video class="lookbook-video" controls loop playsinline poster="assets/MB-11_front.jpg" src="assets/MB-11_walk.mp4"></video>
+        </div>
+        <div class="lookbook-info">
+          <span class="lookbook-tag">Look 07 • Archival Ready-to-Wear</span>
+          <h3 class="lookbook-title">Archival Graphic Drop-Shoulder Tee</h3>
+          <p class="lookbook-desc">
+            Model is 182 cm, 77 kg, wearing Size M. 210 GSM combed ringspun jersey with cured water-based eco pigments. Boxy streetwear silhouette.
+          </p>
+          <div class="lookbook-actions">
+            <button class="btn btn-primary" onclick="addToCart('MB-11')">Add to Bag • $14</button>
+            <button class="btn btn-secondary" onclick="openProductModal('MB-11')">Inspect Specs</button>
           </div>
         </div>
       </div>
@@ -206,6 +266,9 @@
         <h4 style="font-size:1.4rem;">Marko Baku</h4>
         <p style="color:var(--text-secondary); font-size:0.85rem; max-width:320px; margin-bottom:16px;">
           Bespoke and ready-to-wear luxury menswear engineered at the intersection of old-world European tailoring and Caspian craftsmanship.
+        </p>
+        <p style="color:var(--text-muted); font-size:0.78rem;">
+          Atelier Flagship: Nizami Street, Baku, Azerbaijan
         </p>
       </div>
       <div class="footer-col">
@@ -227,6 +290,9 @@
         <h4>Concierge Desk</h4>
         <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
           concierge@markobaku.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.8rem;">
+          WhatsApp Direct: +994 70 562 60 60
         </p>
       </div>
     </div>
@@ -261,6 +327,13 @@
       </button>
     </div>
   </aside>
+
+  <!-- Product Quick View / Deep PDP Modal -->
+  <div id="productModal" class="pdp-modal-overlay" onclick="if(event.target === this) closeProductModal()">
+    <div id="pdpModalContent" class="pdp-modal-content">
+      <!-- Injected dynamically by openProductModal(id) in app.js -->
+    </div>
+  </div>
 
   <!-- Express Checkout Simulation Modal -->
   <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
