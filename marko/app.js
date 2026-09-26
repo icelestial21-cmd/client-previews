@@ -1,7 +1,7 @@
 /* ==========================================================================
    MARKO BAKU DIGITAL ATELIER — CLIENT LOGIC & STATE ENGINE
    Multi-Currency, Density Switcher, Faceted Sizing, 1:1 Aligned Media,
-   PDP Laying-Flat Measurement Matrix & Express Air Checkout
+   Dedicated PDP Architecture, Garment Dimension Matrix & Express Air Checkout
    ========================================================================== */
 
 const CURRENCIES = {
@@ -15,27 +15,29 @@ let currentCurrency = localStorage.getItem('marko_currency') || 'USD';
 let currentDensity = localStorage.getItem('marko_density') || 'compact';
 let currentCategoryFilter = 'all';
 let currentSizeFilter = 'all';
+let currentSortOrder = 'featured';
 
 let cart = JSON.parse(localStorage.getItem('marko_cart') || '[]');
 let productsData = [];
 const selectedSizes = {};
 
-// PDP State
+// PDP Modal State (if quick-view opened)
 let activePdpProduct = null;
 let activePdpSize = null;
 let activePdpUnit = 'CM'; // 'CM' or 'INCHES'
 
-// Initialize
+// Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', async () => {
   initCurrencySelector();
   initDensityControls();
   await loadProducts();
+  renderCategoryNav();
   renderProducts();
   updateCartUI();
   setupCartDrawer();
 });
 
-// Currency Engine
+// Currency Switcher
 function initCurrencySelector() {
   const select = document.getElementById('currencySelector');
   if (select) {
@@ -114,9 +116,39 @@ async function loadProducts() {
   }
 }
 
-// Category & Size Filtering
+// Category Navigation Rendering with Live Counts
+function renderCategoryNav() {
+  const nav = document.getElementById('atelierCategoryNav');
+  if (!nav || productsData.length === 0) return;
+
+  const categories = [
+    { id: 'all', label: 'All Editions' },
+    { id: 'Knits & Polos', label: 'Knits & Polos' },
+    { id: 'Suits & Outerwear', label: 'Tailoring & Suits' },
+    { id: 'Denim & Trousers', label: 'Denim & Trousers' },
+    { id: 'Footwear', label: 'Footwear' },
+    { id: 'Essentials', label: 'Ready-to-Wear' }
+  ];
+
+  nav.innerHTML = categories.map(cat => {
+    const count = cat.id === 'all'
+      ? productsData.length
+      : productsData.filter(p => p.category.toLowerCase().includes(cat.id.toLowerCase())).length;
+
+    const isActive = currentCategoryFilter === cat.id;
+
+    return `
+      <button class="atelier-cat-link ${isActive ? 'active' : ''}" onclick="filterCategory(this, '${cat.id}')">
+        <span>${cat.label}</span>
+        <span class="atelier-cat-count">(${count})</span>
+      </button>
+    `;
+  }).join('');
+}
+
+// Category & Size Filtering & Sorting
 window.filterCategory = function(btn, category) {
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.atelier-cat-link').forEach(l => l.classList.remove('active'));
   if (btn) btn.classList.add('active');
   currentCategoryFilter = category;
   renderProducts();
@@ -129,12 +161,17 @@ window.filterSize = function(btn, size) {
   renderProducts();
 };
 
-// Render Product Cards with Strict 1:1 Visual Alignment
+window.handleSortChange = function(val) {
+  currentSortOrder = val;
+  renderProducts();
+};
+
+// Render Product Cards with Strict 1:1 Visual Alignment & Direct PDP Navigation
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
   if (!grid) return;
 
-  let filtered = productsData;
+  let filtered = [...productsData];
 
   // Filter Category
   if (currentCategoryFilter !== 'all') {
@@ -150,12 +187,26 @@ function renderProducts() {
     );
   }
 
+  // Sorting
+  if (currentSortOrder === 'price-asc') {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (currentSortOrder === 'price-desc') {
+    filtered.sort((a, b) => b.price - a.price);
+  }
+
+  // Update Item Count Label
+  const countLabel = document.getElementById('utilityCountLabel');
+  if (countLabel) {
+    const catName = currentCategoryFilter === 'all' ? 'Atelier Pieces' : currentCategoryFilter;
+    countLabel.textContent = `Showing ${filtered.length} ${catName}`;
+  }
+
   if (filtered.length === 0) {
     grid.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-secondary);">
-        <p style="font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 8px;">No garments matching your selection</p>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Please clear the size or category filter to inspect other Baku drops.</p>
-        <button class="btn btn-secondary" style="margin-top: 16px;" onclick="resetFilters()">Reset All Filters</button>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; color: var(--text-secondary);">
+        <p style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 8px;">No garments found matching size ${currentSizeFilter}</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Please select a different size or clear filters to view available Baku drops.</p>
+        <button class="btn btn-secondary" style="margin-top: 18px;" onclick="resetFilters()">Reset All Filters</button>
       </div>
     `;
     return;
@@ -174,24 +225,24 @@ function renderProducts() {
     if (p.video_url) {
       mediaContent = `
         <img class="product-img" src="${p.front_photo}" alt="${p.name}" loading="lazy">
-        <video class="product-video-preview" loop muted playsinline preload="none" src="${p.video_url}"></video>
+        <video class="product-video-preview" loop muted playsinline preload="metadata" src="${p.video_url}"></video>
       `;
       mediaIndicator = `
         <div class="media-type-indicator">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          <span>Runway Walk</span>
+          <span>Runway Video</span>
         </div>
       `;
     } else {
       const secondaryPhoto = p.back_photo || p.detail_photo || p.front_photo;
       mediaContent = `
         <img class="product-img" src="${p.front_photo}" alt="${p.name}" loading="lazy">
-        <img class="product-img-secondary" src="${secondaryPhoto}" alt="${p.name} Alternate Angle" loading="lazy">
+        <img class="product-img-secondary" src="${secondaryPhoto}" alt="${p.name} Alternate View" loading="lazy">
       `;
       mediaIndicator = `
         <div class="media-type-indicator">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-          <span>Turn Angle</span>
+          <span>Dual Angle</span>
         </div>
       `;
     }
@@ -202,15 +253,17 @@ function renderProducts() {
 
     return `
       <div class="product-card" data-id="${p.id}" data-category="${p.category}">
-        <div class="product-media-wrap" onclick="openProductModal('${p.id}')" style="cursor: pointer;">
+        <a href="product.html?id=${p.id}" class="product-media-wrap" title="Inspect ${p.name}">
           <span class="product-badge-tag">${p.badge || 'Atelier Edition'}</span>
           ${mediaContent}
           ${telemetryTag}
           ${mediaIndicator}
-        </div>
+        </a>
         <div class="product-details">
           <span class="product-category-label">${p.category}</span>
-          <h3 class="product-name" onclick="openProductModal('${p.id}')" style="cursor: pointer;">${p.name}</h3>
+          <h3 class="product-name">
+            <a href="product.html?id=${p.id}" style="color:inherit; text-decoration:none;">${p.name}</a>
+          </h3>
           <p class="product-desc-snippet">${p.fabric_story ? p.fabric_story.slice(0, 95) + '...' : ''}</p>
           
           <div class="product-sizes-list">
@@ -223,9 +276,12 @@ function renderProducts() {
           </div>
 
           <div class="product-actions-row">
-            <button class="btn-add-cart" onclick="addToCart('${p.id}')">Add To Atelier Bag</button>
-            <button class="btn-quick-view" onclick="openProductModal('${p.id}')" title="Inspect Atelier Piece">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <a href="product.html?id=${p.id}" class="btn-view-pdp" title="View Full Laying-Flat Dimensions & Specs">
+              <span>View Garment & Specs</span>
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button class="btn-quick-view" onclick="addToCart('${p.id}')" title="Quick Add to Bag">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
             </button>
           </div>
         </div>
@@ -239,13 +295,17 @@ function renderProducts() {
 window.resetFilters = function() {
   currentCategoryFilter = 'all';
   currentSizeFilter = 'all';
-  document.querySelectorAll('.cat-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  currentSortOrder = 'featured';
+  document.querySelectorAll('.atelier-cat-link').forEach((t, i) => t.classList.toggle('active', i === 0));
   document.querySelectorAll('.size-filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  const sortSelect = document.getElementById('catalogSortSelect');
+  if (sortSelect) sortSelect.value = 'featured';
   renderProducts();
 };
 
 window.selectCardSize = function(event, productId, size) {
   event.stopPropagation();
+  event.preventDefault();
   selectedSizes[productId] = size;
   const card = event.target.closest('.product-card');
   if (card) {
@@ -254,43 +314,27 @@ window.selectCardSize = function(event, productId, size) {
   }
 };
 
-// Video Hover Playback Engine
+// Video Hover Playback Engine (Instant & Responsive)
 function setupVideoHover() {
   const cards = document.querySelectorAll('.product-card');
   cards.forEach(card => {
     const video = card.querySelector('.product-video-preview');
     if (video) {
       card.addEventListener('mouseenter', () => {
-        video.classList.add('loaded');
         video.play().catch(() => {});
       });
       card.addEventListener('mouseleave', () => {
         video.pause();
         video.currentTime = 0;
-        video.classList.remove('loaded');
       });
     }
   });
 }
 
-// ==========================================================================
-// PDP MODAL ENGINE (Deep Architecture: Gallery, Laying-Flat Dimensions, Bundling)
-// ==========================================================================
-
+// Quick View / PDP Modal Support (Retained for quick inspection if needed)
 window.openProductModal = function(productId) {
-  const p = productsData.find(item => item.id === productId);
-  if (!p) return;
-
-  activePdpProduct = p;
-  activePdpSize = selectedSizes[productId] || (p.sizes ? p.sizes[0] : null);
-
-  const modal = document.getElementById('productModal');
-  const content = document.getElementById('pdpModalContent');
-  if (!modal || !content) return;
-
-  content.innerHTML = renderPdpModalMarkup(p);
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  // If user clicks, navigate directly to dedicated product page
+  window.location.href = `product.html?id=${productId}`;
 };
 
 window.closeProductModal = function() {
@@ -298,283 +342,7 @@ window.closeProductModal = function() {
   if (modal) {
     modal.classList.remove('open');
     document.body.style.overflow = '';
-    // Pause any playing modal video
-    const video = modal.querySelector('video');
-    if (video) video.pause();
   }
-};
-
-function renderPdpModalMarkup(p) {
-  // Gallery Thumbnails
-  const thumbs = [
-    { type: 'image', src: p.front_photo, label: 'Front Angle' },
-    { type: 'image', src: p.detail_photo, label: 'Fabric Detail' },
-    { type: 'image', src: p.back_photo, label: 'Rear Cut' }
-  ];
-
-  if (p.video_url) {
-    thumbs.push({ type: 'video', src: p.video_url, label: 'Runway Walk' });
-  }
-
-  const thumbsHtml = thumbs.map((t, idx) => `
-    <button class="pdp-thumb-btn ${idx === 0 ? 'active' : ''}" onclick="switchPdpMedia(this, '${t.type}', '${t.src}')" title="${t.label}">
-      ${t.type === 'video' 
-        ? `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#111; color:var(--gold-primary); font-size:0.65rem; font-weight:700;">▶ WALK</div>`
-        : `<img src="${t.src}" alt="${t.label}">`
-      }
-    </button>
-  `).join('');
-
-  // Size Selector Pills
-  const sizePills = (p.sizes || []).map(s => `
-    <span class="size-pill ${s === activePdpSize ? 'selected' : ''}" style="padding:6px 14px; font-size:0.8rem;" onclick="setPdpSize('${s}')">${s}</span>
-  `).join('');
-
-  // Sizing matrix table rows
-  const measurementHtml = renderMeasurementTableHtml(p, activePdpSize, activePdpUnit);
-
-  // "Complete the Look" Bundling
-  const styledHtml = renderStyledWithHtml(p);
-
-  return `
-    <button class="modal-close-btn" onclick="closeProductModal()">&times;</button>
-    
-    <!-- Left Column: Multi-Angle Gallery & Runway Motion -->
-    <div class="pdp-gallery-column">
-      <div class="pdp-main-media-wrap">
-        <img id="pdpMainImg" class="pdp-main-img" src="${p.front_photo}" alt="${p.name}">
-        <video id="pdpMainVideo" class="pdp-main-video" controls loop playsinline></video>
-      </div>
-      <div class="pdp-thumbs-row">
-        ${thumbsHtml}
-      </div>
-      <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:4px;">
-        1:1 Verified Drop Assets • Direct Baku Showroom Provenance
-      </div>
-    </div>
-
-    <!-- Right Column: Specs, Dimensions & Atelier Actions -->
-    <div class="pdp-info-column">
-      <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-primary); font-weight:700;">${p.category}</span>
-      <h2 style="font-family:var(--font-serif); font-size:1.75rem; line-height:1.25; margin:6px 0 10px;">${p.name}</h2>
-      
-      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; border-bottom:1px solid var(--border-subtle); padding-bottom:12px;">
-        <span id="pdpPrice" style="font-size:1.6rem; font-weight:700; color:var(--gold-light);">${formatPrice(p.price)}</span>
-        <span style="font-size:0.75rem; color:#4ADE80; font-weight:600;">✓ In Stock for Air Cargo Dispatch</span>
-      </div>
-
-      <div style="font-size:0.84rem; color:var(--text-secondary); line-height:1.55; margin-bottom:16px;">
-        <strong style="color:var(--text-primary); display:block; margin-bottom:4px;">Atelier Fabric & Construction:</strong>
-        ${p.fabric_story || ''}
-      </div>
-
-      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">
-        <strong>Provenance:</strong> ${p.provenance || 'Baku Atelier Master Tailoring'}
-      </div>
-
-      <!-- Model Physical Telemetry -->
-      <div style="background:var(--bg-secondary); border:1px solid var(--border-subtle); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:0.8rem; color:var(--text-secondary);">
-        🧍 <strong>Model Telemetry:</strong> ${p.model_telemetry || 'Model is 185 cm, 80 kg, wearing Size Large'}
-      </div>
-
-      <!-- Visual Fit Scale Slider -->
-      <div class="fit-scale-bar">
-        <div style="display:flex; justify-content:space-between; font-weight:600; font-size:0.78rem;">
-          <span>Fit Profile:</span>
-          <span style="color:var(--gold-light);">${p.fit_scale || 'Contemporary Tailored'}</span>
-        </div>
-        <div class="fit-slider-track">
-          <div class="fit-slider-knob" style="left: ${p.fit_rating || 50}%;"></div>
-        </div>
-        <div class="fit-labels">
-          <span>Slim Form</span>
-          <span>Sartorial Tailored</span>
-          <span>Relaxed Oversized</span>
-        </div>
-      </div>
-
-      <!-- Size Selection -->
-      <div style="margin: 16px 0 10px;">
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
-          <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted);">Select Atelier Size:</span>
-          <span style="font-size:0.75rem; color:var(--gold-primary);">Selected: <strong>${activePdpSize}</strong></span>
-        </div>
-        <div class="product-sizes-list">
-          ${sizePills}
-        </div>
-      </div>
-
-      <!-- Laying-Flat Measurement Matrix -->
-      <div class="measurement-box">
-        <div class="measurement-header">
-          <span style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold-light);">
-            Laying-Flat Garment Dimensions (Size ${activePdpSize})
-          </span>
-          <button class="unit-toggle-btn" onclick="toggleMeasurementUnit()">Unit: ${activePdpUnit}</button>
-        </div>
-        <div id="pdpMeasurementTableWrap">
-          ${measurementHtml}
-        </div>
-        <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">
-          💡 Measured flat across the seam on un-stretched garment. Compare with your favorite piece at home.
-        </div>
-      </div>
-
-      <!-- Add to Bag Primary CTA -->
-      <button class="btn btn-primary" style="width:100%; justify-content:center; padding:14px; font-size:0.95rem; margin-top:6px;" onclick="addPdpProductToCart()">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-        <span>Add ${p.name} (Size ${activePdpSize}) to Bag</span>
-      </button>
-
-      <!-- DDP Customs & Express Air Cargo Guarantee -->
-      <div class="ddp-guarantee-box">
-        🛡️ <strong>Delivered Duty Paid (DDP) Guaranteed:</strong> All EU VAT, UK customs, and US import clearance pre-arranged. Zero customs fees upon arrival. Express door-to-door air tracking provided upon dispatch.
-      </div>
-
-      <!-- "Complete the Look" Bundling -->
-      ${styledHtml}
-    </div>
-  `;
-}
-
-// Media Switcher in PDP Gallery
-window.switchPdpMedia = function(btn, type, src) {
-  document.querySelectorAll('.pdp-thumb-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  const img = document.getElementById('pdpMainImg');
-  const video = document.getElementById('pdpMainVideo');
-  if (!img || !video) return;
-
-  if (type === 'video') {
-    img.style.display = 'none';
-    video.style.display = 'block';
-    video.src = src;
-    video.play().catch(() => {});
-  } else {
-    video.pause();
-    video.style.display = 'none';
-    img.style.display = 'block';
-    img.src = src;
-  }
-};
-
-// Size Selection within PDP
-window.setPdpSize = function(size) {
-  activePdpSize = size;
-  if (activePdpProduct) {
-    selectedSizes[activePdpProduct.id] = size;
-  }
-  // Re-render PDP content to update size pills and measurement table
-  const content = document.getElementById('pdpModalContent');
-  if (content && activePdpProduct) {
-    content.innerHTML = renderPdpModalMarkup(activePdpProduct);
-  }
-};
-
-// Toggle Measurement Unit (CM <-> INCHES)
-window.toggleMeasurementUnit = function() {
-  activePdpUnit = activePdpUnit === 'CM' ? 'INCHES' : 'CM';
-  const tableWrap = document.getElementById('pdpMeasurementTableWrap');
-  if (tableWrap && activePdpProduct) {
-    tableWrap.innerHTML = renderMeasurementTableHtml(activePdpProduct, activePdpSize, activePdpUnit);
-  }
-  const btn = document.querySelector('.unit-toggle-btn');
-  if (btn) btn.textContent = `Unit: ${activePdpUnit}`;
-};
-
-function renderMeasurementTableHtml(product, size, unit) {
-  if (!product.measurements || !product.measurements[size]) {
-    return `<div style="font-size:0.75rem; color:var(--text-muted); padding:8px 0;">Standard artisanal proportions apply.</div>`;
-  }
-
-  const spec = product.measurements[size];
-  const keys = Object.keys(spec);
-
-  const formatVal = (val, key) => {
-    if (typeof val === 'number') {
-      if (unit === 'INCHES') {
-        return (val / 2.54).toFixed(1) + '"';
-      }
-      return `${val} cm`;
-    }
-    return val;
-  };
-
-  const keyLabels = {
-    chest_cm: 'Chest (Pit-to-Pit)',
-    length_cm: 'Body Length',
-    shoulder_cm: 'Shoulder Width',
-    sleeve_cm: 'Sleeve Length',
-    waist_cm: 'Waist (Flat Width)',
-    inseam_cm: 'Inseam Length',
-    pant_len_cm: 'Outseam Length',
-    thigh_cm: 'Thigh Width',
-    rise_cm: 'Front Rise',
-    eu_size: 'EU Sizing',
-    us_size: 'US Sizing',
-    insole_cm: 'Insole Bed Length'
-  };
-
-  const rows = keys.map(k => `
-    <tr>
-      <td>${keyLabels[k] || k.replace(/_/g, ' ')}</td>
-      <td style="font-weight:700; color:var(--gold-light); text-align:right;">${formatVal(spec[k], k)}</td>
-    </tr>
-  `).join('');
-
-  return `
-    <table class="measurement-table">
-      <thead>
-        <tr>
-          <th>Garment Metric</th>
-          <th style="text-align:right;">Measurement (${unit})</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows}
-      </tbody>
-    </table>
-  `;
-}
-
-// "Complete the Look" Bundling Render
-function renderStyledWithHtml(product) {
-  if (!product.styled_with || product.styled_with.length === 0) return '';
-
-  const companionItems = product.styled_with
-    .map(id => productsData.find(item => item.id === id))
-    .filter(Boolean);
-
-  if (companionItems.length === 0) return '';
-
-  const itemsHtml = companionItems.map(item => `
-    <div class="bundle-item-row">
-      <img src="${item.front_photo}" alt="${item.name}" style="width:48px; height:60px; object-fit:cover; border-radius:4px; border:1px solid var(--border-subtle);">
-      <div style="flex-grow:1; margin-left:12px;">
-        <div style="font-weight:600; font-size:0.82rem; color:var(--text-primary);">${item.name}</div>
-        <div style="font-size:0.75rem; color:var(--gold-primary); font-weight:600;">${formatPrice(item.price)}</div>
-      </div>
-      <button class="btn btn-secondary" style="padding:6px 12px; font-size:0.72rem;" onclick="addToCart('${item.id}')">
-        + Add Piece
-      </button>
-    </div>
-  `).join('');
-
-  return `
-    <div class="styled-with-box">
-      <div class="styled-with-title">Complete The Caspian Look</div>
-      <div class="styled-with-items">
-        ${itemsHtml}
-      </div>
-    </div>
-  `;
-}
-
-window.addPdpProductToCart = function() {
-  if (!activePdpProduct) return;
-  addToCart(activePdpProduct.id, activePdpSize);
-  closeProductModal();
 };
 
 // ==========================================================================

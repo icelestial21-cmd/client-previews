@@ -160,44 +160,53 @@
   <section id="collection" class="catalog-section">
     <div class="section-container">
       <div class="section-header">
-        <div class="section-subtitle">Atelier Curated Edition</div>
-        <h2 class="section-title">New Collection 2025–2026</h2>
-        <p style="color:var(--text-secondary); max-width:600px; margin:8px auto 0; font-size:0.92rem;">
-          Hover over product cards with the video badge to preview authentic runway fit and drape in real time.
+        <div class="section-subtitle">Autumn / Winter 2025–2026 Collection</div>
+        <h2 class="section-title">The Baku Sartorial Edit</h2>
+        <p style="color:var(--text-secondary); max-width:640px; margin:8px auto 0; font-size:0.92rem;">
+          Hover over product cards with the runway badge to preview garment drape in motion. Click any piece for full laying-flat dimensions, model telemetry, and curated ensembles.
         </p>
       </div>
 
-      <!-- Category Filter Pills -->
-      <div class="category-tabs">
-        <button class="cat-tab active" onclick="filterCategory(this, 'all')">All Atelier Pieces</button>
-        <button class="cat-tab" onclick="filterCategory(this, 'Knits & Polos')">Knits & Polos</button>
-        <button class="cat-tab" onclick="filterCategory(this, 'Suits & Outerwear')">Tailoring & Outerwear</button>
-        <button class="cat-tab" onclick="filterCategory(this, 'Denim & Trousers')">Denim & Trousers</button>
-        <button class="cat-tab" onclick="filterCategory(this, 'Footwear')">Footwear</button>
-        <button class="cat-tab" onclick="filterCategory(this, 'Essentials')">Ready-to-Wear</button>
-      </div>
+      <!-- Luxury Atelier Category Navigation -->
+      <nav id="atelierCategoryNav" class="atelier-category-nav">
+        <!-- Rendered dynamically by app.js with live drop counts -->
+      </nav>
 
-      <!-- Catalog Controls: Density Switcher & In-Stock Size Filters -->
-      <div class="catalog-controls-bar">
-        <div class="filter-pills-group">
-          <span class="filter-label">Filter by Size:</span>
-          <button class="size-filter-btn active" onclick="filterSize(this, 'all')">All Sizes</button>
-          <button class="size-filter-btn" onclick="filterSize(this, 'M')">M</button>
-          <button class="size-filter-btn" onclick="filterSize(this, 'L')">L</button>
-          <button class="size-filter-btn" onclick="filterSize(this, 'XL')">XL</button>
-          <button class="size-filter-btn" onclick="filterSize(this, 'XXL')">XXL</button>
-          <button class="size-filter-btn" onclick="filterSize(this, '3XL')">3XL</button>
+      <!-- Luxury Minimalist Utility Filter & Density Bar -->
+      <div class="luxury-utility-bar">
+        <div id="utilityCountLabel" class="utility-count-label">
+          Showing 12 Atelier Pieces
         </div>
 
-        <div class="view-density-toggle">
-          <button id="densityCompactBtn" class="density-btn active" onclick="setViewDensity('compact')" title="4-Column Standard Grid">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:text-top; margin-right:4px;"><path d="M3 3h7v7H3zm11 0h7v7h-7zm-11 11h7v7H3zm11 0h7v7h-7z"/></svg>
-            Standard (4-Col)
-          </button>
-          <button id="densityEditorialBtn" class="density-btn" onclick="setViewDensity('editorial')" title="2-Column Editorial Magazine View">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:text-top; margin-right:4px;"><path d="M3 3h8v18H3zm10 0h8v18h-8z"/></svg>
-            Editorial (2-Col)
-          </button>
+        <div class="utility-size-filter">
+          <span class="size-filter-label">Filter Size:</span>
+          <div class="size-filter-options">
+            <button class="size-filter-btn active" onclick="filterSize(this, 'all')">All</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'M')">M</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'L')">L</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'XL')">XL</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'XXL')">XXL</button>
+            <button class="size-filter-btn" onclick="filterSize(this, '3XL')">3XL</button>
+          </div>
+        </div>
+
+        <div class="utility-right-controls">
+          <select id="catalogSortSelect" class="luxury-sort-select" onchange="handleSortChange(this.value)">
+            <option value="featured">Sort: Featured Drops</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+
+          <div class="density-icon-toggle">
+            <button id="densityCompactBtn" class="density-icon-btn active" onclick="setViewDensity('compact')" title="4-Column Standard Grid">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3zm11 0h7v7h-7zm-11 11h7v7H3zm11 0h7v7h-7z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button id="densityEditorialBtn" class="density-icon-btn" onclick="setViewDensity('editorial')" title="2-Column Editorial Magazine View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v18H3zm10 0h8v18h-8z"/></svg>
+              <span>Editorial</span>
+            </button>
+          </div>
         </div>
       </div>
 
