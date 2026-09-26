@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Collections | MARKO BAKU Digital Atelier</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    <div>
+      ✈️ <strong>Worldwide Air Cargo:</strong> Express Tracked Delivery to USA, UK, Europe & Middle East
+    </div>
+    <div class="currency-selector-wrap">
+      <span>Currency:</span>
+      <select id="currencySelector" class="currency-select">
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="GBP">GBP (£)</option>
+        <option value="AZN">AZN (₼)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-title">Marko Baku</span>
+        <span class="brand-subtitle">Digital Atelier • Est. 2024</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="collections.html" class="nav-link active">Full Catalog</a></li>
+        <li><a href="lookbook.html" class="nav-link">Runway Lookbook</a></li>
+        <li><a href="index.html#deliveries" class="nav-link">Global Proof</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="cartBtn" class="cart-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span>Bag</span>
+          <span id="cartCount" class="cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section style="background: linear-gradient(180deg, #101520 0%, #07090E 100%); padding: 60px 24px; border-bottom: 1px solid var(--border-subtle); text-align: center;">
+    <div class="section-container">
+      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">Complete Autumn/Winter Edit</span>
+      <h1 style="font-family:var(--font-serif); font-size:3rem; margin:10px 0 14px;">The Complete Atelier Catalog</h1>
+      <p style="color:var(--text-secondary); max-width:600px; margin:0 auto; font-size:0.95rem;">
+        Browse our full repertoire of Caspian tailoring, textured knits, Italian calfskin footwear, and Japanese selvedge denim.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter & Catalog Section -->
+  <section class="catalog-section" style="padding-top: 40px;">
+    <div class="section-container">
+      <!-- Filter Tabs -->
+      <div class="category-tabs">
+        <button class="cat-tab active" onclick="filterCategory(this, 'all')">All Garments (12)</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Knits & Polos')">Knits & Polos (4)</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Suits & Outerwear')">Suits & Outerwear (3)</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Denim & Trousers')">Denim & Trousers (2)</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Footwear')">Footwear (2)</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Essentials')">Ready-to-Wear (1)</button>
+      </div>
+
+      <!-- Grid -->
+      <div id="productsGrid" class="products-grid"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 style="font-size:1.4rem;">Marko Baku</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:320px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of old-world European tailoring and Caspian craftsmanship.
+        </p>
+        <p style="color:var(--text-muted); font-size:0.78rem;">
+          Atelier Flagship: Nizami Street, Baku, Azerbaijan
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Atelier Home</a></li>
+          <li><a href="collections.html" class="footer-link">Full Catalog</a></li>
+          <li><a href="lookbook.html" class="footer-link">Runway Lookbook</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Client Services</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#deliveries" class="footer-link">Global Air Cargo</a></li>
+          <li><a href="index.html#sovereign" class="footer-link">Sovereign Buyer Protection</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Concierge Desk</h4>
+        <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
+          concierge@markobaku.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.8rem;">
+          WhatsApp Direct: +994 70 562 60 60
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Marko Baku Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Atelier Bag</h3>
+      <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
+    <div class="cart-shipping-meter">
+      <div id="shippingMeterText">
+        Add items for <strong>Complimentary Worldwide Air Cargo</strong>
+      </div>
+      <div class="meter-track">
+        <div id="shippingMeterFill" class="meter-fill"></div>
+      </div>
+    </div>
+    <div id="cartItemsList" class="cart-items-wrap"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <strong id="cartSubtotal">$0</strong>
+      </div>
+      <button class="btn-checkout" onclick="triggerCheckout()">
+        Proceed to Secure Air Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Product Quick View Modal -->
+  <div id="productModal" class="modal-overlay" onclick="if(event.target === this) closeProductModal()">
+    <div class="modal-content" style="max-width:700px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <button class="modal-close-btn" onclick="closeProductModal()">&times;</button>
+      <img id="modalProdImg" src="" alt="Product" style="width:100%; height:100%; object-fit:cover; border-radius:6px; border:1px solid var(--border-subtle);">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <span id="modalProdCategory" style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-primary); margin-bottom:6px; font-weight:600;">Category</span>
+        <h3 id="modalProdTitle" style="font-family:var(--font-serif); font-size:1.45rem; line-height:1.2; margin-bottom:10px;">Product Title</h3>
+        <div id="modalProdPrice" style="font-size:1.35rem; font-weight:700; color:var(--gold-light); margin-bottom:14px;">$0</div>
+        <p id="modalProdDesc" style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px; line-height:1.5;">Description</p>
+        <button id="modalAddBtn" class="btn btn-primary" style="width:100%; justify-content:center;">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Express Checkout Simulation Modal -->
+  <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
+    <div class="modal-content" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+      <div style="width:56px; height:56px; background:rgba(34,197,94,0.15); border:1px solid #4ADE80; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="28" height="28" fill="none" stroke="#4ADE80" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--gold-light); margin-bottom:8px;">Atelier Order Confirmed</h3>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">
+        Your order has been routed to the Baku fulfillment center. An express air-waybill has been generated.
+      </p>
+      <div style="background:var(--bg-secondary); border:1px solid var(--border-gold); padding:16px; border-radius:8px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Air Cargo Tracking:</span>
+          <strong id="checkoutTrackingCode" style="color:var(--gold-light); font-family:monospace; letter-spacing:0.05em;">AZ-CARGO-123456</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="color:var(--text-muted)">Carrier:</span>
+          <span>Silk Way West / DHL Express</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeCheckoutModal()">
+        Return to Atelier
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARKO BAKU | Digital Atelier & Global Flagship</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Exclusive Caspian Sartorial Menswear. Luxury Knits, Tailored Suits, and Contemporary Streetwear shipped worldwide from Baku.">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    <div>
+      ✈️ <strong>Worldwide Air Cargo:</strong> Express Tracked Delivery to USA, UK, Europe & Middle East
+    </div>
+    <div class="currency-selector-wrap">
+      <span>Currency:</span>
+      <select id="currencySelector" class="currency-select">
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="GBP">GBP (£)</option>
+        <option value="AZN">AZN (₼)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-title">Marko Baku</span>
+        <span class="brand-subtitle">Digital Atelier • Est. 2024</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#collection" class="nav-link active">2025/2026 Drops</a></li>
+        <li><a href="collections.html" class="nav-link">Full Catalog</a></li>
+        <li><a href="lookbook.html" class="nav-link">Runway Lookbook</a></li>
+        <li><a href="#deliveries" class="nav-link">Global Proof</a></li>
+        <li><a href="#sovereign" class="nav-link">The Atelier Difference</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="cartBtn" class="cart-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span>Bag</span>
+          <span id="cartCount" class="cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Video Section -->
+  <section class="hero-section">
+    <video class="hero-video-bg" autoplay loop muted playsinline src="assets/hero_runway_loop.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-pulse"></div>
+        <span>Autumn / Winter 2025–2026 Collection</span>
+      </div>
+      <h1 class="hero-title">
+        Caspian Sartorial Refinement. <br><span>Tailored For The World.</span>
+      </h1>
+      <p class="hero-desc">
+        Contemporary European silhouettes, double-mercerized knits, and unstructured Italian-cut tailoring crafted in Baku. Delivered directly to your door in Rome, Madrid, London, and New York.
+      </p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn btn-primary">
+          <span>Explore New Drops</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="lookbook.html" class="btn btn-secondary">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Watch Runway Lookbook</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verified Global Deliveries / Trust Ribbon -->
+  <section id="deliveries" class="trust-ribbon-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Zero Friction • Institutional Reliability</div>
+        <h2 class="section-title">Verified Global Deliveries</h2>
+        <p style="color:var(--text-secondary); max-width:620px; margin:10px auto 0; font-size:0.92rem;">
+          Overcoming the limitations of manual social messaging. Every Marko Baku order includes end-to-end air tracking, customs pre-clearance, and full buyer protection.
+        </p>
+      </div>
+
+      <div class="trust-grid">
+        <!-- Delivery Card 1: Milan -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Verified Client Unboxing</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">Air Cargo Transit</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_package.jpg" alt="Milan Delivery" 
+               onclick="openProofModal('Verified Delivery — Milan, Italy', 'Lombardy, Italy (Delivered in 5 Days)', 'assets/delivery_proof_package.jpg', 'The merchandise I was eagerly waiting for has arrived! Top-notch materials, solid packaging, exceeding all expectations. Impeccable customer experience. 🇦🇿🤝🇮🇹')">
+          <h3 class="trust-location">Milano, Italy 🇮🇹</h3>
+          <p class="trust-desc">
+            "Top-notch materials, solid packaging, exceeding all expectations. Customer service was impeccable."
+          </p>
+        </div>
+
+        <!-- Delivery Card 2: Rome -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Delivered Safe & Sound</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">DHL Air Express</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_italy.jpg" alt="Rome Delivery"
+               onclick="openProofModal('Verified Arrival — Rome, Italy', 'Rome, Italy (Signature Confirmed)', 'assets/delivery_proof_italy.jpg', 'Safe and sound arrival of the 2024–2025 luxury knit drop. Customer confirmed perfect fit.')">
+          <h3 class="trust-location">Rome, Italy 🇮🇹</h3>
+          <p class="trust-desc">
+            Direct air dispatch from Heydar Aliyev International Airport (GYD) directly to client residence.
+          </p>
+        </div>
+
+        <!-- Delivery Card 3: Madrid -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Spain Customs Cleared</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">Madrid Hub</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_spain.jpg" alt="Spain Delivery"
+               onclick="openProofModal('Spain Delivery Receipt', 'Madrid, Spain', 'assets/delivery_proof_spain.jpg', 'The products we sent to Spain have reached our customer in good condition. 🇪🇸📦')">
+          <h3 class="trust-location">Madrid, Spain 🇪🇸</h3>
+          <p class="trust-desc">
+            "Reached our customer's home in pristine condition. Zero customs hold-up."
+          </p>
+        </div>
+
+        <!-- Delivery Card 4: Institutional Guarantee -->
+        <div class="trust-card" style="border-color: var(--border-gold); background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(212,175,55,0.06) 100%);">
+          <div class="trust-card-header">
+            <span class="trust-badge" style="background:rgba(212,175,55,0.15); border-color:var(--gold-primary); color:var(--gold-light)">Sovereign Digital Escrow</span>
+            <span style="font-size:0.75rem; color:var(--gold-primary)">100% Protected</span>
+          </div>
+          <div style="height:160px; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(0,0,0,0.3); border-radius:6px; margin-bottom:14px; border:1px dashed var(--border-gold);">
+            <svg width="42" height="42" fill="none" stroke="var(--gold-primary)" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span style="font-size:0.78rem; color:var(--gold-light); margin-top:8px; font-weight:600;">Stripe • Apple Pay • Visa • Mastercard</span>
+          </div>
+          <h3 class="trust-location">Zero WhatsApp Risk</h3>
+          <p class="trust-desc">
+            Never wire unverified funds over chat. Seamless multi-currency digital checkout with automatic invoice generation and live parcel tracking.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Section -->
+  <section id="collection" class="catalog-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Atelier Curated Edition</div>
+        <h2 class="section-title">New Collection 2025–2026</h2>
+        <p style="color:var(--text-secondary); max-width:600px; margin:8px auto 0; font-size:0.92rem;">
+          Hover over product cards with the video badge to preview authentic runway fit and drape in real time.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="category-tabs">
+        <button class="cat-tab active" onclick="filterCategory(this, 'all')">All Atelier Pieces</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Knits & Polos')">Knits & Polos</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Suits & Outerwear')">Tailoring & Outerwear</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Denim & Trousers')">Denim & Trousers</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Footwear')">Footwear</button>
+        <button class="cat-tab" onclick="filterCategory(this, 'Essentials')">Ready-to-Wear</button>
+      </div>
+
+      <!-- Dynamic Product Grid -->
+      <div id="productsGrid" class="products-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- The Sovereign Difference (Table Comparison) -->
+  <section id="sovereign" class="comparison-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Strategic Commercial Architecture</div>
+        <h2 class="section-title">Why Marko Baku Built The Sovereign Atelier</h2>
+        <p style="color:var(--text-secondary); max-width:680px; margin:10px auto 0; font-size:0.92rem;">
+          Moving beyond vulnerable social messaging channels into institutional international commerce.
+        </p>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Evaluation Pillar</th>
+              <th>The Instagram & Telegram Status Quo</th>
+              <th class="col-highlight">The Marko Sovereign Digital Atelier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Account Security & Permanence</strong></td>
+              <td><span class="badge-risk">⚠️ Fragile</span> Page suspended by Meta without warning (Post #81 incident), leading to instant revenue blackouts.</td>
+              <td class="col-highlight"><span class="badge-sovereign">🛡️ 100% Sovereign</span> Independent digital real estate on custom domain. Immune to platform bans.</td>
+            </tr>
+            <tr>
+              <td><strong>Buyer Trust & Scam Perception</strong></td>
+              <td><span class="badge-risk">⚠️ High Friction</span> Western buyers required to wire money over WhatsApp to an Azerbaijani phone number (+994).</td>
+              <td class="col-highlight"><span class="badge-sovereign">✨ Institutional Trust</span> Standard multi-currency checkout (Apple Pay, Google Pay, Visa). Eradicates Reddit scam anxiety.</td>
+            </tr>
+            <tr>
+              <td><strong>Currency & Pricing Transparency</strong></td>
+              <td><span class="badge-risk">⚠️ Ambiguous</span> Manual conversion calculations, currency negotiation, and unformatted price posts.</td>
+              <td class="col-highlight"><span class="badge-sovereign">💱 Real-Time Multi-Currency</span> Seamless switching across USD ($), EUR (€), GBP (£), and AZN (₼).</td>
+            </tr>
+            <tr>
+              <td><strong>Order Processing Overhead</strong></td>
+              <td><span class="badge-risk">⚠️ Manual Labor</span> Hours spent manually answering "how much?", size checks, and writing postal labels by hand.</td>
+              <td class="col-highlight"><span class="badge-sovereign">⚡ Automated Throughput</span> Instant size selection, automated stock reservation, and integrated air-cargo dispatch slips.</td>
+            </tr>
+            <tr>
+              <td><strong>Runway Experience & Drape</strong></td>
+              <td><span class="badge-risk">⚠️ Scattered</span> Compressed video snippets lost in social media feeds.</td>
+              <td class="col-highlight"><span class="badge-sovereign">🎬 Integrated Video Lookbook</span> Zero-latency looping runway previews embedded on every product card.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lookbook Banner Callout -->
+  <section style="background: radial-gradient(circle at center, #141A24 0%, #07090E 100%); padding: 70px 24px; border-bottom: 1px solid var(--border-subtle); text-align: center;">
+    <div class="section-container">
+      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">Runway Lookbook Experience</span>
+      <h2 style="font-family:var(--font-serif); font-size:2.4rem; margin:10px 0 16px;">See The Garments in Motion</h2>
+      <p style="color:var(--text-secondary); max-width:540px; margin:0 auto 28px; font-size:0.92rem;">
+        Walk the digital runway. Experience the natural movement, heavy drape, and artisanal fabric textures of our autumn collection.
+      </p>
+      <a href="lookbook.html" class="btn btn-primary">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Open Runway Lookbook</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 style="font-size:1.4rem;">Marko Baku</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:320px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of old-world European tailoring and Caspian craftsmanship.
+        </p>
+        <p style="color:var(--text-muted); font-size:0.78rem;">
+          Atelier Flagship: Nizami Street, Baku, Azerbaijan<br>
+          Official Digital Flagship • Powered by iCelestial
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links">
+          <li><a href="collections.html" class="footer-link">Autumn/Winter 2025–2026</a></li>
+          <li><a href="collections.html" class="footer-link">Double-Mercerized Knits</a></li>
+          <li><a href="collections.html" class="footer-link">Tailored Trousers</a></li>
+          <li><a href="collections.html" class="footer-link">Italian Leather Footwear</a></li>
+          <li><a href="collections.html" class="footer-link">Unstructured Outerwear</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Client Services</h4>
+        <ul class="footer-links">
+          <li><a href="#deliveries" class="footer-link">Global Air Cargo Logistics</a></li>
+          <li><a href="#deliveries" class="footer-link">Customs & Duty Information</a></li>
+          <li><a href="lookbook.html" class="footer-link">Runway Video Gallery</a></li>
+          <li><a href="#sovereign" class="footer-link">Escrow Buyer Protection</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="footer-link">Atelier Shopping Bag</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Direct Inquiries</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:12px;">
+          Private Client Services & Concierge:
+        </p>
+        <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
+          VIP Desk: concierge@markobaku.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.8rem;">
+          Baku Direct: +994 70 562 60 60
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Marko Baku Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+      <div style="display:flex; gap:16px;">
+        <span>Privacy Policy</span>
+        <span>Terms of Atelier Service</span>
+        <span>Global Delivery Terms</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Atelier Bag</h3>
+      <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
+
+    <div class="cart-shipping-meter">
+      <div id="shippingMeterText">
+        Add items for <strong>Complimentary Worldwide Air Cargo</strong>
+      </div>
+      <div class="meter-track">
+        <div id="shippingMeterFill" class="meter-fill"></div>
+      </div>
+    </div>
+
+    <div id="cartItemsList" class="cart-items-wrap">
+      <!-- Injected by app.js -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <strong id="cartSubtotal">$0</strong>
+      </div>
+      <button class="btn-checkout" onclick="triggerCheckout()">
+        Proceed to Secure Air Checkout
+      </button>
+      <div style="text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:10px;">
+        🔒 Encrypted 256-Bit SSL • Apple Pay / Stripe / Visa Pre-Approved
+      </div>
+    </div>
+  </aside>
+
+  <!-- Proof Lightbox Modal -->
+  <div id="proofModal" class="modal-overlay" onclick="if(event.target === this) closeProofModal()">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeProofModal()">&times;</button>
+      <h3 id="proofModalTitle" style="font-family:var(--font-serif); font-size:1.5rem; color:var(--gold-light); margin-bottom:4px;">Verified Delivery</h3>
+      <div id="proofModalLocation" style="font-size:0.82rem; color:var(--gold-primary); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;">Location</div>
+      <img id="proofModalImage" src="" alt="Proof" style="width:100%; max-height:360px; object-fit:contain; border-radius:6px; background:#000; margin-bottom:16px; border:1px solid var(--border-subtle);">
+      <blockquote id="proofModalReview" style="font-style:italic; color:var(--text-secondary); border-left:2px solid var(--gold-primary); padding-left:14px; font-size:0.88rem; line-height:1.5;"></blockquote>
+    </div>
+  </div>
+
+  <!-- Product Quick View Modal -->
+  <div id="productModal" class="modal-overlay" onclick="if(event.target === this) closeProductModal()">
+    <div class="modal-content" style="max-width:700px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+      <button class="modal-close-btn" onclick="closeProductModal()">&times;</button>
+      <img id="modalProdImg" src="" alt="Product" style="width:100%; height:100%; object-fit:cover; border-radius:6px; border:1px solid var(--border-subtle);">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <span id="modalProdCategory" style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-primary); margin-bottom:6px; font-weight:600;">Category</span>
+        <h3 id="modalProdTitle" style="font-family:var(--font-serif); font-size:1.45rem; line-height:1.2; margin-bottom:10px;">Product Title</h3>
+        <div id="modalProdPrice" style="font-size:1.35rem; font-weight:700; color:var(--gold-light); margin-bottom:14px;">$0</div>
+        <p id="modalProdDesc" style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px; line-height:1.5;">Description</p>
+        
+        <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:6px;">
+          <strong>Fabric:</strong> <span id="modalProdFabric"></span>
+        </div>
+        <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:20px;">
+          <strong>Provenance:</strong> <span id="modalProdOrigin"></span>
+        </div>
+
+        <button id="modalAddBtn" class="btn btn-primary" style="width:100%; justify-content:center;">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Express Checkout Simulation Modal -->
+  <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
+    <div class="modal-content" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+      <div style="width:56px; height:56px; background:rgba(34,197,94,0.15); border:1px solid #4ADE80; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="28" height="28" fill="none" stroke="#4ADE80" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--gold-light); margin-bottom:8px;">Atelier Order Confirmed</h3>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">
+        Your order has been routed to the Baku fulfillment center. An express air-waybill has been generated.
+      </p>
+      <div style="background:var(--bg-secondary); border:1px solid var(--border-gold); padding:16px; border-radius:8px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Air Cargo Tracking:</span>
+          <strong id="checkoutTrackingCode" style="color:var(--gold-light); font-family:monospace; letter-spacing:0.05em;">AZ-CARGO-123456</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Carrier:</span>
+          <span>Silk Way West / DHL Express</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="color:var(--text-muted)">Customs Status:</span>
+          <span style="color:#4ADE80">Pre-Cleared International Air Cargo</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeCheckoutModal()">
+        Return to Atelier
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
