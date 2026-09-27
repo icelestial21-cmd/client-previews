@@ -51,28 +51,39 @@
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
 
   <!-- Announcement Bar -->
-  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
-    <span>Virtual Fitting Pavilion</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>Bespoke Digital Fitting</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>Master Tailor Precision</span>
+  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 tracking-[0.2em] text-gold-400 font-cinzel uppercase overflow-hidden">
+    <!-- Mobile ticker -->
+    <div class="sm:hidden flex items-center justify-center gap-2 text-[10px] tracking-wider text-center">
+      <span>Virtual Fitting</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Bespoke 3D Calibrated</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span class="text-gold-300 font-bold">Zero Tape Required</span>
+    </div>
+    <!-- Desktop ticker -->
+    <div class="hidden sm:flex items-center justify-center gap-4 text-center">
+      <span>Virtual Fitting Pavilion</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Bespoke Digital Fitting Protocol</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Master Tailor Savile Row & Accra Precision</span>
+    </div>
   </div>
 
   <!-- Primary Header -->
   <header class="sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- Brand Emblem -->
-      <a href="index.html" class="flex items-center gap-3.5 group">
-        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors shrink-0">
           <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
         </div>
         <div class="flex flex-col">
-          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.24em] text-white group-hover:text-gold-400 transition-colors">
             CHIBEST
           </span>
-          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+          <span class="text-[8px] sm:text-[9px] tracking-[0.4em] text-gold-500 uppercase -mt-0.5 font-mono">
             Haute Couture · Accra
           </span>
         </div>
@@ -92,9 +103,10 @@
       </nav>
 
       <!-- Utility: Currency & Direct Concierge -->
-      <div class="flex items-center space-x-4">
-        <div class="relative inline-block text-left">
-          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider">
+      <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
+        <!-- Currency Converter (Desktop/Tablet) -->
+        <div class="relative hidden sm:inline-block text-left">
+          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-2.5 sm:px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider min-h-[40px]">
             <option value="USD">USD ($)</option>
             <option value="GBP">GBP (£)</option>
             <option value="EUR">EUR (€)</option>
@@ -102,12 +114,14 @@
           </select>
         </div>
 
-        <a href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+        <!-- VIP WhatsApp Direct -->
+        <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20am%20inquiring%20about%20a%20bespoke%20commission%20from%20Chibest%20Atelier." target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50 min-h-[40px]">
           <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
           <span>Tailor Concierge</span>
         </a>
 
-        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+        <!-- Mobile Drawer Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -115,13 +129,23 @@
 
     <!-- Mobile Drawer -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
-      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-1">Maison</a>
-      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
-      <a href="fitting-pavilion.html" class="block text-gold-400 font-bold py-1">Virtual Fitting Pavilion</a>
-      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-1">Ready-to-Wear</a>
-      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
-      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-1">Tailor Docket</a>
-      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+      <!-- Mobile Currency Selector -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/10 font-mono">
+        <span class="text-gray-400 text-[11px] uppercase tracking-wider">Currency</span>
+        <select id="currency-select-mobile" class="bg-surface border border-gold-500/40 text-gold-400 text-xs rounded-lg px-3 py-1.5 font-mono focus:outline-none cursor-pointer tracking-wider min-h-[36px]">
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GHS">GHS (GH₵)</option>
+        </select>
+      </div>
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-2">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-2">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gold-400 font-bold py-2">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-2">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-2">The Atelier</a>
+      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-2">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-3 border-t border-white/10 flex items-center gap-2 font-mono">
         <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
       </a>
     </div>
@@ -142,22 +166,22 @@
       </p>
 
       <!-- Step Protocol Guide -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-12 text-left max-w-5xl mx-auto">
-        <div class="p-4 rounded-xl border border-borderSubtle bg-surface/50">
-          <span class="text-xs font-mono text-gold-400 font-bold block mb-1">01 · HEIGHT SELECTION</span>
-          <span class="text-xs text-gray-300 leading-normal block">Enter your height to calibrate proportions for your personal cutting pattern.</span>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mt-8 sm:mt-12 text-left max-w-5xl mx-auto">
+        <div class="p-3 sm:p-4 rounded-xl border border-borderSubtle bg-surface/50">
+          <span class="text-[10px] sm:text-xs font-mono text-gold-400 font-bold block mb-1">01 · HEIGHT</span>
+          <span class="text-[10px] sm:text-xs text-gray-300 leading-normal block">Calibrate proportions for your personal cutting pattern.</span>
         </div>
-        <div class="p-4 rounded-xl border border-borderSubtle bg-surface/50">
-          <span class="text-xs font-mono text-gold-400 font-bold block mb-1">02 · TWO-ANGLE VIEW</span>
-          <span class="text-xs text-gray-300 leading-normal block">View front and profile silhouettes to capture posture, shoulder slope, and natural stance.</span>
+        <div class="p-3 sm:p-4 rounded-xl border border-borderSubtle bg-surface/50">
+          <span class="text-[10px] sm:text-xs font-mono text-gold-400 font-bold block mb-1">02 · TWO ANGLES</span>
+          <span class="text-[10px] sm:text-xs text-gray-300 leading-normal block">Front and profile views capture posture and natural stance.</span>
         </div>
-        <div class="p-4 rounded-xl border border-borderSubtle bg-surface/50">
-          <span class="text-xs font-mono text-gold-400 font-bold block mb-1">03 · GARMENT DRAPE</span>
-          <span class="text-xs text-gray-300 leading-normal block">Choose your garment to apply authentic traditional ease (Slim, Classic, or Grand Agbada Drape).</span>
+        <div class="p-3 sm:p-4 rounded-xl border border-borderSubtle bg-surface/50">
+          <span class="text-[10px] sm:text-xs font-mono text-gold-400 font-bold block mb-1">03 · DRAPE EASE</span>
+          <span class="text-[10px] sm:text-xs text-gray-300 leading-normal block">Authentic ease calibrated by traditional silhouette.</span>
         </div>
-        <div class="p-4 rounded-xl border border-borderSubtle bg-surface/50">
-          <span class="text-xs font-mono text-gold-400 font-bold block mb-1">04 · WORKSHOP DOCKET</span>
-          <span class="text-xs text-gray-300 leading-normal block">Generate official cutting docket #CB-2026-9481 and send directly to our master tailors in Accra.</span>
+        <div class="p-3 sm:p-4 rounded-xl border border-borderSubtle bg-surface/50">
+          <span class="text-[10px] sm:text-xs font-mono text-gold-400 font-bold block mb-1">04 · TAILOR DOCKET</span>
+          <span class="text-[10px] sm:text-xs text-gray-300 leading-normal block">Official cutting docket sent directly to Accra tailors.</span>
         </div>
       </div>
     </div>
@@ -170,7 +194,7 @@
       <!-- Left 6 Cols: Canvas Viewport & Anatomical Controls -->
       <div class="lg:col-span-6 space-y-6">
         
-        <div class="bg-surface rounded-2xl border-2 border-gold-500/30 p-6 shadow-2xl relative overflow-hidden">
+        <div class="bg-surface rounded-2xl border-2 border-gold-500/30 p-4 sm:p-6 shadow-2xl relative overflow-hidden">
           
           <!-- Viewport Header -->
           <div class="flex items-center justify-between border-b border-borderSubtle pb-4 mb-4">
@@ -181,10 +205,10 @@
             
             <!-- Angle Switcher -->
             <div class="flex items-center bg-onyx border border-borderSubtle rounded-lg p-1 text-xs font-mono">
-              <button id="view-front-btn" class="px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all">
+              <button id="view-front-btn" class="px-3 py-1 rounded bg-gold-500 text-obsidian font-bold transition-all min-h-[36px]">
                 Front (A-Pose)
               </button>
-              <button id="view-side-btn" class="px-3 py-1 rounded text-gray-400 hover:text-white transition-all">
+              <button id="view-side-btn" class="px-3 py-1 rounded text-gray-400 hover:text-white transition-all min-h-[36px]">
                 Profile (90°)
               </button>
             </div>
@@ -216,7 +240,9 @@
               <span class="text-gray-300 uppercase tracking-wider">Your Height:</span>
               <span id="height-val-display" class="text-gold-400 font-bold text-sm">185 cm <span class="text-gray-500 font-normal">(6' 1")</span></span>
             </div>
-            <input type="range" id="height-slider" min="150" max="215" value="185" class="w-full h-1.5 bg-onyx rounded-lg appearance-none cursor-pointer accent-gold-500">
+            <div class="py-2">
+              <input type="range" id="height-slider" min="150" max="215" value="185" class="w-full h-1.5 bg-onyx rounded-lg appearance-none cursor-pointer accent-gold-500">
+            </div>
             <div class="flex justify-between text-[10px] font-mono text-gray-500">
               <span>150 cm (4' 11")</span>
               <span>180 cm (5' 11")</span>
@@ -262,23 +288,23 @@
       <!-- Right 6 Cols: 14-Dimension Matrix & Docket Conduit -->
       <div class="lg:col-span-6 space-y-6">
         
-        <div class="bg-surface rounded-2xl border-2 border-gold-500/30 p-6 shadow-2xl">
+        <div class="bg-surface rounded-2xl border-2 border-gold-500/30 p-4 sm:p-6 shadow-2xl">
           
           <!-- Matrix Header -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-borderSubtle pb-4 gap-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-borderSubtle pb-4 gap-4">
             <div>
               <span class="text-xs font-mono text-gold-500 uppercase tracking-widest">14 Bespoke Tailoring Dimensions</span>
               <h2 class="font-cinzel text-xl sm:text-2xl font-bold text-white mt-0.5">THE TAILOR MATRIX</h2>
             </div>
 
             <!-- Controls: Unit Toggle & Silhouette -->
-            <div class="flex items-center space-x-3">
-              <div class="bg-onyx border border-borderSubtle rounded p-0.5 text-[11px] font-mono flex">
-                <button id="unit-cm-btn" class="px-2 py-0.5 rounded bg-gold-500/20 text-gold-400 font-bold">CM</button>
-                <button id="unit-in-btn" class="px-2 py-0.5 rounded text-gray-400 hover:text-white">IN</button>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <div class="bg-onyx border border-borderSubtle rounded-lg p-1 text-xs font-mono flex shrink-0">
+                <button id="unit-cm-btn" class="px-3 py-1.5 min-h-[40px] min-w-[40px] rounded bg-gold-500/20 text-gold-400 font-bold transition-all flex items-center justify-center">CM</button>
+                <button id="unit-in-btn" class="px-3 py-1.5 min-h-[40px] min-w-[40px] rounded text-gray-400 hover:text-white transition-all flex items-center justify-center">IN</button>
               </div>
 
-              <select id="garment-type-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded px-3 py-1 font-mono focus:outline-none focus:border-gold-500">
+              <select id="garment-type-select" class="flex-1 sm:flex-initial max-w-full bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-lg px-3 py-2 font-mono focus:outline-none focus:border-gold-500 min-h-[40px]">
                 <option value="agbada">Ceremonial Agbada (+75mm Drape)</option>
                 <option value="senator" selected>The Senator Suit (+28mm Tailored)</option>
                 <option value="kaftan">Grand Kaftan (+40mm Comfort)</option>

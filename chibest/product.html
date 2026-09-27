@@ -51,28 +51,39 @@
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
 
   <!-- Announcement Bar -->
-  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
-    <span>Pantang Flagship Atelier</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>Individually Handcrafted Commissions</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>3–5 Days DHL Express Global Delivery</span>
+  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 tracking-[0.2em] text-gold-400 font-cinzel uppercase overflow-hidden">
+    <!-- Mobile ticker -->
+    <div class="sm:hidden flex items-center justify-center gap-2 text-[10px] tracking-wider text-center">
+      <span>Pantang Atelier</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Handcrafted Commission</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span class="text-gold-300 font-bold">DHL Express</span>
+    </div>
+    <!-- Desktop ticker -->
+    <div class="hidden sm:flex items-center justify-center gap-4 text-center">
+      <span>Pantang Flagship Atelier</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Individually Handcrafted Commissions</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>3–5 Days DHL Express Global Delivery</span>
+    </div>
   </div>
 
   <!-- Primary Header -->
   <header class="sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- Brand Emblem -->
-      <a href="index.html" class="flex items-center gap-3.5 group">
-        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors shrink-0">
           <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
         </div>
         <div class="flex flex-col">
-          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.24em] text-white group-hover:text-gold-400 transition-colors">
             CHIBEST
           </span>
-          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+          <span class="text-[8px] sm:text-[9px] tracking-[0.4em] text-gold-500 uppercase -mt-0.5 font-mono">
             Haute Couture · Accra
           </span>
         </div>
@@ -92,9 +103,10 @@
       </nav>
 
       <!-- Utility: Currency & Direct Concierge -->
-      <div class="flex items-center space-x-4">
-        <div class="relative inline-block text-left">
-          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider">
+      <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
+        <!-- Currency Converter (Desktop/Tablet) -->
+        <div class="relative hidden sm:inline-block text-left">
+          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-2.5 sm:px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider min-h-[40px]">
             <option value="USD">USD ($)</option>
             <option value="GBP">GBP (£)</option>
             <option value="EUR">EUR (€)</option>
@@ -102,12 +114,14 @@
           </select>
         </div>
 
-        <a id="header-wa-btn" href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+        <!-- VIP WhatsApp Direct -->
+        <a id="header-wa-btn" href="https://wa.me/233554916910" target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50 min-h-[40px]">
           <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
           <span>Tailor Concierge</span>
         </a>
 
-        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+        <!-- Mobile Drawer Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -115,13 +129,23 @@
 
     <!-- Mobile Drawer -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
-      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-1">Maison</a>
-      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
-      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-1">Virtual Fitting Pavilion</a>
-      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-1">Ready-to-Wear</a>
-      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
-      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-1">Tailor Docket</a>
-      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+      <!-- Mobile Currency Selector -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/10 font-mono">
+        <span class="text-gray-400 text-[11px] uppercase tracking-wider">Currency</span>
+        <select id="currency-select-mobile" class="bg-surface border border-gold-500/40 text-gold-400 text-xs rounded-lg px-3 py-1.5 font-mono focus:outline-none cursor-pointer tracking-wider min-h-[36px]">
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GHS">GHS (GH₵)</option>
+        </select>
+      </div>
+      <a href="index.html" class="block text-gray-300 hover:text-gold-400 py-2">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-2">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-2">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-2">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-2">The Atelier</a>
+      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-2">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-3 border-t border-white/10 flex items-center gap-2 font-mono">
         <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
       </a>
     </div>
@@ -240,17 +264,17 @@
             <label class="block text-xs font-mono text-gold-500 uppercase tracking-wider mb-2">
               Select Cloth Colorway
             </label>
-            <div class="grid grid-cols-4 gap-2">
-              <button class="color-btn active py-2 px-3 rounded border border-gold-500 bg-gold-500/20 text-white text-xs font-cinzel text-center">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button class="color-btn active py-2.5 px-3 min-h-[40px] flex items-center justify-center rounded-lg border border-gold-500 bg-gold-500/20 text-white text-xs font-cinzel text-center transition-all">
                 Royal Damask
               </button>
-              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+              <button class="color-btn py-2.5 px-3 min-h-[40px] flex items-center justify-center rounded-lg border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center transition-all">
                 Midnight Navy
               </button>
-              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+              <button class="color-btn py-2.5 px-3 min-h-[40px] flex items-center justify-center rounded-lg border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center transition-all">
                 Emerald
               </button>
-              <button class="color-btn py-2 px-3 rounded border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center">
+              <button class="color-btn py-2.5 px-3 min-h-[40px] flex items-center justify-center rounded-lg border border-borderSubtle bg-surface text-gray-400 hover:text-white text-xs font-cinzel text-center transition-all">
                 Wine Brocade
               </button>
             </div>
@@ -261,7 +285,7 @@
             <label class="block text-xs font-mono text-gold-500 uppercase tracking-wider mb-1">
               Bespoke Monogram (Complimentary)
             </label>
-            <input type="text" id="monogram-input" placeholder="e.g. C.J.V.H. (Inside Lapel Facing)" class="w-full bg-onyx border border-borderSubtle text-gray-200 text-xs rounded-lg px-4 py-2.5 font-mono focus:outline-none focus:border-gold-500">
+            <input type="text" id="monogram-input" placeholder="e.g. C.J.V.H. (Inside Lapel Facing)" class="w-full bg-onyx border border-borderSubtle text-gray-200 text-base sm:text-xs rounded-lg px-4 py-2.5 font-mono focus:outline-none focus:border-gold-500 min-h-[44px]">
           </div>
         </div>
 

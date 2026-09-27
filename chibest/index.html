@@ -51,30 +51,41 @@
 <body class="bg-obsidian text-gray-200 font-sans antialiased selection:bg-gold-500/25 selection:text-gold-300">
 
   <!-- Haute Couture Announcement Ticker -->
-  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2.5 px-4 text-center tracking-[0.25em] text-gold-400 font-cinzel uppercase flex items-center justify-center gap-4">
-    <span>Accra Flagship Atelier</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>Handcrafted Ceremonial Wear</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span>DHL Express Worldwide (UK, US, Canada, EU)</span>
-    <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
-    <span class="text-gold-300 font-bold">1.55M+ Global Community</span>
+  <div class="bg-gradient-to-r from-obsidian via-amber-950/30 to-obsidian border-b border-gold-500/20 text-[11px] py-2 px-4 tracking-[0.2em] text-gold-400 font-cinzel uppercase overflow-hidden">
+    <!-- Mobile ticker -->
+    <div class="sm:hidden flex items-center justify-center gap-2 text-[10px] tracking-wider text-center">
+      <span>Accra Flagship</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>DHL Worldwide</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span class="text-gold-300 font-bold">1.55M+ Following</span>
+    </div>
+    <!-- Desktop ticker -->
+    <div class="hidden sm:flex items-center justify-center gap-4 text-center">
+      <span>Accra Flagship Atelier</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>Handcrafted Ceremonial Wear</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span>DHL Express Worldwide (UK, US, Canada, EU)</span>
+      <span class="inline-block w-1 h-1 rounded-full bg-gold-500"></span>
+      <span class="text-gold-300 font-bold">1.55M+ Global Community</span>
+    </div>
   </div>
 
   <!-- Primary Atelier Header -->
   <header class="sticky top-0 z-50 backdrop-blur-2xl bg-obsidian/85 border-b border-white/5 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- Brand Emblem & Monogram -->
-      <a href="index.html" class="flex items-center gap-3.5 group">
-        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-gold-500/50 p-0.5 shadow-xl group-hover:border-gold-400 transition-colors shrink-0">
           <img src="assets/fb_asset_0.jpg" alt="Chibest Monogram" class="w-full h-full object-cover rounded-full filter contrast-125">
         </div>
         <div class="flex flex-col">
-          <span class="font-cinzel text-2xl font-bold tracking-[0.28em] text-white group-hover:text-gold-400 transition-colors">
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-[0.24em] text-white group-hover:text-gold-400 transition-colors">
             CHIBEST
           </span>
-          <span class="text-[9px] tracking-[0.45em] text-gold-500 uppercase -mt-0.5 font-mono">
+          <span class="text-[8px] sm:text-[9px] tracking-[0.4em] text-gold-500 uppercase -mt-0.5 font-mono">
             Haute Couture · Accra
           </span>
         </div>
@@ -94,10 +105,10 @@
       </nav>
 
       <!-- Utility: Currency & Direct Concierge -->
-      <div class="flex items-center space-x-4">
-        <!-- Currency Converter -->
-        <div class="relative inline-block text-left">
-          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider">
+      <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
+        <!-- Currency Converter (Desktop/Tablet) -->
+        <div class="relative hidden sm:inline-block text-left">
+          <select id="currency-select" class="bg-onyx border border-borderSubtle text-gold-400 text-xs rounded-md px-2.5 sm:px-3 py-1.5 font-mono focus:outline-none focus:border-gold-500 cursor-pointer tracking-wider min-h-[40px]">
             <option value="USD">USD ($)</option>
             <option value="GBP">GBP (£)</option>
             <option value="EUR">EUR (€)</option>
@@ -106,13 +117,13 @@
         </div>
 
         <!-- VIP WhatsApp Direct -->
-        <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20am%20inquiring%20about%20a%20bespoke%20commission%20from%20Chibest%20Atelier." target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50">
+        <a href="https://wa.me/233554916910?text=Hello%20Master%20Tailor%2C%20I%20am%20inquiring%20about%20a%20bespoke%20commission%20from%20Chibest%20Atelier." target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-950/60 to-emerald-900/60 hover:from-emerald-900/80 hover:to-emerald-800/80 text-emerald-400 border border-emerald-500/40 text-xs px-4 py-2 rounded-md font-mono tracking-wider transition-all shadow-xl shadow-emerald-950/50 min-h-[40px]">
           <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400"></i>
           <span>Tailor Concierge</span>
         </a>
 
         <!-- Mobile Drawer Toggle -->
-        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+        <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -120,20 +131,30 @@
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-onyx px-6 py-6 space-y-4 font-cinzel text-xs uppercase tracking-widest">
-      <a href="index.html" class="block text-gold-400 font-bold py-1">Maison</a>
-      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-1">The Lookbook</a>
-      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-1">Virtual Fitting Pavilion</a>
-      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-1">Ready-to-Wear</a>
-      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-1">The Atelier</a>
-      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-1">Tailor Docket</a>
-      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-2 flex items-center gap-2 font-mono">
+      <!-- Mobile Currency Selector -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/10 font-mono">
+        <span class="text-gray-400 text-[11px] uppercase tracking-wider">Currency</span>
+        <select id="currency-select-mobile" class="bg-surface border border-gold-500/40 text-gold-400 text-xs rounded-lg px-3 py-1.5 font-mono focus:outline-none cursor-pointer tracking-wider min-h-[36px]">
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GHS">GHS (GH₵)</option>
+        </select>
+      </div>
+      <a href="index.html" class="block text-gold-400 font-bold py-2">Maison</a>
+      <a href="collections.html" class="block text-gray-300 hover:text-gold-400 py-2">The Lookbook</a>
+      <a href="fitting-pavilion.html" class="block text-gold-400 hover:text-gold-300 py-2">Virtual Fitting Pavilion</a>
+      <a href="ready-to-wear.html" class="block text-gray-300 hover:text-gold-400 py-2">Ready-to-Wear</a>
+      <a href="atelier.html" class="block text-gray-300 hover:text-gold-400 py-2">The Atelier</a>
+      <a href="docket.html" class="block text-gray-300 hover:text-gold-400 py-2">Tailor Docket</a>
+      <a href="https://wa.me/233554916910" target="_blank" class="block text-emerald-400 pt-3 border-t border-white/10 flex items-center gap-2 font-mono">
         <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Head Tailor
       </a>
     </div>
   </header>
 
   <!-- Cinema Hero Section with Haute Couture Split-Editorial Showcase -->
-  <section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-borderSubtle py-12 lg:py-16">
+  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden border-b border-borderSubtle py-10 lg:py-16">
     
     <!-- Background Ambient Atmospheric Lighting (Blurred Video Glow) -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-50 filter blur-[40px] scale-105" style="opacity: 0.50;">
@@ -147,51 +168,51 @@
     <div class="absolute inset-0 bg-gradient-to-b from-obsidian/60 via-transparent to-obsidian pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
         
         <!-- Left 7 Cols: Commanding Editorial Copy & Conduits -->
-        <div class="lg:col-span-7 text-left space-y-7">
+        <div class="lg:col-span-7 text-left space-y-6 sm:space-y-7">
           
-          <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-gold-500/40 bg-gold-500/10 backdrop-blur-md text-gold-400 text-xs tracking-[0.25em] uppercase font-mono">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-gold-500/40 bg-gold-500/10 backdrop-blur-md text-gold-400 text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase font-mono">
             <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
             <span>Pantang, Accra · Bespoke Cutting Rooms</span>
           </div>
 
-          <h1 class="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-bold tracking-[0.06em] text-white leading-[1.06]">
+          <h1 class="font-cinzel text-3xl sm:text-5xl lg:text-7xl font-bold tracking-[0.04em] text-white leading-[1.1] break-words">
             THE SOVEREIGN ART OF <br/>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-amber-200 to-gold-600">
               AFRICAN HAUTE COUTURE
             </span>
           </h1>
 
-          <p class="font-serif italic text-xl sm:text-2xl text-gray-200/90 leading-relaxed font-light max-w-2xl">
+          <p class="font-serif italic text-lg sm:text-2xl text-gray-200/90 leading-relaxed font-light max-w-2xl">
             Grand ceremonial Agbadas, Senator suits, and luxury Kaftans handcrafted from imported Italian wools. Measured with bespoke digital precision for the global African diaspora.
           </p>
 
-          <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
-            <a href="fitting-pavilion.html" class="w-full sm:w-auto px-8 py-4 rounded bg-gradient-to-r from-gold-600 via-gold-500 to-amber-500 text-obsidian font-cinzel font-bold text-xs tracking-[0.2em] uppercase shadow-2xl shadow-gold-500/30 hover:brightness-110 transition-all flex items-center justify-center gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <a href="fitting-pavilion.html" class="w-full sm:w-auto px-7 py-4 rounded-lg bg-gradient-to-r from-gold-600 via-gold-500 to-amber-500 text-obsidian font-cinzel font-bold text-xs tracking-[0.2em] uppercase shadow-2xl shadow-gold-500/30 hover:brightness-110 transition-all flex items-center justify-center gap-2.5 min-h-[48px]">
               <i data-lucide="scan" class="w-4 h-4"></i>
               <span>Enter Virtual Fitting Pavilion</span>
             </a>
-            <a href="collections.html" class="w-full sm:w-auto px-8 py-4 rounded bg-onyx/90 hover:bg-surface border border-gold-500/30 text-white font-cinzel font-medium text-xs tracking-[0.2em] uppercase transition-all backdrop-blur flex items-center justify-center gap-2">
+            <a href="collections.html" class="w-full sm:w-auto px-7 py-4 rounded-lg bg-onyx/90 hover:bg-surface border border-gold-500/30 text-white font-cinzel font-medium text-xs tracking-[0.2em] uppercase transition-all backdrop-blur flex items-center justify-center gap-2 min-h-[48px]">
               <span>Explore The Lookbook</span>
               <i data-lucide="arrow-right" class="w-4 h-4 text-gold-400"></i>
             </a>
           </div>
 
-          <!-- Credibility Stats -->
-          <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10 max-w-xl">
-            <div>
-              <div class="text-gold-400 font-cinzel text-2xl font-bold">1,556,000+</div>
-              <div class="text-[11px] text-gray-400 font-mono tracking-wider mt-0.5">Meta Following</div>
+          <!-- Credibility Stats (Collapsible & Non-Overlapping) -->
+          <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-6 sm:pt-8 border-t border-white/10 max-w-xl">
+            <div class="min-w-0">
+              <div class="text-gold-400 font-cinzel text-base sm:text-2xl font-bold whitespace-nowrap">1,556,000+</div>
+              <div class="text-[9px] sm:text-[11px] text-gray-400 font-mono tracking-wider mt-0.5 truncate">Meta Following</div>
             </div>
-            <div>
-              <div class="text-gold-400 font-cinzel text-2xl font-bold">Bespoke</div>
-              <div class="text-[11px] text-gray-400 font-mono tracking-wider mt-0.5">Digital Fitting</div>
+            <div class="min-w-0">
+              <div class="text-gold-400 font-cinzel text-base sm:text-2xl font-bold whitespace-nowrap">Bespoke</div>
+              <div class="text-[9px] sm:text-[11px] text-gray-400 font-mono tracking-wider mt-0.5 truncate">Digital Fitting</div>
             </div>
-            <div>
-              <div class="text-gold-400 font-cinzel text-2xl font-bold">3–5 Days</div>
-              <div class="text-[11px] text-gray-400 font-mono tracking-wider mt-0.5">DHL Worldwide</div>
+            <div class="min-w-0">
+              <div class="text-gold-400 font-cinzel text-base sm:text-2xl font-bold whitespace-nowrap">3–5 Days</div>
+              <div class="text-[9px] sm:text-[11px] text-gray-400 font-mono tracking-wider mt-0.5 truncate">DHL Worldwide</div>
             </div>
           </div>
 
@@ -268,10 +289,10 @@
           </h3>
         </div>
         <div class="pt-4 mt-4 border-t border-borderSubtle flex gap-2">
-          <a href="product.html?id=sovereign-agbada-knotwork" class="flex-1 text-center py-2 rounded bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
+          <a href="product.html?id=sovereign-agbada-knotwork" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
             Inspect
           </a>
-          <a href="fitting-pavilion.html?garment=agbada" class="flex-1 text-center py-2 rounded bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
+          <a href="fitting-pavilion.html?garment=agbada" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
             Vision Fit
           </a>
         </div>
@@ -298,10 +319,10 @@
           </h3>
         </div>
         <div class="pt-4 mt-4 border-t border-borderSubtle flex gap-2">
-          <a href="product.html?id=diplomat-senator-pinstripe" class="flex-1 text-center py-2 rounded bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
+          <a href="product.html?id=diplomat-senator-pinstripe" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
             Inspect
           </a>
-          <a href="fitting-pavilion.html?garment=senator" class="flex-1 text-center py-2 rounded bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
+          <a href="fitting-pavilion.html?garment=senator" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
             Vision Fit
           </a>
         </div>
@@ -328,10 +349,10 @@
           </h3>
         </div>
         <div class="pt-4 mt-4 border-t border-borderSubtle flex gap-2">
-          <a href="product.html?id=midnight-royal-kaftan" class="flex-1 text-center py-2 rounded bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
+          <a href="product.html?id=midnight-royal-kaftan" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
             Inspect
           </a>
-          <a href="fitting-pavilion.html?garment=kaftan" class="flex-1 text-center py-2 rounded bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
+          <a href="fitting-pavilion.html?garment=kaftan" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
             Vision Fit
           </a>
         </div>
@@ -358,10 +379,10 @@
           </h3>
         </div>
         <div class="pt-4 mt-4 border-t border-borderSubtle flex gap-2">
-          <a href="product.html?id=commander-military-safari" class="flex-1 text-center py-2 rounded bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
+          <a href="product.html?id=commander-military-safari" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-surfaceLight hover:bg-surface border border-borderSubtle text-xs font-cinzel text-gray-200 hover:text-white transition-all">
             Inspect
           </a>
-          <a href="fitting-pavilion.html?garment=safari" class="flex-1 text-center py-2 rounded bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
+          <a href="fitting-pavilion.html?garment=safari" class="flex-1 text-center py-2.5 min-h-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-gold-600 to-amber-500 text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all">
             Vision Fit
           </a>
         </div>

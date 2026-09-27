@@ -29,14 +29,20 @@ class ChibestAppManager {
   }
 
   setupCurrencySelect() {
-    const select = document.getElementById('currency-select');
-    if (!select) return;
+    const selects = [
+      document.getElementById('currency-select'),
+      document.getElementById('currency-select-mobile')
+    ].filter(Boolean);
+    
+    if (selects.length === 0) return;
 
-    select.value = this.currency;
-    select.addEventListener('change', (e) => {
-      this.currency = e.target.value;
-      localStorage.setItem('chibest_currency', this.currency);
-      this.applyCurrency(this.currency);
+    selects.forEach(sel => {
+      sel.value = this.currency;
+      sel.addEventListener('change', (e) => {
+        this.currency = e.target.value;
+        localStorage.setItem('chibest_currency', this.currency);
+        this.applyCurrency(this.currency);
+      });
     });
   }
 
@@ -55,8 +61,11 @@ class ChibestAppManager {
       }
     });
 
-    const select = document.getElementById('currency-select');
-    if (select) select.value = curr;
+    const selects = [
+      document.getElementById('currency-select'),
+      document.getElementById('currency-select-mobile')
+    ].filter(Boolean);
+    selects.forEach(sel => sel.value = curr);
   }
 
   setupMobileMenu() {
