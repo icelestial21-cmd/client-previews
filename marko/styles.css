@@ -1370,6 +1370,13 @@ body {
   border-color: var(--border-gold);
 }
 
+@media (min-width: 1025px) {
+  .vision-card.highlight {
+    position: sticky;
+    top: 90px;
+  }
+}
+
 .vision-card-header {
   display: flex;
   justify-content: space-between;
@@ -1382,8 +1389,8 @@ body {
 .vision-viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  max-height: 540px;
+  aspect-ratio: 9 / 16;
+  max-height: 620px;
   background: #040508;
   border-radius: 12px;
   overflow: hidden;

@@ -88,7 +88,7 @@
 
         <!-- Scanner Viewport Frame -->
         <div class="vision-viewport">
-          <canvas id="visionCanvas" width="480" height="600"></canvas>
+          <canvas id="visionCanvas" width="450" height="800"></canvas>
           <div id="scanLaser" class="scan-laser"></div>
           <div class="optical-grid"></div>
 
@@ -123,17 +123,17 @@
             Instant Archetype Presets (One-Tap Calibration):
           </span>
           <div class="archetype-btn-group">
-            <button class="archetype-chip active" onclick="selectArchetype('runway')">
-              Runway Model (185 cm • Athletic V-Taper)
+            <button class="archetype-chip active" onclick="selectArchetype('baku_master')">
+              Baku House Model (182 cm • 80 kg • Athletic Caspian)
             </button>
-            <button class="archetype-chip" onclick="selectArchetype('classic')">
-              Sartorial Classic (178 cm • Balanced)
+            <button class="archetype-chip" onclick="selectArchetype('baku_fendi')">
+              Sartorial Tracksuit (180 cm • 78 kg • Balanced)
             </button>
-            <button class="archetype-chip" onclick="selectArchetype('broad')">
-              Broad Frame (188 cm • Robust)
+            <button class="archetype-chip" onclick="selectArchetype('baku_editorial')">
+              Showroom Tailored (184 cm • 82 kg • Robust)
             </button>
-            <button class="archetype-chip" onclick="selectArchetype('slender')">
-              Lean Silhouette (172 cm • Slender)
+            <button class="archetype-chip" onclick="selectArchetype('baku_athletic')">
+              Athletic Interlock (178 cm • 75 kg • Sleek)
             </button>
           </div>
         </div>
@@ -239,7 +239,7 @@
 
           <!-- Video Drape Preview -->
           <div class="ensemble-video-preview-wrap">
-            <video id="ensembleVideo" autoplay loop muted playsinline src="assets/MB-01_walk.mp4"></video>
+            <video id="ensembleVideo" autoplay loop muted playsinline src="assets/model_baku_walk.mp4"></video>
           </div>
 
           <!-- 4 Stacked Piece Cards with Size Selectors -->
@@ -454,101 +454,157 @@
     // ==========================================================================
 
     const ARCHETYPES = {
-      runway: {
-        label: 'Runway Model (185 cm • Athletic V-Taper)',
-        heightCm: 185,
-        heightDesc: "185 cm (6' 1\")",
+      baku_master: {
+        label: 'Baku House Model (182 cm • 80 kg • Athletic Caspian)',
+        heightCm: 182,
+        heightDesc: "182 cm (6' 0\")",
         shoulderCm: 49.0,
-        chestCm: 55.0,
+        chestCm: 54.0,
         waistCm: 42.0,
-        outseamCm: 104.0,
-        build: 'Athletic V-Taper',
+        outseamCm: 103.0,
+        build: 'Athletic Caspian Silhouette',
         verdicts: {
-          silk: { size: 'Size Large', ease: 'Relaxed fluid summer drape (+6 cm ease)' },
-          tracksuit: { size: 'Size Large', ease: 'Ergonomic shoulder articulation with clean taper (+2 cm ease)' },
-          denim: { size: 'Waist 32', ease: 'Artisanal slim tapered selvedge leg opening' },
-          footwear: { size: 'EU 43 (US 10)', ease: 'Loro Piana water-repellent suede (True to size)' }
+          silk: { size: 'Size Large', ease: 'Calibrated for relaxed fluid summer drape (+5 cm ease)' },
+          tracksuit: { size: 'Size Large', ease: 'Ergonomic shoulder articulation with clean athletic taper (+2 cm ease)' },
+          denim: { size: 'Waist 32', ease: 'Artisanal selvedge cut with tailored taper break' },
+          footwear: { size: 'EU 43 (US 10)', ease: 'Loro Piana water-repellent suede moccasin (True to European sizing)' }
         },
         ensemble: {
           silk: 'L',
           denim: '32',
           shoes: '43'
         },
-        imageSrc: 'assets/MB-02_front.jpg',
-        videoSrc: 'assets/MB-01_walk.mp4'
+        imageSrc: 'assets/model_baku_master.jpg',
+        videoSrc: 'assets/model_baku_walk.mp4',
+        landmarks: {
+          head: { x: 0.615, y: 0.22 },
+          shoulderL: { x: 0.49, y: 0.315 },
+          shoulderR: { x: 0.74, y: 0.315 },
+          chest: { x: 0.615, y: 0.40 },
+          waistL: { x: 0.52, y: 0.575 },
+          waistR: { x: 0.71, y: 0.575 },
+          pelvis: { x: 0.62, y: 0.63 },
+          kneeL: { x: 0.55, y: 0.76 },
+          kneeR: { x: 0.70, y: 0.76 },
+          ankleL: { x: 0.54, y: 0.91 },
+          ankleR: { x: 0.75, y: 0.91 },
+          badgeSide: 'left'
+        }
       },
-      classic: {
-        label: 'Sartorial Classic (178 cm • Balanced)',
-        heightCm: 178,
-        heightDesc: "178 cm (5' 10\")",
-        shoulderCm: 46.5,
+      baku_fendi: {
+        label: 'Sartorial Tracksuit (180 cm • 78 kg • Balanced)',
+        heightCm: 180,
+        heightDesc: "180 cm (5' 11\")",
+        shoulderCm: 47.5,
         chestCm: 52.0,
-        waistCm: 40.0,
-        outseamCm: 99.0,
-        build: 'Balanced European Classic',
+        waistCm: 40.5,
+        outseamCm: 100.0,
+        build: 'Balanced Sartorial',
         verdicts: {
           silk: { size: 'Size Medium', ease: 'Sartorial camp collar drape (+5 cm ease)' },
-          tracksuit: { size: 'Size Medium', ease: 'Clean contemporary athletic fit (+3 cm ease)' },
-          denim: { size: 'Waist 30', ease: 'Custom hem proportion with tailored break' },
-          footwear: { size: 'EU 42 (US 9)', ease: 'Suede footbed molded comfort' }
+          tracksuit: { size: 'Size Large', ease: 'Ergonomic double-knit interlock fit (+3 cm ease)' },
+          denim: { size: 'Waist 32', ease: 'Direct waist taper with zero excess thigh volume' },
+          footwear: { size: 'EU 42 (US 9)', ease: 'Molded calfskin footbed support' }
+        },
+        ensemble: {
+          silk: 'L',
+          denim: '32',
+          shoes: '42'
+        },
+        imageSrc: 'assets/model_baku_fendi.jpg',
+        videoSrc: 'assets/video_lookbook_2.mp4',
+        landmarks: {
+          head: { x: 0.75, y: 0.20 },
+          shoulderL: { x: 0.63, y: 0.28 },
+          shoulderR: { x: 0.87, y: 0.28 },
+          chest: { x: 0.75, y: 0.36 },
+          waistL: { x: 0.66, y: 0.49 },
+          waistR: { x: 0.84, y: 0.49 },
+          pelvis: { x: 0.75, y: 0.56 },
+          kneeL: { x: 0.69, y: 0.70 },
+          kneeR: { x: 0.82, y: 0.70 },
+          ankleL: { x: 0.68, y: 0.85 },
+          ankleR: { x: 0.83, y: 0.83 },
+          badgeSide: 'left'
+        }
+      },
+      baku_editorial: {
+        label: 'Showroom Tailored (184 cm • 82 kg • Robust)',
+        heightCm: 184,
+        heightDesc: "184 cm (6' 0.5\")",
+        shoulderCm: 50.0,
+        chestCm: 56.0,
+        waistCm: 43.0,
+        outseamCm: 104.5,
+        build: 'Robust Tailored Silhouette',
+        verdicts: {
+          silk: { size: 'Size XL', ease: 'Generous silk twill boxy drape (+6 cm ease)' },
+          tracksuit: { size: 'Size XL', ease: 'Extended double-faced ribbing with zero chest binding' },
+          denim: { size: 'Waist 34', ease: 'Relaxed thigh with structured selvedge taper' },
+          footwear: { size: 'EU 43 (US 10)', ease: 'Reinforced suede footbed with wide sole support' }
+        },
+        ensemble: {
+          silk: 'XL',
+          denim: '34',
+          shoes: '43'
+        },
+        imageSrc: 'assets/model_baku_editorial.jpg',
+        videoSrc: 'assets/video_lookbook_1.mp4',
+        landmarks: {
+          head: { x: 0.38, y: 0.20 },
+          shoulderL: { x: 0.26, y: 0.28 },
+          shoulderR: { x: 0.50, y: 0.28 },
+          chest: { x: 0.38, y: 0.36 },
+          waistL: { x: 0.28, y: 0.50 },
+          waistR: { x: 0.47, y: 0.50 },
+          pelvis: { x: 0.38, y: 0.57 },
+          kneeL: { x: 0.32, y: 0.71 },
+          kneeR: { x: 0.45, y: 0.71 },
+          ankleL: { x: 0.30, y: 0.86 },
+          ankleR: { x: 0.46, y: 0.86 },
+          badgeSide: 'right'
+        }
+      },
+      baku_athletic: {
+        label: 'Athletic Interlock (178 cm • 75 kg • Sleek)',
+        heightCm: 178,
+        heightDesc: "178 cm (5' 10\")",
+        shoulderCm: 46.0,
+        chestCm: 51.0,
+        waistCm: 39.0,
+        outseamCm: 99.0,
+        build: 'Sleek Athletic Profile',
+        verdicts: {
+          silk: { size: 'Size Medium', ease: 'Fashion-forward relaxed drape (+6 cm ease)' },
+          tracksuit: { size: 'Size Medium', ease: 'Sleek athletic contour with ergonomic taper' },
+          denim: { size: 'Waist 30', ease: 'Sharp slim leg profile without bunching' },
+          footwear: { size: 'EU 42 (US 9)', ease: 'Snug glove-like calfskin fit' }
         },
         ensemble: {
           silk: 'M',
           denim: '30',
           shoes: '42'
         },
-        imageSrc: 'assets/MB-03_front.jpg',
-        videoSrc: 'assets/MB-03_walk.mp4'
-      },
-      broad: {
-        label: 'Broad Frame (188 cm • Robust)',
-        heightCm: 188,
-        heightDesc: "188 cm (6' 2\")",
-        shoulderCm: 53.0,
-        chestCm: 61.0,
-        waistCm: 46.5,
-        outseamCm: 107.0,
-        build: 'Broad Athletic / Heavy Shoulders',
-        verdicts: {
-          silk: { size: 'Size XL', ease: 'Generous silk twill boxy drape (+7 cm ease)' },
-          tracksuit: { size: 'Size XL', ease: 'Extended double-faced ribbing with zero chest binding' },
-          denim: { size: 'Waist 34', ease: 'Relaxed thigh with structured selvedge taper' },
-          footwear: { size: 'EU 44 (US 11)', ease: 'Reinforced suede footbed with wide sole support' }
-        },
-        ensemble: {
-          silk: 'XL',
-          denim: '34',
-          shoes: '44'
-        },
-        imageSrc: 'assets/MB-04_front.jpg',
-        videoSrc: 'assets/MB-04_walk.mp4'
-      },
-      slender: {
-        label: 'Lean Silhouette (172 cm • Slender)',
-        heightCm: 172,
-        heightDesc: "172 cm (5' 8\")",
-        shoulderCm: 44.0,
-        chestCm: 49.0,
-        waistCm: 37.5,
-        outseamCm: 95.0,
-        build: 'Lean Editorial Cut',
-        verdicts: {
-          silk: { size: 'Size Medium', ease: 'Fashion-forward relaxed drape (+7 cm ease)' },
-          tracksuit: { size: 'Size Medium', ease: 'Sleek athletic contour with ergonomic taper' },
-          denim: { size: 'Waist 30', ease: 'Sharp slim leg profile without bunching' },
-          footwear: { size: 'EU 41 (US 8)', ease: 'Snug glove-like calfskin fit' }
-        },
-        ensemble: {
-          silk: 'M',
-          denim: '30',
-          shoes: '41'
-        },
-        imageSrc: 'assets/MB-07_front.jpg',
-        videoSrc: 'assets/MB-07_walk.mp4'
+        imageSrc: 'assets/model_baku_athletic.jpg',
+        videoSrc: 'assets/video_lookbook_3.mp4',
+        landmarks: {
+          head: { x: 0.50, y: 0.12 },
+          shoulderL: { x: 0.28, y: 0.23 },
+          shoulderR: { x: 0.72, y: 0.23 },
+          chest: { x: 0.50, y: 0.32 },
+          waistL: { x: 0.33, y: 0.48 },
+          waistR: { x: 0.67, y: 0.48 },
+          pelvis: { x: 0.50, y: 0.56 },
+          kneeL: { x: 0.38, y: 0.72 },
+          kneeR: { x: 0.62, y: 0.72 },
+          ankleL: { x: 0.36, y: 0.88 },
+          ankleR: { x: 0.64, y: 0.88 },
+          badgeSide: 'left'
+        }
       }
     };
 
-    let activeArchetype = 'runway';
+    let activeArchetype = 'baku_master';
     let isCameraRunning = false;
     let cameraStream = null;
 
@@ -561,7 +617,8 @@
       if (!ARCHETYPES[key]) return;
       activeArchetype = key;
       document.querySelectorAll('.archetype-chip').forEach(b => {
-        b.classList.toggle('active', b.textContent.includes(key === 'runway' ? 'Runway Model' : key === 'classic' ? 'Sartorial Classic' : key === 'broad' ? 'Broad Frame' : 'Lean Silhouette'));
+        const onclickAttr = b.getAttribute('onclick') || '';
+        b.classList.toggle('active', onclickAttr.includes(key));
       });
       renderArchetype(key);
     }
@@ -616,7 +673,7 @@
       img.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Draw background image
+        // Draw background image scaled to fill 9:16 viewport
         const hRatio = canvas.width / img.width;
         const vRatio = canvas.height / img.height;
         const ratio = Math.max(hRatio, vRatio);
@@ -624,10 +681,10 @@
         const centerShiftY = (canvas.height - img.height * ratio) / 2;
         
         ctx.drawImage(img, 0, 0, img.width, img.height,
-                          centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+                      centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
 
         // Dark subtle overlay for contrast
-        ctx.fillStyle = 'rgba(7, 9, 14, 0.45)';
+        ctx.fillStyle = 'rgba(7, 9, 14, 0.35)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Render Holographic Skeletal Nodes & Dimension Lines
@@ -636,88 +693,89 @@
     }
 
     function renderSkeletalMesh(ctx, w, h, data) {
-      // Anatomical Anchor Coordinates (Proportional to Canvas)
-      const headX = w * 0.50;
-      const headY = h * 0.16;
-      const shoulderLeftX = w * 0.36;
-      const shoulderRightX = w * 0.64;
-      const shoulderY = h * 0.26;
-      const chestY = h * 0.33;
-      const waistLeftX = w * 0.40;
-      const waistRightX = w * 0.60;
-      const waistY = h * 0.44;
-      const hipLeftX = w * 0.38;
-      const hipRightX = w * 0.62;
-      const hipY = h * 0.52;
-      const kneeLeftX = w * 0.41;
-      const kneeRightX = w * 0.59;
-      const kneeY = h * 0.72;
-      const ankleLeftX = w * 0.42;
-      const ankleRightX = w * 0.58;
-      const ankleY = h * 0.90;
+      const lm = data.landmarks || {
+        head: { x: 0.615, y: 0.22 },
+        shoulderL: { x: 0.49, y: 0.315 },
+        shoulderR: { x: 0.74, y: 0.315 },
+        chest: { x: 0.615, y: 0.40 },
+        waistL: { x: 0.52, y: 0.575 },
+        waistR: { x: 0.71, y: 0.575 },
+        pelvis: { x: 0.62, y: 0.63 },
+        kneeL: { x: 0.55, y: 0.76 },
+        kneeR: { x: 0.70, y: 0.76 },
+        ankleL: { x: 0.54, y: 0.91 },
+        ankleR: { x: 0.75, y: 0.91 },
+        badgeSide: 'left'
+      };
+
+      const headX = w * lm.head.x;
+      const headY = h * lm.head.y;
+      const shLX = w * lm.shoulderL.x;
+      const shRX = w * lm.shoulderR.x;
+      const shY = (h * lm.shoulderL.y + h * lm.shoulderR.y) / 2;
+      const chestX = w * lm.chest.x;
+      const chestY = h * lm.chest.y;
+      const waistLX = w * lm.waistL.x;
+      const waistRX = w * lm.waistR.x;
+      const waistY = (h * lm.waistL.y + h * lm.waistR.y) / 2;
+      const pelvisX = w * lm.pelvis.x;
+      const pelvisY = h * lm.pelvis.y;
+      const kneeLX = w * lm.kneeL.x;
+      const kneeLY = h * lm.kneeL.y;
+      const kneeRX = w * lm.kneeR.x;
+      const kneeRY = h * lm.kneeR.y;
+      const ankLX = w * lm.ankleL.x;
+      const ankLY = h * lm.ankleL.y;
+      const ankRX = w * lm.ankleR.x;
+      const ankRY = h * lm.ankleR.y;
 
       // Draw Glowing Skeletal Connections
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.75)';
       ctx.setLineDash([4, 4]);
 
-      // Spine & Torso
-      ctx.beginPath();
-      ctx.moveTo(headX, headY);
-      ctx.lineTo(headX, hipY);
-      ctx.stroke();
-
-      // Shoulders Span
-      ctx.beginPath();
-      ctx.moveTo(shoulderLeftX, shoulderY);
-      ctx.lineTo(shoulderRightX, shoulderY);
-      ctx.stroke();
-
-      // Chest Breadth
-      ctx.beginPath();
-      ctx.moveTo(shoulderLeftX + 5, chestY);
-      ctx.lineTo(shoulderRightX - 5, chestY);
-      ctx.stroke();
-
-      // Waist
-      ctx.beginPath();
-      ctx.moveTo(waistLeftX, waistY);
-      ctx.lineTo(waistRightX, waistY);
-      ctx.stroke();
-
-      // Legs
-      ctx.beginPath();
-      ctx.moveTo(hipLeftX, hipY);
-      ctx.lineTo(kneeLeftX, kneeY);
-      ctx.lineTo(ankleLeftX, ankleY);
-      ctx.moveTo(hipRightX, hipY);
-      ctx.lineTo(kneeRightX, kneeY);
-      ctx.lineTo(ankleRightX, ankleY);
-      ctx.stroke();
-
-      ctx.setLineDash([]); // Reset dash
-
-      // Draw Keypoint Nodes
-      const points = [
-        { x: headX, y: headY, label: 'CRANIAL' },
-        { x: shoulderLeftX, y: shoulderY, label: 'L-SHOULDER' },
-        { x: shoulderRightX, y: shoulderY, label: 'R-SHOULDER' },
-        { x: (shoulderLeftX + shoulderRightX)/2, y: chestY, label: 'THORACIC' },
-        { x: waistLeftX, y: waistY, label: 'L-WAIST' },
-        { x: waistRightX, y: waistY, label: 'R-WAIST' },
-        { x: hipLeftX, y: hipY, label: 'PELVIS' },
-        { x: hipRightX, y: hipY, label: 'PELVIS' },
-        { x: kneeLeftX, y: kneeY, label: 'KNEE' },
-        { x: kneeRightX, y: kneeY, label: 'KNEE' },
-        { x: ankleLeftX, y: ankleY, label: 'MALLEOLUS' },
-        { x: ankleRightX, y: ankleY, label: 'MALLEOLUS' }
+      const connections = [
+        [headX, headY, chestX, chestY],
+        [chestX, chestY, pelvisX, pelvisY],
+        [shLX, shY, shRX, shY],
+        [shLX, shY, chestX, chestY],
+        [shRX, shY, chestX, chestY],
+        [waistLX, waistY, waistRX, waistY],
+        [pelvisX, pelvisY, kneeLX, kneeLY],
+        [pelvisX, pelvisY, kneeRX, kneeRY],
+        [kneeLX, kneeLY, ankLX, ankLY],
+        [kneeRX, kneeRY, ankRX, ankRY]
       ];
 
-      points.forEach(pt => {
+      connections.forEach(([x1, y1, x2, y2]) => {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      });
+
+      ctx.setLineDash([]);
+
+      // Draw Keypoint Nodes
+      const nodes = [
+        { x: headX, y: headY },
+        { x: shLX, y: shY },
+        { x: shRX, y: shY },
+        { x: chestX, y: chestY },
+        { x: waistLX, y: waistY },
+        { x: waistRX, y: waistY },
+        { x: pelvisX, y: pelvisY },
+        { x: kneeLX, kneeLY },
+        { x: kneeRX, kneeRY },
+        { x: ankLX, ankLY },
+        { x: ankRX, ankRY }
+      ];
+
+      nodes.forEach(pt => {
         // Glowing Outer Ring
         ctx.beginPath();
         ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(74, 222, 128, 0.3)';
+        ctx.fillStyle = 'rgba(74, 222, 128, 0.35)';
         ctx.fill();
 
         // Inner Core
@@ -727,26 +785,27 @@
         ctx.fill();
       });
 
-      // Overlay Floating Measurement Badges
-      drawMetricBadge(ctx, headX + 18, shoulderY - 8, `SHOULDER: ${data.shoulderCm} CM`);
-      drawMetricBadge(ctx, headX + 18, chestY - 4, `CHEST: ${data.chestCm} CM`);
-      drawMetricBadge(ctx, headX + 18, waistY - 4, `WAIST: ${data.waistCm} CM`);
-      drawMetricBadge(ctx, headX + 18, ankleY - 20, `OUTSEAM: ${data.outseamCm} CM`);
+      // Overlay Floating Measurement Badges in Negative Showroom Space
+      const badgeX = lm.badgeSide === 'right' ? Math.round(w * 0.54) : Math.round(w * 0.05);
+      drawMetricBadge(ctx, badgeX, shY - 4, `SHOULDER: ${data.shoulderCm} CM`);
+      drawMetricBadge(ctx, badgeX, chestY, `CHEST: ${data.chestCm} CM`);
+      drawMetricBadge(ctx, badgeX, waistY, `WAIST: ${data.waistCm} CM`);
+      drawMetricBadge(ctx, badgeX, kneeLY - 40, `OUTSEAM: ${data.outseamCm} CM`);
     }
 
     function drawMetricBadge(ctx, x, y, text) {
-      ctx.font = '9px monospace';
+      ctx.font = '10px monospace';
       const textWidth = ctx.measureText(text).width;
-      ctx.fillStyle = 'rgba(7, 9, 14, 0.85)';
+      ctx.fillStyle = 'rgba(7, 9, 14, 0.88)';
       ctx.strokeStyle = '#D4AF37';
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.roundRect(x, y - 10, textWidth + 12, 16, 4);
+      ctx.roundRect(x, y - 11, textWidth + 14, 20, 4);
       ctx.fill();
       ctx.stroke();
 
       ctx.fillStyle = '#F3E5AB';
-      ctx.fillText(text, x + 6, y + 2);
+      ctx.fillText(text, x + 7, y + 3);
     }
 
     // Camera Capture Toggle
@@ -781,7 +840,7 @@
         document.getElementById('telemetryStatus').textContent = 'CALIBRATED';
         
         // Run simulated biometric analysis
-        renderArchetype('runway');
+        renderArchetype('baku_master');
       }
     }
 
@@ -793,8 +852,22 @@
       const reader = new FileReader();
       reader.onload = (e) => {
         const customData = {
-          ...ARCHETYPES.runway,
-          imageSrc: e.target.result
+          ...ARCHETYPES.baku_master,
+          imageSrc: e.target.result,
+          landmarks: {
+            head: { x: 0.50, y: 0.18 },
+            shoulderL: { x: 0.35, y: 0.28 },
+            shoulderR: { x: 0.65, y: 0.28 },
+            chest: { x: 0.50, y: 0.36 },
+            waistL: { x: 0.38, y: 0.50 },
+            waistR: { x: 0.62, y: 0.50 },
+            pelvis: { x: 0.50, y: 0.58 },
+            kneeL: { x: 0.40, y: 0.74 },
+            kneeR: { x: 0.60, y: 0.74 },
+            ankleL: { x: 0.38, y: 0.90 },
+            ankleR: { x: 0.62, y: 0.90 },
+            badgeSide: 'left'
+          }
         };
         drawOpticalSilhouette(e.target.result, customData);
         document.getElementById('telemetryStatus').textContent = 'PHOTO CALIBRATED';
