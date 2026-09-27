@@ -848,6 +848,7 @@
                       p.category.toLowerCase().includes('denim') ? 'denim' :
                       p.category.toLowerCase().includes('footwear') ? 'footwear' :
                       p.category.toLowerCase().includes('accessories') ? 'accessories' : 'tailoring';
+      breadcrumbCat.setAttribute('href', `collections.html?cat=${catSlug}`);
       breadcrumbCat.href = `collections.html?cat=${catSlug}`;
       document.getElementById('breadcrumbTitle').textContent = p.name;
 
