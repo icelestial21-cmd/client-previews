@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Fitting Pavilion | MARKO BAKU Digital Atelier</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    <div>
+      ✈️ <strong>Worldwide Air Cargo:</strong> Express Tracked Delivery to USA, UK, Europe & Middle East
+    </div>
+    <div class="currency-selector-wrap">
+      <span>Currency:</span>
+      <select id="currencySelector" class="currency-select">
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="GBP">GBP (£)</option>
+        <option value="AZN">AZN (₼)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Primary Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="brand-title">Marko Baku</span>
+        <span class="brand-subtitle">Digital Atelier &nbsp; Est. 2024</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="collections.html" class="nav-link">Full Catalog</a></li>
+        <li><a href="lookbook.html" class="nav-link">Runway Lookbook</a></li>
+        <li><a href="pavilion.html" class="nav-link active">Virtual Pavilion</a></li>
+        <li><a href="index.html#deliveries" class="nav-link">Global Proof</a></li>
+        <li><a href="index.html#sovereign" class="nav-link">The Atelier Difference</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="cartBtn" class="cart-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span>Bag</span>
+          <span id="cartCount" class="cart-count-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Pavilion Container -->
+  <main class="pavilion-page-container">
+
+    <!-- Hero Header -->
+    <section class="pavilion-hero-header">
+      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">
+        Autonomous Optical Telemetry Suite
+      </span>
+      <h1 style="font-family:var(--font-serif); font-size:3rem; margin:10px 0 14px;">
+        The Virtual Fitting Pavilion
+      </h1>
+      <p style="color:var(--text-secondary); max-width:680px; margin:0 auto; font-size:0.95rem; line-height:1.6;">
+        No manual measuring tapes or tedious form entries. Our browser-based optical photogrammetry engine maps your anatomical proportions directly from a single photo, resolving your exact ready-to-wear sizing across our Caspian inventory.
+      </p>
+    </section>
+
+    <!-- Interactive Telemetry & Ensemble Grid -->
+    <div class="pavilion-grid">
+
+      <!-- Left Column: Optical Telemetry Scanner -->
+      <div class="vision-card highlight">
+        <div class="vision-card-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:8px; height:8px; border-radius:50%; background:#4ADE80; display:inline-block; box-shadow:0 0 8px #4ADE80;"></span>
+            <span style="font-family:var(--font-mono, monospace); font-size:0.78rem; font-weight:700; color:#4ADE80; text-transform:uppercase; letter-spacing:0.08em;">
+              Vision Telemetry: Calibrated
+            </span>
+          </div>
+          <span style="font-family:var(--font-mono, monospace); font-size:0.75rem; color:var(--text-muted)">
+            33-Point Skeletal Mesh
+          </span>
+        </div>
+
+        <!-- Scanner Viewport Frame -->
+        <div class="vision-viewport">
+          <canvas id="visionCanvas" width="480" height="600"></canvas>
+          <div id="scanLaser" class="scan-laser"></div>
+          <div class="optical-grid"></div>
+
+          <div class="telemetry-tag-float top-left">
+            SCAN: <span id="telemetryStatus" style="color:var(--gold-light); font-weight:700;">MODEL MATCH</span>
+          </div>
+          <div class="telemetry-tag-float top-right">
+            CONFIDENCE: <span style="color:#4ADE80; font-weight:700;">99.4%</span>
+          </div>
+        </div>
+
+        <!-- Hidden Video for Camera Stream -->
+        <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+
+        <!-- Capture & Upload Controls -->
+        <div class="capture-controls-row">
+          <button id="btnCameraScan" class="btn btn-secondary" style="justify-content:center;" onclick="toggleCameraCapture()">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span id="cameraBtnText">Live Camera Scan</span>
+          </button>
+
+          <label class="btn btn-primary" style="justify-content:center; cursor:pointer;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Upload Standing Photo</span>
+            <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+          </label>
+        </div>
+
+        <!-- Instant 1-Tap Archetype Presets (Frictionless Demo) -->
+        <div class="archetype-presets-wrap">
+          <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; font-family:var(--font-mono, monospace);">
+            Instant Archetype Presets (One-Tap Calibration):
+          </span>
+          <div class="archetype-btn-group">
+            <button class="archetype-chip active" onclick="selectArchetype('runway')">
+              Runway Model (185 cm • Athletic V-Taper)
+            </button>
+            <button class="archetype-chip" onclick="selectArchetype('classic')">
+              Sartorial Classic (178 cm • Balanced)
+            </button>
+            <button class="archetype-chip" onclick="selectArchetype('broad')">
+              Broad Frame (188 cm • Robust)
+            </button>
+            <button class="archetype-chip" onclick="selectArchetype('slender')">
+              Lean Silhouette (172 cm • Slender)
+            </button>
+          </div>
+        </div>
+
+        <!-- Extracted Biometric Telemetry Summary -->
+        <div class="biometrics-summary-grid">
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Calculated Stature</span>
+            <span id="statHeight" class="bio-stat-value">185 cm (6' 1")</span>
+          </div>
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Shoulder Breadth</span>
+            <span id="statShoulder" class="bio-stat-value">49.0 cm</span>
+          </div>
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Chest Span</span>
+            <span id="statChest" class="bio-stat-value">55.0 cm (110 cm)</span>
+          </div>
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Waist Breadth</span>
+            <span id="statWaist" class="bio-stat-value">42.0 cm (84 cm)</span>
+          </div>
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Leg Outseam</span>
+            <span id="statOutseam" class="bio-stat-value">104.0 cm</span>
+          </div>
+          <div class="bio-stat-box">
+            <span class="bio-stat-label">Posture & Build</span>
+            <span id="statBuild" class="bio-stat-value" style="font-size:0.82rem; color:#4ADE80;">Athletic V-Taper</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Sizing Verdicts & Curated Runway Look -->
+      <div class="vision-card">
+        <div class="vision-card-header">
+          <span style="font-size:0.75rem; color:var(--gold-primary); text-transform:uppercase; letter-spacing:0.12em; font-family:var(--font-mono, monospace); font-weight:700;">
+            Atelier Recommendation Protocol
+          </span>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono, monospace);">
+            Direct Inventory Calibration
+          </span>
+        </div>
+
+        <h2 style="font-family:var(--font-serif); font-size:1.8rem; margin-bottom:8px;">
+          Your Ready-to-Wear Sizing Verdict
+        </h2>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:18px;">
+          Calibrated against physical garment laying-flat dimensions and authentic fabric drape profiles:
+        </p>
+
+        <!-- Dynamic Sizing Verdicts List -->
+        <div class="verdict-list">
+          <div class="verdict-row">
+            <div>
+              <div class="verdict-cat">Mulberry Silk Twill & Resort Sets</div>
+              <div id="verdictEaseSilk" class="verdict-ease">Recommended for relaxed fluid summer drape (+6 cm ease)</div>
+            </div>
+            <span id="verdictSizeSilk" class="verdict-size-badge">Size Large</span>
+          </div>
+
+          <div class="verdict-row">
+            <div>
+              <div class="verdict-cat">Technical Cotton-Poly Interlock Tracksuits</div>
+              <div id="verdictEaseTracksuit" class="verdict-ease">Ergonomic shoulder articulation with clean athletic taper (+2 cm ease)</div>
+            </div>
+            <span id="verdictSizeTracksuit" class="verdict-size-badge">Size Large</span>
+          </div>
+
+          <div class="verdict-row">
+            <div>
+              <div class="verdict-cat">Selvedge Denim & Tailored Trousers</div>
+              <div id="verdictEaseDenim" class="verdict-ease">Artisanal ring-spun cotton cut with slim tapered leg opening</div>
+            </div>
+            <span id="verdictSizeDenim" class="verdict-size-badge">Waist 32</span>
+          </div>
+
+          <div class="verdict-row">
+            <div>
+              <div class="verdict-cat">Italian Calfskin & Suede Footwear</div>
+              <div id="verdictEaseFootwear" class="verdict-ease">Loro Piana water-repellent suede moccasin cut (True to European sizing)</div>
+            </div>
+            <span id="verdictSizeFootwear" class="verdict-size-badge">EU 43 (US 10)</span>
+          </div>
+        </div>
+
+        <!-- Curated 4-Piece Runway Ensemble Section -->
+        <div class="ensemble-container">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
+            <div>
+              <span style="color:var(--gold-primary); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; font-weight:700;">
+                Complete Runway Look
+              </span>
+              <h3 style="font-family:var(--font-serif); font-size:1.4rem; margin-top:2px;">
+                The Caspian Executive Weekend Capsule
+              </h3>
+            </div>
+            <span style="font-size:0.75rem; color:#4ADE80; font-family:var(--font-mono, monospace);">
+              4 Pieces Aligned
+            </span>
+          </div>
+
+          <!-- Video Drape Preview -->
+          <div class="ensemble-video-preview-wrap">
+            <video id="ensembleVideo" autoplay loop muted playsinline src="assets/MB-01_walk.mp4"></video>
+          </div>
+
+          <!-- 4 Stacked Piece Cards with Size Selectors -->
+          <div class="ensemble-pieces-stack">
+            <!-- Piece 1: Cap -->
+            <div class="ensemble-piece-card">
+              <img class="ensemble-piece-thumb" src="assets/MB-06_front.jpg" alt="Gucci Cap">
+              <div class="ensemble-piece-info">
+                <div class="ensemble-piece-name">Gucci GG Supreme Monogram Canvas Baseball Cap</div>
+                <div class="ensemble-piece-meta">Iconic Headwear • <span class="price-val" data-price="35">$35</span></div>
+              </div>
+              <span style="font-size:0.78rem; color:var(--gold-light); font-weight:600; padding:4px 8px; background:var(--bg-surface); border-radius:4px;">
+                One Size (58 cm)
+              </span>
+            </div>
+
+            <!-- Piece 2: Silk Resort Set -->
+            <div class="ensemble-piece-card">
+              <img class="ensemble-piece-thumb" src="assets/MB-01_front.jpg" alt="D&G Resort Set">
+              <div class="ensemble-piece-info">
+                <div class="ensemble-piece-name">Dolce & Gabbana Silk Resort Camp Shirt & Shorts</div>
+                <div class="ensemble-piece-meta">100% Mulberry Silk • <span class="price-val" data-price="70">$70</span></div>
+              </div>
+              <select id="ensembleSelectSilk" class="ensemble-size-select">
+                <option value="M">Size M</option>
+                <option value="L" selected>Size L</option>
+                <option value="XL">Size XL</option>
+                <option value="XXL">Size XXL</option>
+                <option value="3XL">Size 3XL</option>
+              </select>
+            </div>
+
+            <!-- Piece 3: Christian Dior Jeans -->
+            <div class="ensemble-piece-card">
+              <img class="ensemble-piece-thumb" src="assets/MB-08_front.jpg" alt="Dior Jeans">
+              <div class="ensemble-piece-info">
+                <div class="ensemble-piece-name">Christian Dior Oblique Jacquard Pocket Slim Jeans</div>
+                <div class="ensemble-piece-meta">Japanese Selvedge • <span class="price-val" data-price="55">$55</span></div>
+              </div>
+              <select id="ensembleSelectDenim" class="ensemble-size-select">
+                <option value="30">Waist 30</option>
+                <option value="32" selected>Waist 32</option>
+                <option value="34">Waist 34</option>
+                <option value="36">Waist 36</option>
+              </select>
+            </div>
+
+            <!-- Piece 4: Loro Piana Loafers -->
+            <div class="ensemble-piece-card">
+              <img class="ensemble-piece-thumb" src="assets/MB-09_front.jpg" alt="Loro Piana Loafers">
+              <div class="ensemble-piece-info">
+                <div class="ensemble-piece-name">Loro Piana Summer Walk Water-Repellent Loafers</div>
+                <div class="ensemble-piece-meta">Italian Suede • <span class="price-val" data-price="75">$75</span></div>
+              </div>
+              <select id="ensembleSelectShoes" class="ensemble-size-select">
+                <option value="41">EU 41</option>
+                <option value="42">EU 42</option>
+                <option value="43" selected>EU 43</option>
+                <option value="44">EU 44</option>
+                <option value="45">EU 45</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Total Summary & One-Tap Checkout -->
+          <div class="ensemble-summary-box">
+            <div class="ensemble-total-row">
+              <span style="color:var(--text-secondary); font-size:0.9rem;">Complete 4-Piece Ensemble:</span>
+              <strong id="ensembleTotalPrice" style="color:var(--gold-light); font-size:1.35rem;">$235</strong>
+            </div>
+            <div style="font-size:0.78rem; color:#4ADE80; margin-bottom:16px; display:flex; align-items:center; gap:6px;">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>Complimentary Worldwide Air Cargo Included (Silk Way West / DHL Express)</span>
+            </div>
+            <button class="btn-add-ensemble" onclick="addFullEnsembleToBag()">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>Add Complete Curated Look to Bag (4 Pieces)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 style="font-size:1.35rem; color:var(--gold-light);">Marko Baku</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:340px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of Caspian tailoring traditions and contemporary European silhouettes.
+        </p>
+        <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.7;">
+          📍 Atelier & Showroom: Nizami St, Baku, Azerbaijan<br>
+          ✈️ Worldwide Courier: Silk Way West & DHL Air Express
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links">
+          <li><a href="collections.html" class="footer-link">All Editions (Complete Catalog)</a></li>
+          <li><a href="collections.html?cat=knits" class="footer-link">Knits & Polos</a></li>
+          <li><a href="collections.html?cat=tailoring" class="footer-link">Tailoring & Outerwear</a></li>
+          <li><a href="collections.html?cat=denim" class="footer-link">Denim & Trousers</a></li>
+          <li><a href="collections.html?cat=footwear" class="footer-link">Luxury Footwear</a></li>
+          <li><a href="collections.html?cat=accessories" class="footer-link">Accessories & Headwear</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Client Services</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#deliveries" class="footer-link">Global Air Cargo Logistics</a></li>
+          <li><a href="index.html#deliveries" class="footer-link">Delivered Duty Paid (DDP)</a></li>
+          <li><a href="lookbook.html" class="footer-link">Runway Video Gallery</a></li>
+          <li><a href="pavilion.html" class="footer-link">Virtual Fitting Pavilion</a></li>
+          <li><a href="index.html#sovereign" class="footer-link">Sovereign Buyer Protection</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="footer-link">Atelier Shopping Bag</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Direct Inquiries</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:12px;">
+          Private Client Services & Direct Atelier Concierge:
+        </p>
+        <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
+          VIP Desk: concierge@markobaku.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">
+          WhatsApp Direct: <a href="https://wa.me/994705626060" target="_blank" style="color:var(--gold-primary); text-decoration:none;">+994 70 562 60 60</a>
+        </p>
+        <div style="font-size:0.75rem; color:#4ADE80; display:flex; align-items:center; gap:6px;">
+          <span style="width:6px; height:6px; background:#4ADE80; border-radius:50%; display:inline-block;"></span>
+          Baku Concierge Online (GMT+4)
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Marko Baku Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Atelier Service</a>
+        <a href="#">Global Delivery Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Over Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Atelier Bag</h3>
+      <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
+    <div class="cart-shipping-meter">
+      <div id="shippingMeterText">
+        Add items for <strong>Complimentary Worldwide Air Cargo</strong>
+      </div>
+      <div class="meter-track">
+        <div id="shippingMeterFill" class="meter-fill"></div>
+      </div>
+    </div>
+    <div id="cartItemsList" class="cart-items-wrap"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <strong id="cartSubtotal">$0</strong>
+      </div>
+      <button class="btn-checkout" onclick="triggerCheckout()">
+        Proceed to Secure Air Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Express Checkout Simulation Modal -->
+  <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
+    <div class="modal-content" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+      <div style="width:56px; height:56px; background:rgba(34,197,94,0.15); border:1px solid #4ADE80; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="28" height="28" fill="none" stroke="#4ADE80" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--gold-light); margin-bottom:8px;">Atelier Order Confirmed</h3>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">
+        Your order has been routed to the Baku fulfillment center. An express air-waybill has been generated.
+      </p>
+      <div style="background:var(--bg-secondary); border:1px solid var(--border-gold); padding:16px; border-radius:8px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Air Cargo Tracking:</span>
+          <strong id="checkoutTrackingCode" style="color:var(--gold-light); font-family:monospace; letter-spacing:0.05em;">AZ-CARGO-123456</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="color:var(--text-muted)">Carrier:</span>
+          <span>Silk Way West / DHL Express</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeCheckoutModal()">
+        Return to Atelier
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // ==========================================================================
+    // OPTICAL PHOTOGRAMMETRY & AUTONOMOUS BIOMETRIC CALIBRATION ENGINE
+    // ==========================================================================
+
+    const ARCHETYPES = {
+      runway: {
+        label: 'Runway Model (185 cm • Athletic V-Taper)',
+        heightCm: 185,
+        heightDesc: "185 cm (6' 1\")",
+        shoulderCm: 49.0,
+        chestCm: 55.0,
+        waistCm: 42.0,
+        outseamCm: 104.0,
+        build: 'Athletic V-Taper',
+        verdicts: {
+          silk: { size: 'Size Large', ease: 'Relaxed fluid summer drape (+6 cm ease)' },
+          tracksuit: { size: 'Size Large', ease: 'Ergonomic shoulder articulation with clean taper (+2 cm ease)' },
+          denim: { size: 'Waist 32', ease: 'Artisanal slim tapered selvedge leg opening' },
+          footwear: { size: 'EU 43 (US 10)', ease: 'Loro Piana water-repellent suede (True to size)' }
+        },
+        ensemble: {
+          silk: 'L',
+          denim: '32',
+          shoes: '43'
+        },
+        imageSrc: 'assets/MB-02_front.jpg',
+        videoSrc: 'assets/MB-01_walk.mp4'
+      },
+      classic: {
+        label: 'Sartorial Classic (178 cm • Balanced)',
+        heightCm: 178,
+        heightDesc: "178 cm (5' 10\")",
+        shoulderCm: 46.5,
+        chestCm: 52.0,
+        waistCm: 40.0,
+        outseamCm: 99.0,
+        build: 'Balanced European Classic',
+        verdicts: {
+          silk: { size: 'Size Medium', ease: 'Sartorial camp collar drape (+5 cm ease)' },
+          tracksuit: { size: 'Size Medium', ease: 'Clean contemporary athletic fit (+3 cm ease)' },
+          denim: { size: 'Waist 30', ease: 'Custom hem proportion with tailored break' },
+          footwear: { size: 'EU 42 (US 9)', ease: 'Suede footbed molded comfort' }
+        },
+        ensemble: {
+          silk: 'M',
+          denim: '30',
+          shoes: '42'
+        },
+        imageSrc: 'assets/MB-03_front.jpg',
+        videoSrc: 'assets/MB-03_walk.mp4'
+      },
+      broad: {
+        label: 'Broad Frame (188 cm • Robust)',
+        heightCm: 188,
+        heightDesc: "188 cm (6' 2\")",
+        shoulderCm: 53.0,
+        chestCm: 61.0,
+        waistCm: 46.5,
+        outseamCm: 107.0,
+        build: 'Broad Athletic / Heavy Shoulders',
+        verdicts: {
+          silk: { size: 'Size XL', ease: 'Generous silk twill boxy drape (+7 cm ease)' },
+          tracksuit: { size: 'Size XL', ease: 'Extended double-faced ribbing with zero chest binding' },
+          denim: { size: 'Waist 34', ease: 'Relaxed thigh with structured selvedge taper' },
+          footwear: { size: 'EU 44 (US 11)', ease: 'Reinforced suede footbed with wide sole support' }
+        },
+        ensemble: {
+          silk: 'XL',
+          denim: '34',
+          shoes: '44'
+        },
+        imageSrc: 'assets/MB-04_front.jpg',
+        videoSrc: 'assets/MB-04_walk.mp4'
+      },
+      slender: {
+        label: 'Lean Silhouette (172 cm • Slender)',
+        heightCm: 172,
+        heightDesc: "172 cm (5' 8\")",
+        shoulderCm: 44.0,
+        chestCm: 49.0,
+        waistCm: 37.5,
+        outseamCm: 95.0,
+        build: 'Lean Editorial Cut',
+        verdicts: {
+          silk: { size: 'Size Medium', ease: 'Fashion-forward relaxed drape (+7 cm ease)' },
+          tracksuit: { size: 'Size Medium', ease: 'Sleek athletic contour with ergonomic taper' },
+          denim: { size: 'Waist 30', ease: 'Sharp slim leg profile without bunching' },
+          footwear: { size: 'EU 41 (US 8)', ease: 'Snug glove-like calfskin fit' }
+        },
+        ensemble: {
+          silk: 'M',
+          denim: '30',
+          shoes: '41'
+        },
+        imageSrc: 'assets/MB-07_front.jpg',
+        videoSrc: 'assets/MB-07_walk.mp4'
+      }
+    };
+
+    let activeArchetype = 'runway';
+    let isCameraRunning = false;
+    let cameraStream = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderArchetype(activeArchetype);
+      updateEnsemblePriceDisplay();
+    });
+
+    function selectArchetype(key) {
+      if (!ARCHETYPES[key]) return;
+      activeArchetype = key;
+      document.querySelectorAll('.archetype-chip').forEach(b => {
+        b.classList.toggle('active', b.textContent.includes(key === 'runway' ? 'Runway Model' : key === 'classic' ? 'Sartorial Classic' : key === 'broad' ? 'Broad Frame' : 'Lean Silhouette'));
+      });
+      renderArchetype(key);
+    }
+
+    function renderArchetype(key) {
+      const data = ARCHETYPES[key];
+      if (!data) return;
+
+      // Update Biometric Summary
+      document.getElementById('statHeight').textContent = data.heightDesc;
+      document.getElementById('statShoulder').textContent = `${data.shoulderCm} cm`;
+      document.getElementById('statChest').textContent = `${data.chestCm} cm (${Math.round(data.chestCm * 2)} cm)`;
+      document.getElementById('statWaist').textContent = `${data.waistCm} cm (${Math.round(data.waistCm * 2)} cm)`;
+      document.getElementById('statOutseam').textContent = `${data.outseamCm} cm`;
+      document.getElementById('statBuild').textContent = data.build;
+
+      // Update Sizing Verdicts
+      document.getElementById('verdictSizeSilk').textContent = data.verdicts.silk.size;
+      document.getElementById('verdictEaseSilk').textContent = data.verdicts.silk.ease;
+
+      document.getElementById('verdictSizeTracksuit').textContent = data.verdicts.tracksuit.size;
+      document.getElementById('verdictEaseTracksuit').textContent = data.verdicts.tracksuit.ease;
+
+      document.getElementById('verdictSizeDenim').textContent = data.verdicts.denim.size;
+      document.getElementById('verdictEaseDenim').textContent = data.verdicts.denim.ease;
+
+      document.getElementById('verdictSizeFootwear').textContent = data.verdicts.footwear.size;
+      document.getElementById('verdictEaseFootwear').textContent = data.verdicts.footwear.ease;
+
+      // Update Ensemble Selectors
+      document.getElementById('ensembleSelectSilk').value = data.ensemble.silk;
+      document.getElementById('ensembleSelectDenim').value = data.ensemble.denim;
+      document.getElementById('ensembleSelectShoes').value = data.ensemble.shoes;
+
+      // Update Video
+      const video = document.getElementById('ensembleVideo');
+      if (video && data.videoSrc) {
+        video.src = data.videoSrc;
+        video.play().catch(() => {});
+      }
+
+      // Draw onto Canvas with Optical Mesh
+      drawOpticalSilhouette(data.imageSrc, data);
+    }
+
+    function drawOpticalSilhouette(imageSrc, data) {
+      const canvas = document.getElementById('visionCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = imageSrc;
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw background image
+        const hRatio = canvas.width / img.width;
+        const vRatio = canvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (canvas.width - img.width * ratio) / 2;
+        const centerShiftY = (canvas.height - img.height * ratio) / 2;
+        
+        ctx.drawImage(img, 0, 0, img.width, img.height,
+                          centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+
+        // Dark subtle overlay for contrast
+        ctx.fillStyle = 'rgba(7, 9, 14, 0.45)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Render Holographic Skeletal Nodes & Dimension Lines
+        renderSkeletalMesh(ctx, canvas.width, canvas.height, data);
+      };
+    }
+
+    function renderSkeletalMesh(ctx, w, h, data) {
+      // Anatomical Anchor Coordinates (Proportional to Canvas)
+      const headX = w * 0.50;
+      const headY = h * 0.16;
+      const shoulderLeftX = w * 0.36;
+      const shoulderRightX = w * 0.64;
+      const shoulderY = h * 0.26;
+      const chestY = h * 0.33;
+      const waistLeftX = w * 0.40;
+      const waistRightX = w * 0.60;
+      const waistY = h * 0.44;
+      const hipLeftX = w * 0.38;
+      const hipRightX = w * 0.62;
+      const hipY = h * 0.52;
+      const kneeLeftX = w * 0.41;
+      const kneeRightX = w * 0.59;
+      const kneeY = h * 0.72;
+      const ankleLeftX = w * 0.42;
+      const ankleRightX = w * 0.58;
+      const ankleY = h * 0.90;
+
+      // Draw Glowing Skeletal Connections
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
+      ctx.setLineDash([4, 4]);
+
+      // Spine & Torso
+      ctx.beginPath();
+      ctx.moveTo(headX, headY);
+      ctx.lineTo(headX, hipY);
+      ctx.stroke();
+
+      // Shoulders Span
+      ctx.beginPath();
+      ctx.moveTo(shoulderLeftX, shoulderY);
+      ctx.lineTo(shoulderRightX, shoulderY);
+      ctx.stroke();
+
+      // Chest Breadth
+      ctx.beginPath();
+      ctx.moveTo(shoulderLeftX + 5, chestY);
+      ctx.lineTo(shoulderRightX - 5, chestY);
+      ctx.stroke();
+
+      // Waist
+      ctx.beginPath();
+      ctx.moveTo(waistLeftX, waistY);
+      ctx.lineTo(waistRightX, waistY);
+      ctx.stroke();
+
+      // Legs
+      ctx.beginPath();
+      ctx.moveTo(hipLeftX, hipY);
+      ctx.lineTo(kneeLeftX, kneeY);
+      ctx.lineTo(ankleLeftX, ankleY);
+      ctx.moveTo(hipRightX, hipY);
+      ctx.lineTo(kneeRightX, kneeY);
+      ctx.lineTo(ankleRightX, ankleY);
+      ctx.stroke();
+
+      ctx.setLineDash([]); // Reset dash
+
+      // Draw Keypoint Nodes
+      const points = [
+        { x: headX, y: headY, label: 'CRANIAL' },
+        { x: shoulderLeftX, y: shoulderY, label: 'L-SHOULDER' },
+        { x: shoulderRightX, y: shoulderY, label: 'R-SHOULDER' },
+        { x: (shoulderLeftX + shoulderRightX)/2, y: chestY, label: 'THORACIC' },
+        { x: waistLeftX, y: waistY, label: 'L-WAIST' },
+        { x: waistRightX, y: waistY, label: 'R-WAIST' },
+        { x: hipLeftX, y: hipY, label: 'PELVIS' },
+        { x: hipRightX, y: hipY, label: 'PELVIS' },
+        { x: kneeLeftX, y: kneeY, label: 'KNEE' },
+        { x: kneeRightX, y: kneeY, label: 'KNEE' },
+        { x: ankleLeftX, y: ankleY, label: 'MALLEOLUS' },
+        { x: ankleRightX, y: ankleY, label: 'MALLEOLUS' }
+      ];
+
+      points.forEach(pt => {
+        // Glowing Outer Ring
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(74, 222, 128, 0.3)';
+        ctx.fill();
+
+        // Inner Core
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#4ADE80';
+        ctx.fill();
+      });
+
+      // Overlay Floating Measurement Badges
+      drawMetricBadge(ctx, headX + 18, shoulderY - 8, `SHOULDER: ${data.shoulderCm} CM`);
+      drawMetricBadge(ctx, headX + 18, chestY - 4, `CHEST: ${data.chestCm} CM`);
+      drawMetricBadge(ctx, headX + 18, waistY - 4, `WAIST: ${data.waistCm} CM`);
+      drawMetricBadge(ctx, headX + 18, ankleY - 20, `OUTSEAM: ${data.outseamCm} CM`);
+    }
+
+    function drawMetricBadge(ctx, x, y, text) {
+      ctx.font = '9px monospace';
+      const textWidth = ctx.measureText(text).width;
+      ctx.fillStyle = 'rgba(7, 9, 14, 0.85)';
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(x, y - 10, textWidth + 12, 16, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#F3E5AB';
+      ctx.fillText(text, x + 6, y + 2);
+    }
+
+    // Camera Capture Toggle
+    async function toggleCameraCapture() {
+      const video = document.getElementById('webcamVideo');
+      const btnText = document.getElementById('cameraBtnText');
+
+      if (!isCameraRunning) {
+        try {
+          cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+          video.srcObject = cameraStream;
+          video.style.display = 'block';
+          isCameraRunning = true;
+          btnText.textContent = 'Capture Frame';
+          document.getElementById('telemetryStatus').textContent = 'LIVE SCANNING';
+        } catch (err) {
+          alert('Camera access unavailable or declined. You may use our one-tap archetypes or upload a photo.');
+        }
+      } else {
+        // Capture snapshot
+        const canvas = document.getElementById('visionCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+        // Stop camera tracks
+        if (cameraStream) {
+          cameraStream.getTracks().forEach(track => track.stop());
+        }
+        video.style.display = 'none';
+        isCameraRunning = false;
+        btnText.textContent = 'Live Camera Scan';
+        document.getElementById('telemetryStatus').textContent = 'CALIBRATED';
+        
+        // Run simulated biometric analysis
+        renderArchetype('runway');
+      }
+    }
+
+    // Photo Upload Handler
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const customData = {
+          ...ARCHETYPES.runway,
+          imageSrc: e.target.result
+        };
+        drawOpticalSilhouette(e.target.result, customData);
+        document.getElementById('telemetryStatus').textContent = 'PHOTO CALIBRATED';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Multi-Currency reactive pricing for Ensemble
+    function updateEnsemblePriceDisplay() {
+      const totalUsd = 35 + 70 + 55 + 75; // 235
+      const priceElem = document.getElementById('ensembleTotalPrice');
+      if (priceElem) {
+        priceElem.textContent = formatPrice(totalUsd);
+      }
+    }
+
+    // Add Complete 4-Piece Curated Look to Bag
+    window.addFullEnsembleToBag = function() {
+      const silkSize = document.getElementById('ensembleSelectSilk').value;
+      const denimSize = document.getElementById('ensembleSelectDenim').value;
+      const shoeSize = document.getElementById('ensembleSelectShoes').value;
+
+      // Add all 4 pieces
+      addToCart('MB-06', 'One Size');
+      addToCart('MB-01', silkSize);
+      addToCart('MB-08', denimSize);
+      addToCart('MB-09', shoeSize);
+
+      openCartDrawer();
+    };
+  </script>
+</body>
+</html>
