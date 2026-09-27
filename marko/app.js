@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initCurrencySelector();
   initDensityControls();
   await loadProducts();
+  initCategoryFromUrl();
   renderCategoryNav();
   renderProducts();
   updateCartUI();
@@ -63,6 +64,13 @@ function updateAllPrices() {
     const priceElem = document.getElementById('pdpPrice');
     if (priceElem) priceElem.textContent = formatPrice(activePdpProduct.price);
   }
+  // Update any static or lookbook price badges
+  document.querySelectorAll('.price-val[data-price]').forEach(el => {
+    const p = parseFloat(el.getAttribute('data-price'));
+    if (!isNaN(p)) {
+      el.textContent = formatPrice(p);
+    }
+  });
 }
 
 // View Density Switcher (2-Col Editorial vs 4-Col Grid)
@@ -116,25 +124,69 @@ async function loadProducts() {
   }
 }
 
+// Master Atelier Categories Architecture & Multi-Tag Taxonomy
+const ATELIER_CATEGORIES = [
+  {
+    id: 'all',
+    label: 'All Editions',
+    aliases: ['all', 'everything', 'catalog'],
+    matches: () => true
+  },
+  {
+    id: 'knits',
+    label: 'Knits & Polos',
+    aliases: ['knits', 'knit', 'polos', 'polo'],
+    matches: (p) => p.category === 'Knits & Polos' || p.category.toLowerCase().includes('knit')
+  },
+  {
+    id: 'tailoring',
+    label: 'Tailoring & Outerwear',
+    aliases: ['tailoring', 'suits', 'outerwear', 'tracksuits', 'tracksuit', 'autumn', 'winter', 'autumn/winter edit'],
+    matches: (p) => p.category === 'Autumn/Winter Edit' || p.category.toLowerCase().includes('outerwear') || p.category.toLowerCase().includes('tailoring')
+  },
+  {
+    id: 'denim',
+    label: 'Denim & Trousers',
+    aliases: ['denim', 'trousers', 'jeans', 'pants'],
+    matches: (p) => p.category === 'Denim & Trousers' || p.category.toLowerCase().includes('denim')
+  },
+  {
+    id: 'footwear',
+    label: 'Luxury Footwear',
+    aliases: ['footwear', 'shoes', 'loafers', 'shoe'],
+    matches: (p) => p.category === 'Luxury Footwear' || p.category.toLowerCase().includes('footwear')
+  },
+  {
+    id: 'accessories',
+    label: 'Accessories & Headwear',
+    aliases: ['accessories', 'headwear', 'caps', 'hats', 'cap', 'accessory'],
+    matches: (p) => p.category === 'Accessories & Headwear' || p.category.toLowerCase().includes('accessories') || p.category.toLowerCase().includes('headwear')
+  }
+];
+
+// Initialize Category Filter from URL Query Parameters (?cat=... or ?category=...)
+function initCategoryFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const catParam = params.get('cat') || params.get('category');
+  if (catParam) {
+    const q = catParam.toLowerCase().trim();
+    const matched = ATELIER_CATEGORIES.find(c => 
+      c.id.toLowerCase() === q || 
+      c.aliases.some(a => q === a || q.includes(a) || a.includes(q))
+    );
+    if (matched) {
+      currentCategoryFilter = matched.id;
+    }
+  }
+}
+
 // Category Navigation Rendering with Live Counts
 function renderCategoryNav() {
   const nav = document.getElementById('atelierCategoryNav');
   if (!nav || productsData.length === 0) return;
 
-  const categories = [
-    { id: 'all', label: 'All Editions' },
-    { id: 'Knits & Polos', label: 'Knits & Polos' },
-    { id: 'Suits & Outerwear', label: 'Tailoring & Suits' },
-    { id: 'Denim & Trousers', label: 'Denim & Trousers' },
-    { id: 'Footwear', label: 'Footwear' },
-    { id: 'Essentials', label: 'Ready-to-Wear' }
-  ];
-
-  nav.innerHTML = categories.map(cat => {
-    const count = cat.id === 'all'
-      ? productsData.length
-      : productsData.filter(p => p.category.toLowerCase().includes(cat.id.toLowerCase())).length;
-
+  nav.innerHTML = ATELIER_CATEGORIES.map(cat => {
+    const count = productsData.filter(p => cat.matches(p)).length;
     const isActive = currentCategoryFilter === cat.id;
 
     return `
@@ -147,10 +199,15 @@ function renderCategoryNav() {
 }
 
 // Category & Size Filtering & Sorting
-window.filterCategory = function(btn, category) {
+window.filterCategory = function(btn, categoryId) {
   document.querySelectorAll('.atelier-cat-link').forEach(l => l.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  currentCategoryFilter = category;
+  if (btn) {
+    btn.classList.add('active');
+  } else {
+    const targetBtn = document.querySelector(`.atelier-cat-link[onclick*="'${categoryId}'"]`);
+    if (targetBtn) targetBtn.classList.add('active');
+  }
+  currentCategoryFilter = categoryId;
   renderProducts();
 };
 
@@ -175,9 +232,10 @@ function renderProducts() {
 
   // Filter Category
   if (currentCategoryFilter !== 'all') {
-    filtered = filtered.filter(p => 
-      p.category.toLowerCase().includes(currentCategoryFilter.toLowerCase())
-    );
+    const catObj = ATELIER_CATEGORIES.find(c => c.id === currentCategoryFilter);
+    if (catObj) {
+      filtered = filtered.filter(p => catObj.matches(p));
+    }
   }
 
   // Filter In-Stock Size
@@ -197,15 +255,16 @@ function renderProducts() {
   // Update Item Count Label
   const countLabel = document.getElementById('utilityCountLabel');
   if (countLabel) {
-    const catName = currentCategoryFilter === 'all' ? 'Atelier Pieces' : currentCategoryFilter;
+    const catObj = ATELIER_CATEGORIES.find(c => c.id === currentCategoryFilter);
+    const catName = (!catObj || catObj.id === 'all') ? 'Atelier Pieces' : `in ${catObj.label}`;
     countLabel.textContent = `Showing ${filtered.length} ${catName}`;
   }
 
   if (filtered.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 70px 20px; color: var(--text-secondary);">
-        <p style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 8px;">No garments found matching size ${currentSizeFilter}</p>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Please select a different size or clear filters to view available Baku drops.</p>
+        <p style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 8px;">No garments found matching criteria</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Please select a different size or category to view available Baku drops.</p>
         <button class="btn btn-secondary" style="margin-top: 18px;" onclick="resetFilters()">Reset All Filters</button>
       </div>
     `;

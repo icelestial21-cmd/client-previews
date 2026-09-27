@@ -534,9 +534,9 @@
     <nav class="pdp-breadcrumbs">
       <a href="index.html">Atelier Home</a>
       <span>/</span>
-      <a href="collections.html">Autumn Edit</a>
+      <a href="collections.html">Full Catalog</a>
       <span>/</span>
-      <span id="breadcrumbCategory">Category</span>
+      <a id="breadcrumbCategory" href="collections.html" style="color:inherit; text-decoration:none;">Category</a>
       <span>/</span>
       <span id="breadcrumbTitle" style="color:var(--gold-light);">Garment Title</span>
     </nav>
@@ -758,9 +758,9 @@
   <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-col">
-        <h4 style="font-size:1.4rem; color:var(--gold-light);">Marko Baku</h4>
-        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:320px; margin-bottom:16px;">
-          Bespoke and ready-to-wear luxury menswear engineered at the intersection of old-world European tailoring and Caspian craftsmanship.
+        <h4 style="font-size:1.35rem; color:var(--gold-light);">Marko Baku</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:340px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of Caspian tailoring traditions and contemporary European silhouettes.
         </p>
         <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.7;">
           📍 Atelier & Showroom: Nizami St, Baku, Azerbaijan<br>
@@ -770,11 +770,12 @@
       <div class="footer-col">
         <h4>Collections</h4>
         <ul class="footer-links">
-          <li><a href="collections.html" class="footer-link">Autumn/Winter Edit</a></li>
-          <li><a href="collections.html?cat=Knits" class="footer-link">Knits & Polos</a></li>
-          <li><a href="collections.html?cat=Tailoring" class="footer-link">Tailoring & Tracksuits</a></li>
-          <li><a href="collections.html?cat=Denim" class="footer-link">Denim & Trousers</a></li>
-          <li><a href="collections.html?cat=Footwear" class="footer-link">Luxury Footwear</a></li>
+          <li><a href="collections.html" class="footer-link">All Editions (Complete Catalog)</a></li>
+          <li><a href="collections.html?cat=knits" class="footer-link">Knits & Polos</a></li>
+          <li><a href="collections.html?cat=tailoring" class="footer-link">Tailoring & Outerwear</a></li>
+          <li><a href="collections.html?cat=denim" class="footer-link">Denim & Trousers</a></li>
+          <li><a href="collections.html?cat=footwear" class="footer-link">Luxury Footwear</a></li>
+          <li><a href="collections.html?cat=accessories" class="footer-link">Accessories & Headwear</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -784,6 +785,7 @@
           <li><a href="index.html#deliveries" class="footer-link">Delivered Duty Paid (DDP)</a></li>
           <li><a href="lookbook.html" class="footer-link">Runway Video Gallery</a></li>
           <li><a href="index.html#sovereign" class="footer-link">Sovereign Buyer Protection</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="footer-link">Atelier Shopping Bag</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -792,10 +794,10 @@
           Private Client Services & Direct Atelier Concierge:
         </p>
         <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
-          concierge@markobaku.com
+          VIP Desk: concierge@markobaku.com
         </p>
         <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">
-          WhatsApp Direct: +994 70 562 60 60
+          WhatsApp Direct: <a href="https://wa.me/994705626060" target="_blank" style="color:var(--gold-primary); text-decoration:none;">+994 70 562 60 60</a>
         </p>
         <div style="font-size:0.75rem; color:#4ADE80; display:flex; align-items:center; gap:6px;">
           <span style="width:6px; height:6px; background:#4ADE80; border-radius:50%; display:inline-block;"></span>
@@ -804,7 +806,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Marko Baku Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+      <div>&copy; 2026 Marko Baku Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
       <div class="footer-bottom-links">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Atelier Service</a>
@@ -840,7 +842,13 @@
       document.title = `${p.name} | MARKO BAKU Digital Atelier`;
 
       // Breadcrumbs
-      document.getElementById('breadcrumbCategory').textContent = p.category;
+      const breadcrumbCat = document.getElementById('breadcrumbCategory');
+      breadcrumbCat.textContent = p.category;
+      const catSlug = p.category.toLowerCase().includes('knit') ? 'knits' :
+                      p.category.toLowerCase().includes('denim') ? 'denim' :
+                      p.category.toLowerCase().includes('footwear') ? 'footwear' :
+                      p.category.toLowerCase().includes('accessories') ? 'accessories' : 'tailoring';
+      breadcrumbCat.href = `collections.html?cat=${catSlug}`;
       document.getElementById('breadcrumbTitle').textContent = p.name;
 
       // Hero image & badge
@@ -978,9 +986,14 @@
         pant_len_cm: 'Total Outseam Length',
         thigh_cm: 'Upper Thigh Width',
         rise_cm: 'Front Crotch Rise',
+        hip_cm: 'Hip Width (Flat Across)',
+        width_cm: 'Footbed Width (Widest Point)',
+        insole_cm: 'Insole Footbed Length',
+        brim_cm: 'Visor / Brim Depth',
+        circumference_cm: 'Crown Circumference',
+        depth_cm: 'Crown Height / Depth',
         eu_size: 'EU Size Standard',
-        us_size: 'US Size Standard',
-        insole_cm: 'Insole Footbed Length'
+        us_size: 'US Size Standard'
       };
 
       const formatVal = (val) => {
