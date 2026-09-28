@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEPARTAMENT BAKU | Luxury Caspian Menswear & Outerwear Flagship</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="DEPARTAMENT Baku — World is Man. Elite Italian-cut suiting, double-breasted cashmere overcoats, shearling flight jackets, and classic footwear. Worldwide delivery in 7–10 days.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Inter:wght@300;400;500;600;700&family=Cascadia+Code:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 1. Top Logistics & Currency Bar -->
+  <div class="top-bar">
+    <div class="top-bar-notice">
+      <span>✈️</span>
+      <span><strong>Worldwide Postal & Air Cargo:</strong> Insured delivery to UK, Europe, USA, UAE & CIS in 7–10 Days</span>
+    </div>
+    <div class="currency-control">
+      <span>Currency:</span>
+      <select id="currencySelector" class="currency-select" aria-label="Select Currency">
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="GBP">GBP (£)</option>
+        <option value="AZN">AZN (₼)</option>
+        <option value="RUB">RUB (₽)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 2. Persistent Sticky Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/departament_logo.jpg" alt="DEPARTAMENT Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">Departament</span>
+          <span class="brand-motto">World is Man • Baku</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="#collection" class="nav-link active">Collection</a>
+        <a href="#assurance" class="nav-link">Global Logistics</a>
+        <a href="#sizing" class="nav-link">Sizing Protocol</a>
+        <a href="#atelier" class="nav-link">The Baku Atelier</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%20Baku%2C%20I%20would%20like%20to%20consult%20on%20an%20order." target="_blank" rel="noopener" class="btn-inquire">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+          <span>Contractor Desk</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Cinematic Hero Section -->
+  <section class="hero-section">
+    <video class="hero-video-bg" autoplay loop muted playsinline src="assets/hero_runway_loop.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-pill">
+        <div class="hero-pill-dot"></div>
+        <span>Autumn / Winter 2026 Collection • Made in Baku</span>
+      </div>
+      <h1 class="hero-title">
+        The Architecture of <span>Masculine Elegance.</span>
+      </h1>
+      <p class="hero-desc">
+        Unstructured Italian silhouettes, pure Mongolian cashmere overcoats, and rugged shearling flight jackets. Handcrafted in our Baku atelier and delivered to private clients worldwide in 7 to 10 days.
+      </p>
+
+      <div style="display:flex; gap:16px; margin-bottom:40px; flex-wrap:wrap;">
+        <a href="#collection" class="btn-inquire" style="padding:12px 26px; font-size:0.92rem;">
+          <span>Explore Ready-to-Wear</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button onclick="openBespokeModal()" class="product-cta-btn" style="width:auto; padding:12px 24px;">
+          <span>Custom Measurement Intake</span>
+        </button>
+      </div>
+
+      <div class="hero-metrics-bar">
+        <div class="hero-metric-item">
+          <span class="hero-metric-value">111,000+</span>
+          <span class="hero-metric-label">Social Audience (IG + TT)</span>
+        </div>
+        <div class="hero-metric-item">
+          <span class="hero-metric-value">390,000</span>
+          <span class="hero-metric-label">Organic Video Likes</span>
+        </div>
+        <div class="hero-metric-item">
+          <span class="hero-metric-value">7–10 Days</span>
+          <span class="hero-metric-label">Worldwide Transit</span>
+        </div>
+        <div class="hero-metric-item">
+          <span class="hero-metric-value">100%</span>
+          <span class="hero-metric-label">Natural Materials</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Global Logistics & Assurance Ribbon -->
+  <section id="assurance" class="assurance-banner">
+    <div class="assurance-grid">
+      <div class="assurance-card">
+        <div class="assurance-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h4 class="assurance-title">Direct Post & Air Cargo</h4>
+          <p class="assurance-desc">Tracked international dispatch with customs pre-clearance to UK, Europe, USA, UAE, and CIS.</p>
+        </div>
+      </div>
+
+      <div class="assurance-card">
+        <div class="assurance-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <div>
+          <h4 class="assurance-title">European Cut Perfection</h4>
+          <p class="assurance-desc">Precision Italian tailored patterns calibrated for athletic and executive builds with zero boxiness.</p>
+        </div>
+      </div>
+
+      <div class="assurance-card">
+        <div class="assurance-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <h4 class="assurance-title">Insured Transit Escrow</h4>
+          <p class="assurance-desc">Guaranteed replacement or refund in the rare event of transit delay or postal loss.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Interactive Caspian Catalog Section -->
+  <section id="collection" class="catalog-section">
+    <div class="section-head">
+      <div class="section-subtitle">Authentic Baku Collection</div>
+      <h2 class="section-title">The Sartorial Catalog</h2>
+      <p class="section-caption">
+        Select a category below to explore our seasonal suiting, double-breasted cashmere overcoats, and handcrafted leather outerwear. All prices automatically adjust to your preferred currency.
+      </p>
+    </div>
+
+    <!-- Symmetrical Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-category="all">All Masterpieces</button>
+      <button class="filter-tab" data-category="suits">Bespoke Suiting</button>
+      <button class="filter-tab" data-category="overcoats">Cashmere Overcoats</button>
+      <button class="filter-tab" data-category="leather">Leather & Shearling</button>
+      <button class="filter-tab" data-category="footwear">Artisan Footwear</button>
+    </div>
+
+    <!-- Product Grid (Strict CSS Grid alignment) -->
+    <div id="productGrid" class="product-grid">
+      <!-- Injected dynamically via app.js -->
+    </div>
+  </section>
+
+  <!-- 6. Sizing Protocol & Table Section -->
+  <section id="sizing" class="sizing-section">
+    <div class="sizing-container">
+      <div class="sizing-text">
+        <div class="section-subtitle">Precision Tailoring Assurance</div>
+        <h2>European & International Sizing Protocol</h2>
+        <p>
+          We eliminate the uncertainty of remote orders. When placing an order, our master tailors cross-reference your shoulder width, chest circumference, sleeve length, and total height before dispatch.
+        </p>
+        
+        <div class="sizing-steps">
+          <div class="sizing-step-item">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Digital Size Verification</h4>
+              <p>State your regular EU jacket size (e.g. 48, 50, 52) or US suit size (38R, 40R, 42R).</p>
+            </div>
+          </div>
+          <div class="sizing-step-item">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Physical Dimension Cross-Check</h4>
+              <p>Our Baku master tailors verify your height and weight over WhatsApp to confirm ideal drop.</p>
+            </div>
+          </div>
+          <div class="sizing-step-item">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Pre-Dispatch Video Verification</h4>
+              <p>We provide video inspection of your garment being steamed and boxed prior to postal dispatch.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sizing-table-wrap">
+        <h4 style="font-family:var(--font-serif); font-size:1.1rem; color:#FFFFFF; margin-bottom:16px;">Comparative Size Conversion Chart</h4>
+        <table class="sizing-table">
+          <thead>
+            <tr>
+              <th>EU / Baku</th>
+              <th>UK / USA</th>
+              <th>Chest (cm)</th>
+              <th>Waist (cm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>48</strong></td>
+              <td>38 Regular</td>
+              <td>96 – 99 cm</td>
+              <td>80 – 83 cm</td>
+            </tr>
+            <tr>
+              <td><strong>50</strong></td>
+              <td>40 Regular</td>
+              <td>100 – 103 cm</td>
+              <td>84 – 87 cm</td>
+            </tr>
+            <tr>
+              <td><strong>52</strong></td>
+              <td>42 Regular</td>
+              <td>104 – 107 cm</td>
+              <td>88 – 91 cm</td>
+            </tr>
+            <tr>
+              <td><strong>54</strong></td>
+              <td>44 Regular</td>
+              <td>108 – 111 cm</td>
+              <td>92 – 95 cm</td>
+            </tr>
+            <tr>
+              <td><strong>56</strong></td>
+              <td>46 Regular</td>
+              <td>112 – 115 cm</td>
+              <td>96 – 100 cm</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:20px; text-align:center;">
+          <button onclick="openBespokeModal()" class="product-cta-btn" style="width:100%;">
+            <span>Schedule Sizing Consultation on WhatsApp</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Standardized 4-Column Luxury Footer -->
+  <footer id="atelier" class="site-footer">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        <!-- Col 1: Brand & Philosophy -->
+        <div class="footer-col">
+          <div class="brand-wrap" style="margin-bottom:14px;">
+            <img src="assets/departament_logo.jpg" alt="Logo" class="brand-logo-img">
+            <span class="brand-name" style="font-size:1.2rem;">Departament</span>
+          </div>
+          <p class="footer-brand-p">
+            World is Man. Elite Italian-cut suiting, shearling outerwear, and Caspian bespoke craftsmanship engineered in Baku for the global gentleman.
+          </p>
+          <div style="font-size:0.75rem; color:var(--gold-light); font-family:var(--font-mono);">
+            Founder: @muxxammad_
+          </div>
+        </div>
+
+        <!-- Col 2: Collections Navigation -->
+        <div class="footer-col">
+          <h4>Collections</h4>
+          <ul class="footer-links">
+            <li><a href="#collection">Bespoke 3-Piece Suits</a></li>
+            <li><a href="#collection">Cashmere Overcoats</a></li>
+            <li><a href="#collection">Shearling Flight Jackets</a></li>
+            <li><a href="#collection">Dinner Blazers</a></li>
+            <li><a href="#collection">Goodyear Welted Shoes</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Logistics & Protection -->
+        <div class="footer-col">
+          <h4>Global Assurance</h4>
+          <ul class="footer-links">
+            <li><a href="#assurance">7–10 Day Postal Fulfillment</a></li>
+            <li><a href="#assurance">Customs Pre-Clearance</a></li>
+            <li><a href="#sizing">European Sizing Protocol</a></li>
+            <li><a href="#assurance">Insured Air Cargo Transit</a></li>
+            <li><a href="#assurance">Direct WhatsApp Concierge</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Atelier & WhatsApp Desk -->
+        <div class="footer-col">
+          <h4>Atelier Desk</h4>
+          <div class="footer-contact-box">
+            <div>
+              <strong style="color:#FFF;">Studio Headquarters:</strong><br>
+              Baku, Azerbaijan (Online Satış & Çatdırılma)
+            </div>
+            <div>
+              <strong style="color:#FFF;">Direct Orders & Hotline:</strong><br>
+              <span style="font-family:var(--font-mono); color:var(--gold-light);">+994 51 864 26 63</span>
+            </div>
+            <div>
+              <strong style="color:#FFF;">Operating Hours:</strong><br>
+              Mon – Sun: 10:00 – 21:00 AZT (UTC+4)
+            </div>
+            <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%2C%20I%20am%20contacting%20you%20from%20the%20Digital%20Flagship." target="_blank" rel="noopener" class="footer-btn-wa">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
+              <span>Instant WhatsApp Concierge</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 DEPARTAMENT Baku. All Rights Reserved. Sovereign Digital Infrastructure by iCelestial Group.
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem;">
+          Baku Coordinate: 40°24'N 49°53'E • Caspian Sea Hub
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sizing & Measurement Modal -->
+  <div id="bespokeModal" class="modal-overlay">
+    <div class="modal-box">
+      <button onclick="closeBespokeModal()" class="modal-close-btn">&times;</button>
+      <h3 style="font-family:var(--font-serif); font-size:1.6rem; color:#FFFFFF; margin-bottom:10px;">Bespoke Measurement Intake</h3>
+      <p style="color:var(--text-secondary); font-size:0.86rem; margin-bottom:20px;">
+        Provide your general sizing specifications below. Clicking submit will formulate a structured requisition text directly to Muhammad at our Baku atelier desk.
+      </p>
+
+      <form onsubmit="handleModalSubmit(event)" style="display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <label style="display:block; font-size:0.78rem; text-transform:uppercase; color:var(--gold-light); margin-bottom:4px;">Desired Garment</label>
+          <input type="text" id="modalGarment" required placeholder="e.g. Cashmere Overcoat, 3-Piece Italian Suit" style="width:100%; background:var(--bg-secondary); border:1px solid var(--border-subtle); padding:10px; color:#FFF; border-radius:var(--radius-sm);">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <label style="display:block; font-size:0.78rem; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px;">Height (cm/ft)</label>
+            <input type="text" id="modalHeight" required placeholder="e.g. 182 cm / 6'0''" style="width:100%; background:var(--bg-secondary); border:1px solid var(--border-subtle); padding:10px; color:#FFF; border-radius:var(--radius-sm);">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.78rem; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px;">Weight (kg/lbs)</label>
+            <input type="text" id="modalWeight" required placeholder="e.g. 78 kg / 172 lbs" style="width:100%; background:var(--bg-secondary); border:1px solid var(--border-subtle); padding:10px; color:#FFF; border-radius:var(--radius-sm);">
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size:0.78rem; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px;">Destination Country / City</label>
+          <input type="text" id="modalLocation" required placeholder="e.g. London, UK / New York, USA" style="width:100%; background:var(--bg-secondary); border:1px solid var(--border-subtle); padding:10px; color:#FFF; border-radius:var(--radius-sm);">
+        </div>
+        <button type="submit" class="btn-inquire" style="width:100%; justify-content:center; padding:12px; margin-top:8px;">
+          <span>Dispatch Structured Intake via WhatsApp</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function handleModalSubmit(e) {
+      e.preventDefault();
+      const garment = document.getElementById('modalGarment').value;
+      const height = document.getElementById('modalHeight').value;
+      const weight = document.getElementById('modalWeight').value;
+      const location = document.getElementById('modalLocation').value;
+
+      const text = encodeURIComponent(
+        `Hello Muhammad (DEPARTAMENT Baku),%0A%0AI am requesting custom sizing verification for a bespoke order:%0A- *Garment:* ${garment}%0A- *Height:* ${height}%0A- *Weight:* ${weight}%0A- *Destination:* ${location}%0A%0APlease confirm available fabrics, timeline, and 7–10 day global postal delivery options.`
+      );
+      window.open(`https://wa.me/994518642663?text=${text}`, '_blank');
+      closeBespokeModal();
+    }
+  </script>
+</body>
+</html>
