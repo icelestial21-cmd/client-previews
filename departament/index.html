@@ -3,427 +3,442 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DEPARTAMENT BAKU | Luxury Caspian Menswear & Outerwear Flagship</title>
+  <title>DEPARTAMENT MAN | Digital Atelier & Global Flagship</title>
   <link rel="stylesheet" href="styles.css">
-  <meta name="description" content="DEPARTAMENT Baku — World is Man. Elite Italian-cut suiting, double-breasted cashmere overcoats, shearling flight jackets, and classic footwear. Worldwide delivery in 7–10 days.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Inter:wght@300;400;500;600;700&family=Cascadia+Code:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Exclusive Caspian Sartorial Menswear. World is Man. Luxury Italian Suiting, Mongolian Cashmere Overcoats, Shearling Flight Jackets shipped worldwide from Baku.">
 </head>
 <body>
 
-  <!-- 1. Top Logistics & Currency Bar -->
-  <div class="top-bar">
-    <div class="top-bar-notice">
-      <span>✈️</span>
-      <span><strong>Worldwide Postal & Air Cargo:</strong> Insured delivery to UK, Europe, USA, UAE & CIS in 7–10 Days</span>
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    <div>
+      ✈️ <strong>Worldwide Air Cargo:</strong> Express Tracked Delivery to USA, UK, Europe & Middle East
     </div>
-    <div class="currency-control">
+    <div class="currency-selector-wrap">
       <span>Currency:</span>
-      <select id="currencySelector" class="currency-select" aria-label="Select Currency">
+      <select id="currencySelector" class="currency-select">
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
         <option value="GBP">GBP (£)</option>
         <option value="AZN">AZN (₼)</option>
-        <option value="RUB">RUB (₽)</option>
       </select>
     </div>
   </div>
 
-  <!-- 2. Persistent Sticky Header -->
+  <!-- Main Site Header -->
   <header class="site-header">
-    <div class="header-container">
-      <a href="index.html" class="brand-wrap">
-        <img src="assets/departament_logo.jpg" alt="DEPARTAMENT Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-name">Departament</span>
-          <span class="brand-motto">World is Man • Baku</span>
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <img src="assets/departament_logo.jpg" alt="Departament Man Logo" style="width:40px; height:40px; border-radius:50%; border:1px solid var(--border-gold); object-fit:cover;">
+        <div>
+          <span class="brand-title">Departament Man</span>
+          <span class="brand-subtitle">World is Man • Baku</span>
         </div>
       </a>
 
-      <nav class="main-nav" aria-label="Main Navigation">
-        <a href="index.html" class="nav-link active">Flagship</a>
-        <a href="collections.html" class="nav-link">All Collections</a>
-        <a href="lookbook.html" class="nav-link">Runway Lookbook</a>
-        <a href="#assurance" class="nav-link">Global Logistics</a>
-        <a href="#sizing" class="nav-link">Sizing Protocol</a>
-        <a href="#atelier" class="nav-link">The Atelier</a>
-      </nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="collections.html" class="nav-link">Full Catalog</a></li>
+        <li><a href="lookbook.html" class="nav-link">Runway Lookbook</a></li>
+        <li><a href="pavilion.html" class="nav-link">Virtual Pavilion</a></li>
+        <li><a href="#deliveries" class="nav-link">Global Proof</a></li>
+        <li><a href="#sovereign" class="nav-link">The Atelier Difference</a></li>
+      </ul>
 
-      <div class="header-actions">
-        <button id="cartBtn" class="cart-toggle-btn" onclick="openCartDrawer()" aria-label="Shopping Bag">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      <div class="nav-actions">
+        <button id="cartBtn" class="cart-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
           <span>Bag</span>
-          <span id="cartBadge" class="cart-badge">0</span>
-        </button>
-
-        <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%20Baku%2C%20I%20would%20like%20to%20consult%20on%20an%20order." target="_blank" rel="noopener" class="btn-inquire">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-          <span>Atelier Desk</span>
-        </a>
-
-        <button id="mobileMenuBtn" class="mobile-menu-toggle" aria-label="Open Navigation Menu">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <span id="cartCount" class="cart-count-badge">0</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
-  <aside id="mobileMenu" class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
-    <div class="mobile-nav-header">
-      <div class="brand-text">
-        <span class="brand-name" style="font-size:1.1rem;">Departament</span>
-        <span class="brand-motto">Baku Flagship</span>
+  <!-- Hero Video Section -->
+  <section class="hero-section">
+    <video class="hero-video-bg" autoplay loop muted playsinline src="assets/hero_runway_loop.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-pulse"></div>
+        <span>Autumn / Winter 2025–2026 Collection</span>
       </div>
-      <button id="mobileMenuCloseBtn" class="cart-drawer-close" aria-label="Close Navigation Menu">&times;</button>
-    </div>
-    <div class="mobile-nav-links">
-      <a href="index.html" class="active">Flagship Home</a>
-      <a href="collections.html">Complete Collections</a>
-      <a href="lookbook.html">Runway Lookbook</a>
-      <a href="#assurance" onclick="closeMobileMenu()">Global Air Logistics</a>
-      <a href="#sizing" onclick="closeMobileMenu()">European Sizing Protocol</a>
-      <a href="#atelier" onclick="closeMobileMenu()">The Baku Atelier</a>
-    </div>
-    <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border-subtle);">
-      <a href="https://wa.me/994518642663" target="_blank" rel="noopener" class="btn-checkout">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-        <span>Instant WhatsApp Desk</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Shopping Cart Drawer & Overlay -->
-  <div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
-  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping Bag Drawer">
-    <div class="cart-drawer-header">
-      <h3 class="cart-drawer-title">Shopping Bag</h3>
-      <button onclick="closeCartDrawer()" class="cart-drawer-close" aria-label="Close Shopping Bag">&times;</button>
-    </div>
-    <div class="cart-items-list" id="cartItemsList">
-      <!-- Injected dynamically by app.js -->
-    </div>
-    <div class="cart-footer">
-      <div class="shipping-meter">
-        <div class="shipping-meter-bar">
-          <div id="shippingMeterFill" class="shipping-meter-fill"></div>
-        </div>
-        <div id="shippingMeterText" class="shipping-meter-text">Loading logistics threshold...</div>
+      <h1 class="hero-title">
+        Caspian Sartorial Refinement. <br><span>Tailored For The World.</span>
+      </h1>
+      <p class="hero-desc">
+        Contemporary European silhouettes, double-mercerized knits, and unstructured Italian-cut tailoring crafted in Baku. Delivered directly to your door in Rome, Madrid, London, and New York.
+      </p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn btn-primary">
+          <span>Explore New Drops</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="lookbook.html" class="btn btn-secondary">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <span>Watch Runway Lookbook</span>
+        </a>
+        <a href="pavilion.html" class="btn btn-secondary" style="border-color:var(--border-gold); color:var(--gold-light);">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>Virtual Fitting Pavilion</span>
+        </a>
       </div>
-      <div class="cart-total-row">
-        <span>Order Subtotal:</span>
-        <strong id="cartSubtotal">$0</strong>
-      </div>
-      <a id="waCheckoutBtn" href="#" target="_blank" rel="noopener" class="btn-checkout">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-        <span>Proceed to WhatsApp Checkout</span>
-      </a>
     </div>
-  </aside>
+  </section>
 
-  <main>
-    <!-- 3. Cinematic Hero Section -->
-    <section class="hero-section">
-      <video class="hero-video-bg" autoplay loop muted playsinline src="assets/hero_runway_loop.mp4"></video>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-pill">
-          <div class="hero-pill-dot"></div>
-          <span>Autumn / Winter 2026 Collection • Made in Baku</span>
-        </div>
-        <h1 class="hero-title">
-          The Architecture of <span>Masculine Elegance.</span>
-        </h1>
-        <p class="hero-desc">
-          Unstructured Italian silhouettes, pure Mongolian cashmere overcoats, and rugged shearling flight jackets. Handcrafted in our Baku atelier and delivered to private clients worldwide in 7 to 10 days.
-        </p>
-
-        <div class="hero-btn-row">
-          <a href="collections.html" class="btn-inquire">
-            <span>Explore Ready-to-Wear</span>
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <button onclick="openBespokeModal()" class="product-cta-btn btn-secondary">
-            <span>Custom Measurement Intake</span>
-          </button>
-        </div>
-
-        <div class="hero-metrics-bar">
-          <div class="hero-metric-item">
-            <span class="hero-metric-value">111,000+</span>
-            <span class="hero-metric-label">Social Audience (IG + TT)</span>
-          </div>
-          <div class="hero-metric-item">
-            <span class="hero-metric-value">390,000</span>
-            <span class="hero-metric-label">Organic Video Likes</span>
-          </div>
-          <div class="hero-metric-item">
-            <span class="hero-metric-value">7–10 Days</span>
-            <span class="hero-metric-label">Worldwide Transit</span>
-          </div>
-          <div class="hero-metric-item">
-            <span class="hero-metric-value">100%</span>
-            <span class="hero-metric-label">Natural Materials</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Global Logistics & Assurance Ribbon -->
-    <section id="assurance" class="assurance-banner">
-      <div class="assurance-grid">
-        <div class="assurance-card">
-          <div class="assurance-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <h4 class="assurance-title">Direct Post & Air Cargo</h4>
-            <p class="assurance-desc">Tracked international dispatch with customs pre-clearance to UK, Europe, USA, UAE, and CIS.</p>
-          </div>
-        </div>
-
-        <div class="assurance-card">
-          <div class="assurance-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-          </div>
-          <div>
-            <h4 class="assurance-title">European Cut Perfection</h4>
-            <p class="assurance-desc">Precision Italian tailored patterns calibrated for athletic and executive builds with zero boxiness.</p>
-          </div>
-        </div>
-
-        <div class="assurance-card">
-          <div class="assurance-icon">
-            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div>
-            <h4 class="assurance-title">Insured Transit Escrow</h4>
-            <p class="assurance-desc">Guaranteed replacement or refund in the rare event of transit delay or postal loss.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Interactive Caspian Catalog Section -->
-    <section id="collection" class="catalog-section">
-      <div class="section-head">
-        <div class="section-subtitle">Authentic Baku Collection</div>
-        <h2 class="section-title">The Sartorial Catalog</h2>
-        <p class="section-caption">
-          Select a category below to explore our seasonal suiting, double-breasted cashmere overcoats, and handcrafted leather outerwear. All prices automatically adjust to your preferred currency.
+  <!-- Verified Global Deliveries / Trust Ribbon -->
+  <section id="deliveries" class="trust-ribbon-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Zero Friction • Institutional Reliability</div>
+        <h2 class="section-title">Verified Global Deliveries</h2>
+        <p style="color:var(--text-secondary); max-width:620px; margin:10px auto 0; font-size:0.92rem;">
+          Overcoming the limitations of manual social messaging. Every Departament Man order includes end-to-end air tracking, customs pre-clearance, and full buyer protection.
         </p>
       </div>
 
-      <!-- Symmetrical Filter Tabs with Live Drop Counts -->
-      <div id="filterTabs" class="filter-tabs-container">
-        <!-- Injected dynamically via app.js -->
-      </div>
-
-      <!-- Product Grid (Strict CSS Grid alignment) -->
-      <div id="productGrid" class="product-grid">
-        <!-- Injected dynamically via app.js from products.json -->
-      </div>
-    </section>
-
-    <!-- 6. Sizing Protocol & Table Section -->
-    <section id="sizing" class="sizing-section">
-      <div class="sizing-container">
-        <div class="sizing-text">
-          <div class="section-subtitle">Precision Tailoring Assurance</div>
-          <h2>European & International Sizing Protocol</h2>
-          <p>
-            We eliminate the uncertainty of remote orders. When placing an order, our master tailors cross-reference your shoulder width, chest circumference, sleeve length, and total height before dispatch.
+      <div class="trust-grid">
+        <!-- Delivery Card 1: Milan -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Verified Client Unboxing</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">Air Cargo Transit</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_package.jpg" alt="Milan Delivery" 
+               onclick="openProofModal('Verified Delivery — Milan, Italy', 'Lombardy, Italy (Delivered in 5 Days)', 'assets/delivery_proof_package.jpg', 'The merchandise I was eagerly waiting for has arrived! Top-notch materials, solid packaging, exceeding all expectations. Impeccable customer experience. 🇦🇿🤝🇮🇹')">
+          <h3 class="trust-location">Milano, Italy 🇮🇹</h3>
+          <p class="trust-desc">
+            "Top-notch materials, solid packaging, exceeding all expectations. Customer service was impeccable."
           </p>
-          
-          <div class="sizing-steps">
-            <div class="sizing-step-item">
-              <div class="step-num">01</div>
-              <div class="step-content">
-                <h4>Digital Size Verification</h4>
-                <p>State your regular EU jacket size (e.g. 48, 50, 52) or US suit size (38R, 40R, 42R).</p>
-              </div>
-            </div>
-            <div class="sizing-step-item">
-              <div class="step-num">02</div>
-              <div class="step-content">
-                <h4>Physical Dimension Cross-Check</h4>
-                <p>Our Baku master tailors verify your height and weight over WhatsApp to confirm ideal drop.</p>
-              </div>
-            </div>
-            <div class="sizing-step-item">
-              <div class="step-num">03</div>
-              <div class="step-content">
-                <h4>Pre-Dispatch Video Verification</h4>
-                <p>We provide video inspection of your garment being steamed and boxed prior to postal dispatch.</p>
-              </div>
-            </div>
+        </div>
+
+        <!-- Delivery Card 2: Rome -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Delivered Safe & Sound</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">DHL Air Express</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_italy.jpg" alt="Rome Delivery"
+               onclick="openProofModal('Verified Arrival — Rome, Italy', 'Rome, Italy (Signature Confirmed)', 'assets/delivery_proof_italy.jpg', 'Safe and sound arrival of the 2024–2025 luxury knit drop. Customer confirmed perfect fit.')">
+          <h3 class="trust-location">Rome, Italy 🇮🇹</h3>
+          <p class="trust-desc">
+            Direct air dispatch from Heydar Aliyev International Airport (GYD) directly to client residence.
+          </p>
+        </div>
+
+        <!-- Delivery Card 3: Madrid -->
+        <div class="trust-card">
+          <div class="trust-card-header">
+            <span class="trust-badge">Spain Customs Cleared</span>
+            <span style="font-size:0.75rem; color:var(--text-muted)">Madrid Hub</span>
+          </div>
+          <img class="trust-thumb" src="assets/delivery_proof_spain.jpg" alt="Spain Delivery"
+               onclick="openProofModal('Spain Delivery Receipt', 'Madrid, Spain', 'assets/delivery_proof_spain.jpg', 'The products we sent to Spain have reached our customer in good condition. 🇪🇸📦')">
+          <h3 class="trust-location">Madrid, Spain 🇪🇸</h3>
+          <p class="trust-desc">
+            "Reached our customer's home in pristine condition. Zero customs hold-up."
+          </p>
+        </div>
+
+        <!-- Delivery Card 4: Institutional Guarantee -->
+        <div class="trust-card" style="border-color: var(--border-gold); background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(212,175,55,0.06) 100%);">
+          <div class="trust-card-header">
+            <span class="trust-badge" style="background:rgba(212,175,55,0.15); border-color:var(--gold-primary); color:var(--gold-light)">Sovereign Digital Escrow</span>
+            <span style="font-size:0.75rem; color:var(--gold-primary)">100% Protected</span>
+          </div>
+          <div style="height:160px; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(0,0,0,0.3); border-radius:6px; margin-bottom:14px; border:1px dashed var(--border-gold);">
+            <svg width="42" height="42" fill="none" stroke="var(--gold-primary)" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span style="font-size:0.78rem; color:var(--gold-light); margin-top:8px; font-weight:600;">Stripe • Apple Pay • Visa • Mastercard</span>
+          </div>
+          <h3 class="trust-location">Zero WhatsApp Risk</h3>
+          <p class="trust-desc">
+            Never wire unverified funds over chat. Seamless multi-currency digital checkout with automatic invoice generation and live parcel tracking.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Section -->
+  <section id="collection" class="catalog-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Autumn / Winter 2025–2026 Collection</div>
+        <h2 class="section-title">The Baku Sartorial Edit</h2>
+        <p style="color:var(--text-secondary); max-width:640px; margin:8px auto 0; font-size:0.92rem;">
+          Hover over product cards with the runway badge to preview garment drape in motion. Click any piece for full laying-flat dimensions, model telemetry, and curated ensembles.
+        </p>
+      </div>
+
+      <!-- Luxury Atelier Category Navigation -->
+      <nav id="atelierCategoryNav" class="atelier-category-nav">
+        <!-- Rendered dynamically by app.js with live drop counts -->
+      </nav>
+
+      <!-- Luxury Minimalist Utility Filter & Density Bar -->
+      <div class="luxury-utility-bar">
+        <div id="utilityCountLabel" class="utility-count-label">
+          Showing 12 Atelier Pieces
+        </div>
+
+        <div class="utility-size-filter">
+          <span class="size-filter-label">Filter Size:</span>
+          <div class="size-filter-options">
+            <button class="size-filter-btn active" onclick="filterSize(this, 'all')">All</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'M')">M</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'L')">L</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'XL')">XL</button>
+            <button class="size-filter-btn" onclick="filterSize(this, 'XXL')">XXL</button>
+            <button class="size-filter-btn" onclick="filterSize(this, '3XL')">3XL</button>
           </div>
         </div>
 
-        <div class="sizing-table-wrap">
-          <h4 style="font-family:var(--font-serif); font-size:1.1rem; color:#FFFFFF; margin-bottom:16px;">Comparative Size Conversion Chart</h4>
-          <table class="sizing-table">
-            <thead>
-              <tr>
-                <th>EU / Baku</th>
-                <th>UK / USA</th>
-                <th>Chest (cm)</th>
-                <th>Waist (cm)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>48</strong></td>
-                <td>38 Regular</td>
-                <td>96 – 99 cm</td>
-                <td>80 – 83 cm</td>
-              </tr>
-              <tr>
-                <td><strong>50</strong></td>
-                <td>40 Regular</td>
-                <td>100 – 103 cm</td>
-                <td>84 – 87 cm</td>
-              </tr>
-              <tr>
-                <td><strong>52</strong></td>
-                <td>42 Regular</td>
-                <td>104 – 107 cm</td>
-                <td>88 – 91 cm</td>
-              </tr>
-              <tr>
-                <td><strong>54</strong></td>
-                <td>44 Regular</td>
-                <td>108 – 111 cm</td>
-                <td>92 – 95 cm</td>
-              </tr>
-              <tr>
-                <td><strong>56</strong></td>
-                <td>46 Regular</td>
-                <td>112 – 115 cm</td>
-                <td>96 – 100 cm</td>
-              </tr>
-            </tbody>
-          </table>
-          <div style="margin-top:20px; text-align:center;">
-            <button onclick="openBespokeModal()" class="product-cta-btn btn-primary" style="width:100%;">
-              <span>Schedule Sizing Consultation on WhatsApp</span>
+        <div class="utility-right-controls">
+          <select id="catalogSortSelect" class="luxury-sort-select" onchange="handleSortChange(this.value)">
+            <option value="featured">Sort: Featured Drops</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+
+          <div class="density-icon-toggle">
+            <button id="densityCompactBtn" class="density-icon-btn active" onclick="setViewDensity('compact')" title="4-Column Standard Grid">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3zm11 0h7v7h-7zm-11 11h7v7H3zm11 0h7v7h-7z"/></svg>
+              <span>Grid</span>
+            </button>
+            <button id="densityEditorialBtn" class="density-icon-btn" onclick="setViewDensity('editorial')" title="2-Column Editorial Magazine View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v18H3zm10 0h8v18h-8z"/></svg>
+              <span>Editorial</span>
             </button>
           </div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- 7. Standardized 4-Column Luxury Footer -->
-  <footer id="atelier" class="site-footer">
-    <div class="footer-container">
-      <div class="footer-main-grid">
-        <!-- Col 1: Brand & Philosophy -->
-        <div class="footer-col">
-          <div class="brand-wrap" style="margin-bottom:14px;">
-            <img src="assets/departament_logo.jpg" alt="Logo" class="brand-logo-img">
-            <span class="brand-name" style="font-size:1.2rem;">Departament</span>
-          </div>
-          <p class="footer-brand-p">
-            World is Man. Elite Italian-cut suiting, shearling outerwear, and Caspian bespoke craftsmanship engineered in Baku for the global gentleman.
-          </p>
-          <div style="font-size:0.75rem; color:var(--gold-light); font-family:var(--font-mono);">
-            Founder: @muxxammad_
-          </div>
-        </div>
+      <!-- Dynamic Product Grid -->
+      <div id="productsGrid" class="products-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
 
-        <!-- Col 2: Collections Navigation -->
-        <div class="footer-col">
-          <h4>Collections</h4>
-          <ul class="footer-links">
-            <li><a href="collections.html?cat=suits">Bespoke 3-Piece Suits</a></li>
-            <li><a href="collections.html?cat=overcoats">Cashmere Overcoats</a></li>
-            <li><a href="collections.html?cat=leather">Shearling Flight Jackets</a></li>
-            <li><a href="collections.html?cat=suits">Dinner Blazers</a></li>
-            <li><a href="collections.html?cat=footwear">Goodyear Welted Shoes</a></li>
-          </ul>
-        </div>
+  <!-- The Sovereign Difference (Table Comparison) -->
+  <section id="sovereign" class="comparison-section">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-subtitle">Strategic Commercial Architecture</div>
+        <h2 class="section-title">Why Departament Man Built The Sovereign Atelier</h2>
+        <p style="color:var(--text-secondary); max-width:680px; margin:10px auto 0; font-size:0.92rem;">
+          Moving beyond vulnerable social messaging channels into institutional international commerce.
+        </p>
+      </div>
 
-        <!-- Col 3: Logistics & Protection -->
-        <div class="footer-col">
-          <h4>Global Assurance</h4>
-          <ul class="footer-links">
-            <li><a href="#assurance">7–10 Day Postal Fulfillment</a></li>
-            <li><a href="#assurance">Customs Pre-Clearance</a></li>
-            <li><a href="#sizing">European Sizing Protocol</a></li>
-            <li><a href="#assurance">Insured Air Cargo Transit</a></li>
-            <li><a href="#assurance">Direct WhatsApp Concierge</a></li>
-          </ul>
-        </div>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Evaluation Pillar</th>
+              <th>The Instagram & Telegram Status Quo</th>
+              <th class="col-highlight">The Departament Man Sovereign Digital Atelier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Account Security & Permanence</strong></td>
+              <td><span class="badge-risk">⚠️ Fragile</span> Page suspended by Meta without warning (Post #81 incident), leading to instant revenue blackouts.</td>
+              <td class="col-highlight"><span class="badge-sovereign">🛡️ 100% Sovereign</span> Independent digital real estate on custom domain. Immune to platform bans.</td>
+            </tr>
+            <tr>
+              <td><strong>Buyer Trust & Scam Perception</strong></td>
+              <td><span class="badge-risk">⚠️ High Friction</span> Western buyers required to wire money over WhatsApp to an Azerbaijani phone number (+994).</td>
+              <td class="col-highlight"><span class="badge-sovereign">✨ Institutional Trust</span> Standard multi-currency checkout (Apple Pay, Google Pay, Visa). Eradicates Reddit scam anxiety.</td>
+            </tr>
+            <tr>
+              <td><strong>Currency & Pricing Transparency</strong></td>
+              <td><span class="badge-risk">⚠️ Ambiguous</span> Manual conversion calculations, currency negotiation, and unformatted price posts.</td>
+              <td class="col-highlight"><span class="badge-sovereign">💱 Real-Time Multi-Currency</span> Seamless switching across USD ($), EUR (€), GBP (£), and AZN (₼).</td>
+            </tr>
+            <tr>
+              <td><strong>Order Processing Overhead</strong></td>
+              <td><span class="badge-risk">⚠️ Manual Labor</span> Hours spent manually answering "how much?", size checks, and writing postal labels by hand.</td>
+              <td class="col-highlight"><span class="badge-sovereign">⚡ Automated Throughput</span> Instant size selection, automated stock reservation, and integrated air-cargo dispatch slips.</td>
+            </tr>
+            <tr>
+              <td><strong>Runway Experience & Drape</strong></td>
+              <td><span class="badge-risk">⚠️ Scattered</span> Compressed video snippets lost in social media feeds.</td>
+              <td class="col-highlight"><span class="badge-sovereign">🎬 Integrated Video Lookbook</span> Zero-latency looping runway previews embedded on every product card.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        <!-- Col 4: Atelier & WhatsApp Desk -->
-        <div class="footer-col">
-          <h4>Atelier Desk</h4>
-          <div class="footer-contact-box">
-            <div>
-              <strong style="color:#FFF;">Studio Headquarters:</strong><br>
-              Baku, Azerbaijan (Online Satış & Çatdırılma)
-            </div>
-            <div>
-              <strong style="color:#FFF;">Direct Orders & Hotline:</strong><br>
-              <span style="font-family:var(--font-mono); color:var(--gold-light);">+994 51 864 26 63</span>
-            </div>
-            <div>
-              <strong style="color:#FFF;">Operating Hours:</strong><br>
-              Mon – Sun: 10:00 – 21:00 AZT (UTC+4)
-            </div>
-            <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%2C%20I%20am%20contacting%20you%20from%20the%20Digital%20Flagship." target="_blank" rel="noopener" class="footer-btn-wa">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-              <span>Instant WhatsApp Concierge</span>
-            </a>
-          </div>
+  <!-- Lookbook Banner Callout -->
+  <section style="background: radial-gradient(circle at center, #141A24 0%, #07090E 100%); padding: 70px 24px; border-bottom: 1px solid var(--border-subtle); text-align: center;">
+    <div class="section-container">
+      <span style="color:var(--gold-primary); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600;">Runway Lookbook Experience</span>
+      <h2 style="font-family:var(--font-serif); font-size:2.4rem; margin:10px 0 16px;">See The Garments in Motion</h2>
+      <p style="color:var(--text-secondary); max-width:540px; margin:0 auto 28px; font-size:0.92rem;">
+        Walk the digital runway. Experience the natural movement, heavy drape, and artisanal fabric textures of our autumn collection.
+      </p>
+      <a href="lookbook.html" class="btn btn-primary">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Open Runway Lookbook</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 style="font-size:1.35rem; color:var(--gold-light);">Departament Man</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:340px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of Caspian tailoring traditions and contemporary European silhouettes. World is Man.
+        </p>
+        <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.7;">
+          📍 Atelier & Showroom: Baku, Azerbaijan<br>
+          ✈️ Worldwide Courier: Silk Way West & DHL Air Express
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 DEPARTAMENT Baku. All Rights Reserved. Sovereign Digital Infrastructure by iCelestial Group.
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links">
+          <li><a href="collections.html" class="footer-link">All Editions (Complete Catalog)</a></li>
+          <li><a href="collections.html?cat=knits" class="footer-link">Knits & Polos</a></li>
+          <li><a href="collections.html?cat=tailoring" class="footer-link">Tailoring & Outerwear</a></li>
+          <li><a href="collections.html?cat=denim" class="footer-link">Denim & Trousers</a></li>
+          <li><a href="collections.html?cat=footwear" class="footer-link">Luxury Footwear</a></li>
+          <li><a href="collections.html?cat=accessories" class="footer-link">Accessories & Headwear</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Client Services</h4>
+        <ul class="footer-links">
+          <li><a href="#deliveries" class="footer-link">Global Air Cargo Logistics</a></li>
+          <li><a href="#deliveries" class="footer-link">Delivered Duty Paid (DDP)</a></li>
+          <li><a href="lookbook.html" class="footer-link">Runway Video Gallery</a></li>
+          <li><a href="pavilion.html" class="footer-link">Virtual Fitting Pavilion</a></li>
+          <li><a href="#sovereign" class="footer-link">Sovereign Buyer Protection</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="footer-link">Atelier Shopping Bag</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Direct Inquiries</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:12px;">
+          Private Client Services & Direct Atelier Concierge:
+        </p>
+        <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
+          VIP Desk: concierge@departamentman.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">
+          WhatsApp Direct: <a href="https://wa.me/994518642663" target="_blank" style="color:var(--gold-primary); text-decoration:none;">+994 51 864 26 63</a>
+        </p>
+        <div style="font-size:0.75rem; color:#4ADE80; display:flex; align-items:center; gap:6px;">
+          <span style="width:6px; height:6px; background:#4ADE80; border-radius:50%; display:inline-block;"></span>
+          Baku Concierge Online (GMT+4)
         </div>
-        <div style="font-family:var(--font-mono); font-size:0.75rem;">
-          Baku Coordinate: 40°24'N 49°53'E • Caspian Sea Hub
-        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Departament Man Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Atelier Service</a>
+        <a href="#">Global Delivery Terms</a>
       </div>
     </div>
   </footer>
 
-  <!-- Sizing & Measurement Modal -->
-  <div id="bespokeModal" class="modal-overlay">
-    <div class="modal-box">
-      <button onclick="closeBespokeModal()" class="modal-close-btn" aria-label="Close Intake Modal">&times;</button>
-      <h3 style="font-family:var(--font-serif); font-size:1.6rem; color:#FFFFFF; margin-bottom:10px;">Bespoke Measurement Intake</h3>
-      <p style="color:var(--text-secondary); font-size:0.86rem; margin-bottom:20px;">
-        Provide your general sizing specifications below. Clicking submit will formulate a structured requisition text directly to Muhammad at our Baku atelier desk.
-      </p>
+  <!-- Slide-Over Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Atelier Bag</h3>
+      <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
 
-      <form onsubmit="handleModalSubmit(event)" class="modal-form">
-        <div class="form-group">
-          <label class="form-label">Desired Garment</label>
-          <input type="text" id="modalGarment" required placeholder="e.g. Cashmere Overcoat, 3-Piece Italian Suit" class="form-input">
+    <div class="cart-shipping-meter">
+      <div id="shippingMeterText">
+        Add items for <strong>Complimentary Worldwide Air Cargo</strong>
+      </div>
+      <div class="meter-track">
+        <div id="shippingMeterFill" class="meter-fill"></div>
+      </div>
+    </div>
+
+    <div id="cartItemsList" class="cart-items-wrap">
+      <!-- Injected by app.js -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <strong id="cartSubtotal">$0</strong>
+      </div>
+      <button class="btn-checkout" onclick="triggerCheckout()">
+        Proceed to Secure Air Checkout
+      </button>
+      <div style="text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:10px;">
+        🔒 Encrypted 256-Bit SSL • Apple Pay / Stripe / Visa Pre-Approved
+      </div>
+    </div>
+  </aside>
+
+  <!-- Proof Lightbox Modal -->
+  <div id="proofModal" class="modal-overlay" onclick="if(event.target === this) closeProofModal()">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeProofModal()">&times;</button>
+      <h3 id="proofModalTitle" style="font-family:var(--font-serif); font-size:1.5rem; color:var(--gold-light); margin-bottom:4px;">Verified Delivery</h3>
+      <div id="proofModalLocation" style="font-size:0.82rem; color:var(--gold-primary); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px;">Location</div>
+      <img id="proofModalImage" src="" alt="Proof" style="width:100%; max-height:360px; object-fit:contain; border-radius:6px; background:#000; margin-bottom:16px; border:1px solid var(--border-subtle);">
+      <blockquote id="proofModalReview" style="font-style:italic; color:var(--text-secondary); border-left:2px solid var(--gold-primary); padding-left:14px; font-size:0.88rem; line-height:1.5;"></blockquote>
+    </div>
+  </div>
+
+  <!-- Product Quick View / Deep PDP Modal -->
+  <div id="productModal" class="pdp-modal-overlay" onclick="if(event.target === this) closeProductModal()">
+    <div id="pdpModalContent" class="pdp-modal-content">
+      <!-- Injected dynamically by openProductModal(id) in app.js -->
+    </div>
+  </div>
+
+  <!-- Express Checkout Simulation Modal -->
+  <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
+    <div class="modal-content" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+      <div style="width:56px; height:56px; background:rgba(34,197,94,0.15); border:1px solid #4ADE80; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="28" height="28" fill="none" stroke="#4ADE80" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--gold-light); margin-bottom:8px;">Atelier Order Confirmed</h3>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">
+        Your order has been routed to the Baku fulfillment center. An express air-waybill has been generated.
+      </p>
+      <div style="background:var(--bg-secondary); border:1px solid var(--border-gold); padding:16px; border-radius:8px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Air Cargo Tracking:</span>
+          <strong id="checkoutTrackingCode" style="color:var(--gold-light); font-family:monospace; letter-spacing:0.05em;">AZ-CARGO-123456</strong>
         </div>
-        <div class="form-grid-2">
-          <div class="form-group">
-            <label class="form-label form-label-secondary">Height (cm/ft)</label>
-            <input type="text" id="modalHeight" required placeholder="e.g. 182 cm / 6'0''" class="form-input">
-          </div>
-          <div class="form-group">
-            <label class="form-label form-label-secondary">Weight (kg/lbs)</label>
-            <input type="text" id="modalWeight" required placeholder="e.g. 78 kg / 172 lbs" class="form-input">
-          </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Carrier:</span>
+          <span>Silk Way West / DHL Express</span>
         </div>
-        <div class="form-group">
-          <label class="form-label form-label-secondary">Destination Country / City</label>
-          <input type="text" id="modalLocation" required placeholder="e.g. London, UK / New York, USA" class="form-input">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="color:var(--text-muted)">Customs Status:</span>
+          <span style="color:#4ADE80">Pre-Cleared International Air Cargo</span>
         </div>
-        <button type="submit" class="btn-inquire" style="width:100%; justify-content:center; padding:12px; margin-top:8px;">
-          <span>Dispatch Structured Intake via WhatsApp</span>
-        </button>
-      </form>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeCheckoutModal()">
+        Return to Atelier
+      </button>
     </div>
   </div>
 

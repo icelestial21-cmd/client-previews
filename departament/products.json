@@ -1,254 +1,295 @@
 [
   {
-    "id": "dep-01",
+    "id": "DM-01",
     "name": "Baku Aviator Shearling Flight Jacket",
-    "category": "leather",
-    "categoryLabel": "Leather & Outerwear",
-    "baseAzn": 680,
-    "image": "assets/product_02.jpg",
-    "images": {
-      "front": "assets/product_02.jpg",
-      "back": "assets/product_02.jpg",
-      "detail": "assets/product_02.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 400,
+    "badge": "Autumn/Winter Drop",
+    "sizes": ["M", "L", "XL", "XXL", "3XL"],
+    "model_telemetry": "Model is 185 cm (6'1\"), 80 kg, wearing Size Large",
+    "fit_scale": "Substantial Structured: Athletic shoulder with insulated torso drop",
+    "fit_rating": 85,
+    "fabric_story": "Heavyweight grain nappa leather with natural merino shearling collar and lining. Solid brass hardware, storm-proof throat latch, and dual entry patch pockets. Handcrafted in Baku.",
+    "provenance": "Departament Man Baku Atelier • Master Craftsmanship Verification",
+    "measurements": {
+      "M": { "chest_cm": 112, "length_cm": 68, "shoulder_cm": 48, "sleeve_cm": 64, "waist_cm": 104 },
+      "L": { "chest_cm": 118, "length_cm": 70, "shoulder_cm": 50, "sleeve_cm": 65, "waist_cm": 110 },
+      "XL": { "chest_cm": 124, "length_cm": 72, "shoulder_cm": 52, "sleeve_cm": 66, "waist_cm": 116 },
+      "XXL": { "chest_cm": 130, "length_cm": 74, "shoulder_cm": 54, "sleeve_cm": 67, "waist_cm": 122 },
+      "3XL": { "chest_cm": 136, "length_cm": 76, "shoulder_cm": 56, "sleeve_cm": 68, "waist_cm": 128 }
     },
-    "specs": "Heavyweight grain nappa leather, natural merino shearling collar, solid brass hardware.",
-    "tag": "Autumn/Winter Drop",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size L",
-    "layingFlat": {
-      "M": { "chest_cm": 110, "shoulder_cm": 46, "length_cm": 68, "sleeve_cm": 64 },
-      "L": { "chest_cm": 116, "shoulder_cm": 48, "length_cm": 70, "sleeve_cm": 65 },
-      "XL": { "chest_cm": 122, "shoulder_cm": 50, "length_cm": 72, "sleeve_cm": 66 },
-      "XXL": { "chest_cm": 128, "shoulder_cm": 52, "length_cm": 74, "sleeve_cm": 67 }
-    },
-    "companions": ["dep-04", "dep-08"]
+    "styled_with": ["DM-04", "DM-12"],
+    "front_photo": "assets/product_02.jpg",
+    "detail_photo": "assets/product_02.jpg",
+    "back_photo": "assets/product_02.jpg",
+    "video_url": "assets/MB-01_walk.mp4"
   },
   {
-    "id": "dep-02",
+    "id": "DM-02",
     "name": "Caspian Double-Breasted Cashmere Overcoat",
-    "category": "overcoats",
-    "categoryLabel": "Cashmere Overcoats",
-    "baseAzn": 520,
-    "image": "assets/product_06.jpg",
-    "images": {
-      "front": "assets/product_06.jpg",
-      "back": "assets/product_06.jpg",
-      "detail": "assets/product_06.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 306,
+    "badge": "Flagship Edition",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 185 cm (6'1\"), 78 kg, wearing Size Medium (50EU)",
+    "fit_scale": "Architectural Tailored: Broad peak lapel with draped knee-length sweep",
+    "fit_rating": 75,
+    "fabric_story": "100% Pure Mongolian Cashmere. Sourced from premier mountain fleece, genuine Italian horn buttons, tailored peak lapel, full cupro Bemberg lining, and deep welt pockets.",
+    "provenance": "Departament Man Baku Atelier • Caspian Overcoat Archive",
+    "measurements": {
+      "M": { "chest_cm": 108, "length_cm": 102, "shoulder_cm": 46, "sleeve_cm": 64, "waist_cm": 98 },
+      "L": { "chest_cm": 114, "length_cm": 104, "shoulder_cm": 48, "sleeve_cm": 65, "waist_cm": 104 },
+      "XL": { "chest_cm": 120, "length_cm": 106, "shoulder_cm": 50, "sleeve_cm": 66, "waist_cm": 110 },
+      "XXL": { "chest_cm": 126, "length_cm": 108, "shoulder_cm": 52, "sleeve_cm": 67, "waist_cm": 116 }
     },
-    "specs": "100% Mongolian Cashmere, Italian horn buttons, tailored peak lapel, full cupro lining.",
-    "tag": "Flagship Edition",
-    "video_url": null,
-    "fitRating": 5,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 104, "shoulder_cm": 44, "length_cm": 98, "sleeve_cm": 63 },
-      "50EU": { "chest_cm": 108, "shoulder_cm": 46, "length_cm": 100, "sleeve_cm": 64 },
-      "52EU": { "chest_cm": 112, "shoulder_cm": 48, "length_cm": 102, "sleeve_cm": 65 },
-      "54EU": { "chest_cm": 116, "shoulder_cm": 50, "length_cm": 104, "sleeve_cm": 66 }
-    },
-    "companions": ["dep-03", "dep-05"]
+    "styled_with": ["DM-03", "DM-09"],
+    "front_photo": "assets/product_06.jpg",
+    "detail_photo": "assets/product_06.jpg",
+    "back_photo": "assets/product_06.jpg",
+    "video_url": "assets/MB-02_walk.mp4"
   },
   {
-    "id": "dep-03",
+    "id": "DM-03",
     "name": "Sartorial Italian-Cut Charcoal 3-Piece Suit",
-    "category": "suits",
-    "categoryLabel": "Bespoke Suiting",
-    "baseAzn": 590,
-    "image": "assets/product_03.jpg",
-    "images": {
-      "front": "assets/product_03.jpg",
-      "back": "assets/product_03.jpg",
-      "detail": "assets/product_03.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 347,
+    "badge": "Celebrity Choice",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 184 cm, 77 kg, wearing Size Medium (48EU)",
+    "fit_scale": "Neapolitan Precision: Unpadded soft shoulder with tapered trousers",
+    "fit_rating": 70,
+    "fabric_story": "Super 150s Merino Wool. Half-canvas body construction, pick-stitched lapel edges, matching double-breasted vest, and flat-front trousers with side tab adjusters.",
+    "provenance": "Departament Man Baku Atelier • Bespoke Suiting Commission",
+    "measurements": {
+      "M": { "chest_cm": 104, "length_cm": 74, "shoulder_cm": 45, "sleeve_cm": 63, "waist_cm": 84, "inseam_cm": 82 },
+      "L": { "chest_cm": 110, "length_cm": 76, "shoulder_cm": 47, "sleeve_cm": 64, "waist_cm": 90, "inseam_cm": 83 },
+      "XL": { "chest_cm": 116, "length_cm": 78, "shoulder_cm": 49, "sleeve_cm": 65, "waist_cm": 96, "inseam_cm": 84 },
+      "XXL": { "chest_cm": 122, "length_cm": 80, "shoulder_cm": 51, "sleeve_cm": 66, "waist_cm": 102, "inseam_cm": 85 }
     },
-    "specs": "Super 150s Merino Wool, half-canvas body construction, pick-stitched edges.",
-    "tag": "Celebrity Choice",
-    "video_url": null,
-    "fitRating": 5,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
-      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
-      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
-      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
-    },
-    "companions": ["dep-04", "dep-02"]
+    "styled_with": ["DM-02", "DM-04"],
+    "front_photo": "assets/product_03.jpg",
+    "detail_photo": "assets/product_03.jpg",
+    "back_photo": "assets/product_03.jpg",
+    "video_url": "assets/MB-03_walk.mp4"
   },
   {
-    "id": "dep-04",
+    "id": "DM-04",
     "name": "Hand-Burnished Oxford Dress Shoes",
-    "category": "footwear",
-    "categoryLabel": "Artisan Footwear",
-    "baseAzn": 260,
-    "image": "assets/product_04.jpg",
-    "images": {
-      "front": "assets/product_04.jpg",
-      "back": "assets/product_04.jpg",
-      "detail": "assets/product_04.jpg"
-    },
-    "specs": "Full-grain Italian calfskin, Goodyear welted leather sole, hand-waxed chiseled toe.",
-    "tag": "Made in Baku",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "True to size. Model wears size 42EU",
-    "layingFlat": {
+    "category": "Luxury Footwear",
+    "price": 153,
+    "badge": "Made in Baku",
+    "sizes": ["40EU", "41EU", "42EU", "43EU", "44EU", "45EU"],
+    "model_telemetry": "True to European dress sizing standard",
+    "fit_scale": "Classic Chiseled: Ergonomic arch support with Goodyear welt",
+    "fit_rating": 65,
+    "fabric_story": "Full-grain Italian calfskin leather. Hand-applied antique patina finish, Goodyear-welted leather sole, stacked leather heel with brass nail accents, and chiseled toe.",
+    "provenance": "Departament Man Baku Atelier • Artisan Footwear Guild",
+    "measurements": {
       "40EU": { "insole_cm": 26.5, "width_cm": 9.5 },
-      "41EU": { "insole_cm": 27.2, "width_cm": 9.7 },
+      "41EU": { "insole_cm": 27.2, "width_cm": 9.8 },
       "42EU": { "insole_cm": 28.0, "width_cm": 10.0 },
       "43EU": { "insole_cm": 28.7, "width_cm": 10.2 },
-      "44EU": { "insole_cm": 29.5, "width_cm": 10.4 }
+      "44EU": { "insole_cm": 29.5, "width_cm": 10.5 },
+      "45EU": { "insole_cm": 30.2, "width_cm": 10.8 }
     },
-    "companions": ["dep-03", "dep-05"]
+    "styled_with": ["DM-03", "DM-05"],
+    "front_photo": "assets/product_04.jpg",
+    "detail_photo": "assets/product_04.jpg",
+    "back_photo": "assets/product_04.jpg",
+    "video_url": "assets/MB-04_walk.mp4"
   },
   {
-    "id": "dep-05",
+    "id": "DM-05",
     "name": "Executive Slate Flannel Wool Suit",
-    "category": "suits",
-    "categoryLabel": "Bespoke Suiting",
-    "baseAzn": 490,
-    "image": "assets/product_05.jpg",
-    "images": {
-      "front": "assets/product_05.jpg",
-      "back": "assets/product_05.jpg",
-      "detail": "assets/product_05.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 288,
+    "badge": "New Season",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 182 cm, 79 kg, wearing Size Medium (50EU)",
+    "fit_scale": "Executive European: Soft drape flannel with high-rise pleated trouser",
+    "fit_rating": 72,
+    "fabric_story": "Vitale Barberis Canonico 340 GSM wool flannel. Naturally water-resistant, soft brushed surface, natural horn buttons, and high-rise double-pleated trousers.",
+    "provenance": "Departament Man Baku Atelier • Autumn Sartorial Commission",
+    "measurements": {
+      "M": { "chest_cm": 106, "length_cm": 74, "shoulder_cm": 46, "sleeve_cm": 63, "waist_cm": 86, "inseam_cm": 82 },
+      "L": { "chest_cm": 112, "length_cm": 76, "shoulder_cm": 48, "sleeve_cm": 64, "waist_cm": 92, "inseam_cm": 83 },
+      "XL": { "chest_cm": 118, "length_cm": 78, "shoulder_cm": 50, "sleeve_cm": 65, "waist_cm": 98, "inseam_cm": 84 },
+      "XXL": { "chest_cm": 124, "length_cm": 80, "shoulder_cm": 52, "sleeve_cm": 66, "waist_cm": 104, "inseam_cm": 85 }
     },
-    "specs": "Vitale Barberis wool flannel, soft unpadded shoulders, pleated high-rise trousers.",
-    "tag": "New Season",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
-      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
-      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
-      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
-    },
-    "companions": ["dep-04", "dep-08"]
+    "styled_with": ["DM-02", "DM-09"],
+    "front_photo": "assets/product_05.jpg",
+    "detail_photo": "assets/product_05.jpg",
+    "back_photo": "assets/product_05.jpg",
+    "video_url": "assets/MB-05_walk.mp4"
   },
   {
-    "id": "dep-06",
+    "id": "DM-06",
     "name": "Espresso Distressed Moto Leather Jacket",
-    "category": "leather",
-    "categoryLabel": "Leather & Outerwear",
-    "baseAzn": 580,
-    "image": "assets/product_07.jpg",
-    "images": {
-      "front": "assets/product_07.jpg",
-      "back": "assets/product_07.jpg",
-      "detail": "assets/product_07.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 341,
+    "badge": "Limited Run",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 183 cm, 81 kg, wearing Size Large",
+    "fit_scale": "Asymmetric Moto: Close-fitting taper with articulated sleeve reach",
+    "fit_rating": 80,
+    "fabric_story": "Hand-waxed oiled lambskin leather. Features asymmetric heavy-gauge YKK metal zippers, diamond quilted shoulder reinforcement, and snap down lapel.",
+    "provenance": "Departament Man Baku Atelier • Leather Division",
+    "measurements": {
+      "M": { "chest_cm": 108, "length_cm": 65, "shoulder_cm": 46, "sleeve_cm": 64, "waist_cm": 98 },
+      "L": { "chest_cm": 114, "length_cm": 67, "shoulder_cm": 48, "sleeve_cm": 65, "waist_cm": 104 },
+      "XL": { "chest_cm": 120, "length_cm": 69, "shoulder_cm": 50, "sleeve_cm": 66, "waist_cm": 110 },
+      "XXL": { "chest_cm": 126, "length_cm": 71, "shoulder_cm": 52, "sleeve_cm": 67, "waist_cm": 116 }
     },
-    "specs": "Hand-waxed oiled lambskin, asymmetric YKK zipper, quilted shoulder reinforcement.",
-    "tag": "Limited Run",
-    "video_url": null,
-    "fitRating": 3,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size L",
-    "layingFlat": {
-      "M": { "chest_cm": 106, "shoulder_cm": 44, "length_cm": 64, "sleeve_cm": 63 },
-      "L": { "chest_cm": 112, "shoulder_cm": 46, "length_cm": 66, "sleeve_cm": 64 },
-      "XL": { "chest_cm": 118, "shoulder_cm": 48, "length_cm": 68, "sleeve_cm": 65 },
-      "XXL": { "chest_cm": 124, "shoulder_cm": 50, "length_cm": 70, "sleeve_cm": 66 }
-    },
-    "companions": ["dep-09", "dep-02"]
+    "styled_with": ["DM-12", "DM-09"],
+    "front_photo": "assets/product_07.jpg",
+    "detail_photo": "assets/product_07.jpg",
+    "back_photo": "assets/product_07.jpg",
+    "video_url": "assets/MB-06_walk.mp4"
   },
   {
-    "id": "dep-07",
+    "id": "DM-07",
     "name": "Midnight Navy Velvet Shawl Dinner Jacket",
-    "category": "suits",
-    "categoryLabel": "Bespoke Suiting",
-    "baseAzn": 420,
-    "image": "assets/product_08.jpg",
-    "images": {
-      "front": "assets/product_08.jpg",
-      "back": "assets/product_08.jpg",
-      "detail": "assets/product_08.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 247,
+    "badge": "Gala & Evening",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 185 cm, 76 kg, wearing Size Medium (48EU)",
+    "fit_scale": "Formal Evening: Contoured torso with silk-faced shawl lapel",
+    "fit_rating": 68,
+    "fabric_story": "Deep royal cotton velvet with silk-satin duchess shawl lapel. Single braided button closure, welt chest pocket, and dual side vents.",
+    "provenance": "Departament Man Baku Atelier • Eveningwear Capsule",
+    "measurements": {
+      "M": { "chest_cm": 104, "length_cm": 73, "shoulder_cm": 45, "sleeve_cm": 63, "waist_cm": 86 },
+      "L": { "chest_cm": 110, "length_cm": 75, "shoulder_cm": 47, "sleeve_cm": 64, "waist_cm": 92 },
+      "XL": { "chest_cm": 116, "length_cm": 77, "shoulder_cm": 49, "sleeve_cm": 65, "waist_cm": 98 },
+      "XXL": { "chest_cm": 122, "length_cm": 79, "shoulder_cm": 51, "sleeve_cm": 66, "waist_cm": 104 }
     },
-    "specs": "Deep royal cotton velvet, black duchess silk-satin shawl lapel, double vented.",
-    "tag": "Gala & Evening",
-    "video_url": null,
-    "fitRating": 5,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
-      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
-      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
-      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
-    },
-    "companions": ["dep-04", "dep-02"]
+    "styled_with": ["DM-12", "DM-04"],
+    "front_photo": "assets/product_08.jpg",
+    "detail_photo": "assets/product_08.jpg",
+    "back_photo": "assets/product_08.jpg",
+    "video_url": "assets/MB-07_walk.mp4"
   },
   {
-    "id": "dep-08",
+    "id": "DM-08",
     "name": "Cognac Trench Overcoat with Storm Flap",
-    "category": "overcoats",
-    "categoryLabel": "Cashmere Overcoats",
-    "baseAzn": 470,
-    "image": "assets/product_12.jpg",
-    "images": {
-      "front": "assets/product_12.jpg",
-      "back": "assets/product_12.jpg",
-      "detail": "assets/product_12.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 276,
+    "badge": "Classic Sartorial",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 184 cm, 80 kg, wearing Size Large (52EU)",
+    "fit_scale": "Heritage Trench: Double-breasted with belted waist cinch",
+    "fit_rating": 76,
+    "fabric_story": "Water-resistant gabardine-wool blend. Belted waist with genuine horn buckle, storm flap shoulder shield, and center back walking vent.",
+    "provenance": "Departament Man Baku Atelier • Weatherproof Division",
+    "measurements": {
+      "M": { "chest_cm": 110, "length_cm": 106, "shoulder_cm": 47, "sleeve_cm": 64, "waist_cm": 100 },
+      "L": { "chest_cm": 116, "length_cm": 108, "shoulder_cm": 49, "sleeve_cm": 65, "waist_cm": 106 },
+      "XL": { "chest_cm": 122, "length_cm": 110, "shoulder_cm": 51, "sleeve_cm": 66, "waist_cm": 112 },
+      "XXL": { "chest_cm": 128, "length_cm": 112, "shoulder_cm": 53, "sleeve_cm": 67, "waist_cm": 118 }
     },
-    "specs": "Water-resistant gabardine-wool blend, belted waist with horn buckle, gun patch detail.",
-    "tag": "Classic Sartorial",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 104, "sleeve_cm": 64 },
-      "50EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 106, "sleeve_cm": 65 },
-      "52EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 108, "sleeve_cm": 66 },
-      "54EU": { "chest_cm": 118, "shoulder_cm": 51, "length_cm": 110, "sleeve_cm": 67 }
-    },
-    "companions": ["dep-05", "dep-09"]
+    "styled_with": ["DM-05", "DM-09"],
+    "front_photo": "assets/product_12.jpg",
+    "detail_photo": "assets/product_12.jpg",
+    "back_photo": "assets/product_12.jpg",
+    "video_url": "assets/MB-10_walk.mp4"
   },
   {
-    "id": "dep-09",
+    "id": "DM-09",
     "name": "Handcrafted Chelsea Boots in Cigar Suede",
-    "category": "footwear",
-    "categoryLabel": "Artisan Footwear",
-    "baseAzn": 240,
-    "image": "assets/product_10.jpg",
-    "images": {
-      "front": "assets/product_10.jpg",
-      "back": "assets/product_10.jpg",
-      "detail": "assets/product_10.jpg"
+    "category": "Luxury Footwear",
+    "price": 141,
+    "badge": "Artisan Craft",
+    "sizes": ["40EU", "41EU", "42EU", "43EU", "44EU", "45EU"],
+    "model_telemetry": "Calibrated standard EU foot volume",
+    "fit_scale": "Streamlined Ankle: Elastic gusset with rubber-studded sole",
+    "fit_rating": 60,
+    "fabric_story": "Repello water-treated Italian calf suede. Reinforced elastic side gussets, woven pull tabs, full leather lining, and studded rubber all-weather sole.",
+    "provenance": "Departament Man Baku Atelier • Footwear Guild",
+    "measurements": {
+      "40EU": { "insole_cm": 26.5, "width_cm": 9.6 },
+      "41EU": { "insole_cm": 27.2, "width_cm": 9.9 },
+      "42EU": { "insole_cm": 28.0, "width_cm": 10.1 },
+      "43EU": { "insole_cm": 28.8, "width_cm": 10.3 },
+      "44EU": { "insole_cm": 29.5, "width_cm": 10.6 },
+      "45EU": { "insole_cm": 30.3, "width_cm": 10.9 }
     },
-    "specs": "Repello water-treated suede, rubber studded all-weather sole, reinforced pull tabs.",
-    "tag": "Artisan Craft",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "True to size. Model wears size 42EU",
-    "layingFlat": {
-      "40EU": { "insole_cm": 26.5, "width_cm": 9.5 },
-      "41EU": { "insole_cm": 27.2, "width_cm": 9.7 },
-      "42EU": { "insole_cm": 28.0, "width_cm": 10.0 },
-      "43EU": { "insole_cm": 28.7, "width_cm": 10.2 },
-      "44EU": { "insole_cm": 29.5, "width_cm": 10.4 }
-    },
-    "companions": ["dep-06", "dep-08"]
+    "styled_with": ["DM-01", "DM-06"],
+    "front_photo": "assets/product_10.jpg",
+    "detail_photo": "assets/product_10.jpg",
+    "back_photo": "assets/product_10.jpg",
+    "video_url": "assets/MB-11_walk.mp4"
   },
   {
-    "id": "dep-10",
+    "id": "DM-10",
     "name": "Double-Breasted Houndstooth Tailored Blazer",
-    "category": "suits",
-    "categoryLabel": "Bespoke Suiting",
-    "baseAzn": 390,
-    "image": "assets/product_11.jpg",
-    "images": {
-      "front": "assets/product_11.jpg",
-      "back": "assets/product_11.jpg",
-      "detail": "assets/product_11.jpg"
+    "category": "Tailoring & Outerwear",
+    "price": 229,
+    "badge": "Autumn/Winter Drop",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 182 cm, 76 kg, wearing Size Medium (48EU)",
+    "fit_scale": "Modern European: Soft shoulder with generous patch pockets",
+    "fit_rating": 68,
+    "fabric_story": "British houndstooth tweed wool. 6x2 button configuration, patch waist pockets, welt breast pocket, and dual side vents. Unlined back for breathable drape.",
+    "provenance": "Departament Man Baku Atelier • Sartorial Archive",
+    "measurements": {
+      "M": { "chest_cm": 106, "length_cm": 73, "shoulder_cm": 45, "sleeve_cm": 63, "waist_cm": 88 },
+      "L": { "chest_cm": 112, "length_cm": 75, "shoulder_cm": 47, "sleeve_cm": 64, "waist_cm": 94 },
+      "XL": { "chest_cm": 118, "length_cm": 77, "shoulder_cm": 49, "sleeve_cm": 65, "waist_cm": 100 },
+      "XXL": { "chest_cm": 124, "length_cm": 79, "shoulder_cm": 51, "sleeve_cm": 66, "waist_cm": 106 }
     },
-    "specs": "British houndstooth tweed wool, patch pockets, unstructured European silhouette.",
-    "tag": "Autumn/Winter Drop",
-    "video_url": null,
-    "fitRating": 4,
-    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
-    "layingFlat": {
-      "48EU": { "chest_cm": 102, "shoulder_cm": 44, "length_cm": 73, "sleeve_cm": 62 },
-      "50EU": { "chest_cm": 106, "shoulder_cm": 46, "length_cm": 75, "sleeve_cm": 63 },
-      "52EU": { "chest_cm": 110, "shoulder_cm": 48, "length_cm": 77, "sleeve_cm": 64 },
-      "54EU": { "chest_cm": 114, "shoulder_cm": 50, "length_cm": 79, "sleeve_cm": 65 }
+    "styled_with": ["DM-12", "DM-04"],
+    "front_photo": "assets/product_11.jpg",
+    "detail_photo": "assets/product_11.jpg",
+    "back_photo": "assets/product_11.jpg",
+    "video_url": "assets/MB-01_walk.mp4"
+  },
+  {
+    "id": "DM-11",
+    "name": "Royal Azure Cashmere-Silk Blend Knit",
+    "category": "Knits & Polos",
+    "price": 188,
+    "badge": "Atelier Knit",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 184 cm, 78 kg, wearing Size Large",
+    "fit_scale": "Refined Classic: Ribbed crew collar with contoured body",
+    "fit_rating": 55,
+    "fabric_story": "70% Mongolian Cashmere, 30% Mulberry Silk. 18-gauge fine knit with remarkable softness, breathable thermal regulation, and hand-linked seams.",
+    "provenance": "Departament Man Baku Atelier • Knitwear Division",
+    "measurements": {
+      "M": { "chest_cm": 102, "length_cm": 67, "shoulder_cm": 44, "sleeve_cm": 62, "waist_cm": 94 },
+      "L": { "chest_cm": 108, "length_cm": 69, "shoulder_cm": 46, "sleeve_cm": 63, "waist_cm": 100 },
+      "XL": { "chest_cm": 114, "length_cm": 71, "shoulder_cm": 48, "sleeve_cm": 64, "waist_cm": 106 },
+      "XXL": { "chest_cm": 120, "length_cm": 73, "shoulder_cm": 50, "sleeve_cm": 65, "waist_cm": 112 }
     },
-    "companions": ["dep-09", "dep-02"]
+    "styled_with": ["DM-01", "DM-12"],
+    "front_photo": "assets/product_09.jpg",
+    "detail_photo": "assets/product_09.jpg",
+    "back_photo": "assets/product_09.jpg",
+    "video_url": "assets/MB-03_walk.mp4"
+  },
+  {
+    "id": "DM-12",
+    "name": "Milano Pleated Wool Gabardine Trousers",
+    "category": "Denim & Trousers",
+    "price": 165,
+    "badge": "Core Sartorial",
+    "sizes": ["M", "L", "XL", "XXL"],
+    "model_telemetry": "Model is 183 cm, 78 kg, wearing Size Medium (48EU)",
+    "fit_scale": "High-Rise Pleated: Tapered leg with extended waistband",
+    "fit_rating": 65,
+    "fabric_story": "100% High-twist wool gabardine. Double forward pleats, extended tab button closure, side buckle adjusters, and 4.5 cm turned-up cuffs.",
+    "provenance": "Departament Man Baku Atelier • Tailored Trouser Archive",
+    "measurements": {
+      "M": { "waist_cm": 84, "pant_len_cm": 102, "inseam_cm": 76, "thigh_cm": 64, "rise_cm": 28 },
+      "L": { "waist_cm": 90, "pant_len_cm": 104, "inseam_cm": 77, "thigh_cm": 67, "rise_cm": 29 },
+      "XL": { "waist_cm": 96, "pant_len_cm": 106, "inseam_cm": 78, "thigh_cm": 70, "rise_cm": 30 },
+      "XXL": { "waist_cm": 102, "pant_len_cm": 108, "inseam_cm": 79, "thigh_cm": 73, "rise_cm": 31 }
+    },
+    "styled_with": ["DM-10", "DM-04"],
+    "front_photo": "assets/product_13.jpg",
+    "detail_photo": "assets/product_13.jpg",
+    "back_photo": "assets/product_13.jpg",
+    "video_url": "assets/MB-02_walk.mp4"
   }
 ]

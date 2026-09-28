@@ -3,304 +3,1074 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Garment Specifications | DEPARTAMENT BAKU Flagship</title>
-  <link rel="stylesheet" href="styles.css">
-  <meta name="description" content="Detailed sartorial specifications, laying-flat dimensions, model telemetry, and tailoring notes for DEPARTAMENT Baku luxury Caspian menswear.">
+  <title>Garment Specifications | DEPARTAMENT MAN Digital Atelier</title>
+  <meta name="description" content="Detailed sartorial specifications, laying-flat dimensions, model telemetry, and runway motion for Departament Man luxury menswear. World is Man.">
+
+  <!-- Luxury Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=Inter:wght@300;400;500;600;700&family=Cascadia+Code:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dedicated PDP Specific Layout */
+    .pdp-page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .pdp-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .pdp-breadcrumbs a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .pdp-breadcrumbs a:hover {
+      color: var(--gold-light);
+    }
+
+    .pdp-main-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* Left Gallery & Media Column */
+    .pdp-gallery-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pdp-hero-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .pdp-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .pdp-hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .pdp-media-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(7, 9, 14, 0.85);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 4px;
+      backdrop-filter: blur(8px);
+    }
+
+    .pdp-thumbs-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .pdp-thumb-card {
+      aspect-ratio: 4 / 5;
+      background: #000;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .pdp-thumb-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pdp-thumb-card.active, .pdp-thumb-card:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+    }
+
+    .pdp-thumb-tag {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
+      background: rgba(7, 9, 14, 0.85);
+      font-size: 0.65rem;
+      text-align: center;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Dedicated Runway Walk Showcase Block */
+    .runway-motion-showcase {
+      margin-top: 30px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .runway-motion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .runway-video-container {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .runway-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Right Purchasing Console (Sticky) */
+    .pdp-console-wrap {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pdp-title-block {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 20px;
+    }
+
+    .pdp-category-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .pdp-main-title {
+      font-family: var(--font-serif);
+      font-size: 2.3rem;
+      line-height: 1.18;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .pdp-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .pdp-price-tag {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    .pdp-stock-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: #4ADE80;
+      font-weight: 600;
+    }
+
+    .stock-indicator-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 8px #4ADE80;
+    }
+
+    /* Model Telemetry Box */
+    .telemetry-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--gold-primary);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Fit Scale Slider */
+    .fit-scale-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+
+    .fit-track-container {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin: 14px 0 10px;
+    }
+
+    .fit-track-indicator {
+      position: absolute;
+      top: -5px;
+      width: 16px;
+      height: 16px;
+      background: var(--gold-primary);
+      border: 2px solid #000;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+    }
+
+    .fit-labels-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Size Selector */
+    .size-select-module {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .size-select-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .size-select-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+    }
+
+    .size-pills-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdp-size-btn {
+      min-width: 52px;
+      padding: 10px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+
+    .pdp-size-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+    }
+
+    .pdp-size-btn.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Laying-Flat Garment Dimension Matrix */
+    .garment-matrix-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .matrix-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .matrix-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+    }
+
+    .unit-switch-toggle {
+      display: flex;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .unit-switch-btn {
+      background: none;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .unit-switch-btn.active {
+      background: var(--gold-primary);
+      color: #000;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .matrix-table th {
+      text-align: left;
+      color: var(--text-muted);
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .matrix-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+
+    .matrix-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .matrix-val {
+      text-align: right;
+      font-weight: 700;
+      color: var(--gold-light);
+      font-family: var(--font-mono, monospace);
+    }
+
+    /* Complete the Look Section */
+    .pdp-styled-with-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    .styled-items-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .styled-item-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      transition: var(--transition-smooth);
+    }
+
+    .styled-item-card:hover {
+      border-color: var(--border-gold);
+    }
+
+    .styled-item-thumb {
+      width: 54px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: #000;
+    }
+
+    /* DDP Guarantee Card */
+    .ddp-badge-card {
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.02) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 992px) {
+      .pdp-main-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .pdp-console-wrap {
+        position: static;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 1. Top Logistics & Currency Bar -->
-  <div class="top-bar">
-    <div class="top-bar-notice">
-      <span>✈️</span>
-      <span><strong>Worldwide Postal & Air Cargo:</strong> Insured delivery to UK, Europe, USA, UAE & CIS in 7–10 Days</span>
+  <!-- Top Announcement Bar -->
+  <div class="top-banner">
+    <div>
+      ✈️ <strong>Worldwide Air Cargo:</strong> Express Tracked Delivery to USA, UK, Europe & Middle East
     </div>
-    <div class="currency-control">
+    <div class="currency-selector-wrap">
       <span>Currency:</span>
-      <select id="currencySelector" class="currency-select" aria-label="Select Currency">
+      <select id="currencySelector" class="currency-select">
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
         <option value="GBP">GBP (£)</option>
         <option value="AZN">AZN (₼)</option>
-        <option value="RUB">RUB (₽)</option>
       </select>
     </div>
   </div>
 
-  <!-- 2. Persistent Sticky Header -->
+  <!-- Header -->
   <header class="site-header">
-    <div class="header-container">
-      <a href="index.html" class="brand-wrap">
-        <img src="assets/departament_logo.jpg" alt="DEPARTAMENT Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-name">Departament</span>
-          <span class="brand-motto">World is Man • Baku</span>
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <img src="assets/departament_logo.jpg" alt="Departament Man Logo" style="width:40px; height:40px; border-radius:50%; border:1px solid var(--border-gold); object-fit:cover;">
+        <div>
+          <span class="brand-title">Departament Man</span>
+          <span class="brand-subtitle">World is Man • Baku</span>
         </div>
       </a>
 
-      <nav class="main-nav" aria-label="Main Navigation">
-        <a href="index.html" class="nav-link">Flagship</a>
-        <a href="collections.html" class="nav-link active">All Collections</a>
-        <a href="lookbook.html" class="nav-link">Runway Lookbook</a>
-        <a href="index.html#assurance" class="nav-link">Global Logistics</a>
-        <a href="index.html#sizing" class="nav-link">Sizing Protocol</a>
-        <a href="#atelier" class="nav-link">The Atelier</a>
-      </nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="collections.html" class="nav-link">Full Catalog</a></li>
+        <li><a href="lookbook.html" class="nav-link">Runway Lookbook</a></li>
+        <li><a href="pavilion.html" class="nav-link">Virtual Pavilion</a></li>
+        <li><a href="index.html#deliveries" class="nav-link">Global Proof</a></li>
+        <li><a href="index.html#sovereign" class="nav-link">The Atelier Difference</a></li>
+      </ul>
 
-      <div class="header-actions">
-        <button id="cartBtn" class="cart-toggle-btn" onclick="openCartDrawer()" aria-label="Shopping Bag">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      <div class="nav-actions">
+        <button id="cartBtn" class="cart-btn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
           <span>Bag</span>
-          <span id="cartBadge" class="cart-badge">0</span>
-        </button>
-
-        <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%20Baku%2C%20I%20would%20like%20to%20consult%20on%20an%20order." target="_blank" rel="noopener" class="btn-inquire">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-          <span>Atelier Desk</span>
-        </a>
-
-        <button id="mobileMenuBtn" class="mobile-menu-toggle" aria-label="Open Navigation Menu">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <span id="cartCount" class="cart-count-badge">0</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Navigation Drawer -->
-  <aside id="mobileMenu" class="mobile-nav-drawer" aria-label="Mobile Navigation Drawer">
-    <div class="mobile-nav-header">
-      <div class="brand-text">
-        <span class="brand-name" style="font-size:1.1rem;">Departament</span>
-        <span class="brand-motto">Baku Flagship</span>
-      </div>
-      <button id="mobileMenuCloseBtn" class="cart-drawer-close" aria-label="Close Navigation Menu">&times;</button>
-    </div>
-    <div class="mobile-nav-links">
-      <a href="index.html">Flagship Home</a>
-      <a href="collections.html">Complete Collections</a>
-      <a href="lookbook.html">Runway Lookbook</a>
-      <a href="index.html#assurance" onclick="closeMobileMenu()">Global Air Logistics</a>
-      <a href="index.html#sizing" onclick="closeMobileMenu()">European Sizing Protocol</a>
-      <a href="#atelier" onclick="closeMobileMenu()">The Baku Atelier</a>
-    </div>
-    <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border-subtle);">
-      <a href="https://wa.me/994518642663" target="_blank" rel="noopener" class="btn-checkout">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-        <span>Instant WhatsApp Desk</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Shopping Cart Drawer & Overlay -->
-  <div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
-  <aside id="cartDrawer" class="cart-drawer" aria-label="Shopping Bag Drawer">
-    <div class="cart-drawer-header">
-      <h3 class="cart-drawer-title">Shopping Bag</h3>
-      <button onclick="closeCartDrawer()" class="cart-drawer-close" aria-label="Close Shopping Bag">&times;</button>
-    </div>
-    <div class="cart-items-list" id="cartItemsList">
-      <!-- Injected dynamically by app.js -->
-    </div>
-    <div class="cart-footer">
-      <div class="shipping-meter">
-        <div class="shipping-meter-bar">
-          <div id="shippingMeterFill" class="shipping-meter-fill"></div>
-        </div>
-        <div id="shippingMeterText" class="shipping-meter-text">Loading logistics threshold...</div>
-      </div>
-      <div class="cart-total-row">
-        <span>Order Subtotal:</span>
-        <strong id="cartSubtotal">$0</strong>
-      </div>
-      <a id="waCheckoutBtn" href="#" target="_blank" rel="noopener" class="btn-checkout">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-        <span>Proceed to WhatsApp Checkout</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Main PDP Container -->
+  <!-- PDP Main Container -->
   <main class="pdp-page-container">
-    <nav class="pdp-breadcrumbs" aria-label="Breadcrumb">
-      <a href="index.html">Flagship</a> &nbsp;/&nbsp; 
-      <a href="collections.html">Collections</a> &nbsp;/&nbsp; 
-      <span id="pdpBreadcrumbName">Masterpiece</span>
+    
+    <!-- Breadcrumbs -->
+    <nav class="pdp-breadcrumbs">
+      <a href="index.html">Atelier Home</a>
+      <span>/</span>
+      <a href="collections.html">Full Catalog</a>
+      <span>/</span>
+      <a id="breadcrumbCategory" href="collections.html" style="color:inherit; text-decoration:none;">Category</a>
+      <span>/</span>
+      <span id="breadcrumbTitle" style="color:var(--gold-light);">Garment Title</span>
     </nav>
 
+    <!-- Split 2-Column Luxury PDP Layout -->
     <div class="pdp-main-layout">
-      <!-- Gallery Column -->
-      <div class="pdp-gallery">
-        <div class="pdp-main-image-wrapper">
-          <img id="pdpMainImg" src="assets/product_02.jpg" alt="Garment View">
+      
+      <!-- Left Gallery Column -->
+      <div class="pdp-gallery-wrap">
+        <!-- Hero Media Viewport -->
+        <div class="pdp-hero-media">
+          <span id="heroMediaBadge" class="pdp-media-badge">Atelier Edition</span>
+          <img id="mainPdpImg" class="pdp-hero-img" src="" alt="Garment Preview">
+          <video id="mainPdpVideo" class="pdp-hero-video" controls loop playsinline></video>
         </div>
-        <div id="pdpThumbStrip" class="pdp-thumbnail-strip">
-          <!-- Injected dynamically by app.js -->
+
+        <!-- Multi-Angle Thumbnails Strip -->
+        <div id="pdpThumbsStrip" class="pdp-thumbs-strip">
+          <!-- Populated by PDP script -->
+        </div>
+
+        <!-- Runway In Motion Dedicated Video Showcase -->
+        <div id="runwayMotionBox" class="runway-motion-showcase" style="display:none;">
+          <div class="runway-motion-header">
+            <div>
+              <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-primary); font-weight:700;">Showroom Capture</span>
+              <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin-top:2px;">Authentic Runway Walk & Drape</h3>
+            </div>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Recorded live in Baku</span>
+          </div>
+          <div class="runway-video-container">
+            <video id="runwayShowcaseVideo" controls loop playsinline></video>
+          </div>
+        </div>
+
+        <!-- Fabric & Craftsmanship Narrative -->
+        <div class="garment-matrix-card" style="margin-top:10px;">
+          <h3 style="font-family:var(--font-serif); font-size:1.3rem; color:var(--gold-light); margin-bottom:10px;">Artisanal Fabric & Construction</h3>
+          <p id="fabricStoryText" style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin-bottom:14px;"></p>
+          <div style="font-size:0.8rem; color:var(--text-muted); border-top:1px solid var(--border-subtle); padding-top:12px;">
+            <strong>Provenance:</strong> <span id="provenanceText"></span>
+          </div>
         </div>
       </div>
 
-      <!-- Info Column -->
-      <div class="pdp-info-panel">
-        <div class="pdp-tag-row">
-          <span id="pdpTag" class="product-badge" style="position:static;">Atelier Edition</span>
-          <span id="pdpCategory" style="font-family:var(--font-mono); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-light);">Tailoring</span>
-        </div>
-
-        <h1 id="pdpTitle" class="pdp-title">Garment Title</h1>
-
-        <div class="pdp-price-row">
-          <span id="pdpPrice" class="pdp-price">$0</span>
-          <span id="pdpPriceRef" class="pdp-price-ref">≈ 0 ₼ AZN</span>
-        </div>
-
-        <p id="pdpDesc" class="pdp-desc">
-          Garment specifications and craftsmanship narrative.
-        </p>
-
-        <div id="pdpTelemetry" class="pdp-telemetry-badge">
-          Model is 180cm, 78kg, wearing size 50EU
-        </div>
-
-        <div class="pdp-size-picker">
-          <span class="pdp-size-label">Select European Tailored Size:</span>
-          <div id="pdpSizeOptions" class="pdp-size-options">
-            <!-- Injected dynamically by app.js -->
+      <!-- Right Purchasing & Specification Console (Sticky) -->
+      <div class="pdp-console-wrap">
+        
+        <!-- Title & Price Block -->
+        <div class="pdp-title-block">
+          <span id="pdpCategoryLabel" class="pdp-category-eyebrow">Category</span>
+          <h1 id="pdpTitle" class="pdp-main-title">Garment Name</h1>
+          <div class="pdp-meta-row">
+            <div id="pdpPrice" class="pdp-price-tag">$0</div>
+            <div class="pdp-stock-status">
+              <span class="stock-indicator-dot"></span>
+              <span id="pdpStockText">In Stock • Baku Flagship Atelier</span>
+            </div>
           </div>
         </div>
 
-        <div class="pdp-fit-scale">
-          <div class="pdp-fit-label">Tailoring Silhouette Calibration:</div>
-          <div class="fit-scale-bar">
-            <div id="fitScaleKnob" class="fit-scale-knob"></div>
-          </div>
-          <div class="fit-scale-labels">
-            <span>Athletic Taper</span>
-            <span>European Tailored</span>
-            <span>Relaxed Oversize</span>
-          </div>
-        </div>
-
-        <div class="pdp-table-header">
-          <span style="font-size:0.82rem; text-transform:uppercase; color:var(--text-muted); font-weight:600;">Laying-Flat Dimension Matrix</span>
-          <div class="pdp-unit-toggle">
-            <button class="pdp-unit-btn active" onclick="setPdpUnit('CM')">CM</button>
-            <button class="pdp-unit-btn" onclick="setPdpUnit('INCHES')">INCHES</button>
+        <!-- Model Physical Telemetry -->
+        <div class="telemetry-card">
+          <svg width="22" height="22" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" viewBox="0 0 24 24">
+            <circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/>
+          </svg>
+          <div>
+            <strong style="color:var(--text-primary); display:block; font-size:0.82rem; text-transform:uppercase; letter-spacing:0.05em;">Model Physical Telemetry</strong>
+            <span id="modelTelemetryText">Model is 185 cm (6'1"), 80 kg, wearing Size Large</span>
           </div>
         </div>
 
-        <table class="pdp-dimensions-table">
-          <thead>
-            <tr>
-              <th>Dimension Specification</th>
-              <th>Measurement</th>
-            </tr>
-          </thead>
-          <tbody id="pdpDimensionsBody">
-            <!-- Injected dynamically by app.js -->
-          </tbody>
-        </table>
+        <!-- Visual Fit Scale Slider -->
+        <div class="fit-scale-card">
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <span style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary);">Visual Fit Scale</span>
+            <span id="fitProfileLabel" style="font-size:0.8rem; color:var(--gold-light); font-weight:600;">Tailored Regular</span>
+          </div>
+          <div class="fit-track-container">
+            <div id="fitTrackIndicator" class="fit-track-indicator" style="left: 50%;"></div>
+          </div>
+          <div class="fit-labels-row">
+            <span>Sartorial Slim</span>
+            <span>Contemporary Tailored</span>
+            <span>Relaxed Oversized</span>
+          </div>
+        </div>
 
-        <div class="pdp-actions-row">
-          <button onclick="handlePdpAddToCart()" class="product-cta-btn btn-primary pdp-add-btn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span>Add Garment to Shopping Bag</span>
+        <!-- Size Selection -->
+        <div class="size-select-module">
+          <div class="size-select-header">
+            <span class="size-select-label">Select Atelier Size:</span>
+            <span style="font-size:0.75rem; color:var(--gold-primary);">Selected: <strong id="activeSizeBadge">M</strong></span>
+          </div>
+          <div id="sizePillsContainer" class="size-pills-row">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Laying-Flat Garment Dimension Matrix -->
+        <div class="garment-matrix-card">
+          <div class="matrix-header">
+            <span class="matrix-title">Laying-Flat Garment Dimensions</span>
+            <div class="unit-switch-toggle">
+              <button id="unitCmBtn" class="unit-switch-btn active" onclick="setPdpUnit('CM')">CM</button>
+              <button id="unitInBtn" class="unit-switch-btn" onclick="setPdpUnit('INCHES')">INCHES</button>
+            </div>
+          </div>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Measurement Metric</th>
+                <th style="text-align:right;">Garment Flat Spec</th>
+              </tr>
+            </thead>
+            <tbody id="matrixTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+          <div style="font-size:0.72rem; color:var(--text-muted); margin-top:10px; line-height:1.4;">
+            💡 Dimensions measured flat across the seam on un-stretched garment. Compare with your best-fitting clothing at home.
+          </div>
+        </div>
+
+        <!-- Primary Add to Bag CTA -->
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button id="pdpAddBagBtn" class="btn btn-primary" style="width:100%; justify-content:center; padding:16px; font-size:1rem; font-weight:700;" onclick="handlePdpAddToCart()">
+            Add to Atelier Bag
           </button>
-          <a id="pdpWaBtn" href="#" target="_blank" rel="noopener" class="product-cta-btn btn-secondary pdp-add-btn">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-            <span>Consult Atelier Tailor on WhatsApp</span>
-          </a>
+          <div style="text-align:center; font-size:0.75rem; color:var(--text-muted);">
+            ✈️ Complimentary Express Air Cargo on orders over $150 USD
+          </div>
+        </div>
+
+        <!-- DDP Customs & Air Cargo Guarantee -->
+        <div class="ddp-badge-card">
+          <svg width="28" height="28" fill="none" stroke="var(--gold-primary)" stroke-width="1.8" viewBox="0 0 24 24" style="flex-shrink:0;">
+            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+          <div>
+            <strong style="color:var(--gold-light); display:block; font-size:0.85rem; margin-bottom:2px;">Delivered Duty Paid (DDP) Guaranteed</strong>
+            All EU VAT, UK customs duties, and US import regulations are pre-cleared by our logistics desk. Zero surprise fees upon delivery. Dispatched via Silk Way West / DHL Air Express.
+          </div>
+        </div>
+
+        <!-- Complete the Look / Styled Ensemble Module -->
+        <div id="styledWithBlock" class="pdp-styled-with-section" style="display:none;">
+          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-primary); font-weight:700;">Complete The Look</span>
+          <h3 style="font-family:var(--font-serif); font-size:1.25rem; margin-top:2px;">Atelier Curated Pairings</h3>
+          <div id="styledWithContainer" class="styled-items-stack">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Slide-Over Cart Drawer -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Atelier Bag</h3>
+      <button id="cartCloseBtn" class="cart-close-btn">&times;</button>
+    </div>
+    <div class="cart-shipping-meter">
+      <div id="shippingMeterText">
+        Add items for <strong>Complimentary Worldwide Air Cargo</strong>
+      </div>
+      <div class="meter-track">
+        <div id="shippingMeterFill" class="meter-fill"></div>
+      </div>
+    </div>
+    <div id="cartItemsList" class="cart-items-wrap"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Estimated Total</span>
+        <strong id="cartSubtotal">$0</strong>
+      </div>
+      <button class="btn-checkout" onclick="triggerCheckout()">
+        Proceed to Secure Air Checkout
+      </button>
+      <div style="text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:10px;">
+        🔒 Encrypted 256-Bit SSL • Apple Pay / Stripe / Visa Pre-Approved
+      </div>
+    </div>
+  </aside>
+
+  <!-- Express Checkout Simulation Modal -->
+  <div id="checkoutModal" class="modal-overlay" onclick="if(event.target === this) closeCheckoutModal()">
+    <div class="modal-content" style="text-align:center;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+      <div style="width:56px; height:56px; background:rgba(34,197,94,0.15); border:1px solid #4ADE80; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <svg width="28" height="28" fill="none" stroke="#4ADE80" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-family:var(--font-serif); font-size:1.8rem; color:var(--gold-light); margin-bottom:8px;">Atelier Order Confirmed</h3>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">
+        Your order has been routed to the Baku fulfillment center. An express air-waybill has been generated.
+      </p>
+      <div style="background:var(--bg-secondary); border:1px solid var(--border-gold); padding:16px; border-radius:8px; margin-bottom:24px; text-align:left;">
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+          <span style="color:var(--text-muted)">Air Cargo Tracking:</span>
+          <strong id="checkoutTrackingCode" style="color:var(--gold-light); font-family:monospace; letter-spacing:0.05em;">AZ-CARGO-123456</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+          <span style="color:var(--text-muted)">Carrier:</span>
+          <span>Silk Way West / DHL Express</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeCheckoutModal()">
+        Return to Atelier
+      </button>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 style="font-size:1.35rem; color:var(--gold-light);">Departament Man</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; max-width:340px; margin-bottom:16px;">
+          Bespoke and ready-to-wear luxury menswear engineered at the intersection of Caspian tailoring traditions and contemporary European silhouettes. World is Man.
+        </p>
+        <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.7;">
+          📍 Atelier & Showroom: Baku, Azerbaijan<br>
+          ✈️ Worldwide Courier: Silk Way West & DHL Air Express
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links">
+          <li><a href="collections.html" class="footer-link">All Editions (Complete Catalog)</a></li>
+          <li><a href="collections.html?cat=knits" class="footer-link">Knits & Polos</a></li>
+          <li><a href="collections.html?cat=tailoring" class="footer-link">Tailoring & Outerwear</a></li>
+          <li><a href="collections.html?cat=denim" class="footer-link">Denim & Trousers</a></li>
+          <li><a href="collections.html?cat=footwear" class="footer-link">Luxury Footwear</a></li>
+          <li><a href="collections.html?cat=accessories" class="footer-link">Accessories & Headwear</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Client Services</h4>
+        <ul class="footer-links">
+          <li><a href="pavilion.html" class="footer-link">Virtual Fitting Pavilion</a></li>
+          <li><a href="index.html#deliveries" class="footer-link">Global Air Cargo Logistics</a></li>
+          <li><a href="index.html#deliveries" class="footer-link">Delivered Duty Paid (DDP)</a></li>
+          <li><a href="lookbook.html" class="footer-link">Runway Video Gallery</a></li>
+          <li><a href="index.html#sovereign" class="footer-link">Sovereign Buyer Protection</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="footer-link">Atelier Shopping Bag</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Direct Inquiries</h4>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:12px;">
+          Private Client Services & Direct Atelier Concierge:
+        </p>
+        <p style="color:var(--gold-light); font-weight:600; font-size:0.88rem; margin-bottom:8px;">
+          VIP Desk: concierge@departamentman.com
+        </p>
+        <p style="color:var(--text-muted); font-size:0.82rem; margin-bottom:12px;">
+          WhatsApp Direct: <a href="https://wa.me/994518642663" target="_blank" style="color:var(--gold-primary); text-decoration:none;">+994 51 864 26 63</a>
+        </p>
+        <div style="font-size:0.75rem; color:#4ADE80; display:flex; align-items:center; gap:6px;">
+          <span style="width:6px; height:6px; background:#4ADE80; border-radius:50%; display:inline-block;"></span>
+          Baku Concierge Online (GMT+4)
         </div>
       </div>
     </div>
-
-    <!-- Styled With Section -->
-    <section class="pdp-styled-with">
-      <h3 class="pdp-styled-title">Sartorial Pairing • Recommended Ensembles</h3>
-      <div id="pdpCompanionsGrid" class="styled-items-grid">
-        <!-- Injected dynamically by app.js -->
-      </div>
-    </section>
-  </main>
-
-  <!-- Standardized 4-Column Luxury Footer -->
-  <footer id="atelier" class="site-footer">
-    <div class="footer-container">
-      <div class="footer-main-grid">
-        <!-- Col 1: Brand & Philosophy -->
-        <div class="footer-col">
-          <div class="brand-wrap" style="margin-bottom:14px;">
-            <img src="assets/departament_logo.jpg" alt="Logo" class="brand-logo-img">
-            <span class="brand-name" style="font-size:1.2rem;">Departament</span>
-          </div>
-          <p class="footer-brand-p">
-            World is Man. Elite Italian-cut suiting, shearling outerwear, and Caspian bespoke craftsmanship engineered in Baku for the global gentleman.
-          </p>
-          <div style="font-size:0.75rem; color:var(--gold-light); font-family:var(--font-mono);">
-            Founder: @muxxammad_
-          </div>
-        </div>
-
-        <!-- Col 2: Collections Navigation -->
-        <div class="footer-col">
-          <h4>Collections</h4>
-          <ul class="footer-links">
-            <li><a href="collections.html?cat=suits">Bespoke 3-Piece Suits</a></li>
-            <li><a href="collections.html?cat=overcoats">Cashmere Overcoats</a></li>
-            <li><a href="collections.html?cat=leather">Shearling Flight Jackets</a></li>
-            <li><a href="collections.html?cat=suits">Dinner Blazers</a></li>
-            <li><a href="collections.html?cat=footwear">Goodyear Welted Shoes</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Logistics & Protection -->
-        <div class="footer-col">
-          <h4>Global Assurance</h4>
-          <ul class="footer-links">
-            <li><a href="index.html#assurance">7–10 Day Postal Fulfillment</a></li>
-            <li><a href="index.html#assurance">Customs Pre-Clearance</a></li>
-            <li><a href="index.html#sizing">European Sizing Protocol</a></li>
-            <li><a href="index.html#assurance">Insured Air Cargo Transit</a></li>
-            <li><a href="index.html#assurance">Direct WhatsApp Concierge</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 4: Atelier & WhatsApp Desk -->
-        <div class="footer-col">
-          <h4>Atelier Desk</h4>
-          <div class="footer-contact-box">
-            <div>
-              <strong style="color:#FFF;">Studio Headquarters:</strong><br>
-              Baku, Azerbaijan (Online Satış & Çatdırılma)
-            </div>
-            <div>
-              <strong style="color:#FFF;">Direct Orders & Hotline:</strong><br>
-              <span style="font-family:var(--font-mono); color:var(--gold-light);">+994 51 864 26 63</span>
-            </div>
-            <div>
-              <strong style="color:#FFF;">Operating Hours:</strong><br>
-              Mon – Sun: 10:00 – 21:00 AZT (UTC+4)
-            </div>
-            <a href="https://wa.me/994518642663?text=Hello%20DEPARTAMENT%2C%20I%20am%20contacting%20you%20from%20the%20Digital%20Flagship." target="_blank" rel="noopener" class="footer-btn-wa">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/></svg>
-              <span>Instant WhatsApp Concierge</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 DEPARTAMENT Baku. All Rights Reserved. Sovereign Digital Infrastructure by iCelestial Group.
-        </div>
-        <div style="font-family:var(--font-mono); font-size:0.75rem;">
-          Baku Coordinate: 40°24'N 49°53'E • Caspian Sea Hub
-        </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Departament Man Atelier Worldwide. All Rights Reserved. Sovereign Architecture by iCelestial.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Atelier Service</a>
+        <a href="#">Global Delivery Terms</a>
       </div>
     </div>
   </footer>
 
   <script src="app.js"></script>
+  <script>
+    // Dedicated PDP Page Controller
+    let pdpProduct = null;
+    let pdpCurrentSize = null;
+    let pdpCurrentUnit = 'CM';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Ensure products loaded
+      if (productsData.length === 0) {
+        await loadProducts();
+      }
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id') || 'DM-01';
+      pdpProduct = productsData.find(p => p.id === productId) || productsData[0];
+      
+      if (pdpProduct) {
+        pdpCurrentSize = pdpProduct.sizes ? pdpProduct.sizes[0] : 'One Size';
+        renderPdpPage(pdpProduct);
+      }
+    });
+
+    function renderPdpPage(p) {
+      document.title = `${p.name} | DEPARTAMENT MAN Digital Atelier`;
+
+      // Breadcrumbs
+      const breadcrumbCat = document.getElementById('breadcrumbCategory');
+      breadcrumbCat.textContent = p.category;
+      const catSlug = p.category.toLowerCase().includes('knit') ? 'knits' :
+                      p.category.toLowerCase().includes('denim') ? 'denim' :
+                      p.category.toLowerCase().includes('footwear') ? 'footwear' :
+                      p.category.toLowerCase().includes('accessories') ? 'accessories' : 'tailoring';
+      breadcrumbCat.setAttribute('href', `collections.html?cat=${catSlug}`);
+      breadcrumbCat.href = `collections.html?cat=${catSlug}`;
+      document.getElementById('breadcrumbTitle').textContent = p.name;
+
+      // Hero image & badge
+      document.getElementById('heroMediaBadge').textContent = p.badge || 'Atelier Edition';
+      const mainImg = document.getElementById('mainPdpImg');
+      const mainVideo = document.getElementById('mainPdpVideo');
+      mainImg.src = p.front_photo;
+      mainImg.style.display = 'block';
+      mainVideo.style.display = 'none';
+
+      // Thumbnails
+      const thumbs = [
+        { type: 'image', src: p.front_photo, label: 'Front' },
+        { type: 'image', src: p.detail_photo, label: 'Texture' },
+        { type: 'image', src: p.back_photo, label: 'Back Angle' }
+      ];
+      if (p.video_url) {
+        thumbs.push({ type: 'video', src: p.video_url, label: 'Runway Walk' });
+      }
+
+      document.getElementById('pdpThumbsStrip').innerHTML = thumbs.map((t, idx) => `
+        <button class="pdp-thumb-card ${idx === 0 ? 'active' : ''}" onclick="selectPdpMedia(this, '${t.type}', '${t.src}')" title="${t.label}">
+          ${t.type === 'video'
+            ? `<div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#111; color:var(--gold-light); font-size:0.7rem; font-weight:700;"><svg width="20" height="20" fill="var(--gold-primary)" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span>WALK</span></div>`
+            : `<img src="${t.src}" alt="${t.label}">`
+          }
+          <span class="pdp-thumb-tag">${t.label}</span>
+        </button>
+      `).join('');
+
+      // Dedicated Runway Video Box if exists
+      const runwayBox = document.getElementById('runwayMotionBox');
+      const runwayVideo = document.getElementById('runwayShowcaseVideo');
+      if (p.video_url) {
+        runwayBox.style.display = 'block';
+        runwayVideo.src = p.video_url;
+      } else {
+        runwayBox.style.display = 'none';
+      }
+
+      // Fabric Story & Provenance
+      document.getElementById('fabricStoryText').textContent = p.fabric_story || '';
+      document.getElementById('provenanceText').textContent = p.provenance || 'Baku Atelier Master Tailoring';
+
+      // Title & Price
+      document.getElementById('pdpCategoryLabel').textContent = p.category;
+      document.getElementById('pdpTitle').textContent = p.name;
+      document.getElementById('pdpPrice').textContent = formatPrice(p.price);
+
+      // Model Telemetry
+      document.getElementById('modelTelemetryText').textContent = p.model_telemetry || 'Model is 185 cm, 80 kg, wearing Size Large';
+
+      // Fit scale
+      document.getElementById('fitProfileLabel').textContent = p.fit_scale || 'Contemporary Tailored';
+      document.getElementById('fitTrackIndicator').style.left = `${p.fit_rating || 50}%`;
+
+      // Size buttons
+      renderPdpSizes(p);
+
+      // Matrix Table
+      renderPdpMatrixTable(p, pdpCurrentSize, pdpCurrentUnit);
+
+      // Add button label
+      updateAddButtonLabel();
+
+      // Complete the look
+      renderStyledWith(p);
+    }
+
+    function selectPdpMedia(btn, type, src) {
+      document.querySelectorAll('.pdp-thumb-card').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const img = document.getElementById('mainPdpImg');
+      const video = document.getElementById('mainPdpVideo');
+
+      if (type === 'video') {
+        img.style.display = 'none';
+        video.style.display = 'block';
+        video.src = src;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+        video.style.display = 'none';
+        img.style.display = 'block';
+        img.src = src;
+      }
+    }
+
+    function renderPdpSizes(p) {
+      const container = document.getElementById('sizePillsContainer');
+      document.getElementById('activeSizeBadge').textContent = pdpCurrentSize;
+
+      container.innerHTML = (p.sizes || []).map(s => `
+        <button class="pdp-size-btn ${s === pdpCurrentSize ? 'active' : ''}" onclick="selectPdpSize('${s}')">
+          ${s}
+        </button>
+      `).join('');
+    }
+
+    function selectPdpSize(s) {
+      pdpCurrentSize = s;
+      document.querySelectorAll('.pdp-size-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.trim() === s);
+      });
+      document.getElementById('activeSizeBadge').textContent = s;
+      renderPdpMatrixTable(pdpProduct, pdpCurrentSize, pdpCurrentUnit);
+      updateAddButtonLabel();
+    }
+
+    function setPdpUnit(unit) {
+      pdpCurrentUnit = unit;
+      document.getElementById('unitCmBtn').classList.toggle('active', unit === 'CM');
+      document.getElementById('unitInBtn').classList.toggle('active', unit === 'INCHES');
+      renderPdpMatrixTable(pdpProduct, pdpCurrentSize, pdpCurrentUnit);
+    }
+
+    function renderPdpMatrixTable(p, size, unit) {
+      const tbody = document.getElementById('matrixTableBody');
+      if (!p.measurements || !p.measurements[size]) {
+        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; color:var(--text-muted); padding:16px;">Standard artisanal sizing proportions apply.</td></tr>`;
+        return;
+      }
+
+      const spec = p.measurements[size];
+      const keys = Object.keys(spec);
+
+      const keyLabels = {
+        chest_cm: 'Chest Width (Armpit-to-Armpit)',
+        length_cm: 'Back Body Length',
+        shoulder_cm: 'Shoulder Point-to-Point',
+        sleeve_cm: 'Sleeve Length',
+        waist_cm: 'Waist Width (Flat Across)',
+        inseam_cm: 'Inseam Leg Length',
+        pant_len_cm: 'Total Outseam Length',
+        thigh_cm: 'Upper Thigh Width',
+        rise_cm: 'Front Crotch Rise',
+        hip_cm: 'Hip Width (Flat Across)',
+        width_cm: 'Footbed Width (Widest Point)',
+        insole_cm: 'Insole Footbed Length',
+        brim_cm: 'Visor / Brim Depth',
+        circumference_cm: 'Crown Circumference',
+        depth_cm: 'Crown Height / Depth',
+        eu_size: 'EU Size Standard',
+        us_size: 'US Size Standard'
+      };
+
+      const formatVal = (val) => {
+        if (typeof val === 'number') {
+          if (unit === 'INCHES') {
+            return (val / 2.54).toFixed(1) + '"';
+          }
+          return `${val} cm`;
+        }
+        return val;
+      };
+
+      tbody.innerHTML = keys.map(k => `
+        <tr>
+          <td>${keyLabels[k] || k.replace(/_/g, ' ')}</td>
+          <td class="matrix-val">${formatVal(spec[k])}</td>
+        </tr>
+      `).join('');
+    }
+
+    function updateAddButtonLabel() {
+      const btn = document.getElementById('pdpAddBagBtn');
+      if (btn && pdpProduct) {
+        btn.innerHTML = `
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:8px;"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>Add ${pdpProduct.name} (Size ${pdpCurrentSize}) to Bag: ${formatPrice(pdpProduct.price)}</span>
+        `;
+      }
+    }
+
+    function handlePdpAddToCart() {
+      if (!pdpProduct) return;
+      addToCart(pdpProduct.id, pdpCurrentSize);
+      openCartDrawer();
+    }
+
+    function renderStyledWith(p) {
+      const block = document.getElementById('styledWithBlock');
+      const container = document.getElementById('styledWithContainer');
+      if (!p.styled_with || p.styled_with.length === 0) {
+        block.style.display = 'none';
+        return;
+      }
+
+      const companionItems = p.styled_with
+        .map(id => productsData.find(item => item.id === id))
+        .filter(Boolean);
+
+      if (companionItems.length === 0) {
+        block.style.display = 'none';
+        return;
+      }
+
+      block.style.display = 'block';
+      container.innerHTML = companionItems.map(item => `
+        <div class="styled-item-card">
+          <img class="styled-item-thumb" src="${item.front_photo}" alt="${item.name}">
+          <div style="flex-grow:1;">
+            <a href="product.html?id=${item.id}" style="color:var(--text-primary); text-decoration:none; font-weight:600; font-size:0.85rem; display:block;">
+              ${item.name}
+            </a>
+            <div style="font-size:0.78rem; color:var(--gold-primary); font-weight:600; margin-top:2px;">
+              ${formatPrice(item.price)}
+            </div>
+          </div>
+          <button class="btn btn-secondary" style="padding:6px 14px; font-size:0.75rem;" onclick="addToCart('${item.id}')">
+            + Add Piece
+          </button>
+        </div>
+      `).join('');
+    }
+  </script>
 </body>
 </html>
