@@ -124,17 +124,45 @@
           </span>
           <div class="archetype-btn-group">
             <button class="archetype-chip active" onclick="selectArchetype('baku_master')">
-              Baku House Model (182 cm • 80 kg • Athletic Caspian)
-            </button>
-            <button class="archetype-chip" onclick="selectArchetype('baku_fendi')">
-              Sartorial Tracksuit (180 cm • 78 kg • Balanced)
-            </button>
-            <button class="archetype-chip" onclick="selectArchetype('baku_editorial')">
-              Showroom Tailored (184 cm • 82 kg • Robust)
+              Baku House Model (182 cm • Silk Twill & Trousers)
             </button>
             <button class="archetype-chip" onclick="selectArchetype('baku_athletic')">
-              Athletic Interlock (178 cm • 75 kg • Sleek)
+              Athletic Interlock (178 cm • EA7 Capsule)
             </button>
+            <button class="archetype-chip" onclick="selectArchetype('baku_tracksuit')">
+              Sartorial Tracksuit (180 cm • Gucci Technical)
+            </button>
+            <button class="archetype-chip" onclick="selectArchetype('baku_editorial')">
+              Showroom Tailored (184 cm • Corridor Edit)
+            </button>
+          </div>
+        </div>
+
+        <!-- Height Fine-Calibration Fail-Safe Slider -->
+        <div class="height-calibration-box">
+          <div class="height-calibration-header">
+            <div>
+              <span class="height-calibration-title">Calibrated Stature (Client Fine-Tuning Dial)</span>
+              <p class="height-calibration-subtitle">
+                Autonomous photogrammetry estimation. Adjust dial to fine-tune your anatomical scale:
+              </p>
+            </div>
+            <div class="height-calibration-readout">
+              <span id="sliderHeightVal" class="height-readout-cm">182 cm</span>
+              <span id="sliderHeightImperial" class="height-readout-imp">(6' 0")</span>
+            </div>
+          </div>
+          <div class="height-slider-track-wrap">
+            <span class="height-slider-bound">150 cm</span>
+            <input type="range" id="heightSlider" min="150" max="210" value="182" step="1" class="height-telemetry-slider" oninput="handleHeightSliderChange(this.value)">
+            <span class="height-slider-bound">210 cm</span>
+          </div>
+          <div class="height-slider-ticks">
+            <span>5' 0" (152cm)</span>
+            <span>5' 7" (170cm)</span>
+            <span>6' 0" (183cm)</span>
+            <span>6' 5" (195cm)</span>
+            <span>6' 11" (210cm)</span>
           </div>
         </div>
 
@@ -455,151 +483,123 @@
 
     const ARCHETYPES = {
       baku_master: {
-        label: 'Baku House Model (182 cm • 80 kg • Athletic Caspian)',
+        label: 'Baku House Model (182 cm • Silk Twill & Trousers)',
         heightCm: 182,
-        heightDesc: "182 cm (6' 0\")",
-        shoulderCm: 49.0,
-        chestCm: 54.0,
-        waistCm: 42.0,
-        outseamCm: 103.0,
+        baseHeightCm: 182,
+        baseShoulderCm: 49.0,
+        baseChestCm: 54.0,
+        baseWaistCm: 42.0,
+        baseOutseamCm: 103.0,
         build: 'Athletic Caspian Silhouette',
-        verdicts: {
-          silk: { size: 'Size Large', ease: 'Calibrated for relaxed fluid summer drape (+5 cm ease)' },
-          tracksuit: { size: 'Size Large', ease: 'Ergonomic shoulder articulation with clean athletic taper (+2 cm ease)' },
-          denim: { size: 'Waist 32', ease: 'Artisanal selvedge cut with tailored taper break' },
-          footwear: { size: 'EU 43 (US 10)', ease: 'Loro Piana water-repellent suede moccasin (True to European sizing)' }
-        },
-        ensemble: {
-          silk: 'L',
-          denim: '32',
-          shoes: '43'
-        },
         imageSrc: 'assets/model_baku_master.jpg',
         videoSrc: 'assets/model_baku_walk.mp4',
         landmarks: {
-          head: { x: 0.615, y: 0.22 },
-          shoulderL: { x: 0.49, y: 0.315 },
-          shoulderR: { x: 0.74, y: 0.315 },
-          chest: { x: 0.615, y: 0.40 },
-          waistL: { x: 0.52, y: 0.575 },
-          waistR: { x: 0.71, y: 0.575 },
-          pelvis: { x: 0.62, y: 0.63 },
-          kneeL: { x: 0.55, y: 0.76 },
-          kneeR: { x: 0.70, y: 0.76 },
-          ankleL: { x: 0.54, y: 0.91 },
-          ankleR: { x: 0.75, y: 0.91 },
+          head: { x: 0.655, y: 0.155 },
+          shoulderL: { x: 0.545, y: 0.235 },
+          shoulderR: { x: 0.770, y: 0.235 },
+          chest: { x: 0.655, y: 0.320 },
+          waistL: { x: 0.585, y: 0.440 },
+          waistR: { x: 0.730, y: 0.440 },
+          pelvis: { x: 0.655, y: 0.485 },
+          kneeL: { x: 0.605, y: 0.670 },
+          kneeR: { x: 0.770, y: 0.670 },
+          ankleL: { x: 0.570, y: 0.835 },
+          ankleR: { x: 0.795, y: 0.840 },
           badgeSide: 'left'
-        }
-      },
-      baku_fendi: {
-        label: 'Sartorial Tracksuit (180 cm • 78 kg • Balanced)',
-        heightCm: 180,
-        heightDesc: "180 cm (5' 11\")",
-        shoulderCm: 47.5,
-        chestCm: 52.0,
-        waistCm: 40.5,
-        outseamCm: 100.0,
-        build: 'Balanced Sartorial',
-        verdicts: {
-          silk: { size: 'Size Medium', ease: 'Sartorial camp collar drape (+5 cm ease)' },
-          tracksuit: { size: 'Size Large', ease: 'Ergonomic double-knit interlock fit (+3 cm ease)' },
-          denim: { size: 'Waist 32', ease: 'Direct waist taper with zero excess thigh volume' },
-          footwear: { size: 'EU 42 (US 9)', ease: 'Molded calfskin footbed support' }
         },
-        ensemble: {
-          silk: 'L',
-          denim: '32',
-          shoes: '42'
-        },
-        imageSrc: 'assets/model_baku_fendi.jpg',
-        videoSrc: 'assets/video_lookbook_2.mp4',
-        landmarks: {
-          head: { x: 0.75, y: 0.20 },
-          shoulderL: { x: 0.63, y: 0.28 },
-          shoulderR: { x: 0.87, y: 0.28 },
-          chest: { x: 0.75, y: 0.36 },
-          waistL: { x: 0.66, y: 0.49 },
-          waistR: { x: 0.84, y: 0.49 },
-          pelvis: { x: 0.75, y: 0.56 },
-          kneeL: { x: 0.69, y: 0.70 },
-          kneeR: { x: 0.82, y: 0.70 },
-          ankleL: { x: 0.68, y: 0.85 },
-          ankleR: { x: 0.83, y: 0.83 },
-          badgeSide: 'left'
-        }
-      },
-      baku_editorial: {
-        label: 'Showroom Tailored (184 cm • 82 kg • Robust)',
-        heightCm: 184,
-        heightDesc: "184 cm (6' 0.5\")",
-        shoulderCm: 50.0,
-        chestCm: 56.0,
-        waistCm: 43.0,
-        outseamCm: 104.5,
-        build: 'Robust Tailored Silhouette',
-        verdicts: {
-          silk: { size: 'Size XL', ease: 'Generous silk twill boxy drape (+6 cm ease)' },
-          tracksuit: { size: 'Size XL', ease: 'Extended double-faced ribbing with zero chest binding' },
-          denim: { size: 'Waist 34', ease: 'Relaxed thigh with structured selvedge taper' },
-          footwear: { size: 'EU 43 (US 10)', ease: 'Reinforced suede footbed with wide sole support' }
-        },
-        ensemble: {
-          silk: 'XL',
-          denim: '34',
-          shoes: '43'
-        },
-        imageSrc: 'assets/model_baku_editorial.jpg',
-        videoSrc: 'assets/video_lookbook_1.mp4',
-        landmarks: {
-          head: { x: 0.38, y: 0.20 },
-          shoulderL: { x: 0.26, y: 0.28 },
-          shoulderR: { x: 0.50, y: 0.28 },
-          chest: { x: 0.38, y: 0.36 },
-          waistL: { x: 0.28, y: 0.50 },
-          waistR: { x: 0.47, y: 0.50 },
-          pelvis: { x: 0.38, y: 0.57 },
-          kneeL: { x: 0.32, y: 0.71 },
-          kneeR: { x: 0.45, y: 0.71 },
-          ankleL: { x: 0.30, y: 0.86 },
-          ankleR: { x: 0.46, y: 0.86 },
-          badgeSide: 'right'
+        scaleReference: {
+          x1: 0.03, y1: 0.14, x2: 0.44, y2: 0.87,
+          label: 'KNOWN REFERENCE: Wooden Garment Rack (165 cm)'
         }
       },
       baku_athletic: {
-        label: 'Athletic Interlock (178 cm • 75 kg • Sleek)',
+        label: 'Athletic Interlock (178 cm • EA7 Capsule)',
         heightCm: 178,
-        heightDesc: "178 cm (5' 10\")",
-        shoulderCm: 46.0,
-        chestCm: 51.0,
-        waistCm: 39.0,
-        outseamCm: 99.0,
+        baseHeightCm: 178,
+        baseShoulderCm: 46.5,
+        baseChestCm: 51.5,
+        baseWaistCm: 39.5,
+        baseOutseamCm: 99.0,
         build: 'Sleek Athletic Profile',
-        verdicts: {
-          silk: { size: 'Size Medium', ease: 'Fashion-forward relaxed drape (+6 cm ease)' },
-          tracksuit: { size: 'Size Medium', ease: 'Sleek athletic contour with ergonomic taper' },
-          denim: { size: 'Waist 30', ease: 'Sharp slim leg profile without bunching' },
-          footwear: { size: 'EU 42 (US 9)', ease: 'Snug glove-like calfskin fit' }
-        },
-        ensemble: {
-          silk: 'M',
-          denim: '30',
-          shoes: '42'
-        },
         imageSrc: 'assets/model_baku_athletic.jpg',
         videoSrc: 'assets/video_lookbook_3.mp4',
         landmarks: {
-          head: { x: 0.50, y: 0.12 },
-          shoulderL: { x: 0.28, y: 0.23 },
-          shoulderR: { x: 0.72, y: 0.23 },
-          chest: { x: 0.50, y: 0.32 },
-          waistL: { x: 0.33, y: 0.48 },
-          waistR: { x: 0.67, y: 0.48 },
-          pelvis: { x: 0.50, y: 0.56 },
-          kneeL: { x: 0.38, y: 0.72 },
-          kneeR: { x: 0.62, y: 0.72 },
-          ankleL: { x: 0.36, y: 0.88 },
-          ankleR: { x: 0.64, y: 0.88 },
+          head: { x: 0.665, y: 0.220 },
+          shoulderL: { x: 0.540, y: 0.320 },
+          shoulderR: { x: 0.810, y: 0.350 },
+          chest: { x: 0.665, y: 0.430 },
+          waistL: { x: 0.550, y: 0.630 },
+          waistR: { x: 0.770, y: 0.630 },
+          pelvis: { x: 0.655, y: 0.670 },
+          kneeL: { x: 0.570, y: 0.795 },
+          kneeR: { x: 0.745, y: 0.795 },
+          ankleL: { x: 0.535, y: 0.935 },
+          ankleR: { x: 0.710, y: 0.935 },
           badgeSide: 'left'
+        },
+        scaleReference: {
+          x1: 0.01, y1: 0.01, x2: 0.40, y2: 0.62,
+          label: 'KNOWN REFERENCE: Showroom Footwear Grid (180 cm)'
+        }
+      },
+      baku_tracksuit: {
+        label: 'Sartorial Tracksuit (180 cm • Gucci Technical)',
+        heightCm: 180,
+        baseHeightCm: 180,
+        baseShoulderCm: 48.0,
+        baseChestCm: 52.5,
+        baseWaistCm: 40.5,
+        baseOutseamCm: 101.0,
+        build: 'Balanced Sartorial',
+        imageSrc: 'assets/model_baku_tracksuit.jpg',
+        videoSrc: 'assets/video_lookbook_2.mp4',
+        landmarks: {
+          head: { x: 0.675, y: 0.225 },
+          shoulderL: { x: 0.550, y: 0.330 },
+          shoulderR: { x: 0.795, y: 0.330 },
+          chest: { x: 0.675, y: 0.415 },
+          waistL: { x: 0.605, y: 0.585 },
+          waistR: { x: 0.745, y: 0.585 },
+          pelvis: { x: 0.675, y: 0.640 },
+          kneeL: { x: 0.630, y: 0.770 },
+          kneeR: { x: 0.730, y: 0.770 },
+          ankleL: { x: 0.600, y: 0.910 },
+          ankleR: { x: 0.735, y: 0.910 },
+          badgeSide: 'left'
+        },
+        scaleReference: {
+          x1: 0.02, y1: 0.16, x2: 0.44, y2: 0.88,
+          label: 'KNOWN REFERENCE: Showroom Brass Fixture (200 cm)'
+        }
+      },
+      baku_editorial: {
+        label: 'Showroom Tailored (184 cm • Corridor Edit)',
+        heightCm: 184,
+        baseHeightCm: 184,
+        baseShoulderCm: 50.0,
+        baseChestCm: 55.0,
+        baseWaistCm: 43.0,
+        baseOutseamCm: 104.5,
+        build: 'Robust Tailored Silhouette',
+        imageSrc: 'assets/model_baku_editorial.jpg',
+        videoSrc: 'assets/video_lookbook_1.mp4',
+        landmarks: {
+          head: { x: 0.640, y: 0.235 },
+          shoulderL: { x: 0.525, y: 0.335 },
+          shoulderR: { x: 0.755, y: 0.335 },
+          chest: { x: 0.640, y: 0.420 },
+          waistL: { x: 0.565, y: 0.590 },
+          waistR: { x: 0.715, y: 0.590 },
+          pelvis: { x: 0.640, y: 0.640 },
+          kneeL: { x: 0.590, y: 0.770 },
+          kneeR: { x: 0.705, y: 0.770 },
+          ankleL: { x: 0.560, y: 0.910 },
+          ankleR: { x: 0.715, y: 0.910 },
+          badgeSide: 'left'
+        },
+        scaleReference: {
+          x1: 0.05, y1: 0.05, x2: 0.45, y2: 0.85,
+          label: 'KNOWN REFERENCE: Wardrobe Corridor Racks (210 cm)'
         }
       }
     };
@@ -609,7 +609,7 @@
     let cameraStream = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-      renderArchetype(activeArchetype);
+      selectArchetype(activeArchetype);
       updateEnsemblePriceDisplay();
     });
 
@@ -620,38 +620,12 @@
         const onclickAttr = b.getAttribute('onclick') || '';
         b.classList.toggle('active', onclickAttr.includes(key));
       });
-      renderArchetype(key);
-    }
 
-    function renderArchetype(key) {
       const data = ARCHETYPES[key];
-      if (!data) return;
-
-      // Update Biometric Summary
-      document.getElementById('statHeight').textContent = data.heightDesc;
-      document.getElementById('statShoulder').textContent = `${data.shoulderCm} cm`;
-      document.getElementById('statChest').textContent = `${data.chestCm} cm (${Math.round(data.chestCm * 2)} cm)`;
-      document.getElementById('statWaist').textContent = `${data.waistCm} cm (${Math.round(data.waistCm * 2)} cm)`;
-      document.getElementById('statOutseam').textContent = `${data.outseamCm} cm`;
-      document.getElementById('statBuild').textContent = data.build;
-
-      // Update Sizing Verdicts
-      document.getElementById('verdictSizeSilk').textContent = data.verdicts.silk.size;
-      document.getElementById('verdictEaseSilk').textContent = data.verdicts.silk.ease;
-
-      document.getElementById('verdictSizeTracksuit').textContent = data.verdicts.tracksuit.size;
-      document.getElementById('verdictEaseTracksuit').textContent = data.verdicts.tracksuit.ease;
-
-      document.getElementById('verdictSizeDenim').textContent = data.verdicts.denim.size;
-      document.getElementById('verdictEaseDenim').textContent = data.verdicts.denim.ease;
-
-      document.getElementById('verdictSizeFootwear').textContent = data.verdicts.footwear.size;
-      document.getElementById('verdictEaseFootwear').textContent = data.verdicts.footwear.ease;
-
-      // Update Ensemble Selectors
-      document.getElementById('ensembleSelectSilk').value = data.ensemble.silk;
-      document.getElementById('ensembleSelectDenim').value = data.ensemble.denim;
-      document.getElementById('ensembleSelectShoes').value = data.ensemble.shoes;
+      const slider = document.getElementById('heightSlider');
+      if (slider) {
+        slider.value = data.heightCm;
+      }
 
       // Update Video
       const video = document.getElementById('ensembleVideo');
@@ -660,11 +634,156 @@
         video.play().catch(() => {});
       }
 
-      // Draw onto Canvas with Optical Mesh
-      drawOpticalSilhouette(data.imageSrc, data);
+      handleHeightSliderChange(data.heightCm);
     }
 
-    function drawOpticalSilhouette(imageSrc, data) {
+    function handleHeightSliderChange(heightVal) {
+      const hCm = parseInt(heightVal, 10);
+      const totalIn = Math.round(hCm / 2.54);
+      const ft = Math.floor(totalIn / 12);
+      const remIn = totalIn % 12;
+      const imp = `(${ft}' ${remIn}")`;
+
+      // Readouts
+      document.getElementById('sliderHeightVal').textContent = `${hCm} cm`;
+      document.getElementById('sliderHeightImperial').textContent = imp;
+      document.getElementById('statHeight').textContent = `${hCm} cm ${imp}`;
+
+      const activeData = ARCHETYPES[activeArchetype] || ARCHETYPES.baku_master;
+      const scaleRatio = hCm / activeData.baseHeightCm;
+
+      const shoulder = (activeData.baseShoulderCm * scaleRatio).toFixed(1);
+      const chest = (activeData.baseChestCm * scaleRatio).toFixed(1);
+      const waist = (activeData.baseWaistCm * scaleRatio).toFixed(1);
+      const outseam = (activeData.baseOutseamCm * scaleRatio).toFixed(1);
+
+      document.getElementById('statShoulder').textContent = `${shoulder} cm`;
+      document.getElementById('statChest').textContent = `${chest} cm (${Math.round(chest * 2)} cm)`;
+      document.getElementById('statWaist').textContent = `${waist} cm (${Math.round(waist * 2)} cm)`;
+      document.getElementById('statOutseam').textContent = `${outseam} cm`;
+      document.getElementById('statBuild').textContent = activeData.build;
+
+      // Dynamic Sizing Verdicts
+      let silkSize = 'Size Large';
+      let silkCode = 'L';
+      let silkEase = 'Calibrated for relaxed fluid summer drape (+5 cm ease)';
+      if (hCm < 172) {
+        silkSize = 'Size Small';
+        silkCode = 'M';
+        silkEase = 'Relaxed fluid summer drape (+6 cm ease)';
+      } else if (hCm <= 178) {
+        silkSize = 'Size Medium';
+        silkCode = 'M';
+        silkEase = 'Sartorial camp collar drape (+5 cm ease)';
+      } else if (hCm <= 183) {
+        silkSize = 'Size Large';
+        silkCode = 'L';
+        silkEase = 'Calibrated for relaxed fluid summer drape (+5 cm ease)';
+      } else if (hCm <= 193) {
+        silkSize = 'Size XL';
+        silkCode = 'XL';
+        silkEase = 'Generous silk twill boxy drape (+6 cm ease)';
+      } else {
+        silkSize = 'Size XXL';
+        silkCode = 'XXL';
+        silkEase = 'Generous silk twill boxy drape (+7 cm ease)';
+      }
+
+      let trackSize = 'Size Large';
+      let trackEase = 'Ergonomic shoulder articulation with clean athletic taper (+2 cm ease)';
+      if (hCm < 172) {
+        trackSize = 'Size Small';
+        trackEase = 'Streamlined athletic fit with zero excess length';
+      } else if (hCm <= 178) {
+        trackSize = 'Size Medium';
+        trackEase = 'Sleek athletic contour with ergonomic taper (+3 cm ease)';
+      } else if (hCm <= 186) {
+        trackSize = 'Size Large';
+        trackEase = 'Ergonomic shoulder articulation with clean athletic taper (+2 cm ease)';
+      } else if (hCm <= 193) {
+        trackSize = 'Size XL';
+        trackEase = 'Extended double-faced ribbing with zero chest binding';
+      } else {
+        trackSize = 'Size XXL';
+        trackEase = 'Comfort cut with extended arm articulation';
+      }
+
+      let denimSize = 'Waist 32';
+      let denimCode = '32';
+      let denimEase = 'Artisanal selvedge cut with tailored taper break';
+      const waistVal = parseFloat(waist);
+      if (waistVal < 40) {
+        denimSize = 'Waist 30';
+        denimCode = '30';
+        denimEase = 'Sharp slim leg profile without bunching';
+      } else if (waistVal <= 42.5) {
+        denimSize = 'Waist 32';
+        denimCode = '32';
+        denimEase = 'Direct waist taper with zero excess thigh volume';
+      } else if (waistVal <= 45) {
+        denimSize = 'Waist 34';
+        denimCode = '34';
+        denimEase = 'Relaxed thigh with structured selvedge taper';
+      } else {
+        denimSize = 'Waist 36';
+        denimCode = '36';
+        denimEase = 'Generous rise with classic straight leg break';
+      }
+
+      let shoeSize = 'EU 43 (US 10)';
+      let shoeCode = '43';
+      let shoeEase = 'Loro Piana water-repellent suede moccasin (True to European sizing)';
+      if (hCm < 174) {
+        shoeSize = 'EU 41 (US 8)';
+        shoeCode = '41';
+        shoeEase = 'Snug glove-like calfskin fit with low instep';
+      } else if (hCm <= 178) {
+        shoeSize = 'EU 42 (US 9)';
+        shoeCode = '42';
+        shoeEase = 'Molded calfskin footbed support';
+      } else if (hCm <= 185) {
+        shoeSize = 'EU 43 (US 10)';
+        shoeCode = '43';
+        shoeEase = 'Loro Piana water-repellent suede moccasin (True to European sizing)';
+      } else if (hCm <= 192) {
+        shoeSize = 'EU 44 (US 11)';
+        shoeCode = '44';
+        shoeEase = 'Reinforced suede footbed with wide sole support';
+      } else {
+        shoeSize = 'EU 45 (US 12)';
+        shoeCode = '45';
+        shoeEase = 'Extended sole width with padded heel collar';
+      }
+
+      document.getElementById('verdictSizeSilk').textContent = silkSize;
+      document.getElementById('verdictEaseSilk').textContent = silkEase;
+      document.getElementById('verdictSizeTracksuit').textContent = trackSize;
+      document.getElementById('verdictEaseTracksuit').textContent = trackEase;
+      document.getElementById('verdictSizeDenim').textContent = denimSize;
+      document.getElementById('verdictEaseDenim').textContent = denimEase;
+      document.getElementById('verdictSizeFootwear').textContent = shoeSize;
+      document.getElementById('verdictEaseFootwear').textContent = shoeEase;
+
+      // Update ensemble selects
+      const silkSelect = document.getElementById('ensembleSelectSilk');
+      if (silkSelect && silkSelect.querySelector(`option[value="${silkCode}"]`)) {
+        silkSelect.value = silkCode;
+      }
+      const denimSelect = document.getElementById('ensembleSelectDenim');
+      if (denimSelect && denimSelect.querySelector(`option[value="${denimCode}"]`)) {
+        denimSelect.value = denimCode;
+      }
+      const shoeSelect = document.getElementById('ensembleSelectShoes');
+      if (shoeSelect && shoeSelect.querySelector(`option[value="${shoeCode}"]`)) {
+        shoeSelect.value = shoeCode;
+      }
+
+      // Re-render canvas with live scaled metric badges
+      const scaledMetrics = { shoulder, chest, waist, outseam };
+      drawOpticalSilhouette(activeData.imageSrc, activeData, scaledMetrics);
+    }
+
+    function drawOpticalSilhouette(imageSrc, data, metrics) {
       const canvas = document.getElementById('visionCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -673,40 +792,51 @@
       img.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Draw background image scaled to fill 9:16 viewport
-        const hRatio = canvas.width / img.width;
-        const vRatio = canvas.height / img.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (canvas.width - img.width * ratio) / 2;
-        const centerShiftY = (canvas.height - img.height * ratio) / 2;
-        
-        ctx.drawImage(img, 0, 0, img.width, img.height,
-                      centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+        // Both canvas and images share exact 9:16 aspect ratio
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         // Dark subtle overlay for contrast
         ctx.fillStyle = 'rgba(7, 9, 14, 0.35)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Render Holographic Skeletal Nodes & Dimension Lines
-        renderSkeletalMesh(ctx, canvas.width, canvas.height, data);
+        renderSkeletalMesh(ctx, canvas.width, canvas.height, data, metrics);
       };
     }
 
-    function renderSkeletalMesh(ctx, w, h, data) {
-      const lm = data.landmarks || {
-        head: { x: 0.615, y: 0.22 },
-        shoulderL: { x: 0.49, y: 0.315 },
-        shoulderR: { x: 0.74, y: 0.315 },
-        chest: { x: 0.615, y: 0.40 },
-        waistL: { x: 0.52, y: 0.575 },
-        waistR: { x: 0.71, y: 0.575 },
-        pelvis: { x: 0.62, y: 0.63 },
-        kneeL: { x: 0.55, y: 0.76 },
-        kneeR: { x: 0.70, y: 0.76 },
-        ankleL: { x: 0.54, y: 0.91 },
-        ankleR: { x: 0.75, y: 0.91 },
-        badgeSide: 'left'
-      };
+    function renderSkeletalMesh(ctx, w, h, data, metrics) {
+      const lm = data.landmarks;
+      if (!lm) return;
+
+      // Draw Known Scale Reference Box if present
+      if (data.scaleReference) {
+        const ref = data.scaleReference;
+        const rx = w * ref.x1;
+        const ry = h * ref.y1;
+        const rw = w * (ref.x2 - ref.x1);
+        const rh = h * (ref.y2 - ref.y1);
+
+        ctx.strokeStyle = '#38BDF8';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.strokeRect(rx, ry, rw, rh);
+        ctx.setLineDash([]);
+
+        // Reference Tag
+        ctx.font = '9px monospace';
+        const label = ref.label || 'SCALE REFERENCE';
+        const tWidth = ctx.measureText(label).width;
+        ctx.fillStyle = 'rgba(7, 9, 14, 0.88)';
+        ctx.strokeStyle = '#38BDF8';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(rx + 6, ry + 6, tWidth + 12, 18, 3);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#38BDF8';
+        ctx.fillText(label, rx + 12, ry + 19);
+      }
 
       const headX = w * lm.head.x;
       const headY = h * lm.head.y;
@@ -786,11 +916,18 @@
       });
 
       // Overlay Floating Measurement Badges in Negative Showroom Space
-      const badgeX = lm.badgeSide === 'right' ? Math.round(w * 0.54) : Math.round(w * 0.05);
-      drawMetricBadge(ctx, badgeX, shY - 4, `SHOULDER: ${data.shoulderCm} CM`);
-      drawMetricBadge(ctx, badgeX, chestY, `CHEST: ${data.chestCm} CM`);
-      drawMetricBadge(ctx, badgeX, waistY, `WAIST: ${data.waistCm} CM`);
-      drawMetricBadge(ctx, badgeX, kneeLY - 40, `OUTSEAM: ${data.outseamCm} CM`);
+      const m = metrics || {
+        shoulder: data.baseShoulderCm,
+        chest: data.baseChestCm,
+        waist: data.baseWaistCm,
+        outseam: data.baseOutseamCm
+      };
+
+      const badgeX = lm.badgeSide === 'right' ? Math.round(w * 0.54) : Math.round(w * 0.04);
+      drawMetricBadge(ctx, badgeX, shY - 4, `SHOULDER: ${m.shoulder} CM`);
+      drawMetricBadge(ctx, badgeX, chestY, `CHEST: ${m.chest} CM`);
+      drawMetricBadge(ctx, badgeX, waistY, `WAIST: ${m.waist} CM`);
+      drawMetricBadge(ctx, badgeX, kneeLY - 40, `OUTSEAM: ${m.outseam} CM`);
     }
 
     function drawMetricBadge(ctx, x, y, text) {
@@ -825,12 +962,10 @@
           alert('Camera access unavailable or declined. You may use our one-tap archetypes or upload a photo.');
         }
       } else {
-        // Capture snapshot
         const canvas = document.getElementById('visionCanvas');
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        // Stop camera tracks
         if (cameraStream) {
           cameraStream.getTracks().forEach(track => track.stop());
         }
@@ -839,8 +974,12 @@
         btnText.textContent = 'Live Camera Scan';
         document.getElementById('telemetryStatus').textContent = 'CALIBRATED';
         
-        // Run simulated biometric analysis
-        renderArchetype('baku_master');
+        // Auto-calculated stature fail-safe: sets slider to 182 cm
+        const slider = document.getElementById('heightSlider');
+        if (slider) {
+          slider.value = 182;
+        }
+        handleHeightSliderChange(182);
       }
     }
 
@@ -867,9 +1006,21 @@
             ankleL: { x: 0.38, y: 0.90 },
             ankleR: { x: 0.62, y: 0.90 },
             badgeSide: 'left'
-          }
+          },
+          scaleReference: null
         };
-        drawOpticalSilhouette(e.target.result, customData);
+        // Auto-calculated height from photo set to 182 cm, user can dial with slider
+        const slider = document.getElementById('heightSlider');
+        if (slider) {
+          slider.value = 182;
+        }
+        handleHeightSliderChange(182);
+        drawOpticalSilhouette(e.target.result, customData, {
+          shoulder: customData.baseShoulderCm,
+          chest: customData.baseChestCm,
+          waist: customData.baseWaistCm,
+          outseam: customData.baseOutseamCm
+        });
         document.getElementById('telemetryStatus').textContent = 'PHOTO CALIBRATED';
       };
       reader.readAsDataURL(file);
