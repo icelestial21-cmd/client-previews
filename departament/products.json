@@ -1,0 +1,254 @@
+[
+  {
+    "id": "dep-01",
+    "name": "Baku Aviator Shearling Flight Jacket",
+    "category": "leather",
+    "categoryLabel": "Leather & Outerwear",
+    "baseAzn": 680,
+    "image": "assets/product_02.jpg",
+    "images": {
+      "front": "assets/product_02.jpg",
+      "back": "assets/product_02.jpg",
+      "detail": "assets/product_02.jpg"
+    },
+    "specs": "Heavyweight grain nappa leather, natural merino shearling collar, solid brass hardware.",
+    "tag": "Autumn/Winter Drop",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size L",
+    "layingFlat": {
+      "M": { "chest_cm": 110, "shoulder_cm": 46, "length_cm": 68, "sleeve_cm": 64 },
+      "L": { "chest_cm": 116, "shoulder_cm": 48, "length_cm": 70, "sleeve_cm": 65 },
+      "XL": { "chest_cm": 122, "shoulder_cm": 50, "length_cm": 72, "sleeve_cm": 66 },
+      "XXL": { "chest_cm": 128, "shoulder_cm": 52, "length_cm": 74, "sleeve_cm": 67 }
+    },
+    "companions": ["dep-04", "dep-08"]
+  },
+  {
+    "id": "dep-02",
+    "name": "Caspian Double-Breasted Cashmere Overcoat",
+    "category": "overcoats",
+    "categoryLabel": "Cashmere Overcoats",
+    "baseAzn": 520,
+    "image": "assets/product_06.jpg",
+    "images": {
+      "front": "assets/product_06.jpg",
+      "back": "assets/product_06.jpg",
+      "detail": "assets/product_06.jpg"
+    },
+    "specs": "100% Mongolian Cashmere, Italian horn buttons, tailored peak lapel, full cupro lining.",
+    "tag": "Flagship Edition",
+    "video_url": null,
+    "fitRating": 5,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 104, "shoulder_cm": 44, "length_cm": 98, "sleeve_cm": 63 },
+      "50EU": { "chest_cm": 108, "shoulder_cm": 46, "length_cm": 100, "sleeve_cm": 64 },
+      "52EU": { "chest_cm": 112, "shoulder_cm": 48, "length_cm": 102, "sleeve_cm": 65 },
+      "54EU": { "chest_cm": 116, "shoulder_cm": 50, "length_cm": 104, "sleeve_cm": 66 }
+    },
+    "companions": ["dep-03", "dep-05"]
+  },
+  {
+    "id": "dep-03",
+    "name": "Sartorial Italian-Cut Charcoal 3-Piece Suit",
+    "category": "suits",
+    "categoryLabel": "Bespoke Suiting",
+    "baseAzn": 590,
+    "image": "assets/product_03.jpg",
+    "images": {
+      "front": "assets/product_03.jpg",
+      "back": "assets/product_03.jpg",
+      "detail": "assets/product_03.jpg"
+    },
+    "specs": "Super 150s Merino Wool, half-canvas body construction, pick-stitched edges.",
+    "tag": "Celebrity Choice",
+    "video_url": null,
+    "fitRating": 5,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
+      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
+      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
+      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
+    },
+    "companions": ["dep-04", "dep-02"]
+  },
+  {
+    "id": "dep-04",
+    "name": "Hand-Burnished Oxford Dress Shoes",
+    "category": "footwear",
+    "categoryLabel": "Artisan Footwear",
+    "baseAzn": 260,
+    "image": "assets/product_04.jpg",
+    "images": {
+      "front": "assets/product_04.jpg",
+      "back": "assets/product_04.jpg",
+      "detail": "assets/product_04.jpg"
+    },
+    "specs": "Full-grain Italian calfskin, Goodyear welted leather sole, hand-waxed chiseled toe.",
+    "tag": "Made in Baku",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "True to size. Model wears size 42EU",
+    "layingFlat": {
+      "40EU": { "insole_cm": 26.5, "width_cm": 9.5 },
+      "41EU": { "insole_cm": 27.2, "width_cm": 9.7 },
+      "42EU": { "insole_cm": 28.0, "width_cm": 10.0 },
+      "43EU": { "insole_cm": 28.7, "width_cm": 10.2 },
+      "44EU": { "insole_cm": 29.5, "width_cm": 10.4 }
+    },
+    "companions": ["dep-03", "dep-05"]
+  },
+  {
+    "id": "dep-05",
+    "name": "Executive Slate Flannel Wool Suit",
+    "category": "suits",
+    "categoryLabel": "Bespoke Suiting",
+    "baseAzn": 490,
+    "image": "assets/product_05.jpg",
+    "images": {
+      "front": "assets/product_05.jpg",
+      "back": "assets/product_05.jpg",
+      "detail": "assets/product_05.jpg"
+    },
+    "specs": "Vitale Barberis wool flannel, soft unpadded shoulders, pleated high-rise trousers.",
+    "tag": "New Season",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
+      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
+      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
+      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
+    },
+    "companions": ["dep-04", "dep-08"]
+  },
+  {
+    "id": "dep-06",
+    "name": "Espresso Distressed Moto Leather Jacket",
+    "category": "leather",
+    "categoryLabel": "Leather & Outerwear",
+    "baseAzn": 580,
+    "image": "assets/product_07.jpg",
+    "images": {
+      "front": "assets/product_07.jpg",
+      "back": "assets/product_07.jpg",
+      "detail": "assets/product_07.jpg"
+    },
+    "specs": "Hand-waxed oiled lambskin, asymmetric YKK zipper, quilted shoulder reinforcement.",
+    "tag": "Limited Run",
+    "video_url": null,
+    "fitRating": 3,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size L",
+    "layingFlat": {
+      "M": { "chest_cm": 106, "shoulder_cm": 44, "length_cm": 64, "sleeve_cm": 63 },
+      "L": { "chest_cm": 112, "shoulder_cm": 46, "length_cm": 66, "sleeve_cm": 64 },
+      "XL": { "chest_cm": 118, "shoulder_cm": 48, "length_cm": 68, "sleeve_cm": 65 },
+      "XXL": { "chest_cm": 124, "shoulder_cm": 50, "length_cm": 70, "sleeve_cm": 66 }
+    },
+    "companions": ["dep-09", "dep-02"]
+  },
+  {
+    "id": "dep-07",
+    "name": "Midnight Navy Velvet Shawl Dinner Jacket",
+    "category": "suits",
+    "categoryLabel": "Bespoke Suiting",
+    "baseAzn": 420,
+    "image": "assets/product_08.jpg",
+    "images": {
+      "front": "assets/product_08.jpg",
+      "back": "assets/product_08.jpg",
+      "detail": "assets/product_08.jpg"
+    },
+    "specs": "Deep royal cotton velvet, black duchess silk-satin shawl lapel, double vented.",
+    "tag": "Gala & Evening",
+    "video_url": null,
+    "fitRating": 5,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 102, "shoulder_cm": 43, "length_cm": 72, "sleeve_cm": 62 },
+      "50EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 74, "sleeve_cm": 63 },
+      "52EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 76, "sleeve_cm": 64 },
+      "54EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 78, "sleeve_cm": 65 }
+    },
+    "companions": ["dep-04", "dep-02"]
+  },
+  {
+    "id": "dep-08",
+    "name": "Cognac Trench Overcoat with Storm Flap",
+    "category": "overcoats",
+    "categoryLabel": "Cashmere Overcoats",
+    "baseAzn": 470,
+    "image": "assets/product_12.jpg",
+    "images": {
+      "front": "assets/product_12.jpg",
+      "back": "assets/product_12.jpg",
+      "detail": "assets/product_12.jpg"
+    },
+    "specs": "Water-resistant gabardine-wool blend, belted waist with horn buckle, gun patch detail.",
+    "tag": "Classic Sartorial",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 106, "shoulder_cm": 45, "length_cm": 104, "sleeve_cm": 64 },
+      "50EU": { "chest_cm": 110, "shoulder_cm": 47, "length_cm": 106, "sleeve_cm": 65 },
+      "52EU": { "chest_cm": 114, "shoulder_cm": 49, "length_cm": 108, "sleeve_cm": 66 },
+      "54EU": { "chest_cm": 118, "shoulder_cm": 51, "length_cm": 110, "sleeve_cm": 67 }
+    },
+    "companions": ["dep-05", "dep-09"]
+  },
+  {
+    "id": "dep-09",
+    "name": "Handcrafted Chelsea Boots in Cigar Suede",
+    "category": "footwear",
+    "categoryLabel": "Artisan Footwear",
+    "baseAzn": 240,
+    "image": "assets/product_10.jpg",
+    "images": {
+      "front": "assets/product_10.jpg",
+      "back": "assets/product_10.jpg",
+      "detail": "assets/product_10.jpg"
+    },
+    "specs": "Repello water-treated suede, rubber studded all-weather sole, reinforced pull tabs.",
+    "tag": "Artisan Craft",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "True to size. Model wears size 42EU",
+    "layingFlat": {
+      "40EU": { "insole_cm": 26.5, "width_cm": 9.5 },
+      "41EU": { "insole_cm": 27.2, "width_cm": 9.7 },
+      "42EU": { "insole_cm": 28.0, "width_cm": 10.0 },
+      "43EU": { "insole_cm": 28.7, "width_cm": 10.2 },
+      "44EU": { "insole_cm": 29.5, "width_cm": 10.4 }
+    },
+    "companions": ["dep-06", "dep-08"]
+  },
+  {
+    "id": "dep-10",
+    "name": "Double-Breasted Houndstooth Tailored Blazer",
+    "category": "suits",
+    "categoryLabel": "Bespoke Suiting",
+    "baseAzn": 390,
+    "image": "assets/product_11.jpg",
+    "images": {
+      "front": "assets/product_11.jpg",
+      "back": "assets/product_11.jpg",
+      "detail": "assets/product_11.jpg"
+    },
+    "specs": "British houndstooth tweed wool, patch pockets, unstructured European silhouette.",
+    "tag": "Autumn/Winter Drop",
+    "video_url": null,
+    "fitRating": 4,
+    "modelTelemetry": "Model is 180cm, 78kg, wearing size 50EU",
+    "layingFlat": {
+      "48EU": { "chest_cm": 102, "shoulder_cm": 44, "length_cm": 73, "sleeve_cm": 62 },
+      "50EU": { "chest_cm": 106, "shoulder_cm": 46, "length_cm": 75, "sleeve_cm": 63 },
+      "52EU": { "chest_cm": 110, "shoulder_cm": 48, "length_cm": 77, "sleeve_cm": 64 },
+      "54EU": { "chest_cm": 114, "shoulder_cm": 50, "length_cm": 79, "sleeve_cm": 65 }
+    },
+    "companions": ["dep-09", "dep-02"]
+  }
+]
