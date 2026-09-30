@@ -1,0 +1,197 @@
+{
+  "brand": {
+    "name": "J.MOSSIS",
+    "established": 1976,
+    "city": "Paris",
+    "address": "54 Avenue de Clichy, 75018 Paris, France",
+    "phone": "+33 1 43 87 81 65",
+    "whatsapp": "33143878165",
+    "instagram": "https://www.instagram.com/j.mossis/",
+    "facebook": "https://www.facebook.com/JMossis",
+    "partners": ["Emmanuelle Khanh", "Christian Lacroix", "Cerruti 1881", "Loro Piana", "Vitale Barberis Canonico"]
+  },
+  "currencies": {
+    "EUR": { "symbol": "€", "rate": 1.0, "position": "after" },
+    "USD": { "symbol": "$", "rate": 1.10, "position": "before" },
+    "GBP": { "symbol": "£", "rate": 0.85, "position": "before" },
+    "XOF": { "symbol": "CFA", "rate": 655.957, "position": "after" }
+  },
+  "capsule": {
+    "id": "jm-tulipe-01",
+    "name": "Chemise Sartoriale Signature : Col Tulipe",
+    "subtitle": "Édition Limitée Numérotée — Atelier 54 Avenue de Clichy",
+    "category": "shirts",
+    "categoryLabel": "Haute Chemiserie",
+    "baseEur": 145,
+    "totalBatch": 150,
+    "remainingStock": 42,
+    "rating": 4.96,
+    "reviewCount": 218,
+    "image": "assets/col_tulipe_white.jpg",
+    "videoReelUrl": "https://www.facebook.com/reel/4620088161544239/",
+    "variants": [
+      {
+        "id": "tulipe",
+        "name": "Col Tulipe (Pétale Sartorial)",
+        "badge": "Signature J.Mossis",
+        "desc": "Découpe incurvée en pétale d'orchidée. Enlace le cou avec distinction naturelle sans cravate."
+      },
+      {
+        "id": "indien",
+        "name": "Col Indien (Officier Épuré)",
+        "badge": "Port Aristocratique",
+        "desc": "Ligne montante droite et minimaliste, inspirée des vestiaires d'apparat traditionnels."
+      }
+    ],
+    "colorways": [
+      {
+        "id": "blanc",
+        "name": "Blanc Céleste",
+        "fabric": "Popeline 120/2 Double Retors Égyptienne",
+        "hex": "#FAFAFA",
+        "border": "#D4AF37",
+        "image": "assets/col_tulipe_white.jpg"
+      },
+      {
+        "id": "bleu",
+        "name": "Bleu Azur",
+        "fabric": "Royal Oxford Coton Peigné Italien",
+        "hex": "#B4CBE3",
+        "border": "#2A3F60",
+        "image": "assets/col_tulipe_white.jpg"
+      },
+      {
+        "id": "noir",
+        "name": "Noir Onyx",
+        "fabric": "Satin de Coton Lumineux Giza 87",
+        "hex": "#111317",
+        "border": "#444A59",
+        "image": "assets/col_tulipe_white.jpg"
+      },
+      {
+        "id": "rayure",
+        "name": "Rayure Fine Céleste",
+        "fabric": "Twill Fil-à-Fil Milanais",
+        "hex": "#E3EDF7",
+        "border": "#8CAAD0",
+        "image": "assets/col_tulipe_white.jpg"
+      }
+    ],
+    "sizes": [
+      { "eu": "38", "us": "15.0\"", "chest": "100 cm", "collar": "38 cm" },
+      { "eu": "39", "us": "15.5\"", "chest": "104 cm", "collar": "39 cm" },
+      { "eu": "40", "us": "15.75\"", "chest": "108 cm", "collar": "40 cm" },
+      { "eu": "41", "us": "16.0\"", "chest": "112 cm", "collar": "41 cm" },
+      { "eu": "42", "us": "16.5\"", "chest": "116 cm", "collar": "42 cm" },
+      { "eu": "43", "us": "17.0\"", "chest": "120 cm", "collar": "43 cm" },
+      { "eu": "44", "us": "17.5\"", "chest": "124 cm", "collar": "44 cm" },
+      { "eu": "45", "us": "18.0\"", "chest": "128 cm", "collar": "45 cm" },
+      { "eu": "46", "us": "18.5\"", "chest": "132 cm", "collar": "46 cm" }
+    ],
+    "fits": [
+      { "id": "slim", "name": "Coupe Ajustée (Slim Fit)", "desc": "Pinces au dos, ligne près du corps et emmanchures affinées." },
+      { "id": "classic", "name": "Coupe Confort (Classic Fit)", "desc": "Plis d'aisance aux omoplates, aisance naturelle pour un confort souverain." }
+    ],
+    "cuffs": [
+      { "id": "button", "name": "Poignets Cassés (Boutons Nacre)", "desc": "Fermeture classique à boutons en nacre véritable d'Australie." },
+      { "id": "french", "name": "Poignets Mousquetaires", "desc": "Poignets doubles repliés pour boutons de manchette de cérémonie." }
+    ],
+    "craftDetails": [
+      { "title": "Courbure Anatomique", "desc": "Le col tulipe est structuré avec un entoilage souple thermocollé haut de gamme qui empêche tout affaissement tout au long de la journée." },
+      { "title": "Coton Double Retors 120/2", "desc": "Deux fils de coton égyptien torsadés ensemble avant tissage, conférant au tissu une douceur soyeuse et une résistance exceptionnelle au froissement." },
+      { "title": "Boutons Nacre d'Australie", "desc": "Véritable nacre polie à la main, cousue en croix avec renfort sur pied de bouton pour une durabilité décennale." },
+      { "title": "Coutures Anglaises (7 pts/cm)", "desc": "Montage à couture rabattue anglaise invisible sur les flancs, évitant toute irritation de contact." }
+    ]
+  },
+  "suiting": [
+    {
+      "id": "jm-suit-01",
+      "name": "Smoking Croisé Bleu Nuit Grand Soir",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 590,
+      "category": "suits",
+      "image": "assets/smoking_croise_bleu.jpg",
+      "specs": "Revers en pointe en satin de soie duchesse, coupe cintrée contemporaine, laine peignée Super 130s.",
+      "tag": "Exclusivité Paris",
+      "availableSizes": ["46", "48", "50", "52", "54", "56"]
+    },
+    {
+      "id": "jm-suit-02",
+      "name": "Smoking Bordeaux Revers Châle Velours",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 620,
+      "category": "suits",
+      "image": "assets/smoking_bordeaux_chale.jpg",
+      "specs": "Col châle en velours de soie noir profond, veston bordeaux impérial, boutons recouverts à la main.",
+      "tag": "Cérémonie & Gala",
+      "availableSizes": ["48", "50", "52", "54"]
+    },
+    {
+      "id": "jm-suit-03",
+      "name": "Smoking Gris Anthracite Revers Châle",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 580,
+      "category": "suits",
+      "image": "assets/smoking_gris_chale.jpg",
+      "specs": "Contraste architectural noir et anthracite, ligne de poitrine sculptée, doublure jacquard respirante.",
+      "tag": "Haute Réception",
+      "availableSizes": ["46", "48", "50", "52", "54"]
+    },
+    {
+      "id": "jm-suit-04",
+      "name": "Costume 3 Pièces Kaki Cérémonie",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 540,
+      "category": "suits",
+      "image": "assets/costume_kaki_ek.jpg",
+      "specs": "Ensemble veston, gilet croisé 5 boutons et pantalon sans pli. Teinte olive minérale exclusive.",
+      "tag": "Sartorial Mariage",
+      "availableSizes": ["48", "50", "52", "54", "56"]
+    },
+    {
+      "id": "jm-suit-05",
+      "name": "Costume Bleu Pétrole Coupe Moderne",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 490,
+      "category": "suits",
+      "image": "assets/costume_bleu_petrole.jpg",
+      "specs": "Poches en biais passepoilées, revers à cran standard 8.5cm, tissu anti-froissement naturel.",
+      "tag": "Affaires & Ville",
+      "availableSizes": ["46", "48", "50", "52", "54", "56"]
+    },
+    {
+      "id": "jm-suit-06",
+      "name": "Costume Deux Pièces Gris Flannéite",
+      "brand": "Emmanuelle Khanh pour J.Mossis",
+      "baseEur": 480,
+      "category": "suits",
+      "image": "assets/costume_gris_fonce.jpg",
+      "specs": "Laine peignée à texture micro-armurée, tombé impeccable pour les réceptions formelles.",
+      "tag": "Élégance Classique",
+      "availableSizes": ["48", "50", "52", "54"]
+    }
+  ],
+  "reviews": [
+    {
+      "author": "Khalid Benslimane",
+      "location": "Paris",
+      "rating": 5,
+      "date": "Hier",
+      "text": "Habilleur de ma famille et amis depuis des années. La coupe de la chemise col tulipe est tout simplement unique à Paris. À conseiller sans hésitation."
+    },
+    {
+      "author": "Jean-Marc L.",
+      "location": "Bruxelles, Belgique",
+      "rating": 5,
+      "date": "Il y a 3 jours",
+      "text": "J'ai découvert J.Mossis grâce à leurs vidéos de pliage de vestes. Commandé la chemise en blanc et bleu ciel : le tissu a une tenue exceptionnelle et le col tient parfaitement sans cravate."
+    },
+    {
+      "author": "Stéphane N.",
+      "location": "Genève, Suisse",
+      "rating": 5,
+      "date": "Il y a 1 semaine",
+      "text": "Client fidèle d'Emmanuelle Khanh, j'ai trouvé chez J.Mossis un niveau de conseil et une rapidité de service inégalés. Le service international est enfin au niveau de leur réputation."
+    }
+  ]
+}

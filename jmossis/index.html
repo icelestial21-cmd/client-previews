@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J.MOSSIS PARIS — La Chemise Col Tulipe | Capsule Sartoriale Exclusive</title>
+  <meta name="description" content="Découvrez la Chemise Col Tulipe et Col Indien par J.Mossis. Maison de confection parisienne depuis 1976 au 54 Avenue de Clichy. Édition limitée numérotée, coton égyptien double retors 120/2.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+  <!-- Top Announcement Bar (Drop Urgency) -->
+  <div class="announcement-bar">
+    <span class="badge-drop">Édition Limitée</span>
+    <span class="stock-ticker">Capsule 01 : <strong>La Chemise Col Tulipe & Col Indien</strong> — Plus que <strong>42 pièces</strong> disponibles</span>
+    <span style="display: none;" class="desktop-only">• Expédition Express Mondiale DHL Offerte dès 200 €</span>
+  </div>
+
+  <!-- Master Navigation Header -->
+  <header class="master-header">
+    <div class="brand-crest">
+      <a href="index.html" class="brand-title">J.MOSSIS</a>
+      <span class="brand-subtitle">Haute Confection Parisienne • Depuis 1976</span>
+    </div>
+
+    <div class="header-controls">
+      <!-- Currency Switcher -->
+      <div class="currency-select-wrap">
+        <select id="currencySelect" class="currency-select" aria-label="Sélection de Devise">
+          <option value="EUR">EUR (€)</option>
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="XOF">XOF (CFA)</option>
+        </select>
+      </div>
+
+      <!-- Concierge Direct WhatsApp -->
+      <a href="https://wa.me/33143878165" target="_blank" class="header-btn btn-concierge" rel="noopener">
+        <span>Concierge Paris</span>
+      </a>
+
+      <!-- Shopping Bag Trigger -->
+      <button id="btnOpenCart" class="header-btn btn-cart" aria-label="Voir le Panier">
+        <span>Panier</span>
+        <span id="cartBadge" class="cart-count-badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Capsule Drop Section (Split Screen Masterpiece) -->
+  <main>
+    <section class="hero-capsule-section">
+      <!-- Left: Visual Showcase & Gallery -->
+      <div class="capsule-visual-showcase">
+        <div class="main-image-viewport">
+          <img id="mainCapsuleImage" src="assets/col_tulipe_white.jpg" alt="Chemise Col Tulipe J.Mossis Paris">
+          <div class="badge-overlay-viral">
+            <span class="pulsing-dot"></span>
+            <span>Vu sur Instagram @j.mossis (2.6M de passionnés)</span>
+          </div>
+          <div class="badge-overlay-stock">Édition Numérotée : 150 Exemplaires</div>
+        </div>
+
+        <!-- Thumbnail Strip -->
+        <div class="thumbnail-strip">
+          <div class="thumb-item active">
+            <img src="assets/col_tulipe_white.jpg" alt="Col Tulipe Vue Principale">
+          </div>
+          <div class="thumb-item">
+            <img src="assets/smoking_croise_bleu.jpg" alt="Porté sous Smoking Croisé">
+          </div>
+          <div class="thumb-item">
+            <img src="assets/smoking_bordeaux_chale.jpg" alt="Porté sous Veste Cérémonie">
+          </div>
+          <div class="thumb-item">
+            <img src="assets/boutique_facade.jpg" alt="Atelier 54 Avenue de Clichy">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Sartorial Customizer -->
+      <div class="capsule-customizer-panel">
+        <div class="capsule-meta-header">
+          <div class="capsule-pretitle">Atelier J.Mossis • 54 Avenue de Clichy, Paris 18e</div>
+          <h1 class="capsule-title">Chemise Sartoriale Signature : Col Tulipe</h1>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Tissé en Italie à partir de coton égyptien Giza 87 double retors (titrage 120/2). Une silhouette d'apparat au tombé aristocratique, créée pour être portée sans cravate.
+          </p>
+          <div class="capsule-pricing-row">
+            <div id="capsuleMainPrice" class="price-main">145 €</div>
+            <div class="price-shipping-badge">Expédition Express DHL sous 24h</div>
+          </div>
+        </div>
+
+        <!-- Step 1: Choix de la Découpe de Col -->
+        <div class="customizer-step">
+          <div class="step-label-row">
+            <span class="step-title">1. Forme du Col</span>
+            <span id="selectedCollarLabel" class="step-selected-value">Col Tulipe (Pétale Sartorial)</span>
+          </div>
+          <div class="collar-variant-grid">
+            <button class="collar-card-btn active" data-collar-id="tulipe">
+              <span class="collar-badge-sub">Signature Iconique</span>
+              <span class="collar-name">Col Tulipe</span>
+              <span class="collar-desc">Pétales incurvés qui épousent la nuque et maintiennent le port de tête.</span>
+            </button>
+            <button class="collar-card-btn" data-collar-id="indien">
+              <span class="collar-badge-sub">Ligne Épurée</span>
+              <span class="collar-name">Col Indien (Officier)</span>
+              <span class="collar-desc">Bande montante droite et minimaliste, inspirée des grands vestiaires d'État.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Teinte & Tissage -->
+        <div class="customizer-step">
+          <div class="step-label-row">
+            <span class="step-title">2. Tissu & Nuance</span>
+            <span id="selectedColorLabel" class="step-selected-value">Blanc Céleste (Popeline 120/2)</span>
+          </div>
+          <div class="colorway-row">
+            <button class="colorway-btn active" data-color-id="blanc">
+              <span class="swatch-circle" style="background: #FAFAFA;"></span>
+              <span class="colorway-name">Blanc Céleste</span>
+            </button>
+            <button class="colorway-btn" data-color-id="bleu">
+              <span class="swatch-circle" style="background: #B4CBE3;"></span>
+              <span class="colorway-name">Bleu Azur</span>
+            </button>
+            <button class="colorway-btn" data-color-id="noir">
+              <span class="swatch-circle" style="background: #111317;"></span>
+              <span class="colorway-name">Noir Onyx</span>
+            </button>
+            <button class="colorway-btn" data-color-id="rayure">
+              <span class="swatch-circle" style="background: #E3EDF7;"></span>
+              <span class="colorway-name">Rayure Fine</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Tour de Col (Sizing Protocol) -->
+        <div class="customizer-step">
+          <div class="step-label-row">
+            <span class="step-title">3. Tour de Col (Taille EU)</span>
+            <span id="selectedSizeLabel" class="step-selected-value">Taille 39 EU</span>
+          </div>
+          <div class="size-grid">
+            <button class="size-btn" data-size="38">38</button>
+            <button class="size-btn active" data-size="39">39</button>
+            <button class="size-btn" data-size="40">40</button>
+            <button class="size-btn" data-size="41">41</button>
+            <button class="size-btn" data-size="42">42</button>
+            <button class="size-btn" data-size="43">43</button>
+            <button class="size-btn" data-size="44">44</button>
+            <button class="size-btn" data-size="45">45</button>
+            <button class="size-btn" data-size="46">46</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Coupe & Poignets -->
+        <div class="customizer-step">
+          <div class="step-label-row">
+            <span class="step-title">4. Coupe & Poignets</span>
+            <span id="selectedFitLabel" class="step-selected-value">Coupe Ajustée (Slim)</span>
+          </div>
+          <div class="pill-options-grid">
+            <button class="pill-btn pill-fit-btn active" data-fit="slim">Coupe Ajustée (Slim)</button>
+            <button class="pill-btn pill-fit-btn" data-fit="classic">Coupe Confort (Classic)</button>
+          </div>
+          <div class="pill-options-grid" style="margin-top: 10px;">
+            <button class="pill-btn pill-cuff-btn active" data-cuff="button">Poignets Boutons Nacre</button>
+            <button class="pill-btn pill-cuff-btn" data-cuff="french">Poignets Mousquetaires</button>
+          </div>
+        </div>
+
+        <!-- Stock Urgency Meter -->
+        <div class="stock-meter-container">
+          <div class="meter-header">
+            <span class="left">Disponibilité Capsule Limitée</span>
+            <span class="right">42 / 150 Pièces Restantes</span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill"></div>
+          </div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="cta-button-group">
+          <button id="btnOrderCapsuleNow" class="btn-primary-order">
+            Réserver Ma Chemise Sur-Mesure
+          </button>
+          <button id="btnDirectWhatsApp" class="btn-whatsapp-order">
+            <span>Commander via Concierge WhatsApp Direct</span>
+          </button>
+          <div class="concierge-assurance-tags">
+            <span>✓ Expédition Express DHL 48h</span>
+            <span>✓ Retouche en Atelier Garantie</span>
+            <span>✓ Emballage Écrin Cadeau Offert</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: The Anatomy of the Col Tulipe -->
+    <section class="anatomy-section">
+      <div class="section-editorial-header">
+        <div class="section-label">Haute Confection Parisienne</div>
+        <h2 class="section-title">L'Anatomie du Col Tulipe</h2>
+        <p class="section-description">
+          Chaque chemise J.Mossis est confectionnée selon les règles strictes du tailleur traditionnel, alliant des tissus d'exception à des finitions manuelles de haute précision.
+        </p>
+      </div>
+
+      <div class="craft-details-grid">
+        <div class="craft-detail-card">
+          <div class="craft-detail-number">01</div>
+          <h3>Courbure Anatomique</h3>
+          <p>
+            Entoilage thermocollé souple de haute densité. Le col ne s'affaisse jamais, même après 14 heures de port continu.
+          </p>
+        </div>
+
+        <div class="craft-detail-card">
+          <div class="craft-detail-number">02</div>
+          <h3>Coton Double Retors 120/2</h3>
+          <p>
+            Fils d'Égypte Giza 87 torsadés par paire avant tissage en Italie. Toucher soyeux et résistance naturelle au froissement.
+          </p>
+        </div>
+
+        <div class="craft-detail-card">
+          <div class="craft-detail-number">03</div>
+          <h3>Boutons Nacre d'Australie</h3>
+          <p>
+            Nacre véritable polie à la meule, cousue en point de patte d'oie (zampa di gallina) avec pied de renfort.
+          </p>
+        </div>
+
+        <div class="craft-detail-card">
+          <div class="craft-detail-number">04</div>
+          <h3>Coutures Anglaises</h3>
+          <p>
+            Coutures rabattues à 7 points par centimètre sur les flancs. Zéro fil apparent et confort cutané absolu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Viral Social Reel Showcase & Video Integration -->
+    <section class="social-reel-section">
+      <div class="reel-showcase-container">
+        <!-- 9:16 Video Frame -->
+        <div class="reel-portrait-wrap">
+          <img src="assets/col_tulipe_white.jpg" alt="Démonstration Col Tulipe Avenue de Clichy">
+          <div class="reel-play-overlay">
+            <a href="https://www.facebook.com/reel/4620088161544239/" target="_blank" rel="noopener" class="reel-play-btn" title="Voir la Vidéo Originale">
+              ▶
+            </a>
+            <div class="reel-badge-tag">En Direct du 54 Avenue de Clichy</div>
+            <p class="reel-caption-quote">
+              "La chemise col tulipe, ou col indien à votre préférence, disponible en boutique J.Mossis Paris."
+            </p>
+          </div>
+        </div>
+
+        <!-- Editorial Content -->
+        <div class="reel-editorial-content">
+          <div class="section-label">L'Effervescence Digitale</div>
+          <h2 class="section-title">2.6 Millions d'Admirateurs à Travers le Monde</h2>
+          <p style="color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6;">
+            De Paris à New York, de Genève à Abidjan, les tutoriels sartoriaux et présentations de coupes de la Maison J.Mossis rassemblent une communauté mondiale d'hommes exigeants.
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+            Auparavant réservées aux visiteurs de notre boutique parisienne, nos silhouettes les plus demandées s'ouvrent aujourd'hui à la commande internationale sécurisée avec suivi d'atelier sur-mesure.
+          </p>
+
+          <div class="stats-counter-strip">
+            <div class="stat-box">
+              <div class="stat-number">2.3M+</div>
+              <div class="stat-label">Abonnés Facebook Vérifié</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">288K+</div>
+              <div class="stat-label">Abonnés Instagram</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">50 Ans</div>
+              <div class="stat-label">D'Histoire (Depuis 1976)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Sizing Protocol & Telemetry -->
+    <section class="sizing-guide-section">
+      <div class="section-editorial-header">
+        <div class="section-label">Télémétrie & Ajustement</div>
+        <h2 class="section-title">Guide de Prise de Mesures</h2>
+        <p class="section-description">
+          Pour garantir un tombé irréprochable, référez-vous à notre grille d'équivalence millimétrée.
+        </p>
+      </div>
+
+      <div class="sizing-card-layout">
+        <div class="sizing-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Taille EU</th>
+                <th>Taille US/UK</th>
+                <th>Tour de Col</th>
+                <th>Tour de Poitrine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>38</td><td>15.0"</td><td>38 cm</td><td>100 cm</td></tr>
+              <tr><td>39</td><td>15.5"</td><td>39 cm</td><td>104 cm</td></tr>
+              <tr><td>40</td><td>15.75"</td><td>40 cm</td><td>108 cm</td></tr>
+              <tr><td>41</td><td>16.0"</td><td>41 cm</td><td>112 cm</td></tr>
+              <tr><td>42</td><td>16.5"</td><td>42 cm</td><td>116 cm</td></tr>
+              <tr><td>43</td><td>17.0"</td><td>43 cm</td><td>120 cm</td></tr>
+              <tr><td>44</td><td>17.5"</td><td>44 cm</td><td>124 cm</td></tr>
+              <tr><td>45</td><td>18.0"</td><td>45 cm</td><td>128 cm</td></tr>
+              <tr><td>46</td><td>18.5"</td><td>46 cm</td><td>132 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sizing-instruction-block">
+          <div class="instruction-step">
+            <div class="step-num-badge">1</div>
+            <div>
+              <h4>Mesurez votre tour de cou</h4>
+              <p>Placez un mètre ruban autour de votre cou à la base de la gorge, en laissant l'épaisseur d'un doigt d'aisance.</p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num-badge">2</div>
+            <div>
+              <h4>Choisissez votre coupe</h4>
+              <p>Optez pour la Coupe Ajustée si vous appréciez un cintrage net au dos, ou la Coupe Confort pour une silhouette décontractée.</p>
+            </div>
+          </div>
+          <div class="instruction-step">
+            <div class="step-num-badge">3</div>
+            <div>
+              <h4>Assistance de notre Maître Tailleur</h4>
+              <p>En cas de doute, transmettez vos mesures ou votre morphologie en direct à notre équipe sur WhatsApp pour confirmation instantanée.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Suiting Companion Collection -->
+    <section class="suiting-companion-section">
+      <div class="section-editorial-header">
+        <div class="section-label">Le Vestiaire de Cérémonie</div>
+        <h2 class="section-title">Compositions Recommandées pour le Col Tulipe</h2>
+        <p class="section-description">
+          Pièces de haute confection signées Emmanuelle Khanh pour J.Mossis, disponibles pour expédition internationale immédiate.
+        </p>
+      </div>
+
+      <div id="suitingGrid" class="suiting-grid">
+        <!-- Rendered Dynamically via app.js -->
+      </div>
+    </section>
+
+    <!-- Section: Verified Reviews -->
+    <section class="reviews-section">
+      <div class="section-editorial-header">
+        <div class="section-label">Excellence Reconnue</div>
+        <h2 class="section-title">La Voix de Nos Clients</h2>
+        <p class="section-description">
+          Une note moyenne certifiée de 4.9 / 5.0 étoiles sur Google et Mariages.net.
+        </p>
+      </div>
+
+      <div id="reviewsGrid" class="reviews-grid">
+        <!-- Rendered Dynamically via app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Off-Canvas Shopping Bag Drawer -->
+  <div id="drawerBackdrop" class="drawer-backdrop"></div>
+  <aside id="cartDrawer" class="cart-drawer" style="background-color: #0E121A !important; z-index: 99999;">
+    <div class="cart-drawer-header" style="background-color: #0E121A !important;">
+      <h3 class="cart-drawer-title">Votre Panier Sartorial</h3>
+      <button id="btnCloseDrawer" class="btn-close-drawer" aria-label="Fermer le Panier">✕</button>
+    </div>
+
+    <div id="cartItemsContainer" class="cart-items-scroll" style="background-color: #0E121A !important;">
+      <!-- Populated via app.js -->
+    </div>
+
+    <div class="cart-drawer-footer" style="background-color: #0A0D14 !important;">
+      <div class="cart-subtotal-row">
+        <span class="cart-subtotal-label">Sous-Total</span>
+        <span id="cartSubtotal" class="cart-subtotal-val">0 €</span>
+      </div>
+      <div class="cart-checkout-actions">
+        <button id="btnCheckoutDrawer" class="btn-stripe-checkout">
+          Procéder au Paiement Sécurisé
+        </button>
+        <button id="btnWhatsAppCheckout" class="btn-whatsapp-checkout">
+          Finaliser la Commande via WhatsApp
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal (Fast Form) -->
+  <div id="modalBackdrop" class="modal-backdrop"></div>
+  <div id="checkoutModal" class="checkout-modal-card" style="display: none;">
+    <div class="modal-header-row">
+      <h3 class="modal-title">Expédition Express Internationale</h3>
+      <button id="btnCloseModal" class="btn-close-drawer">✕</button>
+    </div>
+    <p id="checkoutOrderSummary" style="font-size: 0.88rem; color: var(--text-gold);"></p>
+
+    <form id="checkoutForm" style="display: flex; flex-direction: column; gap: 14px;">
+      <div class="form-row-2">
+        <div class="form-group">
+          <label for="clientName">Nom & Prénom</label>
+          <input type="text" id="clientName" class="form-input" required placeholder="Jean de Saint-Germain">
+        </div>
+        <div class="form-group">
+          <label for="clientEmail">Adresse Email</label>
+          <input type="email" id="clientEmail" class="form-input" required placeholder="jean@exemple.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="clientPhone">Téléphone (avec indicatif)</label>
+        <input type="tel" id="clientPhone" class="form-input" required placeholder="+33 6 12 34 56 78">
+      </div>
+      <div class="form-group">
+        <label for="clientAddress">Adresse Complète de Livraison</label>
+        <input type="text" id="clientAddress" class="form-input" required placeholder="Rue, Ville, Code Postal, Pays">
+      </div>
+      <button type="submit" class="btn-primary-order" style="margin-top: 10px;">
+        Confirmer Ma Commande Sécurisée
+      </button>
+    </form>
+  </div>
+
+  <!-- Master Luxury Footer -->
+  <footer class="master-footer">
+    <div class="footer-content-grid">
+      <div class="footer-brand-col">
+        <div class="brand-title" style="font-size: 1.6rem;">J.MOSSIS</div>
+        <div class="brand-subtitle">54 Avenue de Clichy, 75018 Paris</div>
+        <p>
+          Maison de confection et tailleur pour homme fondé en 1976. Spécialiste officiel Emmanuelle Khanh à Paris. L'art sartorial français sublimé pour les hommes de caractère.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">L'Atelier Parisien</div>
+        <ul class="footer-nav-list">
+          <li>54 Avenue de Clichy, 75018 Paris</li>
+          <li>Métro : La Fourche / Place de Clichy</li>
+          <li>Tél : +33 1 43 87 81 65</li>
+          <li>Ouvert Lun-Sam : 10h - 20h</li>
+          <li>2h de Parking Offert (Garage Lemercier)</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <ul class="footer-nav-list">
+          <li>La Chemise Col Tulipe</li>
+          <li>La Chemise Col Indien</li>
+          <li>Costumes Sur-Mesure</li>
+          <li>Smokings de Cérémonie</li>
+          <li>Souliers Santoni & Accessoires</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Réseaux & Communauté</div>
+        <ul class="footer-nav-list">
+          <li><a href="https://www.facebook.com/JMossis" target="_blank" rel="noopener">Facebook Officiel (2.3M Abonnés)</a></li>
+          <li><a href="https://www.instagram.com/j.mossis/" target="_blank" rel="noopener">Instagram (@j.mossis)</a></li>
+          <li><a href="https://wa.me/33143878165" target="_blank" rel="noopener">Concierge WhatsApp</a></li>
+          <li>RCS Paris : SAS MOSSIS (879 186 807)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-row">
+      <span>© 2026 J.MOSSIS Paris. Tous droits réservés. Haute Confection Française.</span>
+      <span>Plateforme Digitale conçue par The iCelestial Group & Moradin Industries.</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
