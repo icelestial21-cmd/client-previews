@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 110" width="100%" height="100%">
+  <defs>
+    <linearGradient id="monoCrescent" x1="15%" y1="5%" x2="50%" y2="95%">
+      <stop offset="0%" stop-color="#00D4FF" />
+      <stop offset="28%" stop-color="#0072FF" />
+      <stop offset="68%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#D946EF" />
+    </linearGradient>
+    <linearGradient id="monoHighlight" x1="0%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#E0F7FE" stop-opacity="0.9" />
+      <stop offset="30%" stop-color="#38BDF8" stop-opacity="0.6" />
+      <stop offset="70%" stop-color="#C084FC" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#F472B6" stop-opacity="0.95" />
+    </linearGradient>
+    <linearGradient id="monoStem" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0A0F1D" />
+    </linearGradient>
+    <filter id="monoGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="3.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <g transform="translate(6, 6)">
+    <!-- Crescent C -->
+    <path d="M 82 36
+             C 48 14, 18 36, 18 62
+             C 18 88, 48 110, 80 88
+             C 46 96, 32 78, 32 62
+             C 32 46, 46 26, 82 36 Z"
+          fill="url(#monoCrescent)"
+          filter="url(#monoGlow)" />
+    <path d="M 80 38
+             C 50 18, 23 38, 23 62
+             C 23 85, 50 104, 78 86
+             C 48 92, 35 78, 35 62
+             C 35 48, 48 30, 80 38 Z"
+          fill="url(#monoHighlight)"
+          opacity="0.8" />
+    <!-- Square Purple Dot -->
+    <rect x="14" y="8" width="16" height="16" rx="3.5" fill="#A855F7" filter="url(#monoGlow)" />
+    <!-- Stem of I -->
+    <path d="M 10 36 L 27 27 L 27 82 L 33 84 L 33 91 L 7 91 L 7 84 L 13 82 L 13 40 Z"
+          fill="url(#monoStem)"
+          stroke="#334155"
+          stroke-width="0.8" />
+  </g>
+</svg>

@@ -27,6 +27,9 @@
   --accent-gold: #F7C948;
   --accent-coral: #FF2400;
   --accent-lavender: #E8DCFF;
+  --accent-cyan: #00D4FF;
+  --accent-magenta: #D946EF;
+  --accent-azure: #0072FF;
   
   /* Borders & Specular Glow */
   --border-light: rgba(139, 79, 255, 0.16);
@@ -177,6 +180,20 @@ section {
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(139, 79, 255, 0.4));
+}
+
+.brand-logo-full {
+  height: 48px;
+  width: auto;
+  max-width: 250px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(112, 0, 255, 0.35));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.brand-logo-full:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 6px 20px rgba(0, 212, 255, 0.5));
 }
 
 .brand-title-wrap {
