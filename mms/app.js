@@ -1,18 +1,19 @@
 /**
  * MMS CONSTRUCTION SERVICES : MASTER JAVASCRIPT CONTROLLER
  * Client: Marcus Saunders (Kingston and St. Catherine, Jamaica)
- * Architecture: Hybrid Cost Estimator (AJAWI Room Spatial + BCL Structural QS)
+ * Architecture: Hybrid Master Builder Estimator (Spatial Room Modeling + Structural QS Specification)
  *
  * Operational Modules:
- * 1. Dual Mode Estimator (Room-by-Room Spatial Builder and Macro Structural QS)
+ * 1. Dual Mode Estimator (Room-by-Room Spatial Planner and Macro Structural QS Engine)
  * 2. 2026 Jamaican Market Parity Rates (Burrowes & Wallace and Master Builders benchmarks)
  * 3. Real-Time Dual Currency Engine (JMD/USD at 155.0 exchange parity)
  * 4. Elemental Budget Breakdown and Dynamic Progress Visualizer
  * 5. Materials Takeoff Engine (Carib Cement bags, Grade 60 Rebar tonnage, Timelines)
  * 6. Direct WhatsApp Quote Serializer (Marcus Saunders +1 876-509-7471)
- * 7. Portfolio Category Filter and High-Resolution Lightbox Modal
- * 8. Mobile Navigation Drawer Controller
- * 9. Site Consultation Request Handler
+ * 7. Portfolio Category Filter (18 Verified Job Site Records)
+ * 8. High-Resolution Lightbox Modal with Full-Screen Viewer
+ * 9. Mobile Navigation Drawer Controller
+ * 10. Direct Project Inquiry Handler
  */
 
 (function () {
@@ -60,7 +61,7 @@
     }
   };
 
-  // Structural Multipliers (BCL Geotechnical & Engineering Schema)
+  // Structural Multipliers (Geotechnical and Engineering Specification Schema)
   const ROOF_MULTIPLIERS = {
     concrete_slab: 1.00,
     alusteel: 1.02,
@@ -154,11 +155,10 @@
     initSpatialControls();
     initStructuralControls();
     initCurrencyToggle();
-    initPortfolioFilter();
-    initLightboxModal();
-    initMobileNav();
-    initContactForm();
     initWhatsAppDispatch();
+    initPortfolioFilter();
+    initMobileMenu();
+    initQuickInquiryForm();
 
     // Initial calculation run
     updateEstimator();
@@ -203,10 +203,9 @@
   }
 
   // =========================================================================
-  // 2. SPATIAL ROOM BUILDER CONTROLS (MODE 1)
+  // 2. SPATIAL ROOM BUILDER CONTROLS
   // =========================================================================
   function initSpatialControls() {
-    // Helper to bind dimension slider pairs
     function bindSlider(lenId, lenValId, widId, widValId, badgeId, stateObj) {
       const lenEl = document.getElementById(lenId);
       const lenValEl = document.getElementById(lenValId);
@@ -233,7 +232,6 @@
       if (widEl) widEl.addEventListener('input', refresh);
     }
 
-    // Bind all spatial rooms
     bindSlider('masterBedLen', 'masterBedLenVal', 'masterBedWid', 'masterBedWidVal', 'masterBedAreaBadge', state.spatial.masterBed);
     bindSlider('masterBathLen', 'masterBathLenVal', 'masterBathWid', 'masterBathWidVal', 'masterBathAreaBadge', state.spatial.masterBath);
     bindSlider('otherBedLen', 'otherBedLenVal', 'otherBedWid', 'otherBedWidVal', 'otherBedAreaBadge', state.spatial.otherBed);
@@ -242,7 +240,6 @@
     bindSlider('livingLen', 'livingLenVal', 'livingWid', 'livingWidVal', 'livingAreaBadge', state.spatial.living);
     bindSlider('verandaLen', 'verandaLenVal', 'verandaWid', 'verandaWidVal', 'verandaAreaBadge', state.spatial.veranda);
 
-    // Counter buttons for secondary rooms
     const counterBtns = document.querySelectorAll('.counter-btn');
     counterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -276,7 +273,6 @@
       });
     });
 
-    // Spatial Finish Quality Tier Radios
     const tierRadios = document.querySelectorAll('input[name="spatialTier"]');
     tierRadios.forEach(radio => {
       radio.addEventListener('change', () => {
@@ -292,10 +288,9 @@
   }
 
   // =========================================================================
-  // 3. STRUCTURAL & ELEMENTAL QS CONTROLS (MODE 2)
+  // 3. STRUCTURAL & ELEMENTAL QS CONTROLS
   // =========================================================================
   function initStructuralControls() {
-    // Scope Package Cards
     const scopeCards = document.querySelectorAll('.scope-card');
     scopeCards.forEach(card => {
       card.addEventListener('click', () => {
@@ -306,7 +301,6 @@
       });
     });
 
-    // Square Footage Range & Number Input Synchronization
     const sqftRange = document.getElementById('structuralSqft');
     const sqftInput = document.getElementById('structuralSqftInput');
 
@@ -328,7 +322,6 @@
       });
     }
 
-    // Selectors (Roof, Floors, Soil, Parish)
     const roofSelect = document.getElementById('roofType');
     const floorsSelect = document.getElementById('buildingFloors');
     const soilSelect = document.getElementById('soilType');
@@ -362,7 +355,6 @@
       });
     }
 
-    // Logistics Checkboxes
     const checkBushing = document.getElementById('checkBushing');
     const checkTreeRemoval = document.getElementById('checkTreeRemoval');
     const checkWaterTank = document.getElementById('checkWaterTank');
@@ -398,14 +390,14 @@
       btn.addEventListener('click', () => {
         currencyBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        state.activeCurrency = btn.dataset.curr || 'JMD';
+        state.activeCurrency = btn.dataset.curr || btn.dataset.currency || 'JMD';
         renderDisplayTelemetry();
       });
     });
   }
 
   // =========================================================================
-  // 5. CORE HYBRID CALCULATION ENGINE
+  // 5. HYBRID ESTIMATION ENGINE
   // =========================================================================
   function updateEstimator() {
     let measuredArea = 0;
@@ -415,13 +407,11 @@
     let cementFactor = 0.45;
     let steelFactor = 0.0018;
 
-    // Get selected Parish multiplier
     const parishSelect = document.getElementById('parishSelect');
     const activeParish = parishSelect ? parishSelect.value : 'St. Catherine';
     const parishMult = PARISH_MULTIPLIERS[activeParish] || 1.00;
 
     if (state.activeMode === 'spatial') {
-      // Room Area Calculation (including secondary bathroom fix)
       const sp = state.spatial;
       const masterBedArea = sp.masterBed.len * sp.masterBed.wid;
       const masterBathArea = sp.masterBath.len * sp.masterBath.wid;
@@ -432,8 +422,6 @@
       const verandaArea = sp.veranda.len * sp.veranda.wid;
 
       const roomsSubtotal = masterBedArea + masterBathArea + otherBedArea + otherBathArea + kitchenArea + livingArea + verandaArea;
-      
-      // 5% Hallway and Circulation Allowance
       const circulationAllowance = Math.round(roomsSubtotal * 0.05);
       measuredArea = roomsSubtotal + circulationAllowance;
 
@@ -446,7 +434,6 @@
       steelFactor = 0.0018;
 
     } else {
-      // Structural QS Mode (BCL Specification)
       const st = state.structural;
       measuredArea = st.sqft;
 
@@ -458,7 +445,6 @@
       const combinedMult = roofMult * floorMult * soilMult * parishMult;
       const baseAreaCost = measuredArea * scopeData.rateJmd * combinedMult;
 
-      // Site Logistics Adders
       let logisticsTotal = 0;
       if (st.bushing) logisticsTotal += LOGISTICS_FEES.bushing;
       if (st.treeRemoval) logisticsTotal += LOGISTICS_FEES.treeRemoval;
@@ -472,18 +458,15 @@
       steelFactor = scopeData.steelPerSqFt;
     }
 
-    // Material Takeoffs & Duration
     const cementBags = Math.round(measuredArea * cementFactor);
     const rebarTons = parseFloat((measuredArea * steelFactor).toFixed(2));
     const timelineStr = calculateDuration(measuredArea, state.activeMode, state.structural.scope);
 
-    // Elemental Breakdown Calculations
     const subCost = Math.round(totalCostJmd * elementalRatios.sub);
     const supCost = Math.round(totalCostJmd * elementalRatios.sup);
     const finCost = Math.round(totalCostJmd * elementalRatios.fin);
     const mepCost = Math.round(totalCostJmd * elementalRatios.mep);
 
-    // Save to State
     state.telemetry = {
       totalAreaSqFt: measuredArea,
       unitRateJmd: effectiveUnitRateJmd,
@@ -502,7 +485,6 @@
     renderDisplayTelemetry();
   }
 
-  // Calculate realistic construction project duration
   function calculateDuration(area, mode, scope) {
     if (mode === 'structural') {
       if (scope === 'belting_decking') {
@@ -522,14 +504,12 @@
       }
     }
 
-    // Default Turnkey & Spatial
     if (area <= 1000) return '3 to 4 Mos';
     if (area <= 2200) return '4 to 6 Mos';
     if (area <= 3800) return '6 to 9 Mos';
     return '9 to 14 Mos';
   }
 
-  // Format currency numbers for display
   function formatCompact(val, curr) {
     if (curr === 'JMD') {
       if (val >= 1000000) {
@@ -548,13 +528,12 @@
   }
 
   // =========================================================================
-  // 6. RENDER TELEMETRY TO DOM
+  // 6. RENDER TELEMETRY
   // =========================================================================
   function renderDisplayTelemetry() {
     const t = state.telemetry;
     const isUsd = state.activeCurrency === 'USD';
 
-    // Total Figures
     const elCost = document.getElementById('displayTotalCost');
     const elCode = document.getElementById('displayCurrencyCode');
     const elSymbol = document.getElementById('displayCurrencySymbol');
@@ -578,7 +557,6 @@
       elUnitSuffix.textContent = isUsd ? 'USD / sq ft' : 'JMD / sq ft';
     }
 
-    // Elemental Progress Bar Segments
     const ratios = t.ratios || { sub: 0.22, sup: 0.38, fin: 0.24, mep: 0.16 };
     const barSub = document.getElementById('barSub');
     const barSup = document.getElementById('barSup');
@@ -607,7 +585,6 @@
       barMep.title = `MEP Services (${mepPct}%)`;
     }
 
-    // Elemental Legends
     const legSub = document.getElementById('legSub');
     const legSup = document.getElementById('legSup');
     const legFin = document.getElementById('legFin');
@@ -623,7 +600,6 @@
     if (legFin) legFin.textContent = formatCompact(finVal, state.activeCurrency);
     if (legMep) legMep.textContent = formatCompact(mepVal, state.activeCurrency);
 
-    // Material Takeoffs
     const elCement = document.getElementById('takeoffCement');
     const elSteel = document.getElementById('takeoffSteel');
     const elTimeline = document.getElementById('takeoffTimeline');
@@ -644,7 +620,7 @@
       e.preventDefault();
       const t = state.telemetry;
       const isSpatial = state.activeMode === 'spatial';
-      
+
       const parishSelect = document.getElementById('parishSelect');
       const parishName = parishSelect ? parishSelect.value : 'St. Catherine';
 
@@ -691,24 +667,21 @@
   }
 
   // =========================================================================
-  // 8. PORTFOLIO CATEGORY FILTER
+  // 8. PORTFOLIO FILTER MODULE (18 JOB SITES)
   // =========================================================================
   function initPortfolioFilter() {
-    const filterBtns = document.querySelectorAll('.portfolio-filter-tabs .filter-btn');
-    const cards = document.querySelectorAll('.portfolio-gallery-grid .portfolio-card');
+    const filterPills = document.querySelectorAll('.portfolio-filter-bar .filter-pill');
+    const cards = document.querySelectorAll('.portfolio-item-card');
 
-    if (!filterBtns.length || !cards.length) return;
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter || 'all';
+        const filter = pill.dataset.filter;
 
         cards.forEach(card => {
-          const category = card.dataset.category;
-          if (filter === 'all' || category === filter) {
+          if (filter === 'all' || card.dataset.category === filter) {
             card.style.display = 'flex';
           } else {
             card.style.display = 'none';
@@ -719,129 +692,91 @@
   }
 
   // =========================================================================
-  // 9. HIGH-RESOLUTION LIGHTBOX MODAL
+  // 9. LIGHTBOX MODAL CONTROLLER
   // =========================================================================
-  function initLightboxModal() {
+  window.openLightbox = function(title, category, location, imageSrc, description) {
     const modal = document.getElementById('lightboxModal');
-    const closeBtn = document.getElementById('closeLightbox');
-    const imgEl = document.getElementById('lightboxImg');
-    const captionEl = document.getElementById('lightboxCaption');
-    const backdrop = modal ? modal.querySelector('.lightbox-backdrop') : null;
+    if (!modal) return;
 
-    if (!modal || !imgEl) return;
+    const titleEl = document.getElementById('lightboxTitle');
+    const categoryEl = document.getElementById('lightboxCategory');
+    const imageEl = document.getElementById('lightboxImage');
+    const descEl = document.getElementById('lightboxDesc');
 
-    function openModal(imgSrc, title, desc) {
-      imgEl.src = imgSrc;
-      imgEl.alt = title;
-      if (captionEl) {
-        captionEl.innerHTML = `<strong>${title}</strong><p>${desc}</p>`;
-      }
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+    if (titleEl) titleEl.textContent = title;
+    if (categoryEl) categoryEl.textContent = `${category} : ${location}`;
+    if (imageEl) {
+      imageEl.src = imageSrc;
+      imageEl.alt = title;
     }
+    if (descEl) descEl.textContent = description;
 
-    function closeModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeLightbox = function() {
+    const modal = document.getElementById('lightboxModal');
+    if (modal) {
       modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
-      imgEl.src = '';
     }
+  };
 
-    // Attach click listener to portfolio cards
-    const portfolioCards = document.querySelectorAll('.portfolio-card');
-    portfolioCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const img = card.querySelector('.gallery-img');
-        const titleEl = card.querySelector('h4');
-        const descEl = card.querySelector('p');
-
-        const imgSrc = img ? img.getAttribute('src') : '';
-        const title = titleEl ? titleEl.textContent : 'MMS Construction Project';
-        const desc = descEl ? descEl.textContent : '';
-
-        if (imgSrc) {
-          openModal(imgSrc, title, desc);
-        }
-      });
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (backdrop) backdrop.addEventListener('click', closeModal);
-
-    // Escape key closes modal
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
-  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      window.closeLightbox();
+    }
+  });
 
   // =========================================================================
   // 10. MOBILE NAVIGATION DRAWER
   // =========================================================================
-  function initMobileNav() {
-    const toggleBtn = document.getElementById('mobileNavToggle');
-    const mainNav = document.getElementById('mainNav');
+  function initMobileMenu() {
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
 
-    if (!toggleBtn || !mainNav) return;
-
-    toggleBtn.addEventListener('click', () => {
-      mainNav.classList.toggle('mobile-open');
-    });
-
-    // Close menu when anchor clicked
-    const links = mainNav.querySelectorAll('.nav-anchor');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        mainNav.classList.remove('mobile-open');
+    if (toggleBtn && navMenu) {
+      toggleBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
       });
-    });
+
+      const navLinks = navMenu.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('open');
+        });
+      });
+    }
   }
 
   // =========================================================================
-  // 11. SITE CONSULTATION REQUEST FORM
+  // 11. QUICK INQUIRY DISPATCH
   // =========================================================================
-  function initContactForm() {
-    const form = document.getElementById('contactForm');
+  function initQuickInquiryForm() {
+    const form = document.querySelector('.contact-form-block form');
     if (!form) return;
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const nameEl = document.getElementById('cName');
-      const phoneEl = document.getElementById('cPhone');
-      const parishEl = document.getElementById('cParish');
-      const scopeEl = document.getElementById('cScope');
-      const msgEl = document.getElementById('cMessage');
+      const nameInput = document.getElementById('inquiryName');
+      const phoneInput = document.getElementById('inquiryPhone');
+      const scopeInput = document.getElementById('inquiryScope');
+      const detailsInput = document.getElementById('inquiryDetails');
 
-      const name = nameEl ? nameEl.value.trim() : '';
-      const phone = phoneEl ? phoneEl.value.trim() : '';
-      const parish = parishEl ? parishEl.value : 'St. Catherine';
-      const scope = scopeEl ? scopeEl.value : 'General Construction';
-      const details = msgEl ? msgEl.value.trim() : 'No additional notes provided.';
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const scope = scopeInput ? scopeInput.value : '';
+      const details = detailsInput ? detailsInput.value.trim() : '';
 
       if (!name || !phone) {
         alert('Please provide your name and contact phone number.');
         return;
       }
 
-      const lines = [
-        `Hello Marcus (MMS Construction Services),`,
-        ``,
-        `I would like to request an on-site survey and consultation:`,
-        `* Client Name: ${name}`,
-        `* Phone: ${phone}`,
-        `* Site Location: ${parish}`,
-        `* Required Service: ${scope}`,
-        `* Project Notes: ${details}`,
-        ``,
-        `Please call or message me at your earliest convenience.`
-      ];
-
-      const fullMessage = lines.join('\n');
-      const waUrl = `https://wa.me/18765097471?text=${encodeURIComponent(fullMessage)}`;
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      const message = `Hello Marcus (MMS Construction Services),\n\nMy name is ${name} (${phone}).\n* Project Scope: ${scope}\n* Details & Location: ${details || 'Not specified'}\n\nPlease contact me to schedule a site consultation.`;
+      window.open(`https://wa.me/18765097471?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
     });
   }
 
