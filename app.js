@@ -1,7 +1,7 @@
 /**
- * STUDIO SHOWCASE : JAVASCRIPT CONTROLLER
+ * iCELESTIAL ENTERPRISES : JAVASCRIPT CONTROLLER
  * High-velocity creative engineering, living client consoles, 3D bento physics,
- * 498-asset catalog search, Command Palette (Cmd+K), and canvas constellation.
+ * 498-module interactive catalog, Command Palette (Cmd+K), and cosmic canvas.
  */
 
 (function () {
@@ -12,11 +12,11 @@
   // ==========================================================================
   const toastWrap = document.getElementById('toastWrap');
 
-  function showToast(message, icon = '&#10003;') {
+  function showToast(message, icon = '&#10022;') {
     if (!toastWrap) return;
     const toast = document.createElement('div');
     toast.className = 'toast';
-    toast.innerHTML = `<span style="color: var(--accent-champagne);">${icon}</span><span>${message}</span>`;
+    toast.innerHTML = `<span style="color: var(--accent-gold); font-size: 1rem;">${icon}</span><span>${message}</span>`;
     toastWrap.appendChild(toast);
 
     requestAnimationFrame(() => {
@@ -73,14 +73,14 @@
   }
 
   // ==========================================================================
-  // 3. LIVING HERO CANVAS (Interactive Constellation & Particle Mesh)
+  // 3. LIVING HERO CANVAS (Cosmic Purple, Orange & Celestial Gold Constellation)
   // ==========================================================================
   const heroCanvas = document.getElementById('heroCanvas');
   if (heroCanvas) {
     const ctx = heroCanvas.getContext('2d');
     let width, height;
     let particles = [];
-    const particleCount = 55;
+    const particleCount = 65;
     let heroMouseX = null;
     let heroMouseY = null;
 
@@ -101,11 +101,20 @@
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.6;
-        this.vy = (Math.random() - 0.5) * 0.6;
-        this.radius = Math.random() * 2 + 1.2;
-        this.baseAlpha = Math.random() * 0.35 + 0.15;
-        this.color = Math.random() > 0.4 ? 'rgba(194, 94, 62,' : 'rgba(212, 175, 55,';
+        this.vx = (Math.random() - 0.5) * 0.55;
+        this.vy = (Math.random() - 0.5) * 0.55;
+        this.radius = Math.random() * 2.2 + 1.2;
+        this.baseAlpha = Math.random() * 0.45 + 0.25;
+
+        // Tri-color cosmic palette: Purple, Solar Orange, Starlight Gold
+        const rand = Math.random();
+        if (rand < 0.45) {
+          this.color = 'rgba(139, 79, 255,'; // Amethyst Purple
+        } else if (rand < 0.75) {
+          this.color = 'rgba(255, 122, 0,';  // Solar Orange
+        } else {
+          this.color = 'rgba(247, 201, 72,'; // Starlight Gold
+        }
       }
 
       update() {
@@ -120,10 +129,10 @@
           const dx = this.x - heroMouseX;
           const dy = this.y - heroMouseY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
-            const force = (130 - dist) / 130;
-            this.x += (dx / dist) * force * 1.5;
-            this.y += (dy / dist) * force * 1.5;
+          if (dist < 140) {
+            const force = (140 - dist) / 140;
+            this.x += (dx / dist) * force * 1.8;
+            this.y += (dy / dist) * force * 1.8;
           }
         }
       }
@@ -132,7 +141,10 @@
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = `${this.color} ${this.baseAlpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `${this.color} 0.5)`;
         ctx.fill();
+        ctx.shadowBlur = 0;
       }
     }
 
@@ -147,18 +159,18 @@
     function animateHeroCanvas() {
       ctx.clearRect(0, 0, width, height);
 
-      // Draw connection lines
+      // Draw celestial connection lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 115) {
-            const alpha = (1 - dist / 115) * 0.18;
+          if (dist < 120) {
+            const alpha = (1 - dist / 120) * 0.22;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(18, 19, 22, ${alpha})`;
+            ctx.strokeStyle = `rgba(139, 79, 255, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -380,7 +392,7 @@
   });
 
   // ==========================================================================
-  // 6. 498-ASSET HORIZONX VAULT BROWSER
+  // 6. 498-MODULE iCELESTIAL CAPABILITY BROWSER
   // ==========================================================================
   let catalogData = [];
   const bentoVaultInput = document.getElementById('bentoVaultInput');
@@ -393,7 +405,7 @@
       if (res.ok) {
         catalogData = await res.json();
         if (vaultCountBadge) {
-          vaultCountBadge.textContent = `${catalogData.length} Assets Indexed`;
+          vaultCountBadge.textContent = `${catalogData.length} Modules Available`;
         }
         renderVaultResults(catalogData.slice(0, 8));
       }
@@ -407,7 +419,7 @@
     bentoVaultResults.innerHTML = '';
 
     if (items.length === 0) {
-      bentoVaultResults.innerHTML = '<div style="grid-column: span 2; text-align: center; padding: 2rem; color: var(--ink-tertiary);">No components found matching search.</div>';
+      bentoVaultResults.innerHTML = '<div style="grid-column: span 2; text-align: center; padding: 2rem; color: var(--ink-tertiary);">No modules found matching search.</div>';
       return;
     }
 
@@ -417,12 +429,12 @@
       div.innerHTML = `
         <div class="vault-item-top">
           <span class="vault-item-name">${item.title || item.id}</span>
-          <span class="vault-item-cat">${item.category || 'Tool'}</span>
+          <span class="vault-item-cat">${item.category || 'Module'}</span>
         </div>
-        <p class="vault-item-desc">${item.summary || 'Sovereign zero-rent physics asset extracted from HorizonX.'}</p>
+        <p class="vault-item-desc">${item.summary || 'Custom interactive visual module engineered by iCelestial.'}</p>
       `;
       div.addEventListener('click', () => {
-        showToast(`Asset selected: ${item.title || item.id}. Source code available in vault.`);
+        showToast(`Module inspected: ${item.title || item.id}. Ready for bespoke integration.`);
       });
       bentoVaultResults.appendChild(div);
     });
@@ -514,30 +526,37 @@
     },
     {
       type: 'engine',
-      title: 'Aceternity UI MCP Server',
-      desc: 'Global MCP server providing background beams, card pins, and aurora shaders.',
-      tag: 'MCP Active',
-      action: () => document.getElementById('bento').scrollIntoView({ behavior: 'smooth' })
+      title: 'Spatial 3D & WebGL Shaders',
+      desc: 'Cinematic visual atmospheres, raymarched celestial horizons, and luminous cards.',
+      tag: 'Core Pillar',
+      action: () => document.getElementById('matrix').scrollIntoView({ behavior: 'smooth' })
     },
     {
       type: 'engine',
-      title: 'Magic UI Bento Grids',
-      desc: 'Kinetic connection beams, 3D globes, dock navigation, and particle fields.',
-      tag: 'Zero-Rent',
-      action: () => document.getElementById('bento').scrollIntoView({ behavior: 'smooth' })
+      title: 'Storefront Physical Extraction',
+      desc: 'Translating physical storefronts and heritage materials into digital flagships.',
+      tag: 'Core Pillar',
+      action: () => document.getElementById('matrix').scrollIntoView({ behavior: 'smooth' })
     },
     {
       type: 'engine',
-      title: 'Tremor Enterprise Telemetry',
-      desc: 'High-precision real-time metrics, sparklines, and KPI reporting.',
-      tag: 'Telemetry',
-      action: () => document.getElementById('bento').scrollIntoView({ behavior: 'smooth' })
+      title: 'Interactive Visual Commerce',
+      desc: 'Embedded live material estimators, bespoke tailoring studios, and sizing matrices.',
+      tag: 'Core Pillar',
+      action: () => document.getElementById('matrix').scrollIntoView({ behavior: 'smooth' })
+    },
+    {
+      type: 'engine',
+      title: 'Enterprise Zero-Bloat Speed',
+      desc: 'Sub-50ms instantaneous page loads and complete intellectual property ownership.',
+      tag: 'Core Pillar',
+      action: () => document.getElementById('matrix').scrollIntoView({ behavior: 'smooth' })
     },
     {
       type: 'horizonx',
       title: 'Planetrise WebGL Celestial Shader',
       desc: 'Raymarched spherical star limb with atmospheric Rayleigh scattering.',
-      tag: 'WebGL2',
+      tag: 'Shader FX',
       action: () => {
         document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
         const tab = document.querySelector('[data-component="planetrise"]');
@@ -546,9 +565,9 @@
     },
     {
       type: 'horizonx',
-      title: '3D Layered Sheet Stack',
-      desc: 'CSS 3D preserve-3d card slider with spring dismiss physics.',
-      tag: 'Physics',
+      title: '3D Layered Gesture Sheet Stack',
+      desc: 'Layered card deck with spring gesture dragging and smooth dismissal.',
+      tag: 'Spatial 3D',
       action: () => {
         document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
         const tab = document.querySelector('[data-component="sheet-stack"]');
@@ -557,7 +576,7 @@
     },
     {
       type: 'horizonx',
-      title: 'Kinetic Text Ring',
+      title: 'Kinetic Vector Text Ring',
       desc: 'Circular SVG textPath rotating with pointer angular velocity.',
       tag: 'Typography',
       action: () => {
@@ -568,8 +587,8 @@
     },
     {
       type: 'horizonx',
-      title: 'Luminous Slit Directional Card',
-      desc: 'Traveling aperture highlight with sub-pixel ambient bloom.',
+      title: 'Luminous Slit Optics Card',
+      desc: 'Directional traveling aperture highlight with ambient specular bloom.',
       tag: 'Lighting',
       action: () => {
         document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
@@ -580,8 +599,8 @@
     {
       type: 'horizonx',
       title: 'Magnetic Gravitational CTA Button',
-      desc: 'Two-stage proximity attraction with damped spring return.',
-      tag: 'Input',
+      desc: 'Elastic proximity attraction with damped spring return.',
+      tag: 'Input Interaction',
       action: () => {
         document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
         const tab = document.querySelector('[data-component="magnetic-button"]');
@@ -620,9 +639,9 @@
         pool.push({
           type: 'horizonx',
           title: c.title || c.id,
-          desc: c.summary || 'HorizonX asset',
-          tag: c.category || 'Asset',
-          action: () => showToast(`Catalog Asset: ${c.title || c.id}`)
+          desc: c.summary || 'Custom iCelestial interactive module',
+          tag: c.category || 'Module',
+          action: () => showToast(`Module selected: ${c.title || c.id}`)
         });
       });
     }
@@ -638,7 +657,7 @@
     }
 
     if (pool.length === 0) {
-      cmdResultsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--ink-tertiary);">No matching commands or assets.</div>';
+      cmdResultsList.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--ink-tertiary);">No matching capabilities found.</div>';
       return;
     }
 
@@ -701,7 +720,7 @@
   });
 
   // ==========================================================================
-  // 8. INTERACTIVE COMPONENT LAB (Zero-Rent Physics)
+  // 8. INTERACTIVE COMPONENT LAB
   // ==========================================================================
   const LAB_COMPONENTS = {
     'sheet-stack': {
