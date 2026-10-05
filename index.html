@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creative Engineering & Digital Flagships — Studio Showcase</title>
+  <title>Creative Engineering &amp; Digital Flagships : Studio Showcase</title>
   <meta name="description" content="Master creative engineering showcase demonstrating bespoke digital flagships, brand-native aesthetics, WebGL physics, and zero-rent UI architecture.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <!-- Custom Magnetic Cursor Follower -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-wrap" id="toastWrap"></div>
 
   <!-- ======================================================================
        NAVIGATION
@@ -25,25 +32,33 @@
       <ul class="nav-links">
         <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
         <li><a href="#flagships" class="nav-link">Client Flagships</a></li>
-        <li><a href="#lab" class="nav-link">Component Lab</a></li>
+        <li><a href="#bento" class="nav-link">3D Bento Matrix</a></li>
+        <li><a href="#lab" class="nav-link">Physics Lab</a></li>
         <li><a href="#matrix" class="nav-link">Capability Matrix</a></li>
       </ul>
 
       <div class="nav-actions">
+        <button class="nav-search-btn" id="navSearchTrigger" aria-label="Search Vault">
+          <span>&#128269;</span>
+          <span>Search Vault</span>
+          <kbd>&#8984;K</kbd>
+        </button>
         <a href="https://icelestial21-cmd.github.io/client-previews/" target="_blank" rel="noopener" class="btn-pill btn-secondary">
           <span>Staging Hub</span>
           <span>&rarr;</span>
         </a>
-        <a href="#flagships" class="btn-pill btn-primary">Explore Work</a>
       </div>
     </div>
   </nav>
 
   <!-- ======================================================================
-       HERO SECTION
+       HERO SECTION (LIVING SOVEREIGN CANVAS)
        ====================================================================== -->
   <header class="hero-section">
-    <div class="container">
+    <!-- Interactive Canvas Particle Field -->
+    <canvas id="heroCanvas" class="hero-canvas"></canvas>
+
+    <div class="container hero-content">
       <div class="hero-badge-wrap">
         <span class="hero-pill">Creative Engineering &amp; Client Transmutation</span>
         <span class="hero-status">
@@ -57,16 +72,20 @@
       </h1>
 
       <p class="hero-lead">
-        No generic templates. No cookie-cutter monochrome. From Parisian tailoring institutions and Caspian luxury ateliers to Jamaican civic general contracting and Lagos royal couture, we extract real physical store presence, founder heritage, and viral social energy into high-converting digital engines.
+        No generic templates. No cookie-cutter monochrome. From Parisian tailoring institutions and Caspian luxury ateliers to Jamaican civic general contracting and royal Nigerian couture, we extract real physical store presence, founder heritage, and viral social energy into high-converting digital engines.
       </p>
 
-      <div class="case-actions">
+      <div class="hero-actions">
         <a href="#flagships" class="btn-pill btn-primary" style="padding: 0.85rem 1.8rem; font-size: 0.95rem;">
           <span>Inspect Client Flagships</span>
           <span>&darr;</span>
         </a>
+        <button class="btn-pill btn-secondary" id="heroSearchTrigger" style="padding: 0.85rem 1.8rem; font-size: 0.95rem;">
+          <span>Search 498-Asset Vault</span>
+          <kbd style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--bg-subtle); padding: 0.1rem 0.4rem; border-radius: 4px; border: 1px solid var(--border-medium); margin-left: 0.25rem;">&#8984;K</kbd>
+        </button>
         <a href="#lab" class="btn-pill btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 0.95rem;">
-          <span>Test Interactive Physics Lab</span>
+          <span>Test WebGL Physics Lab</span>
           <span>&rarr;</span>
         </a>
       </div>
@@ -95,30 +114,94 @@
         </div>
       </div>
     </div>
+
+    <!-- Infinite Dual Marquee Tickers -->
+    <div class="marquee-wrapper">
+      <div class="marquee-track" id="marqueeTrack1">
+        <div class="marquee-item"><span class="marquee-icon">&#10022;</span> WebGL2 Raymarching</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9672;</span> Three.js Celestial Shaders</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9670;</span> Aceternity UI MCP Bridge</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9638;</span> Magic UI Bento Grids</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9671;</span> React Bits Kinetic Typography</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9776;</span> Shadcn Radix Primitives</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9700;</span> Tremor Enterprise Telemetry</div>
+        <div class="marquee-item"><span class="marquee-icon">&#10022;</span> CSS 3D Preserve Transforms</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9672;</span> Sub-Pixel Bloom &amp; Slit Optics</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9670;</span> Zero-Rent Sovereign Vault</div>
+        <!-- Duplicated for infinite loop -->
+        <div class="marquee-item"><span class="marquee-icon">&#10022;</span> WebGL2 Raymarching</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9672;</span> Three.js Celestial Shaders</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9670;</span> Aceternity UI MCP Bridge</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9638;</span> Magic UI Bento Grids</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9671;</span> React Bits Kinetic Typography</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9776;</span> Shadcn Radix Primitives</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9700;</span> Tremor Enterprise Telemetry</div>
+        <div class="marquee-item"><span class="marquee-icon">&#10022;</span> CSS 3D Preserve Transforms</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9672;</span> Sub-Pixel Bloom &amp; Slit Optics</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9670;</span> Zero-Rent Sovereign Vault</div>
+      </div>
+    </div>
+
+    <div class="marquee-wrapper" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
+      <div class="marquee-track reverse" id="marqueeTrack2">
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Paris 75018 : J.Mossis Haute Confection</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Kingston &amp; St. Catherine : MMS Civil Contracting</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Baku Nizami St : Marko Caspian Sartorial</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Baku Outerwear : DEPARTAMENT Man Aviators</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Lagos Victoria Island : Chibest Royal Bullion</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Mandeville SEZ : Moradin Earthworks 3D SCIP</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> St. Ann Luxury Estate : Monolithic Engineering</div>
+        <!-- Duplicated for infinite loop -->
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Paris 75018 : J.Mossis Haute Confection</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Kingston &amp; St. Catherine : MMS Civil Contracting</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Baku Nizami St : Marko Caspian Sartorial</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Baku Outerwear : DEPARTAMENT Man Aviators</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Lagos Victoria Island : Chibest Royal Bullion</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> Mandeville SEZ : Moradin Earthworks 3D SCIP</div>
+        <div class="marquee-item"><span class="marquee-icon">&#9679;</span> St. Ann Luxury Estate : Monolithic Engineering</div>
+      </div>
+    </div>
   </header>
 
   <!-- ======================================================================
        THE PHILOSOPHY MANIFEST
        ====================================================================== -->
   <section class="philosophy-strip" id="philosophy">
-    <div class="container philosophy-grid">
-      <div class="philosophy-header">
-        <h3>The Anti-Monolith Doctrine</h3>
-        <h2>Design belongs to the client's reality, not our personal bias.</h2>
+    <div class="container">
+      <div class="philosophy-grid">
+        <div class="philosophy-header">
+          <h3>The Anti-Monolith Doctrine</h3>
+          <h2>Design belongs to the client's reality, not our personal bias.</h2>
+        </div>
+        <div class="philosophy-body">
+          <p>
+            Too many agencies force every client into the same dark, developer-centric aesthetic. A 50-year-old French tailoring house is not a crypto protocol. A Caribbean civil contractor is not a Silicon Valley SaaS. 
+          </p>
+          <p>
+            <strong>Our Rule of Engagement:</strong> We pull our visual grammar directly from the client's physical storefront, their Instagram lookbooks, their partner emblems, and the tactile materials of their trade: whether that is Haussmannian facade stone, Caspian silk overcoats, or Jamaican screeded concrete.
+          </p>
+        </div>
       </div>
-      <div class="philosophy-body">
-        <p>
-          Too many agencies force every client into the same dark, developer-centric aesthetic. A 50-year-old French tailoring house is not a crypto protocol. A Caribbean civil contractor is not a Silicon Valley SaaS. 
-        </p>
-        <p>
-          <strong>Our Rule of Engagement:</strong> We pull our visual grammar directly from the client's physical storefront, their Instagram lookbooks, their partner emblems, and the tactile materials of their trade: whether that is Haussmannian facade stone, Caspian silk overcoats, or Jamaican screeded concrete.
-        </p>
+
+      <div class="philosophy-cards">
+        <div class="phil-card">
+          <h4>1. Storefront Physical Extraction</h4>
+          <p>We analyze the client's street address, masonry textures, lighting, and interior tones to construct an authentic digital extension.</p>
+        </div>
+        <div class="phil-card">
+          <h4>2. Velocity Conversion Architecture</h4>
+          <p>Converting passive social video views into sub-60-second international checkouts via multi-currency and WhatsApp dispatch.</p>
+        </div>
+        <div class="phil-card">
+          <h4>3. Zero-Rent Sovereignty</h4>
+          <p>All animations, shaders, and UI primitives live directly in our source repository. No subscription locks, no monthly plugin fees.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ======================================================================
-       CLIENT FLAGSHIP CASE STUDIES
+       CLIENT FLAGSHIP CASE STUDIES (With Living Interactive Consoles)
        ====================================================================== -->
   <section class="showcase-section" id="flagships">
     <div class="container">
@@ -130,47 +213,7 @@
 
       <div class="case-study-list">
         
-        <!-- CASE 01: J.MOSSIS PARIS -->
-        <article class="case-card">
-          <div class="case-media">
-            <span class="case-badge-floating">Paris, France &bull; 75018</span>
-            <img src="assets/col_tulipe_white.jpg" alt="J.Mossis Chemise Col Tulipe Haute Confection">
-          </div>
-          <div class="case-content">
-            <div>
-              <div class="case-meta">
-                <span>Maison Fond&eacute;e en 1976</span>
-                <span>&bull;</span>
-                <span>2.6M Followers</span>
-              </div>
-              <h3 class="case-title">J.Mossis Paris</h3>
-              <p class="case-summary">
-                A prestigious 50-year-old tailoring house on Avenue de Clichy with over 2.3M Facebook and 288K Instagram followers. Their viral Col Tulipe reels drew millions of views, but their brochure site stated "disponible uniquement en magasin". We engineered a high-velocity Digital Capsule Drop engine capturing remote European, African, and North American orders in under 60 seconds.
-              </p>
-            </div>
-            <div>
-              <div class="case-attributes">
-                <div class="attr-item">
-                  <strong>Aesthetic Transmutation</strong>
-                  <span>Haussmannian stone, Egyptian cotton 120/2, Champagne gold</span>
-                </div>
-                <div class="attr-item">
-                  <strong>Conversion Mechanics</strong>
-                  <span>Multi-currency checkout, collar selector, WhatsApp Concierge</span>
-                </div>
-              </div>
-              <div class="case-actions">
-                <a href="https://icelestial21-cmd.github.io/client-previews/jmossis/" target="_blank" rel="noopener" class="btn-pill btn-primary">
-                  <span>Open Live Flagship</span>
-                  <span>&rarr;</span>
-                </a>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8095 Live</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- CASE 02: MMS CONSTRUCTION SERVICES -->
+        <!-- CASE 01: MMS CONSTRUCTION SERVICES -->
         <article class="case-card reverse">
           <div class="case-media">
             <span class="case-badge-floating">Kingston &amp; St. Catherine, Jamaica</span>
@@ -187,31 +230,150 @@
               <p class="case-summary">
                 Marcus Saunders built the Ewarton Lecture Theatre for Damion Crawford MP, yet was relying entirely on word-of-mouth. We designed a robust, industrial general contracting platform equipped with a Jamaican Building Cost Estimator that computes Carib cement bag volumes, rebar tonnage, and dual JMD/USD totals for domestic and UK/US diaspora clients.
               </p>
+
+              <!-- Live Interactive Console: Jamaican Construction Cost Estimator -->
+              <div class="case-interactive-console">
+                <div class="console-header">
+                  <span class="console-title">&#9881; Live Material &amp; Cost Estimator</span>
+                  <span class="console-badge">Interactive Widget</span>
+                </div>
+                
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Project Footprint</span>
+                    <span id="mmsSqftLabel" style="font-family: var(--font-mono); color: var(--accent-terracotta);">2,400 sq ft</span>
+                  </div>
+                  <input type="range" min="800" max="6000" step="100" value="2400" class="console-range" id="mmsSqftSlider">
+                </div>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Structural System</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn active" data-mms-system="residential">Residential Reinforced (1.0x)</button>
+                    <button class="console-pill-btn" data-mms-system="commercial">Commercial Heavy-Duty (1.45x)</button>
+                    <button class="console-pill-btn" data-mms-system="scip">SCIP Monolithic Slab (1.20x)</button>
+                  </div>
+                </div>
+
+                <div class="console-output-grid">
+                  <div class="console-output-item">
+                    <span class="console-val" id="mmsCementVal">1,248 Bags</span>
+                    <span class="console-sub">Carib Portland 42.5N</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val" id="mmsRebarVal">6.72 Tons</span>
+                    <span class="console-sub">Grade 60 Steel 1/2" Rebar</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val" id="mmsTotalJmd">$4.85M JMD</span>
+                    <span class="console-sub">Estimated Materials Total</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val" id="mmsTotalUsd">$30.7K USD</span>
+                    <span class="console-sub">Diaspora Reference @ 158</span>
+                  </div>
+                </div>
+
+                <div class="console-actions-inline">
+                  <button class="console-btn-sm" id="mmsCopyEstimateBtn">&#128203; Copy Bill of Quantities</button>
+                  <span style="font-size: 0.72rem; color: var(--ink-tertiary); display: flex; align-items: center;">Calculated with Jamaican BSJ building standards</span>
+                </div>
+              </div>
             </div>
+
+            <div class="case-actions">
+              <a href="https://icelestial21-cmd.github.io/client-previews/mms/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                <span>Open Live Flagship</span>
+                <span>&rarr;</span>
+              </a>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8092 Live &bull; Mandeville &amp; Kingston</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CASE 02: J.MOSSIS PARIS -->
+        <article class="case-card">
+          <div class="case-media">
+            <span class="case-badge-floating">Paris, France &bull; 75018</span>
+            <img src="assets/col_tulipe_white.jpg" alt="J.Mossis Chemise Col Tulipe Haute Confection">
+          </div>
+          <div class="case-content">
             <div>
-              <div class="case-attributes">
-                <div class="attr-item">
-                  <strong>Aesthetic Transmutation</strong>
-                  <span>Structural cobalt, safety amber, screeded slab textures</span>
+              <div class="case-meta">
+                <span>Maison Fond&eacute;e en 1976</span>
+                <span>&bull;</span>
+                <span>2.6M Followers</span>
+              </div>
+              <h3 class="case-title">J.Mossis Paris</h3>
+              <p class="case-summary">
+                A prestigious 50-year-old tailoring house on Avenue de Clichy with over 2.3M Facebook and 288K Instagram followers. Their viral Col Tulipe reels drew millions of views, but their brochure site stated "disponible uniquement en magasin". We engineered a high-velocity Digital Capsule Drop engine capturing remote European, African, and North American orders in under 60 seconds.
+              </p>
+
+              <!-- Live Interactive Console: Haute Confection Tailoring Studio -->
+              <div class="case-interactive-console">
+                <div class="console-header">
+                  <span class="console-title">&#10022; Live Tailoring Studio &amp; Currency Switcher</span>
+                  <span class="console-badge">Interactive Widget</span>
                 </div>
-                <div class="attr-item">
-                  <strong>Conversion Mechanics</strong>
-                  <span>Interactive cost calculator, civic provenance proof, instant quote</span>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Collar Style</span>
+                    <span id="jmossisCollarDesc" style="font-size: 0.75rem; color: var(--accent-terracotta);">Signature Sculptural Petals</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn active" data-collar="tulipe" data-desc="Signature Sculptural Petals">Col Tulipe</button>
+                    <button class="console-pill-btn" data-collar="indien" data-desc="Officer Mandarin Band">Col Indien</button>
+                    <button class="console-pill-btn" data-collar="casse" data-desc="Wing-Tip Formal Black-Tie">Col Cass&eacute;</button>
+                    <button class="console-pill-btn" data-collar="italien" data-desc="Wide Cutaway Spread">Col Italien</button>
+                  </div>
+                </div>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Selected Currency</span>
+                    <span id="jmossisPriceLabel" style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; color: var(--accent-gold);">180 &euro; EUR</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn active" data-jm-curr="EUR" data-rate="1" data-sym="&euro;" data-code="EUR">EUR (&euro;)</button>
+                    <button class="console-pill-btn" data-jm-curr="USD" data-rate="1.08" data-sym="$" data-code="USD">USD ($)</button>
+                    <button class="console-pill-btn" data-jm-curr="GBP" data-rate="0.86" data-sym="&pound;" data-code="GBP">GBP (&pound;)</button>
+                    <button class="console-pill-btn" data-jm-curr="JMD" data-rate="170" data-sym="$" data-code="JMD">JMD ($)</button>
+                    <button class="console-pill-btn" data-jm-curr="AZN" data-rate="1.84" data-sym="&#8380;" data-code="AZN">AZN (&#8380;)</button>
+                  </div>
+                </div>
+
+                <div class="console-output-grid">
+                  <div class="console-output-item">
+                    <span class="console-val">Egyptian Giza 120/2</span>
+                    <span class="console-sub">2-Ply Long-Staple Cotton</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val">8 Stitches / cm</span>
+                    <span class="console-sub">Mother of Pearl Buttons</span>
+                  </div>
+                </div>
+
+                <div class="console-actions-inline">
+                  <button class="console-btn-sm" id="jmossisWhatsappPreviewBtn">&#128172; Generate WhatsApp Concierge Inquiry</button>
                 </div>
               </div>
-              <div class="case-actions">
-                <a href="https://icelestial21-cmd.github.io/client-previews/mms/" target="_blank" rel="noopener" class="btn-pill btn-primary">
-                  <span>Open Live Flagship</span>
-                  <span>&rarr;</span>
-                </a>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8092 Live</span>
-              </div>
+            </div>
+
+            <div class="case-actions">
+              <a href="https://icelestial21-cmd.github.io/client-previews/jmossis/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                <span>Open Live Flagship</span>
+                <span>&rarr;</span>
+              </a>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8095 Live &bull; Avenue de Clichy</span>
             </div>
           </div>
         </article>
 
         <!-- CASE 03: MARKO BAKU -->
-        <article class="case-card">
+        <article class="case-card reverse">
           <div class="case-media">
             <span class="case-badge-floating">Baku, Azerbaijan &bull; Nizami St</span>
             <img src="assets/smoking_croise_bleu.jpg" alt="Marko Caspian Bespoke Suiting">
@@ -227,34 +389,59 @@
               <p class="case-summary">
                 A luxury Caspian menswear house operating from Baku. We architected a complete digital flagship featuring an editorial runway motion lookbook, multi-currency converter (AZN, USD, EUR, GBP, RUB), 4-angle garment photography inspection, and verified European delivery proof escrow.
               </p>
+
+              <!-- Live Interactive Console: 4-Angle Garment & Delivery Inspector -->
+              <div class="case-interactive-console">
+                <div class="console-header">
+                  <span class="console-title">&#9670; 4-Angle Garment &amp; Delivery Inspector</span>
+                  <span class="console-badge">Interactive Widget</span>
+                </div>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Garment Detail Angle</span>
+                    <span id="markoAngleDesc" style="font-size: 0.75rem; color: var(--accent-terracotta);">Full Front Architectural Drape</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn active" data-marko-angle="front" data-desc="Full Front Architectural Drape">1. Front Silhouette</button>
+                    <button class="console-pill-btn" data-marko-angle="lapel" data-desc="Milanese Hand Pick-Stitch">2. Peak Lapel</button>
+                    <button class="console-pill-btn" data-marko-angle="lining" data-desc="Bemberg Jacquard Caspian Silk">3. Silk Lining</button>
+                    <button class="console-pill-btn" data-marko-angle="cuff" data-desc="Natural Buffalo Horn Cross-Stitch">4. Cuff &amp; Buttons</button>
+                  </div>
+                </div>
+
+                <div class="console-output-grid">
+                  <div class="console-output-item">
+                    <span class="console-val">Vitale Barberis 150s</span>
+                    <span class="console-sub">Wool &amp; Cashmere 260g/m</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val">DHL Express Escrow</span>
+                    <span class="console-sub">Baku &rarr; Frankfurt 48h Cleared</span>
+                  </div>
+                </div>
+
+                <div class="console-actions-inline">
+                  <button class="console-btn-sm" id="markoDeliveryTrackBtn">&#128666; Inspect European Delivery Escrow</button>
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="case-attributes">
-                <div class="attr-item">
-                  <strong>Aesthetic Transmutation</strong>
-                  <span>Old Baku cobblestone tones, velvet obsidian, amber hairlines</span>
-                </div>
-                <div class="attr-item">
-                  <strong>Conversion Mechanics</strong>
-                  <span>Runway motion video, slide-out bag drawer, delivery proof tracking</span>
-                </div>
-              </div>
-              <div class="case-actions">
-                <a href="https://icelestial21-cmd.github.io/client-previews/marko/" target="_blank" rel="noopener" class="btn-pill btn-primary">
-                  <span>Open Live Flagship</span>
-                  <span>&rarr;</span>
-                </a>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Staging Live</span>
-              </div>
+
+            <div class="case-actions">
+              <a href="https://icelestial21-cmd.github.io/client-previews/marko/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                <span>Open Live Flagship</span>
+                <span>&rarr;</span>
+              </a>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Staging Live &bull; Nizami Street</span>
             </div>
           </div>
         </article>
 
         <!-- CASE 04: DEPARTAMENT MAN -->
-        <article class="case-card reverse">
+        <article class="case-card">
           <div class="case-media">
             <span class="case-badge-floating">Baku, Azerbaijan &bull; 111K Audience</span>
-            <img src="assets/departament_logo.jpg" alt="DEPARTAMENT Baku Outerwear">
+            <img src="assets/departament_aviator.jpg" alt="DEPARTAMENT Baku Shearling Aviator Flight Jacket">
           </div>
           <div class="case-content">
             <div>
@@ -267,31 +454,56 @@
               <p class="case-summary">
                 111,000 Instagram followers asking for prices under shearling aviators, cashmere overcoats, and distressed moto jackets. We replaced unscalable WhatsApp DM ping-pong with a production-grade digital outerwear flagship supporting international postal dispatch, fit-rating scales, and model sizing telemetry.
               </p>
+
+              <!-- Live Interactive Console: Outerwear Telemetry & Fit Matrix -->
+              <div class="case-interactive-console">
+                <div class="console-header">
+                  <span class="console-title">&#9638; Outerwear Sizing &amp; Telemetry Matrix</span>
+                  <span class="console-badge">Interactive Widget</span>
+                </div>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Select Size (EU Standard)</span>
+                    <span id="depSizeTelemetry" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-terracotta);">Chest: 58cm &bull; Shoulder: 49cm</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn" data-dep-size="48" data-chest="56cm" data-sh="47cm" data-sl="64cm" data-len="70cm">EU 48 (M)</button>
+                    <button class="console-pill-btn active" data-dep-size="50" data-chest="58cm" data-sh="49cm" data-sl="65cm" data-len="72cm">EU 50 (L)</button>
+                    <button class="console-pill-btn" data-dep-size="52" data-chest="60cm" data-sh="51cm" data-sl="66cm" data-len="74cm">EU 52 (XL)</button>
+                    <button class="console-pill-btn" data-dep-size="54" data-chest="63cm" data-sh="53cm" data-sl="67cm" data-len="76cm">EU 54 (XXL)</button>
+                  </div>
+                </div>
+
+                <div class="console-output-grid">
+                  <div class="console-output-item">
+                    <span class="console-val">Model: 180cm / 78kg</span>
+                    <span class="console-sub">Wearing Size EU 50 (L)</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val">Athletic Aviator Drop</span>
+                    <span class="console-sub">Boxy Outerwear Cut 5/5</span>
+                  </div>
+                </div>
+
+                <div class="console-actions-inline">
+                  <button class="console-btn-sm" id="depPostalCalcBtn">&#9992; Calculate Express Air Dispatch</button>
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="case-attributes">
-                <div class="attr-item">
-                  <strong>Aesthetic Transmutation</strong>
-                  <span>Asphalt slate, distressed shearling leather, titanium borders</span>
-                </div>
-                <div class="attr-item">
-                  <strong>Conversion Mechanics</strong>
-                  <span>Model height/weight telemetry, flat laying measurements, bag drawer</span>
-                </div>
-              </div>
-              <div class="case-actions">
-                <a href="https://icelestial21-cmd.github.io/client-previews/departament/" target="_blank" rel="noopener" class="btn-pill btn-primary">
-                  <span>Open Live Flagship</span>
-                  <span>&rarr;</span>
-                </a>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8094 Live</span>
-              </div>
+
+            <div class="case-actions">
+              <a href="https://icelestial21-cmd.github.io/client-previews/departament/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                <span>Open Live Flagship</span>
+                <span>&rarr;</span>
+              </a>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Port 8094 Live &bull; Baku Fashion District</span>
             </div>
           </div>
         </article>
 
         <!-- CASE 05: CHIBEST FASHION WORLDWIDE -->
-        <article class="case-card">
+        <article class="case-card reverse">
           <div class="case-media">
             <span class="case-badge-floating">Lagos, Nigeria &bull; Royal Couture</span>
             <img src="assets/authentic_bullion_embroidery.jpg" alt="Chibest Authentic Hand-Bullion Embroidery">
@@ -307,28 +519,223 @@
               <p class="case-summary">
                 Ancestral Nigerian tailoring elevated into global luxury. We built a computer-vision anthropometric sizing studio that extracts client measurements directly, combined with an authentic hand-bullion bullion embroidery showcase and direct royal bridal/gala intake.
               </p>
+
+              <!-- Live Interactive Console: Bullion Thread & Silhouette Studio -->
+              <div class="case-interactive-console">
+                <div class="console-header">
+                  <span class="console-title">&#10022; Bullion Thread &amp; Silhouette Studio</span>
+                  <span class="console-badge">Interactive Widget</span>
+                </div>
+
+                <div class="console-row">
+                  <div class="console-label-wrap">
+                    <span>Royal Silhouette</span>
+                  </div>
+                  <div class="console-pills">
+                    <button class="console-pill-btn active" data-ch-sil="agbada">Imperial 3-Piece Agbada</button>
+                    <button class="console-pill-btn" data-ch-sil="senator">Senator Monogram Tunic</button>
+                    <button class="console-pill-btn" data-ch-sil="kaftan">Royal Ceremonial Kaftan</button>
+                  </div>
+                </div>
+
+                <div class="console-output-grid">
+                  <div class="console-output-item">
+                    <span class="console-val">24K Bullion Thread</span>
+                    <span class="console-sub">Hand-Couching Gold Wire</span>
+                  </div>
+                  <div class="console-output-item">
+                    <span class="console-val">99.4% Sizing Precision</span>
+                    <span class="console-sub">Computer Vision Calibration</span>
+                  </div>
+                </div>
+
+                <div class="console-actions-inline">
+                  <button class="console-btn-sm" id="chibestIntakeBtn">&#128081; Start Anthropometric Scan Intake</button>
+                </div>
+              </div>
             </div>
-            <div>
-              <div class="case-attributes">
-                <div class="attr-item">
-                  <strong>Aesthetic Transmutation</strong>
-                  <span>Imperial gold bullion thread, royal velvet emerald, ceremonial filagree</span>
-                </div>
-                <div class="attr-item">
-                  <strong>Conversion Mechanics</strong>
-                  <span>Computer vision anthropometry, fabric swatch zoom, VIP bespoke intake</span>
-                </div>
-              </div>
-              <div class="case-actions">
-                <a href="https://icelestial21-cmd.github.io/client-previews/chibest/" target="_blank" rel="noopener" class="btn-pill btn-primary">
-                  <span>Open Live Flagship</span>
-                  <span>&rarr;</span>
-                </a>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Staging Live</span>
-              </div>
+
+            <div class="case-actions">
+              <a href="https://icelestial21-cmd.github.io/client-previews/chibest/" target="_blank" rel="noopener" class="btn-pill btn-primary">
+                <span>Open Live Flagship</span>
+                <span>&rarr;</span>
+              </a>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-tertiary);">Staging Live &bull; Victoria Island</span>
             </div>
           </div>
         </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       THE 3D INTERACTIVE BENTO MATRIX (Magic UI & Aceternity Fusion)
+       ====================================================================== -->
+  <section class="bento-section" id="bento">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Interactive Arsenal</span>
+        <h2 class="section-title">The Sovereign 3D Bento Matrix</h2>
+        <p class="section-desc">Experience our multi-layered engineering stack: 3D perspective tilt cards, live catalog filtering across 498 vault tools, and enterprise telemetry sparklines.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- BENTO CARD 1 (Span 2): 498-Asset HorizonX Vault Browser -->
+        <div class="bento-card span-2" id="bentoCardVault">
+          <div class="bento-header">
+            <span class="bento-tag">&#9670; Sovereign Vault Registry</span>
+            <span class="bento-badge" id="vaultCountBadge">498 Assets Indexed</span>
+          </div>
+          <h3 class="bento-title">The 498-Asset Reverse-Engineered Arsenal</h3>
+          <p class="bento-desc">
+            Explore our complete database of extracted tools, GLSL WebGL shaders, kinetic typography, 3D sheet stacks, and tactile physics. Fully sovereign code with zero recurring SaaS tolls.
+          </p>
+
+          <div class="vault-search-box">
+            <span class="vault-search-icon">&#128269;</span>
+            <input type="text" class="vault-search-input" id="bentoVaultInput" placeholder="Filter by name, tool, or tag (e.g. shader, ascii, 3d, button, card)...">
+          </div>
+
+          <div class="vault-filter-pills">
+            <button class="vault-pill active" data-bento-filter="all">All (498)</button>
+            <button class="vault-pill" data-bento-filter="Effect">Shaders &amp; Effects</button>
+            <button class="vault-pill" data-bento-filter="3D &amp; Perspective">3D &amp; Physics</button>
+            <button class="vault-pill" data-bento-filter="Text">Typography</button>
+            <button class="vault-pill" data-bento-filter="Button">Buttons &amp; Inputs</button>
+          </div>
+
+          <div class="vault-results-mini" id="bentoVaultResults">
+            <!-- Dynamically populated via app.js -->
+            <div class="vault-item-card">
+              <div class="vault-item-top">
+                <span class="vault-item-name">Planetrise Horizon</span>
+                <span class="vault-item-cat">Shader</span>
+              </div>
+              <p class="vault-item-desc">Raymarched spherical celestial star limb with atmospheric Rayleigh scattering.</p>
+            </div>
+            <div class="vault-item-card">
+              <div class="vault-item-top">
+                <span class="vault-item-name">3D Sheet Stack</span>
+                <span class="vault-item-cat">Physics</span>
+              </div>
+              <p class="vault-item-desc">Preserve-3d layered card deck with spring gesture dragging.</p>
+            </div>
+            <div class="vault-item-card">
+              <div class="vault-item-top">
+                <span class="vault-item-name">Kinetic Text Ring</span>
+                <span class="vault-item-cat">Typography</span>
+              </div>
+              <p class="vault-item-desc">SVG circular textPath rotating with cursor angular velocity.</p>
+            </div>
+            <div class="vault-item-card">
+              <div class="vault-item-top">
+                <span class="vault-item-name">Luminous Slit Card</span>
+                <span class="vault-item-cat">Light</span>
+              </div>
+              <p class="vault-item-desc">Directional traveling slit aperture with ambient specular bloom.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO CARD 2: Aceternity MCP Bridge -->
+        <div class="bento-card" id="bentoCardAceternity">
+          <div class="bento-header">
+            <span class="bento-tag">&#10022; Aceternity MCP</span>
+            <span class="bento-badge">Global Tool</span>
+          </div>
+          <h3 class="bento-title">MCP Shader Engine</h3>
+          <p class="bento-desc">
+            Directly bridge into Aceternity UI components with zero manual copy-pasting: background beams, 3D card pins, sparkling hero canvases, and aurora gradients.
+          </p>
+          <div style="background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-terracotta); margin-bottom: 0.4rem;">aceternity-ui-mcp-server</div>
+            <div style="font-size: 0.75rem; color: var(--ink-tertiary);">Active &amp; Connected Globally</div>
+          </div>
+        </div>
+
+        <!-- BENTO CARD 3: Magic UI Animated Connectivity Beam -->
+        <div class="bento-card" id="bentoCardBeam">
+          <div class="bento-header">
+            <span class="bento-tag">&#9638; Magic UI Beams</span>
+            <span class="bento-badge">Kinetic Motion</span>
+          </div>
+          <h3 class="bento-title">Animated Data Pipeline</h3>
+          <p class="bento-desc">
+            Dynamic SVG connection curves that pulse real-time data packets from physical trade materials straight into our digital flagships.
+          </p>
+          
+          <div class="beam-container">
+            <div class="beam-node" title="Client Physical Reality">&#127970;</div>
+            <svg class="beam-svg" viewBox="0 0 300 140" fill="none">
+              <path d="M 40 70 Q 150 10 260 70" stroke="rgba(194, 94, 62, 0.25)" stroke-width="2" stroke-dasharray="4 4" />
+              <circle r="4" fill="var(--accent-terracotta)">
+                <animateMotion path="M 40 70 Q 150 10 260 70" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+            <div class="beam-node" title="Artificers Transmutation Engine" style="border-color: var(--accent-terracotta);">&#9881;</div>
+            <svg class="beam-svg" viewBox="0 0 300 140" fill="none" style="left: 140px; width: 140px;">
+              <path d="M 20 70 Q 70 120 120 70" stroke="rgba(212, 175, 55, 0.3)" stroke-width="2" />
+              <circle r="4" fill="var(--accent-champagne)">
+                <animateMotion path="M 20 70 Q 70 120 120 70" dur="2s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+            <div class="beam-node" title="Live Flagship">&#128640;</div>
+          </div>
+        </div>
+
+        <!-- BENTO CARD 4: Tremor Enterprise Telemetry -->
+        <div class="bento-card" id="bentoCardTremor">
+          <div class="bento-header">
+            <span class="bento-tag">&#9700; Tremor Telemetry</span>
+            <span class="bento-badge">Real-Time</span>
+          </div>
+          <h3 class="bento-title">High-Velocity Conversion Metrics</h3>
+          <p class="bento-desc">
+            Measurable, high-impact business outcomes generated by replacing clunky WhatsApp DM ping-pong with sub-second digital flagships.
+          </p>
+
+          <div class="tremor-metrics-row">
+            <div class="tremor-mini-card">
+              <div class="tremor-mini-val">42ms</div>
+              <div class="tremor-mini-lbl">Render Speed</div>
+            </div>
+            <div class="tremor-mini-card">
+              <div class="tremor-mini-val">+384%</div>
+              <div class="tremor-mini-lbl">Drop Velocity</div>
+            </div>
+            <div class="tremor-mini-card">
+              <div class="tremor-mini-val">$0.00</div>
+              <div class="tremor-mini-lbl">SaaS Tolls</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BENTO CARD 5: React Bits Kinetic Typography -->
+        <div class="bento-card" id="bentoCardReactBits">
+          <div class="bento-header">
+            <span class="bento-tag">&#9671; React Bits</span>
+            <span class="bento-badge">Kinetic Physics</span>
+          </div>
+          <h3 class="bento-title">Proximity Kinetic Type</h3>
+          <p class="bento-desc">
+            Hover over the characters below to test individual spring velocity physics:
+          </p>
+
+          <div class="kinetic-letters-wrap">
+            <span class="k-char">S</span>
+            <span class="k-char">O</span>
+            <span class="k-char">V</span>
+            <span class="k-char">E</span>
+            <span class="k-char">R</span>
+            <span class="k-char">E</span>
+            <span class="k-char">I</span>
+            <span class="k-char">G</span>
+            <span class="k-char">N</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--ink-tertiary); text-align: center;">Elastic letter repulsion with zero external libraries</div>
+        </div>
 
       </div>
     </div>
@@ -382,7 +789,7 @@
 
       <div class="matrix-grid">
         <div class="matrix-card">
-          <div class="matrix-icon">&#x2726;</div>
+          <div class="matrix-icon">&#10022;</div>
           <h3 class="matrix-title">Aceternity UI</h3>
           <p class="matrix-desc">Cinematic dark-mode SaaS heroes, background beams, 3D card pins, sparkling hero canvases, and glowing borders via global MCP.</p>
           <div class="matrix-tags">
@@ -393,7 +800,7 @@
         </div>
 
         <div class="matrix-card">
-          <div class="matrix-icon">&#x25CE;</div>
+          <div class="matrix-icon">&#9670;</div>
           <h3 class="matrix-title">HorizonX Deconstruction</h3>
           <p class="matrix-desc">498 tools and micro-physics components: WebGL celestial shaders, 3D card stacks, kinetic rings, and directional slit lighting.</p>
           <div class="matrix-tags">
@@ -404,7 +811,7 @@
         </div>
 
         <div class="matrix-card">
-          <div class="matrix-icon">&#x25A6;</div>
+          <div class="matrix-icon">&#9638;</div>
           <h3 class="matrix-title">Magic UI</h3>
           <p class="matrix-desc">Modern marketing bento grids, animated connection beams, interactive 3D globes, dock navigation, and particle fields.</p>
           <div class="matrix-tags">
@@ -415,7 +822,7 @@
         </div>
 
         <div class="matrix-card">
-          <div class="matrix-icon">&#x25C7;</div>
+          <div class="matrix-icon">&#9671;</div>
           <h3 class="matrix-title">React Bits</h3>
           <p class="matrix-desc">Kinetic typography, split-character motion, 3D interactive mesh distortion, glitch physics, and variable font animations.</p>
           <div class="matrix-tags">
@@ -426,7 +833,7 @@
         </div>
 
         <div class="matrix-card">
-          <div class="matrix-icon">&#x2630;</div>
+          <div class="matrix-icon">&#9776;</div>
           <h3 class="matrix-title">Shadcn UI &amp; Radix</h3>
           <p class="matrix-desc">World-class WCAG 2.1 AA accessible foundations: sheet drawers, command palettes, accessible modals, and headless primitives.</p>
           <div class="matrix-tags">
@@ -437,7 +844,7 @@
         </div>
 
         <div class="matrix-card">
-          <div class="matrix-icon">&#x25E4;</div>
+          <div class="matrix-icon">&#9700;</div>
           <h3 class="matrix-title">Tremor Enterprise</h3>
           <p class="matrix-desc">High-precision industrial dashboards, real-time line charts, sparkline area metrics, KPI cards, and operational telemetry.</p>
           <div class="matrix-tags">
@@ -449,6 +856,35 @@
       </div>
     </div>
   </section>
+
+  <!-- ======================================================================
+       COMMAND PALETTE MODAL (Cmd + K / Ctrl + K)
+       ====================================================================== -->
+  <div class="cmd-palette-backdrop" id="cmdPalette" role="dialog" aria-modal="true" aria-label="Search Vault">
+    <div class="cmd-palette-modal">
+      <div class="cmd-search-header">
+        <span style="font-size: 1.1rem; color: var(--accent-terracotta);">&#128269;</span>
+        <input type="text" class="cmd-search-input" id="cmdSearchInput" placeholder="Search 498 vault tools, client flagships, or design engines..." autocomplete="off">
+        <span class="cmd-esc-badge" id="cmdCloseBtn">ESC</span>
+      </div>
+
+      <div class="cmd-filter-tabs">
+        <button class="cmd-filter-btn active" data-cmd-cat="all">All Items</button>
+        <button class="cmd-filter-btn" data-cmd-cat="flagship">Flagships</button>
+        <button class="cmd-filter-btn" data-cmd-cat="horizonx">HorizonX (498)</button>
+        <button class="cmd-filter-btn" data-cmd-cat="engine">Design Engines</button>
+      </div>
+
+      <div class="cmd-results-list" id="cmdResultsList">
+        <!-- Populated via JavaScript -->
+      </div>
+
+      <div class="cmd-footer">
+        <span>Use &uarr; &darr; to navigate &bull; &crarr; to select</span>
+        <span>Sovereign Command Console</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ======================================================================
        FOOTER
@@ -469,6 +905,7 @@
               <li><a href="https://icelestial21-cmd.github.io/client-previews/mms/" target="_blank" rel="noopener">MMS Construction</a></li>
               <li><a href="https://icelestial21-cmd.github.io/client-previews/marko/" target="_blank" rel="noopener">Marko Baku</a></li>
               <li><a href="https://icelestial21-cmd.github.io/client-previews/departament/" target="_blank" rel="noopener">DEPARTAMENT Man</a></li>
+              <li><a href="https://icelestial21-cmd.github.io/client-previews/chibest/" target="_blank" rel="noopener">Chibest Worldwide</a></li>
             </ul>
           </div>
 
@@ -477,6 +914,7 @@
             <ul>
               <li><a href="https://icelestial21-cmd.github.io/client-previews/" target="_blank" rel="noopener">Staging Hub</a></li>
               <li><a href="#lab">Component Lab</a></li>
+              <li><a href="#bento">3D Bento Matrix</a></li>
               <li><a href="#matrix">Capability Matrix</a></li>
             </ul>
           </div>
