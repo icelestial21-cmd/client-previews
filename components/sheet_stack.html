@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sheet Stack — Sovereign Component</title>
+  <style>
+    :root {
+      --bg: #07090E;
+      --card-bg: #111520;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-glow: rgba(212, 175, 55, 0.15);
+      --accent: #D4AF37;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Sheet Stack Container */
+    .sheet-stack-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 380px;
+      perspective: 1200px;
+    }
+
+    .sheet-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .sheet-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 320px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+      cursor: grab;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.4s ease;
+      will-change: transform, opacity;
+    }
+
+    .sheet-card:active {
+      cursor: grabbing;
+    }
+
+    /* 3D Stack Layering */
+    .sheet-card[data-index="0"] {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 1;
+      z-index: 3;
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                  0 0 30px var(--card-glow);
+    }
+
+    .sheet-card[data-index="1"] {
+      transform: translate3d(0, 24px, -40px) scale(0.94);
+      opacity: 0.8;
+      z-index: 2;
+    }
+
+    .sheet-card[data-index="2"] {
+      transform: translate3d(0, 48px, -80px) scale(0.88);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    .sheet-card.dismissing {
+      transform: translate3d(-120%, -30px, 40px) rotate(-12deg) scale(0.9) !important;
+      opacity: 0 !important;
+    }
+
+    .sheet-badge {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .sheet-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-top: 1rem;
+      line-height: 1.3;
+    }
+
+    .sheet-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    .sheet-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .sheet-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 24px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Sovereign Sheet Stack</h1>
+    <p>Reverse-engineered from HorizonX physics — Zero dependencies</p>
+  </div>
+
+  <div class="sheet-stack-wrapper">
+    <div class="sheet-stack" id="sheetStack">
+      <div class="sheet-card" data-index="0">
+        <span class="sheet-badge">Telemetry Engine</span>
+        <div>
+          <h2 class="sheet-title">Real-Time Fluid Simulation</h2>
+          <p class="sheet-desc">GPU-accelerated fragment shader running on WebGL2 canvas with pointer wake tracking and raymarched refraction.</p>
+        </div>
+        <div class="sheet-footer">
+          <span>01 / 03</span>
+          <span>Latency: 1.2ms</span>
+        </div>
+      </div>
+
+      <div class="sheet-card" data-index="1">
+        <span class="sheet-badge">Aesthetic Matrix</span>
+        <div>
+          <h2 class="sheet-title">Midnight Engineer Design Tokens</h2>
+          <p class="sheet-desc">Obsidian Noir (#08090C), Champagne Gold (#D4AF37), and sub-pixel bordered translucent glass surfaces.</p>
+        </div>
+        <div class="sheet-footer">
+          <span>02 / 03</span>
+          <span>Palette: Sovereign</span>
+        </div>
+      </div>
+
+      <div class="sheet-card" data-index="2">
+        <span class="sheet-badge">Zero Rent Architecture</span>
+        <div>
+          <h2 class="sheet-title">100% Owned Source Code</h2>
+          <p class="sheet-desc">Clean mathematical spring curves and transform-style CSS with zero monthly subscriptions or token limits.</p>
+        </div>
+        <div class="sheet-footer">
+          <span>03 / 03</span>
+          <span>License: MIT Sovereign</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-controls">
+      <button class="action-btn" id="prevBtn">&larr; Prev</button>
+      <div class="dot active" data-dot="0"></div>
+      <div class="dot" data-dot="1"></div>
+      <div class="dot" data-dot="2"></div>
+      <button class="action-btn" id="nextBtn">Next &rarr;</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const stack = document.getElementById('sheetStack');
+      const cards = Array.from(stack.querySelectorAll('.sheet-card'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      let currentIndex = 0;
+      let isAnimating = false;
+
+      function updatePositions() {
+        cards.forEach((card, i) => {
+          const relativeIndex = (i - currentIndex + cards.length) % cards.length;
+          card.setAttribute('data-index', relativeIndex);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      function nextSheet() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const topCard = cards[currentIndex];
+        topCard.classList.add('dismissing');
+
+        setTimeout(() => {
+          topCard.classList.remove('dismissing');
+          currentIndex = (currentIndex + 1) % cards.length;
+          updatePositions();
+          isAnimating = false;
+        }, 350);
+      }
+
+      function prevSheet() {
+        if (isAnimating) return;
+        isAnimating = true;
+        currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+        updatePositions();
+        setTimeout(() => {
+          isAnimating = false;
+        }, 400);
+      }
+
+      nextBtn.addEventListener('click', nextSheet);
+      prevBtn.addEventListener('click', prevSheet);
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+          if (isAnimating || idx === currentIndex) return;
+          currentIndex = idx;
+          updatePositions();
+        });
+      });
+
+      // Pointer drag interaction
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      stack.addEventListener('pointerdown', (e) => {
+        startX = e.clientX;
+        isDragging = true;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        const deltaX = currentX - startX;
+        const topCard = cards[currentIndex];
+        if (Math.abs(deltaX) > 10) {
+          topCard.style.transform = `translate3d(${deltaX}px, ${deltaX * 0.1}px, 0) rotate(${deltaX * 0.05}deg)`;
+        }
+      });
+
+      window.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const deltaX = currentX - startX;
+        const topCard = cards[currentIndex];
+        topCard.style.transform = '';
+
+        if (deltaX < -80) {
+          nextSheet();
+        } else if (deltaX > 80) {
+          prevSheet();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
