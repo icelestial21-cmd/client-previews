@@ -1,6 +1,9 @@
 /**
- * MMS CONSTRUCTION SERVICES — JAVASCRIPT CONTROLLER
- * Jamaican Building Estimator, Portfolio Filtering, and WhatsApp Dispatch
+ * MMS CONSTRUCTION SERVICES : JAVASCRIPT CONTROLLER
+ * Client: Marcus Saunders (Kingston & St. Catherine, Jamaica)
+ * Functionality: Jamaican Building Cost Estimator V2, Dual Currency Engine,
+ * Portfolio Filter, Lightbox Modal, Mobile Navigation, and WhatsApp Dispatch
+ * Note: Strictly non-midnight engineer, no em dashes anywhere.
  */
 
 // Exchange rate approximate: 1 USD = 155 JMD
@@ -50,7 +53,8 @@ const FINISH_MULTIPLIERS = {
   luxury: 1.35
 };
 
-// State
+// Estimator State
+let currentCurrency = 'JMD';
 let currentScope = 'belting_decking';
 let currentSqFt = 1500;
 let currentParish = 'St. Catherine';
@@ -64,19 +68,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // -------------------------------------------------------------
-// ESTIMATOR MODULE
+// ESTIMATOR MODULE V2
 // -------------------------------------------------------------
 function initEstimator() {
   const sqftSlider = document.getElementById('sqftRange');
   const sqftInput = document.getElementById('sqftInput');
   const parishSelect = document.getElementById('parishSelect');
   const finishSelect = document.getElementById('finishSelect');
-  const scopeCards = document.querySelectorAll('.scope-radio-card');
+  const scopeCards = document.querySelectorAll('.scope-card');
+  const currencyBtns = document.querySelectorAll('.currency-btn');
 
+  // Currency Toggle
+  currencyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currencyBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCurrency = btn.dataset.currency;
+      calculateEstimate();
+    });
+  });
+
+  // Slider & Number Input Sync
   if (sqftSlider && sqftInput) {
     sqftSlider.addEventListener('input', (e) => {
-      sqftInput.value = e.target.value;
-      currentSqFt = parseInt(e.target.value, 10);
+      const val = parseInt(e.target.value, 10);
+      sqftInput.value = val;
+      currentSqFt = val;
       const sqftBadge = document.getElementById('sqftBadge');
       if (sqftBadge) sqftBadge.textContent = `${currentSqFt.toLocaleString()} sq ft`;
       calculateEstimate();
@@ -84,9 +101,11 @@ function initEstimator() {
 
     sqftInput.addEventListener('input', (e) => {
       let val = parseInt(e.target.value, 10);
-      if (isNaN(val)) val = 500;
-      if (val > 10000) val = 10000;
-      sqftSlider.value = val;
+      if (isNaN(val)) val = 300;
+      if (val > 25000) val = 25000;
+      if (val <= 10000) {
+        sqftSlider.value = val;
+      }
       currentSqFt = val;
       const sqftBadge = document.getElementById('sqftBadge');
       if (sqftBadge) sqftBadge.textContent = `${currentSqFt.toLocaleString()} sq ft`;
@@ -94,6 +113,7 @@ function initEstimator() {
     });
   }
 
+  // Parish Dropdown
   if (parishSelect) {
     parishSelect.addEventListener('change', (e) => {
       currentParish = e.target.value;
@@ -101,6 +121,7 @@ function initEstimator() {
     });
   }
 
+  // Finish Tier
   if (finishSelect) {
     finishSelect.addEventListener('change', (e) => {
       currentFinish = e.target.value;
@@ -108,6 +129,7 @@ function initEstimator() {
     });
   }
 
+  // Scope Selection Radio Cards
   scopeCards.forEach(card => {
     card.addEventListener('click', () => {
       scopeCards.forEach(c => c.classList.remove('active'));
@@ -126,22 +148,23 @@ function calculateEstimate() {
   const baseUsd = baseJmd / USD_JMD_RATE;
 
   // Format JMD
-  let jmdDisplay = '';
+  let jmdFormatted = '';
   if (baseJmd >= 1000000) {
-    jmdDisplay = `$${(baseJmd / 1000000).toFixed(2)}M JMD`;
+    jmdFormatted = `$${(baseJmd / 1000000).toFixed(2)}M JMD`;
   } else {
-    jmdDisplay = `$${Math.round(baseJmd).toLocaleString()} JMD`;
+    jmdFormatted = `$${Math.round(baseJmd).toLocaleString()} JMD`;
   }
 
   // Format USD
-  const usdDisplay = `≈ $${Math.round(baseUsd).toLocaleString()} USD`;
+  const usdFormatted = `$${Math.round(baseUsd).toLocaleString()} USD`;
 
-  // Duration
+  // Material & Time Estimates
   const estimatedWeeks = Math.max(2, Math.round((currentSqFt / 1000) * scopeData.timePer1000SqFt));
+  const maxWeeks = Math.round(estimatedWeeks * 1.25);
   const cementBags = Math.round(currentSqFt * scopeData.cementBagsPerSqFt);
   const steelTons = ((currentSqFt / 1000) * scopeData.steelTonsPer1000SqFt).toFixed(1);
 
-  // Update DOM
+  // Update DOM Elements
   const jmdEl = document.getElementById('displayJmdPrice');
   const usdEl = document.getElementById('displayUsdPrice');
   const scopeEl = document.getElementById('displayScopeText');
@@ -151,29 +174,36 @@ function calculateEstimate() {
   const cementEl = document.getElementById('displayCementText');
   const steelEl = document.getElementById('displaySteelText');
 
-  if (jmdEl) jmdEl.textContent = jmdDisplay;
-  if (usdEl) usdEl.textContent = usdDisplay;
+  if (currentCurrency === 'JMD') {
+    if (jmdEl) jmdEl.textContent = jmdFormatted;
+    if (usdEl) usdEl.textContent = `≈ ${usdFormatted}`;
+  } else {
+    if (jmdEl) jmdEl.textContent = usdFormatted;
+    if (usdEl) usdEl.textContent = `≈ ${jmdFormatted}`;
+  }
+
   if (scopeEl) scopeEl.textContent = scopeData.name;
   if (sqftEl) sqftEl.textContent = `${currentSqFt.toLocaleString()} sq. ft.`;
   if (parishEl) parishEl.textContent = currentParish;
-  if (timeEl) timeEl.textContent = `${estimatedWeeks} – ${Math.round(estimatedWeeks * 1.25)} Weeks`;
+  if (timeEl) timeEl.textContent = `${estimatedWeeks} to ${maxWeeks} Weeks`;
   if (cementEl) cementEl.textContent = `≈ ${cementBags.toLocaleString()} Bags (Carib/Argos)`;
   if (steelEl) steelEl.textContent = `≈ ${steelTons} Tons High-Tensile Steel`;
 
-  // Update WhatsApp Button Link
+  // Pre-fill WhatsApp Dispatch Link
   const waBtn = document.getElementById('dispatchWhatsAppBtn');
   if (waBtn) {
-    const message = `Hello Marcus (MMS Construction Services),%0A%0AI used your website estimator for a project in *${encodeURIComponent(currentParish)}*:%0A- *Scope:* ${encodeURIComponent(scopeData.name)}%0A- *Size:* ${currentSqFt.toLocaleString()} sq ft%0A- *Finish Tier:* ${currentFinish === 'luxury' ? 'Luxury Architectural' : 'Standard Quality'}%0A- *Estimated Budget:* ${encodeURIComponent(jmdDisplay)} (${encodeURIComponent(usdDisplay)})%0A- *Estimated Timeline:* ${estimatedWeeks} Weeks%0A%0AI would like to schedule a site inspection and detailed bill of quantities.`;
-    waBtn.href = `https://wa.me/18765097471?text=${message}`;
+    const tierName = currentFinish === 'luxury' ? 'Luxury Architectural' : 'Standard Residential';
+    const message = `Hello Marcus (MMS Construction Services),\n\nI generated an estimate on your website for a project in ${currentParish}:\n* Scope: ${scopeData.name}\n* Floor Area: ${currentSqFt.toLocaleString()} sq ft\n* Specification Tier: ${tierName}\n* Estimated Budget: ${jmdFormatted} (${usdFormatted})\n* Estimated Timeline: ${estimatedWeeks} to ${maxWeeks} Weeks\n* Estimated Materials: ≈ ${cementBags.toLocaleString()} Cement Bags / ≈ ${steelTons} Tons Rebar\n\nPlease let me know when we can arrange a site inspection and bill of quantities.`;
+    waBtn.href = `https://wa.me/18765097471?text=${encodeURIComponent(message)}`;
   }
 }
 
 // -------------------------------------------------------------
-// PORTFOLIO FILTER & LIGHTBOX MODULE
+// PORTFOLIO FILTER MODULE
 // -------------------------------------------------------------
 function initPortfolioFilter() {
-  const filterPills = document.querySelectorAll('.portfolio-filter-row .filter-pill');
-  const cards = document.querySelectorAll('.portfolio-card');
+  const filterPills = document.querySelectorAll('.portfolio-filter-bar .filter-pill');
+  const cards = document.querySelectorAll('.portfolio-item-card');
 
   filterPills.forEach(pill => {
     pill.addEventListener('click', () => {
@@ -193,44 +223,86 @@ function initPortfolioFilter() {
   });
 }
 
-// Lightbox Modal
-window.openProjectModal = function(title, category, location, imageSrc, description) {
-  const modal = document.getElementById('projectModal');
+// -------------------------------------------------------------
+// LIGHTBOX MODAL
+// -------------------------------------------------------------
+window.openLightbox = function(title, category, location, imageSrc, description) {
+  const modal = document.getElementById('lightboxModal');
   if (!modal) return;
 
-  document.getElementById('modalProjectTitle').textContent = title;
-  document.getElementById('modalProjectCategory').textContent = `${category} • ${location}`;
-  document.getElementById('modalProjectImage').src = imageSrc;
-  document.getElementById('modalProjectDesc').textContent = description;
+  const titleEl = document.getElementById('lightboxTitle');
+  const categoryEl = document.getElementById('lightboxCategory');
+  const imageEl = document.getElementById('lightboxImage');
+  const descEl = document.getElementById('lightboxDesc');
 
-  modal.classList.add('open');
+  if (titleEl) titleEl.textContent = title;
+  if (categoryEl) categoryEl.textContent = `${category} : ${location}`;
+  if (imageEl) {
+    imageEl.src = imageSrc;
+    imageEl.alt = title;
+  }
+  if (descEl) descEl.textContent = description;
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 };
 
-window.closeProjectModal = function() {
-  const modal = document.getElementById('projectModal');
-  if (modal) modal.classList.remove('open');
+window.closeLightbox = function() {
+  const modal = document.getElementById('lightboxModal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 };
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    window.closeLightbox();
+  }
+});
 
 // -------------------------------------------------------------
 // MOBILE NAVIGATION MENU
 // -------------------------------------------------------------
 function initMobileMenu() {
   const toggleBtn = document.getElementById('mobileMenuToggle');
-  const navLinks = document.querySelector('.nav-links');
+  const navMenu = document.getElementById('navMenu');
 
-  if (toggleBtn && navLinks) {
+  if (toggleBtn && navMenu) {
     toggleBtn.addEventListener('click', () => {
-      const isVisible = navLinks.style.display === 'flex';
-      navLinks.style.display = isVisible ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '100%';
-      navLinks.style.left = '0';
-      navLinks.style.width = '100%';
-      navLinks.style.background = '#080C14';
-      navLinks.style.padding = '20px 24px';
-      navLinks.style.borderBottom = '1px solid var(--border-blue)';
-      navLinks.style.gap = '16px';
+      navMenu.classList.toggle('open');
+    });
+
+    // Close when clicking a link
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+      });
     });
   }
 }
+
+// -------------------------------------------------------------
+// FAST INQUIRY DISPATCH HANDLER
+// -------------------------------------------------------------
+window.handleQuickInquiry = function() {
+  const nameInput = document.getElementById('inquiryName');
+  const phoneInput = document.getElementById('inquiryPhone');
+  const scopeInput = document.getElementById('inquiryScope');
+  const detailsInput = document.getElementById('inquiryDetails');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const phone = phoneInput ? phoneInput.value.trim() : '';
+  const scope = scopeInput ? scopeInput.value : '';
+  const details = detailsInput ? detailsInput.value.trim() : '';
+
+  if (!name || !phone) {
+    alert('Please provide your name and contact phone number.');
+    return;
+  }
+
+  const message = `Hello Marcus (MMS Construction Services),\n\nMy name is ${name} (${phone}).\n* Project Scope: ${scope}\n* Details & Location: ${details || 'Not specified'}\n\nPlease contact me to schedule a site consultation.`;
+  window.open(`https://wa.me/18765097471?text=${encodeURIComponent(message)}`, '_blank');
+};
