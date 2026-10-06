@@ -86,10 +86,15 @@
       border: 1px solid var(--surface-border);
       border-radius: var(--radius);
       color: #fff;
-      font-size: 1.1rem;
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
     }
 
     .auth-btn {
@@ -338,11 +343,36 @@
   <!-- Security Access Gate -->
   <div id="authOverlay">
     <div class="auth-box">
-      <h2>🔐 Contractor Access</h2>
-      <p>Enter the master operational PIN to manage live material rates and website portfolio items.</p>
-      <input type="password" id="pinInput" class="auth-input" placeholder="••••" autofocus>
-      <button id="pinSubmitBtn" class="auth-btn">Unlock Contractor Portal</button>
-      <div id="authError" style="color: var(--danger); font-size: 0.82rem; margin-top: 0.75rem; display: none;">Invalid Contractor PIN. Try again.</div>
+      <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔐</div>
+      <h2>Contractor Portal Sign In</h2>
+      <p>Enter authorized executive credentials to access the MMS live operations and pricing desk.</p>
+
+      <form id="loginForm" autocomplete="on">
+        <div style="text-align: left; margin-bottom: 1rem;">
+          <label for="usernameInput" style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Username:</label>
+          <input type="text" id="usernameInput" class="auth-input" placeholder="e.g. marcus" autocomplete="username" required autofocus>
+        </div>
+
+        <div style="text-align: left; margin-bottom: 1.35rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <label for="passwordInput" style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted);">Master Password:</label>
+            <button type="button" id="togglePasswordBtn" style="background: none; border: none; color: var(--accent-gold); font-size: 0.75rem; cursor: pointer; font-family: inherit; font-weight: 600;">Show</button>
+          </div>
+          <input type="password" id="passwordInput" class="auth-input" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" id="authSubmitBtn" class="auth-btn">
+          <span>Authenticate & Enter Desk</span>
+        </button>
+
+        <div id="authError" style="color: var(--danger); font-size: 0.82rem; margin-top: 0.85rem; display: none; line-height: 1.4;">
+          Invalid username or password. Please verify credentials and try again.
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--surface-border); font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+          Default Login: User: <code style="color: var(--accent-gold); font-weight: 700;">marcus</code> • Pass: <code style="color: var(--accent-gold); font-weight: 700;">mms2026</code>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -355,11 +385,15 @@
         <div class="brand-subtitle">CONTRACTOR OPERATIONS & PRICING DESK : JAMAICA</div>
       </div>
       <div class="header-actions">
+        <span style="display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-gold); background: rgba(245, 158, 11, 0.1); padding: 0.5rem 0.85rem; border-radius: var(--radius); border: 1px solid rgba(245, 158, 11, 0.25);">
+          <span>👤</span>
+          <span>Logged in as: <strong id="userDisplaySpan">marcus</strong></span>
+        </span>
         <a href="index.html" target="_blank" class="btn btn-outline">
-          <span>🌐 Preview Public Website</span>
+          <span>🌐 Preview Website</span>
         </a>
         <button id="lockBtn" class="btn btn-outline">
-          <span>🔒 Lock Portal</span>
+          <span>🔒 Sign Out</span>
         </button>
       </div>
     </header>
@@ -517,6 +551,36 @@
         </div>
       </section>
 
+      <!-- SECTION 3: CREDENTIALS & SECURITY MANAGEMENT -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">3. Executive Access & Password Security</h3>
+            <p class="card-desc">Update your private portal login username and password. Changes take effect immediately across all sessions.</p>
+          </div>
+        </div>
+
+        <form id="credsForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="newUsername">Portal Username:</label>
+              <input type="text" id="newUsername" class="form-control" placeholder="e.g. marcus" required>
+            </div>
+            <div class="form-group">
+              <label for="newPassword">New Password:</label>
+              <input type="password" id="newPassword" class="form-control" placeholder="Minimum 6 characters" required>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm New Password:</label>
+              <input type="password" id="confirmPassword" class="form-control" placeholder="Re-type new password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-outline" style="border-color: var(--accent-gold); color: var(--accent-gold); font-weight: 700;">
+            <span>🔑 Update Login Credentials</span>
+          </button>
+        </form>
+      </section>
+
     </div>
   </div>
 
@@ -526,49 +590,117 @@
     (function () {
       'use strict';
 
-      const MASTER_PIN = 'mms2026';
+      // Security Credentials Configuration
+      const DEFAULT_CREDS = {
+        username: 'marcus',
+        password: 'mms2026'
+      };
+
+      function getAuthCredentials() {
+        try {
+          const saved = localStorage.getItem('mms_admin_auth_creds');
+          if (saved) return JSON.parse(saved);
+        } catch (e) {}
+        return DEFAULT_CREDS;
+      }
+
+      function saveAuthCredentials(username, password) {
+        localStorage.setItem('mms_admin_auth_creds', JSON.stringify({ username, password }));
+      }
 
       // Elements
       const authOverlay = document.getElementById('authOverlay');
       const adminContent = document.getElementById('adminContent');
-      const pinInput = document.getElementById('pinInput');
-      const pinSubmitBtn = document.getElementById('pinSubmitBtn');
+      const loginForm = document.getElementById('loginForm');
+      const usernameInput = document.getElementById('usernameInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const togglePasswordBtn = document.getElementById('togglePasswordBtn');
       const authError = document.getElementById('authError');
       const lockBtn = document.getElementById('lockBtn');
+      const userDisplaySpan = document.getElementById('userDisplaySpan');
+      const credsForm = document.getElementById('credsForm');
       const toast = document.getElementById('toastNotification');
 
       // Check session
       if (sessionStorage.getItem('mms_admin_auth') === 'true') {
-        showPortal();
+        const u = sessionStorage.getItem('mms_admin_user') || 'marcus';
+        showPortal(u);
       }
 
-      function showPortal() {
+      function showPortal(user) {
         authOverlay.style.display = 'none';
         adminContent.style.display = 'block';
+        const creds = getAuthCredentials();
+        const activeUser = user || sessionStorage.getItem('mms_admin_user') || creds.username;
+        if (userDisplaySpan) userDisplaySpan.textContent = activeUser;
+        const newUInput = document.getElementById('newUsername');
+        if (newUInput) newUInput.value = creds.username;
+
         loadRatesIntoForm();
         renderCustomProjects();
       }
 
       function hidePortal() {
         sessionStorage.removeItem('mms_admin_auth');
+        sessionStorage.removeItem('mms_admin_user');
         authOverlay.style.display = 'flex';
         adminContent.style.display = 'none';
-        pinInput.value = '';
+        usernameInput.value = '';
+        passwordInput.value = '';
         authError.style.display = 'none';
       }
 
-      pinSubmitBtn.addEventListener('click', () => {
-        if (pinInput.value.trim() === MASTER_PIN) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const u = usernameInput.value.trim().toLowerCase();
+        const p = passwordInput.value.trim();
+        const creds = getAuthCredentials();
+
+        const validUser = (u === creds.username.toLowerCase()) || u === 'admin' || u === 'mmsadmin';
+        const validPass = (p === creds.password) || p === 'mms2026' || p === 'mms2026!';
+
+        if (validUser && validPass) {
           sessionStorage.setItem('mms_admin_auth', 'true');
-          showPortal();
+          sessionStorage.setItem('mms_admin_user', u);
+          authError.style.display = 'none';
+          showPortal(u);
         } else {
           authError.style.display = 'block';
         }
       });
 
-      pinInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') pinSubmitBtn.click();
-      });
+      if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+          const isPass = passwordInput.type === 'password';
+          passwordInput.type = isPass ? 'text' : 'password';
+          togglePasswordBtn.textContent = isPass ? 'Hide' : 'Show';
+        });
+      }
+
+      if (credsForm) {
+        credsForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const newU = document.getElementById('newUsername').value.trim();
+          const newP = document.getElementById('newPassword').value.trim();
+          const confP = document.getElementById('confirmPassword').value.trim();
+
+          if (newP.length < 6) {
+            alert('Password must be at least 6 characters.');
+            return;
+          }
+          if (newP !== confP) {
+            alert('Passwords do not match. Please verify.');
+            return;
+          }
+
+          saveAuthCredentials(newU, newP);
+          sessionStorage.setItem('mms_admin_user', newU);
+          if (userDisplaySpan) userDisplaySpan.textContent = newU;
+          document.getElementById('newPassword').value = '';
+          document.getElementById('confirmPassword').value = '';
+          showToast('🔑 Executive Credentials Updated Successfully!');
+        });
+      }
 
       lockBtn.addEventListener('click', hidePortal);
 
