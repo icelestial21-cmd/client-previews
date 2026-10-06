@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>MMS Construction Services | Contractor Admin Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -400,6 +401,15 @@
 
     <div class="dashboard-grid">
 
+      <!-- Staging vs Production Sync Telemetry Notice -->
+      <div style="background: rgba(6, 182, 212, 0.08); border-left: 4px solid var(--accent-cyan); padding: 0.95rem 1.25rem; border-radius: var(--radius); margin-bottom: 2rem; display: flex; align-items: flex-start; gap: 0.85rem;">
+        <span style="font-size: 1.35rem; line-height: 1;">ℹ️</span>
+        <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+          <strong style="color: #FFFFFF; display: block; margin-bottom: 0.2rem; font-size: 0.88rem;">Stage 1 Interactive Staging Environment:</strong>
+          Updates made in this portal immediately calibrate calculations and project showcases on this device. Upon Stage 2 live handover, full server-side database synchronization is activated on your production hosting environment, ensuring instantaneous cross-device persistence across every visitor device island-wide and overseas.
+        </div>
+      </div>
+
       <!-- SECTION 1: MATERIAL PRICING & ESTIMATOR CALIBRATION -->
       <section class="card">
         <div class="card-header">
@@ -656,8 +666,8 @@
         const p = passwordInput.value.trim();
         const creds = getAuthCredentials();
 
-        const validUser = (u === creds.username.toLowerCase()) || u === 'admin' || u === 'mmsadmin';
-        const validPass = (p === creds.password) || p === 'mms2026' || p === 'mms2026!';
+        const validUser = (u === creds.username.toLowerCase());
+        const validPass = (p === creds.password);
 
         if (validUser && validPass) {
           sessionStorage.setItem('mms_admin_auth', 'true');
@@ -773,6 +783,16 @@
         }
       });
 
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
       // ==========================================
       // PORTFOLIO MANAGEMENT
       // ==========================================
@@ -785,7 +805,14 @@
       }
 
       function saveCustomPortfolio(list) {
-        localStorage.setItem('mms_custom_portfolio', JSON.stringify(list));
+        try {
+          localStorage.setItem('mms_custom_portfolio', JSON.stringify(list));
+          return true;
+        } catch (err) {
+          console.error('Storage quota exceeded:', err);
+          alert('Device storage capacity reached. Could not save this project photo. Please upload a smaller image or remove older custom entries.');
+          return false;
+        }
       }
 
       function renderCustomProjects() {
@@ -801,13 +828,18 @@
         list.forEach((item, index) => {
           const card = document.createElement('div');
           card.className = 'portfolio-card';
+          const safeCategory = escapeHtml(item.categoryLabel || item.category);
+          const safeTitle = escapeHtml(item.title);
+          const safeLocation = escapeHtml(item.location);
+          const safeTimeline = escapeHtml(item.timeline);
+          const safeImage = escapeHtml(item.imageSrc || 'assets/project_deck_screed.jpg');
           card.innerHTML = `
-            <img src="${item.imageSrc}" alt="${item.title}" class="portfolio-thumb">
+            <img src="${safeImage}" alt="${safeTitle}" class="portfolio-thumb">
             <div class="portfolio-body">
               <div>
-                <div class="portfolio-tag">${item.categoryLabel || item.category}</div>
-                <div class="portfolio-title">${item.title}</div>
-                <div class="portfolio-meta">📍 ${item.location} • ${item.timeline}</div>
+                <div class="portfolio-tag">${safeCategory}</div>
+                <div class="portfolio-title">${safeTitle}</div>
+                <div class="portfolio-meta">📍 ${safeLocation} • ${safeTimeline}</div>
               </div>
               <button class="btn-delete" onclick="window.removeProject(${index})">Delete Project</button>
             </div>
@@ -825,6 +857,36 @@
           showToast('Project Removed from Portfolio.');
         }
       };
+
+      function compressImage(file, maxWidth, quality, callback) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            callback(null, dataUrl);
+          };
+          img.onerror = function() {
+            callback(new Error('Failed to load image file.'));
+          };
+          img.src = e.target.result;
+        };
+        reader.onerror = function() {
+          callback(new Error('Failed to read image file.'));
+        };
+        reader.readAsDataURL(file);
+      }
 
       document.getElementById('portfolioForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -848,30 +910,34 @@
             location,
             timeline,
             description,
-            imageSrc: imgSrc || 'assets/project_belting_decking.jpg',
+            imageSrc: imgSrc || 'assets/project_deck_screed.jpg',
             createdAt: new Date().toISOString()
           };
 
           const list = getCustomPortfolio();
           list.unshift(newItem);
-          saveCustomPortfolio(list);
-          renderCustomProjects();
-
-          document.getElementById('portfolioForm').reset();
-          showToast('🚀 Project Published Successfully to Website!');
+          const saved = saveCustomPortfolio(list);
+          if (saved) {
+            renderCustomProjects();
+            document.getElementById('portfolioForm').reset();
+            showToast('🚀 Project Published Successfully to Website!');
+          }
         }
 
         if (fileInput.files && fileInput.files[0]) {
-          const reader = new FileReader();
-          reader.onload = function(evt) {
-            addAndFinish(evt.target.result);
-          };
-          reader.readAsDataURL(fileInput.files[0]);
+          showToast('Optimizing photo for mobile and web delivery...');
+          compressImage(fileInput.files[0], 1000, 0.75, function(err, compressedDataUrl) {
+            if (err) {
+              alert('Could not compress photo: ' + err.message);
+              return;
+            }
+            addAndFinish(compressedDataUrl);
+          });
         } else if (urlInput) {
           addAndFinish(urlInput);
         } else {
           // Default placeholder fallback
-          addAndFinish('assets/project_belting_decking.jpg');
+          addAndFinish('assets/project_deck_screed.jpg');
         }
       });
 

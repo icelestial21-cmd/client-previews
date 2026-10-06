@@ -153,7 +153,7 @@
       parish: 'St. Catherine',
       bushing: false,
       treeRemoval: false,
-      waterTank: true
+      waterTank: false
     },
 
     // Calculated Telemetry
@@ -172,6 +172,52 @@
     }
   };
 
+  // Helper: Sanitize Strings for HTML Injection Prevention
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Synchronize Live Prices on Scope and Finish Cards
+  function syncCardPriceLabels() {
+    const elTurnkey = document.getElementById('scopePriceTurnkey');
+    const elShell = document.getElementById('scopePriceShell');
+    const elDecking = document.getElementById('scopePriceDecking');
+    const elTiling = document.getElementById('scopePriceTiling');
+
+    if (elTurnkey && SCOPE_BASE_RATES.turnkey) {
+      elTurnkey.textContent = `$${SCOPE_BASE_RATES.turnkey.rateJmd.toLocaleString()} JMD / sq ft`;
+    }
+    if (elShell && SCOPE_BASE_RATES.structural_shell) {
+      elShell.textContent = `$${SCOPE_BASE_RATES.structural_shell.rateJmd.toLocaleString()} JMD / sq ft`;
+    }
+    if (elDecking && SCOPE_BASE_RATES.belting_decking) {
+      elDecking.textContent = `$${SCOPE_BASE_RATES.belting_decking.rateJmd.toLocaleString()} JMD / sq ft`;
+    }
+    if (elTiling && SCOPE_BASE_RATES.tiling_renovation) {
+      elTiling.textContent = `$${SCOPE_BASE_RATES.tiling_renovation.rateJmd.toLocaleString()} JMD / sq ft`;
+    }
+
+    const elStd = document.getElementById('tierRateStandard');
+    const elExec = document.getElementById('tierRateExecutive');
+    const elLux = document.getElementById('tierRateLuxury');
+
+    if (elStd && SPATIAL_RATES.standard) {
+      elStd.textContent = `$${SPATIAL_RATES.standard.toLocaleString()} JMD / sq ft`;
+    }
+    if (elExec && SPATIAL_RATES.executive) {
+      elExec.textContent = `$${SPATIAL_RATES.executive.toLocaleString()} JMD / sq ft`;
+    }
+    if (elLux && SPATIAL_RATES.luxury) {
+      elLux.textContent = `$${SPATIAL_RATES.luxury.toLocaleString()} JMD / sq ft`;
+    }
+  }
+
   // Lifecycle Initialization
   document.addEventListener('DOMContentLoaded', () => {
     initModeSwitcher();
@@ -183,7 +229,8 @@
     initMobileMenu();
     initQuickInquiryForm();
 
-    // Initial calculation run
+    // Sync card price tags and run initial calculation
+    syncCardPriceLabels();
     updateEstimator();
   });
 
@@ -336,10 +383,22 @@
       });
 
       sqftInput.addEventListener('input', (e) => {
-        let val = parseInt(e.target.value, 10);
+        const raw = e.target.value.trim();
+        if (raw === '') return;
+        const val = parseInt(raw, 10);
+        if (isNaN(val)) return;
+        const clamped = Math.min(Math.max(val, 400), 10000);
+        sqftRange.value = clamped;
+        state.structural.sqft = clamped;
+        updateEstimator();
+      });
+
+      sqftInput.addEventListener('blur', () => {
+        let val = parseInt(sqftInput.value, 10);
         if (isNaN(val) || val < 400) val = 400;
         if (val > 10000) val = 10000;
-        if (val <= 6000) sqftRange.value = val;
+        sqftInput.value = val;
+        sqftRange.value = val;
         state.structural.sqft = val;
         updateEstimator();
       });
@@ -444,13 +503,20 @@
       const livingArea = sp.living.len * sp.living.wid;
       const verandaArea = sp.veranda.len * sp.veranda.wid;
 
-      const roomsSubtotal = masterBedArea + masterBathArea + otherBedArea + otherBathArea + kitchenArea + livingArea + verandaArea;
-      const circulationAllowance = Math.round(roomsSubtotal * 0.05);
-      measuredArea = roomsSubtotal + circulationAllowance;
+      // Interior living spaces
+      const interiorRoomsSubtotal = masterBedArea + masterBathArea + otherBedArea + otherBathArea + kitchenArea + livingArea;
+      const circulationAllowance = Math.round(interiorRoomsSubtotal * 0.05);
+      const grossInteriorArea = interiorRoomsSubtotal + circulationAllowance;
+
+      // Measured gross area includes full covered veranda footprint
+      measuredArea = grossInteriorArea + verandaArea;
+
+      // Effective cost area applies 50% finish/fitout weighting to outdoor covered veranda
+      const effectiveCostArea = grossInteriorArea + Math.round(verandaArea * 0.50);
 
       const baseRate = SPATIAL_RATES[sp.tier] || SPATIAL_RATES.executive;
       effectiveUnitRateJmd = Math.round(baseRate * parishMult);
-      totalCostJmd = Math.round(measuredArea * effectiveUnitRateJmd);
+      totalCostJmd = Math.round(effectiveCostArea * effectiveUnitRateJmd);
 
       elementalRatios = { sub: 0.22, sup: 0.38, fin: 0.24, mep: 0.16 };
       cementFactor = 0.45;
@@ -642,11 +708,13 @@
 
     if (elCementSub) {
       const cementCostDisplay = isUsd ? Math.round(t.cementCostJmd / JMD_PER_USD) : t.cementCostJmd;
-      elCementSub.textContent = `Carib Cement @ $${MATERIAL_UNIT_RATES.cementBag.toLocaleString()}/bag (~${formatCompact(cementCostDisplay, state.activeCurrency)})`;
+      const bagRateDisplay = isUsd ? `US$${(MATERIAL_UNIT_RATES.cementBag / JMD_PER_USD).toFixed(2)}` : `$${MATERIAL_UNIT_RATES.cementBag.toLocaleString()} JMD`;
+      elCementSub.textContent = `Carib Cement @ ${bagRateDisplay}/bag (~${formatCompact(cementCostDisplay, state.activeCurrency)})`;
     }
     if (elSteelSub) {
       const steelCostDisplay = isUsd ? Math.round(t.rebarCostJmd / JMD_PER_USD) : t.rebarCostJmd;
-      elSteelSub.textContent = `Grade 60 @ $${Math.round(MATERIAL_UNIT_RATES.steelTon / 1000)}k/ton (~${formatCompact(steelCostDisplay, state.activeCurrency)})`;
+      const steelRateDisplay = isUsd ? `US$${Math.round(MATERIAL_UNIT_RATES.steelTon / JMD_PER_USD).toLocaleString()}` : `$${Math.round(MATERIAL_UNIT_RATES.steelTon / 1000)}k JMD`;
+      elSteelSub.textContent = `Grade 60 @ ${steelRateDisplay}/ton (~${formatCompact(steelCostDisplay, state.activeCurrency)})`;
     }
   }
 
@@ -665,9 +733,21 @@
       const parishSelect = document.getElementById('parishSelect');
       const parishName = parishSelect ? parishSelect.value : 'St. Catherine';
       const districtInput = document.getElementById('districtInput');
-      const districtName = districtInput && districtInput.value.trim() ? districtInput.value.trim() : 'Linstead';
+      const districtName = districtInput && districtInput.value.trim() ? districtInput.value.trim() : '';
       const readinessSelect = document.getElementById('readinessSelect');
-      const readinessStage = readinessSelect ? readinessSelect.value : 'Ready to Break Ground (Within 30 Days)';
+      const readinessStage = readinessSelect && readinessSelect.value ? readinessSelect.value : '';
+
+      if (!districtName) {
+        alert('Please specify your town or community location so Marcus can calculate exact quarry and haulage logistics.');
+        if (districtInput) districtInput.focus();
+        return;
+      }
+
+      if (!readinessStage) {
+        alert('Please select your project build readiness stage so Marcus can prioritize your site review.');
+        if (readinessSelect) readinessSelect.focus();
+        return;
+      }
 
       let specSummary = '';
       if (isSpatial) {
@@ -727,18 +807,36 @@
             const card = document.createElement('div');
             card.className = 'portfolio-item-card';
             card.dataset.category = item.category || 'residential';
+            card.tabIndex = 0;
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `View details for project ${escapeHtml(item.title)}`);
+
+            const safeTitle = escapeHtml(item.title);
+            const safeCategory = escapeHtml(item.categoryLabel || item.category);
+            const safeLocation = escapeHtml(item.location);
+            const safeTimeline = escapeHtml(item.timeline || 'Verified Completion');
+            const safeDesc = escapeHtml(item.description);
+            const safeImg = item.imageSrc || 'assets/project_deck_screed.jpg';
+
             card.onclick = () => window.openLightbox(item.title, item.categoryLabel || item.category, item.location, item.imageSrc, item.description);
+            card.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+              }
+            };
+
             card.innerHTML = `
               <div class="portfolio-thumb-wrap">
-                <img src="${item.imageSrc}" alt="${item.title}" loading="lazy" style="width: 100%; height: 240px; object-fit: cover;">
-                <span class="portfolio-badge">${item.categoryLabel || item.category}</span>
+                <img src="${safeImg}" alt="${safeTitle}" loading="lazy" style="width: 100%; height: 240px; object-fit: cover;">
+                <span class="portfolio-badge">${safeCategory}</span>
               </div>
               <div class="portfolio-info">
-                <h4>${item.title}</h4>
-                <p>${item.description}</p>
+                <h4>${safeTitle}</h4>
+                <p>${safeDesc}</p>
                 <div class="portfolio-meta">
-                  <span>📍 ${item.location}</span>
-                  <span>${item.timeline || 'Verified Completion'}</span>
+                  <span>📍 ${safeLocation}</span>
+                  <span>${safeTimeline}</span>
                 </div>
               </div>
             `;
@@ -752,6 +850,19 @@
 
     const filterPills = document.querySelectorAll('.portfolio-filter-bar .filter-pill');
     const cards = document.querySelectorAll('.portfolio-item-card');
+
+    cards.forEach(card => {
+      if (!card.hasAttribute('tabindex')) {
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+          }
+        });
+      }
+    });
 
     filterPills.forEach(pill => {
       pill.addEventListener('click', () => {
@@ -774,9 +885,13 @@
   // =========================================================================
   // 9. LIGHTBOX MODAL CONTROLLER
   // =========================================================================
+  let lastFocusedElement = null;
+
   window.openLightbox = function(title, category, location, imageSrc, description) {
     const modal = document.getElementById('lightboxModal');
     if (!modal) return;
+
+    lastFocusedElement = document.activeElement;
 
     const titleEl = document.getElementById('lightboxTitle');
     const categoryEl = document.getElementById('lightboxCategory');
@@ -786,13 +901,16 @@
     if (titleEl) titleEl.textContent = title;
     if (categoryEl) categoryEl.textContent = `${category} : ${location}`;
     if (imageEl) {
-      imageEl.src = imageSrc;
+      imageEl.src = imageSrc || 'assets/project_deck_screed.jpg';
       imageEl.alt = title;
     }
     if (descEl) descEl.textContent = description;
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    const closeBtn = modal.querySelector('.lightbox-close-btn');
+    if (closeBtn) closeBtn.focus();
   };
 
   window.closeLightbox = function() {
@@ -800,6 +918,9 @@
     if (modal) {
       modal.classList.remove('active');
       document.body.style.overflow = '';
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+      }
     }
   };
 
@@ -818,13 +939,15 @@
 
     if (toggleBtn && navMenu) {
       toggleBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
+        const isOpen = navMenu.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
 
       const navLinks = navMenu.querySelectorAll('.nav-link');
       navLinks.forEach(link => {
         link.addEventListener('click', () => {
           navMenu.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
         });
       });
     }
@@ -834,11 +957,11 @@
   // 11. QUICK INQUIRY DISPATCH
   // =========================================================================
   function initQuickInquiryForm() {
-    const form = document.querySelector('.contact-form-block form');
+    const form = document.getElementById('contactQuickForm') || document.querySelector('.contact-form-card form');
     if (!form) return;
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    window.handleQuickInquiry = function(e) {
+      if (e && e.preventDefault) e.preventDefault();
 
       const nameInput = document.getElementById('inquiryName');
       const phoneInput = document.getElementById('inquiryPhone');
@@ -852,12 +975,16 @@
 
       if (!name || !phone) {
         alert('Please provide your name and contact phone number.');
+        if (!name && nameInput) nameInput.focus();
+        else if (!phone && phoneInput) phoneInput.focus();
         return;
       }
 
       const message = `Hello Marcus (MMS Construction Services),\n\nMy name is ${name} (${phone}).\n* Project Scope: ${scope}\n* Details & Location: ${details || 'Not specified'}\n\nPlease contact me to schedule a site consultation.`;
       window.open(`https://wa.me/18765097471?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-    });
+    };
+
+    form.addEventListener('submit', window.handleQuickInquiry);
   }
 
 })();

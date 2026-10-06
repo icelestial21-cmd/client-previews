@@ -1614,9 +1614,29 @@ textarea.form-control {
   .mobile-toggle {
     display: block;
   }
+
+  .nav-actions .btn {
+    display: none;
+  }
+
+  .mms-brand-logo {
+    height: 42px;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+  }
+
+  .brand-subline {
+    font-size: 0.62rem;
+  }
+
+  .nav-inner {
+    height: 68px;
+  }
   
   .hero-title {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
   }
   
   .hero-metrics-grid {
@@ -2420,6 +2440,21 @@ textarea.form-control {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .estimator-workbench-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  .workbench-inputs-pane,
+  .workbench-telemetry-pane {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
   .tier-options-grid {
     grid-template-columns: 1fr;
   }
@@ -2427,7 +2462,7 @@ textarea.form-control {
     grid-template-columns: 1fr;
   }
   .structural-selectors-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .slider-dual-row {
     grid-template-columns: 1fr;
@@ -2437,5 +2472,35 @@ textarea.form-control {
   }
   .estimator-mode-toggle {
     flex-direction: column;
+  }
+  .telemetry-quote-card {
+    padding: 1.25rem 1rem;
+  }
+  .price-amount {
+    font-size: clamp(1.9rem, 7vw, 2.5rem);
+  }
+  .price-currency {
+    font-size: 1.6rem;
+  }
+  .price-figure-wrap {
+    flex-wrap: wrap;
+    word-break: break-word;
+  }
+  .room-control-card {
+    padding: 1rem 0.85rem;
+  }
+  .universal-logistics-card {
+    padding: 1rem 0.85rem !important;
+  }
+  .contractor-range {
+    height: 8px;
+  }
+  .contractor-range::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+  .contractor-range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
   }
 }
