@@ -150,12 +150,18 @@
         <!-- Estimator Mode Switcher -->
         <div class="estimator-mode-toggle" role="tablist">
           <button id="modeSpatialBtn" class="mode-tab-btn active" role="tab" aria-selected="true" aria-controls="spatialModePanel">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span>Spatial Room Builder</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div class="mode-tab-text" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+              <span class="mode-target-audience" style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--caution-amber); letter-spacing: 0.5px; display: block; font-weight: 700;">FOR HOMEOWNERS & DIASPORA</span>
+              <span class="mode-main-title" style="font-size: 0.95rem; font-weight: 800; font-family: var(--font-display); color: #fff; display: block;">Spatial Room Builder</span>
+            </div>
           </button>
           <button id="modeStructuralBtn" class="mode-tab-btn" role="tab" aria-selected="false" aria-controls="structuralModePanel">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-            <span>Structural & Elemental QS</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <div class="mode-tab-text" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
+              <span class="mode-target-audience" style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--brand-cyan); letter-spacing: 0.5px; display: block; font-weight: 700;">FOR BUILDERS & DEVELOPERS</span>
+              <span class="mode-main-title" style="font-size: 0.95rem; font-weight: 800; font-family: var(--font-display); color: #fff; display: block;">Structural & Elemental QS</span>
+            </div>
           </button>
         </div>
       </div>
@@ -167,8 +173,11 @@
           <!-- MODE 1: Spatial Room Builder Panel -->
           <div id="spatialModePanel" class="mode-panel active" role="tabpanel">
             <div class="panel-intro-box">
-              <span class="box-title">CONFIGURE ROOM BY ROOM</span>
-              <p>Add your desired spaces. Our engine calculates accurate floor areas, adjusts for partition wall thicknesses, and factors the standard 5% circulation corridor allowance.</p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem;">
+                <span class="box-title" style="margin-bottom: 0;">MODE 1 : SPATIAL ROOM BUILDER</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--caution-amber); background: rgba(245, 158, 11, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.3); font-weight: 700;">BEST FOR: HOMEOWNERS & OVERSEAS DIASPORA BUYERS</span>
+              </div>
+              <p>Ideal if you do not know your exact gross square footage. Simply configure your rooms (master suite, bedrooms, kitchen, living, veranda). Our engine calculates accurate floor areas, adjusts for partition walls, adds a standard 5% hallway corridor allowance, and prices your home according to your desired finish grade.</p>
             </div>
 
             <div class="spatial-room-controls">
@@ -392,8 +401,11 @@
           <!-- MODE 2: Structural & Elemental QS Panel -->
           <div id="structuralModePanel" class="mode-panel" role="tabpanel">
             <div class="panel-intro-box">
-              <span class="box-title">STRUCTURAL & LOGISTICAL SPECIFICATION</span>
-              <p>Tailored for developers, home builders, and commercial projects requiring geotechnical, roofing, and site condition analysis.</p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.4rem;">
+                <span class="box-title" style="margin-bottom: 0;">MODE 2 : STRUCTURAL & ELEMENTAL QS</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--brand-cyan); background: rgba(6, 182, 212, 0.12); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid rgba(6, 182, 212, 0.3); font-weight: 700;">BEST FOR: CONTRACTORS, ARCHITECTS & DEVELOPERS</span>
+              </div>
+              <p>Ideal if you already have approved drawings or a known gross floor area (sq ft). Configure specific structural scopes (Turnkey, Grey Shell, Marcus's specialty Decking Pour, or Tiling), geotechnical soil conditions, building elevation, and roof slab type using Jamaican Master Builders standards.</p>
             </div>
 
             <div class="structural-controls-wrap">
@@ -477,43 +489,6 @@
                     <option value="soft_clay">Soft Clay / Wet Ground (Widened Strip Footings)</option>
                   </select>
                 </div>
-
-                <!-- Parish Location (Haulage & Logistics) -->
-                <div class="control-box">
-                  <label for="parishSelect">Site Parish (Haulage & Quarry Access):</label>
-                  <select id="parishSelect" class="contractor-select">
-                    <option value="St. Catherine" selected>St. Catherine (Home Base: 1.00x)</option>
-                    <option value="Kingston & St. Andrew">Kingston & St. Andrew (1.02x)</option>
-                    <option value="St. Ann">St. Ann (Ocho Rios / Runaway Bay: 1.05x)</option>
-                    <option value="Clarendon">Clarendon (1.03x)</option>
-                    <option value="Manchester">Manchester (Mandeville: 1.05x)</option>
-                    <option value="St. James">St. James (Montego Bay: 1.08x)</option>
-                    <option value="St. Elizabeth">St. Elizabeth (1.06x)</option>
-                    <option value="Westmoreland">Westmoreland (Negril: 1.10x)</option>
-                    <option value="Hanover">Hanover (1.10x)</option>
-                    <option value="Trelawny">Trelawny (Falmouth: 1.07x)</option>
-                    <option value="St. Mary">St. Mary (1.06x)</option>
-                    <option value="Portland">Portland (Port Antonio: 1.12x)</option>
-                    <option value="St. Thomas">St. Thomas (1.10x)</option>
-                  </select>
-                </div>
-
-                <!-- Town / District Location -->
-                <div class="control-box">
-                  <label for="districtInput">Town / Community Location:</label>
-                  <input type="text" id="districtInput" class="contractor-select" placeholder="e.g. Linstead, Spanish Town, Ocho Rios..." value="Linstead" style="padding: 0.65rem 0.85rem; font-family: inherit; font-size: 0.88rem; background: var(--surface-steel-card); color: #fff; border: 1px solid var(--surface-steel-border); border-radius: var(--radius-sm); width: 100%;">
-                </div>
-
-                <!-- Build Readiness Stage -->
-                <div class="control-box">
-                  <label for="readinessSelect">Project Build Readiness Stage:</label>
-                  <select id="readinessSelect" class="contractor-select">
-                    <option value="Ready to Break Ground (Within 30 Days)" selected>Ready to Break Ground (Within 30 Days)</option>
-                    <option value="Land Owned & Registered (Building in 1-3 Months)">Land Owned & Registered (Building in 1-3 Months)</option>
-                    <option value="Architectural Drawings in Progress (3-6 Months)">Architectural Drawings in Progress (3-6 Months)</option>
-                    <option value="Preliminary Planning & Budget Sizing (Diaspora/Future)">Preliminary Planning & Budget Sizing (Diaspora/Future)</option>
-                  </select>
-                </div>
               </div>
 
               <!-- Site Utilities & Preparation Checkboxes -->
@@ -533,6 +508,53 @@
                     <span>No Piped Water Onsite (Include 1,000-gal Buffer Tank + Stand)</span>
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Universal Project Location & Readiness Card (Shared across both Spatial & Structural modes) -->
+          <div class="universal-logistics-card" style="margin-top: 1.5rem; background: var(--surface-steel-card); border: 1px solid var(--surface-steel-border); border-radius: var(--radius-sm); padding: 1.25rem;">
+            <div class="panel-intro-box" style="margin-bottom: 1.1rem; border-left: 3px solid var(--caution-amber); background: rgba(0, 114, 206, 0.08); padding: 0.75rem 1rem;">
+              <span class="box-title" style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; color: var(--caution-amber); display: block; letter-spacing: 1px; margin-bottom: 0.25rem;">📍 UNIVERSAL PROJECT LOCATION & BUILD READINESS</span>
+              <p style="font-size: 0.8rem; color: var(--ink-light-muted); margin: 0;">Required for all estimates. Sets parish haulage factors, local quarry freight adjustments, and pre-qualifies your WhatsApp project intake for Marcus Saunders.</p>
+            </div>
+
+            <div class="structural-selectors-grid" style="grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));">
+              <!-- Parish Location (Haulage & Logistics) -->
+              <div class="control-box">
+                <label for="parishSelect" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-light-muted); margin-bottom: 0.35rem;">Site Parish (Haulage Multiplier):</label>
+                <select id="parishSelect" class="contractor-select">
+                  <option value="St. Catherine" selected>St. Catherine (Home Base: 1.00x)</option>
+                  <option value="Kingston & St. Andrew">Kingston & St. Andrew (1.02x)</option>
+                  <option value="St. Ann">St. Ann (Ocho Rios / Runaway Bay: 1.05x)</option>
+                  <option value="Clarendon">Clarendon (1.03x)</option>
+                  <option value="Manchester">Manchester (Mandeville: 1.05x)</option>
+                  <option value="St. James">St. James (Montego Bay: 1.08x)</option>
+                  <option value="St. Elizabeth">St. Elizabeth (1.06x)</option>
+                  <option value="Westmoreland">Westmoreland (Negril: 1.10x)</option>
+                  <option value="Hanover">Hanover (1.10x)</option>
+                  <option value="Trelawny">Trelawny (Falmouth: 1.07x)</option>
+                  <option value="St. Mary">St. Mary (1.06x)</option>
+                  <option value="Portland">Portland (Port Antonio: 1.12x)</option>
+                  <option value="St. Thomas">St. Thomas (1.10x)</option>
+                </select>
+              </div>
+
+              <!-- Town / District Location -->
+              <div class="control-box">
+                <label for="districtInput" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-light-muted); margin-bottom: 0.35rem;">Town / Community Location:</label>
+                <input type="text" id="districtInput" class="contractor-select" placeholder="e.g. Linstead, Ewarton, Spanish Town, Ocho Rios..." value="Linstead" style="padding: 0.65rem 0.85rem; font-family: inherit; font-size: 0.88rem; background: #0D1424; color: #fff; border: 1px solid var(--surface-steel-border); border-radius: var(--radius-sm); width: 100%;">
+              </div>
+
+              <!-- Build Readiness Stage -->
+              <div class="control-box" style="grid-column: 1 / -1;">
+                <label for="readinessSelect" style="display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-light-muted); margin-bottom: 0.35rem;">Project Build Readiness Stage:</label>
+                <select id="readinessSelect" class="contractor-select" style="width: 100%;">
+                  <option value="Ready to Break Ground (Within 30 Days)" selected>Ready to Break Ground (Within 30 Days)</option>
+                  <option value="Land Owned & Registered (Building in 1-3 Months)">Land Owned & Registered (Building in 1-3 Months)</option>
+                  <option value="Architectural Drawings in Progress (3-6 Months)">Architectural Drawings in Progress (3-6 Months)</option>
+                  <option value="Preliminary Planning & Budget Sizing (Diaspora/Future)">Preliminary Planning & Budget Sizing (Diaspora/Future)</option>
+                </select>
               </div>
             </div>
           </div>
@@ -592,21 +614,21 @@
                   <span class="takeoff-icon">🧱</span>
                   <div>
                     <strong id="takeoffCement">810 Bags</strong>
-                    <span>Carib Cement (Type 1)</span>
+                    <span id="takeoffCementSub">Carib Cement ($1,450/bag)</span>
                   </div>
                 </div>
                 <div class="takeoff-metric">
                   <span class="takeoff-icon">🏗️</span>
                   <div>
                     <strong id="takeoffSteel">3.24 Tons</strong>
-                    <span>Grade 60 Rebar</span>
+                    <span id="takeoffSteelSub">Grade 60 Rebar</span>
                   </div>
                 </div>
                 <div class="takeoff-metric">
                   <span class="takeoff-icon">⏱️</span>
                   <div>
                     <strong id="takeoffTimeline">4 to 6 Mos</strong>
-                    <span>Project Duration</span>
+                    <span id="takeoffTimelineSub">Project Duration</span>
                   </div>
                 </div>
               </div>

@@ -61,11 +61,19 @@
     }
   };
 
+  // Primary Material Benchmark Unit Prices (JMD)
+  const MATERIAL_UNIT_RATES = {
+    cementBag: 1450,
+    steelTon: 185000
+  };
+
   // Load custom rates if saved in Contractor Admin Portal
   try {
     const savedRates = localStorage.getItem('mms_custom_rates');
     if (savedRates) {
       const parsed = JSON.parse(savedRates);
+      if (parsed.cementBagRate) MATERIAL_UNIT_RATES.cementBag = Number(parsed.cementBagRate);
+      if (parsed.steelTonRate) MATERIAL_UNIT_RATES.steelTon = Number(parsed.steelTonRate);
       if (parsed.spatial) Object.assign(SPATIAL_RATES, parsed.spatial);
       if (parsed.turnkeyRate && SCOPE_BASE_RATES.turnkey) SCOPE_BASE_RATES.turnkey.rateJmd = Number(parsed.turnkeyRate);
       if (parsed.shellRate && SCOPE_BASE_RATES.structural_shell) SCOPE_BASE_RATES.structural_shell.rateJmd = Number(parsed.shellRate);
@@ -477,6 +485,9 @@
     const rebarTons = parseFloat((measuredArea * steelFactor).toFixed(2));
     const timelineStr = calculateDuration(measuredArea, state.activeMode, state.structural.scope);
 
+    const cementCostJmd = Math.round(cementBags * MATERIAL_UNIT_RATES.cementBag);
+    const rebarCostJmd = Math.round(rebarTons * MATERIAL_UNIT_RATES.steelTon);
+
     const subCost = Math.round(totalCostJmd * elementalRatios.sub);
     const supCost = Math.round(totalCostJmd * elementalRatios.sup);
     const finCost = Math.round(totalCostJmd * elementalRatios.fin);
@@ -492,7 +503,11 @@
       finCostJmd: finCost,
       mepCostJmd: mepCost,
       cementBags: cementBags,
+      cementCostJmd: cementCostJmd,
+      cementBagRate: MATERIAL_UNIT_RATES.cementBag,
       rebarTons: rebarTons,
+      rebarCostJmd: rebarCostJmd,
+      steelTonRate: MATERIAL_UNIT_RATES.steelTon,
       timelineStr: timelineStr,
       ratios: elementalRatios
     };
@@ -618,10 +633,21 @@
     const elCement = document.getElementById('takeoffCement');
     const elSteel = document.getElementById('takeoffSteel');
     const elTimeline = document.getElementById('takeoffTimeline');
+    const elCementSub = document.getElementById('takeoffCementSub');
+    const elSteelSub = document.getElementById('takeoffSteelSub');
 
     if (elCement) elCement.textContent = `${t.cementBags.toLocaleString()} Bags`;
     if (elSteel) elSteel.textContent = `${t.rebarTons} Tons`;
     if (elTimeline) elTimeline.textContent = t.timelineStr;
+
+    if (elCementSub) {
+      const cementCostDisplay = isUsd ? Math.round(t.cementCostJmd / JMD_PER_USD) : t.cementCostJmd;
+      elCementSub.textContent = `Carib Cement @ $${MATERIAL_UNIT_RATES.cementBag.toLocaleString()}/bag (~${formatCompact(cementCostDisplay, state.activeCurrency)})`;
+    }
+    if (elSteelSub) {
+      const steelCostDisplay = isUsd ? Math.round(t.rebarCostJmd / JMD_PER_USD) : t.rebarCostJmd;
+      elSteelSub.textContent = `Grade 60 @ $${Math.round(MATERIAL_UNIT_RATES.steelTon / 1000)}k/ton (~${formatCompact(steelCostDisplay, state.activeCurrency)})`;
+    }
   }
 
   // =========================================================================
@@ -673,8 +699,8 @@
         `* MEP Services: $${t.mepCostJmd.toLocaleString()} JMD`,
         ``,
         `Estimated Primary Materials:`,
-        `* Carib Cement: approx. ${t.cementBags.toLocaleString()} Bags`,
-        `* Grade 60 Rebar: approx. ${t.rebarTons} Tons`,
+        `* Carib Cement: approx. ${t.cementBags.toLocaleString()} Bags (~$${t.cementCostJmd.toLocaleString()} JMD @ $${t.cementBagRate.toLocaleString()}/bag)`,
+        `* Grade 60 Rebar: approx. ${t.rebarTons} Tons (~$${t.rebarCostJmd.toLocaleString()} JMD @ $${t.steelTonRate.toLocaleString()}/ton)`,
         `* Projected Duration: ${t.timelineStr}`,
         ``,
         `*Note: Baseline model for level terrain. Please let me know your availability for an on-site survey and formal bill of quantities review.*`

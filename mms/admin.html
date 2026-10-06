@@ -379,34 +379,69 @@
         </div>
 
         <form id="ratesForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="turnkeyRate">Turnkey Luxury Build (JMD / sq ft):</label>
-              <input type="number" id="turnkeyRate" class="form-control" value="18500" required>
+          <!-- Primary Materials Calibration -->
+          <div style="margin-bottom: 1.5rem; padding: 1.15rem; background: #0d1424; border: 1px solid var(--surface-border); border-radius: var(--radius);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h4 style="font-size: 0.95rem; color: var(--accent-gold); font-family: 'JetBrains Mono', monospace;">A. PRIMARY MATERIALS BENCHMARK (JAMAICA)</h4>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Calibrates live website takeoff values & WhatsApp brief</span>
             </div>
-            <div class="form-group">
-              <label for="shellRate">Structural Grey Shell (JMD / sq ft):</label>
-              <input type="number" id="shellRate" class="form-control" value="11800" required>
+            <div class="form-grid" style="margin-bottom: 0;">
+              <div class="form-group">
+                <label for="cementBagRate">Carib Cement (JMD / 42.5kg Bag):</label>
+                <input type="number" id="cementBagRate" class="form-control" value="1450" required>
+              </div>
+              <div class="form-group">
+                <label for="steelTonRate">Grade 60 Structural Rebar (JMD / Ton):</label>
+                <input type="number" id="steelTonRate" class="form-control" value="185000" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="deckingRate">House Belting & Decking Pour (JMD / sq ft):</label>
-              <input type="number" id="deckingRate" class="form-control" value="5800" required>
+          </div>
+
+          <!-- Contractor Composite Square-Foot Rates -->
+          <div style="margin-bottom: 1.5rem; padding: 1.15rem; background: #0d1424; border: 1px solid var(--surface-border); border-radius: var(--radius);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace;">B. STRUCTURAL SCOPE RATES (JMD / SQ FT)</h4>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">For builders & developers (Master Builders benchmark)</span>
             </div>
-            <div class="form-group">
-              <label for="tilingRate">Interior Tiling & Remodel (JMD / sq ft):</label>
-              <input type="number" id="tilingRate" class="form-control" value="7200" required>
+            <div class="form-grid" style="margin-bottom: 0;">
+              <div class="form-group">
+                <label for="turnkeyRate">Turnkey Luxury Build (All-Inclusive):</label>
+                <input type="number" id="turnkeyRate" class="form-control" value="18500" required>
+              </div>
+              <div class="form-group">
+                <label for="shellRate">Structural Grey Shell (Frame & Decking):</label>
+                <input type="number" id="shellRate" class="form-control" value="11800" required>
+              </div>
+              <div class="form-group">
+                <label for="deckingRate">House Belting & Decking Pour (Marcus Specialty):</label>
+                <input type="number" id="deckingRate" class="form-control" value="5800" required>
+              </div>
+              <div class="form-group">
+                <label for="tilingRate">Interior Tiling & Remodel (Finishes):</label>
+                <input type="number" id="tilingRate" class="form-control" value="7200" required>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="spatialStandard">Standard Grade Rooms (JMD / sq ft):</label>
-              <input type="number" id="spatialStandard" class="form-control" value="15000" required>
+          </div>
+
+          <!-- Spatial Room Builder Finish Tiers -->
+          <div style="margin-bottom: 1.5rem; padding: 1.15rem; background: #0d1424; border: 1px solid var(--surface-border); border-radius: var(--radius);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h4 style="font-size: 0.95rem; color: #fff; font-family: 'JetBrains Mono', monospace;">C. SPATIAL ROOM BUILDER FINISH TIERS (JMD / SQ FT)</h4>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">For homeowners & overseas diaspora buyers</span>
             </div>
-            <div class="form-group">
-              <label for="spatialExecutive">Executive Grade Rooms (JMD / sq ft):</label>
-              <input type="number" id="spatialExecutive" class="form-control" value="18500" required>
-            </div>
-            <div class="form-group">
-              <label for="spatialLuxury">Luxury Grade Rooms (JMD / sq ft):</label>
-              <input type="number" id="spatialLuxury" class="form-control" value="22500" required>
+            <div class="form-grid" style="margin-bottom: 0;">
+              <div class="form-group">
+                <label for="spatialStandard">Standard Spec Rooms:</label>
+                <input type="number" id="spatialStandard" class="form-control" value="15000" required>
+              </div>
+              <div class="form-group">
+                <label for="spatialExecutive">Executive Grade Rooms:</label>
+                <input type="number" id="spatialExecutive" class="form-control" value="18500" required>
+              </div>
+              <div class="form-group">
+                <label for="spatialLuxury">Ultra-Luxury Custom Rooms:</label>
+                <input type="number" id="spatialLuxury" class="form-control" value="22500" required>
+              </div>
             </div>
           </div>
 
@@ -547,6 +582,8 @@
       // RATES MANAGEMENT
       // ==========================================
       const DEFAULT_RATES = {
+        cementBagRate: 1450,
+        steelTonRate: 185000,
         turnkeyRate: 18500,
         shellRate: 11800,
         deckingRate: 5800,
@@ -562,6 +599,9 @@
         const saved = localStorage.getItem('mms_custom_rates');
         const data = saved ? JSON.parse(saved) : DEFAULT_RATES;
 
+        document.getElementById('cementBagRate').value = data.cementBagRate || DEFAULT_RATES.cementBagRate;
+        document.getElementById('steelTonRate').value = data.steelTonRate || DEFAULT_RATES.steelTonRate;
+
         document.getElementById('turnkeyRate').value = data.turnkeyRate || DEFAULT_RATES.turnkeyRate;
         document.getElementById('shellRate').value = data.shellRate || DEFAULT_RATES.shellRate;
         document.getElementById('deckingRate').value = data.deckingRate || DEFAULT_RATES.deckingRate;
@@ -576,6 +616,8 @@
       document.getElementById('ratesForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const payload = {
+          cementBagRate: Number(document.getElementById('cementBagRate').value),
+          steelTonRate: Number(document.getElementById('steelTonRate').value),
           turnkeyRate: Number(document.getElementById('turnkeyRate').value),
           shellRate: Number(document.getElementById('shellRate').value),
           deckingRate: Number(document.getElementById('deckingRate').value),
