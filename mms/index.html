@@ -497,6 +497,23 @@
                     <option value="St. Thomas">St. Thomas (1.10x)</option>
                   </select>
                 </div>
+
+                <!-- Town / District Location -->
+                <div class="control-box">
+                  <label for="districtInput">Town / Community Location:</label>
+                  <input type="text" id="districtInput" class="contractor-select" placeholder="e.g. Linstead, Spanish Town, Ocho Rios..." value="Linstead" style="padding: 0.65rem 0.85rem; font-family: inherit; font-size: 0.88rem; background: var(--surface-steel-card); color: #fff; border: 1px solid var(--surface-steel-border); border-radius: var(--radius-sm); width: 100%;">
+                </div>
+
+                <!-- Build Readiness Stage -->
+                <div class="control-box">
+                  <label for="readinessSelect">Project Build Readiness Stage:</label>
+                  <select id="readinessSelect" class="contractor-select">
+                    <option value="Ready to Break Ground (Within 30 Days)" selected>Ready to Break Ground (Within 30 Days)</option>
+                    <option value="Land Owned & Registered (Building in 1-3 Months)">Land Owned & Registered (Building in 1-3 Months)</option>
+                    <option value="Architectural Drawings in Progress (3-6 Months)">Architectural Drawings in Progress (3-6 Months)</option>
+                    <option value="Preliminary Planning & Budget Sizing (Diaspora/Future)">Preliminary Planning & Budget Sizing (Diaspora/Future)</option>
+                  </select>
+                </div>
               </div>
 
               <!-- Site Utilities & Preparation Checkboxes -->
@@ -601,7 +618,12 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.062-2.146-.539-1.859-.769-3.036-2.673-3.129-2.798-.093-.125-.758-.999-.758-1.921 0-.923.479-1.378.65-1.564.17-.186.372-.233.496-.233.124 0 .248.002.356.007.114.005.267-.043.418.319.155.372.527 1.29.574 1.384.047.094.078.203.016.326-.062.124-.093.202-.186.31-.093.109-.197.243-.281.326-.093.094-.191.196-.082.383.109.186.484.799 1.037 1.292.712.634 1.312.83 1.5.923.186.093.295.078.404-.047.109-.124.466-.543.59-.73.124-.186.248-.155.418-.093.171.062 1.086.512 1.272.605.186.094.31.14.356.218.047.078.047.45-.097.855z"/></svg>
                 <span>Send Estimate to Marcus on WhatsApp</span>
               </button>
-              <p class="disclaimer-note">
+
+              <div class="site-inspection-disclaimer" style="margin-top: 0.85rem; padding: 0.75rem 1rem; background: rgba(245, 158, 11, 0.08); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 0.82rem; color: #f59e0b; line-height: 1.45; text-align: left;">
+                <strong>Site Inspection Disclaimer:</strong> Online estimates reflect standard baseline quantities for level terrain. Final binding quotations require physical site inspection, soil bearing verification, and architectural review by Marcus Saunders.
+              </div>
+
+              <p class="disclaimer-note" style="margin-top: 0.5rem;">
                 *Estimates reflect 2026 IMAJ/JIC wage standards and Burrowes & Wallace residential cost indexes. Final binding contracts require site verification and soil inspection by Marcus Saunders.
               </p>
             </div>
@@ -1169,10 +1191,11 @@
 
       <div class="footer-bottom-bar">
         <div>© 2026 MMS Construction Services (Jamaica). All Rights Reserved. Engineered by iCelestial.</div>
-        <div style="display: flex; gap: 1.25rem;">
+        <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
           <span>Parish Council Approved Standards</span>
           <span>BSJ Seismic & Wind Compliance</span>
           <span>Turnkey Island-Wide Delivery</span>
+          <a href="admin.html" style="color: var(--caution-amber); text-decoration: none; font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.2rem 0.6rem; border-radius: var(--radius-sm); font-size: 0.75rem;">🔐 Contractor Portal (Admin)</a>
         </div>
       </div>
     </div>

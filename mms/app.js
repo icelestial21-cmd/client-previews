@@ -61,6 +61,21 @@
     }
   };
 
+  // Load custom rates if saved in Contractor Admin Portal
+  try {
+    const savedRates = localStorage.getItem('mms_custom_rates');
+    if (savedRates) {
+      const parsed = JSON.parse(savedRates);
+      if (parsed.spatial) Object.assign(SPATIAL_RATES, parsed.spatial);
+      if (parsed.turnkeyRate && SCOPE_BASE_RATES.turnkey) SCOPE_BASE_RATES.turnkey.rateJmd = Number(parsed.turnkeyRate);
+      if (parsed.shellRate && SCOPE_BASE_RATES.structural_shell) SCOPE_BASE_RATES.structural_shell.rateJmd = Number(parsed.shellRate);
+      if (parsed.deckingRate && SCOPE_BASE_RATES.belting_decking) SCOPE_BASE_RATES.belting_decking.rateJmd = Number(parsed.deckingRate);
+      if (parsed.tilingRate && SCOPE_BASE_RATES.tiling_renovation) SCOPE_BASE_RATES.tiling_renovation.rateJmd = Number(parsed.tilingRate);
+    }
+  } catch (err) {
+    console.warn('Could not load custom contractor rates:', err);
+  }
+
   // Structural Multipliers (Geotechnical and Engineering Specification Schema)
   const ROOF_MULTIPLIERS = {
     concrete_slab: 1.00,
@@ -623,6 +638,10 @@
 
       const parishSelect = document.getElementById('parishSelect');
       const parishName = parishSelect ? parishSelect.value : 'St. Catherine';
+      const districtInput = document.getElementById('districtInput');
+      const districtName = districtInput && districtInput.value.trim() ? districtInput.value.trim() : 'Linstead';
+      const readinessSelect = document.getElementById('readinessSelect');
+      const readinessStage = readinessSelect ? readinessSelect.value : 'Ready to Break Ground (Within 30 Days)';
 
       let specSummary = '';
       if (isSpatial) {
@@ -642,7 +661,8 @@
         `I generated a detailed building cost estimate on your official website:`,
         `* Specification: ${specSummary}`,
         `* Measured Floor Area: ${t.totalAreaSqFt.toLocaleString()} sq ft`,
-        `* Site Location: ${parishName}`,
+        `* Site Location: ${districtName}, ${parishName}`,
+        `* Build Readiness Stage: ${readinessStage}`,
         `* Projected Budget: ${costJmdFormatted} (approx. ${costUsdFormatted})`,
         `* Unit Rate Benchmark: $${t.unitRateJmd.toLocaleString()} JMD / sq ft`,
         ``,
@@ -657,7 +677,7 @@
         `* Grade 60 Rebar: approx. ${t.rebarTons} Tons`,
         `* Projected Duration: ${t.timelineStr}`,
         ``,
-        `Please let me know your availability for an on-site survey and formal bill of quantities review.`
+        `*Note: Baseline model for level terrain. Please let me know your availability for an on-site survey and formal bill of quantities review.*`
       ];
 
       const fullMessage = lines.join('\n');
@@ -670,6 +690,40 @@
   // 8. PORTFOLIO FILTER MODULE (18 JOB SITES)
   // =========================================================================
   function initPortfolioFilter() {
+    // Render custom portfolio items from Contractor Admin Portal
+    try {
+      const savedPortfolio = localStorage.getItem('mms_custom_portfolio');
+      if (savedPortfolio) {
+        const items = JSON.parse(savedPortfolio);
+        const grid = document.querySelector('.portfolio-grid');
+        if (grid && Array.isArray(items)) {
+          items.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'portfolio-item-card';
+            card.dataset.category = item.category || 'residential';
+            card.onclick = () => window.openLightbox(item.title, item.categoryLabel || item.category, item.location, item.imageSrc, item.description);
+            card.innerHTML = `
+              <div class="portfolio-thumb-wrap">
+                <img src="${item.imageSrc}" alt="${item.title}" loading="lazy" style="width: 100%; height: 240px; object-fit: cover;">
+                <span class="portfolio-badge">${item.categoryLabel || item.category}</span>
+              </div>
+              <div class="portfolio-info">
+                <h4>${item.title}</h4>
+                <p>${item.description}</p>
+                <div class="portfolio-meta">
+                  <span>📍 ${item.location}</span>
+                  <span>${item.timeline || 'Verified Completion'}</span>
+                </div>
+              </div>
+            `;
+            grid.insertBefore(card, grid.firstChild);
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Could not load custom portfolio items:', e);
+    }
+
     const filterPills = document.querySelectorAll('.portfolio-filter-bar .filter-pill');
     const cards = document.querySelectorAll('.portfolio-item-card');
 

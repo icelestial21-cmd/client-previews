@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MMS Construction Services | Contractor Admin Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --surface-card: #131c31;
+      --surface-card-hover: #1b2744;
+      --surface-border: #233355;
+      --primary-navy: #0F1D38;
+      --accent-gold: #f59e0b;
+      --accent-gold-hover: #d97706;
+      --accent-cyan: #06b6d4;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --danger: #ef4444;
+      --success: #10b981;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* Auth Overlay */
+    #authOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 29, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .auth-box {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .auth-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-gold);
+    }
+
+    .auth-box p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: #0d1424;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      color: #fff;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--accent-gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .auth-btn:hover {
+      background: var(--accent-gold-hover);
+    }
+
+    /* Top Navigation Header */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--surface-border);
+      margin-bottom: 2rem;
+    }
+
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-gold);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--surface-border);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-card-hover);
+    }
+
+    .btn-gold {
+      background: var(--accent-gold);
+      color: #000;
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: var(--accent-gold-hover);
+    }
+
+    /* Grid Sections */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Forms */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-control {
+      padding: 0.75rem 0.9rem;
+      background: #0d1424;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--success);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 10000;
+    }
+
+    /* Portfolio Items List */
+    .portfolio-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .portfolio-card {
+      background: #0d1424;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-thumb {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #172138;
+    }
+
+    .portfolio-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .portfolio-tag {
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .portfolio-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .portfolio-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .btn-delete {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: var(--danger);
+      font-size: 0.8rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+    }
+
+    .btn-delete:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Security Access Gate -->
+  <div id="authOverlay">
+    <div class="auth-box">
+      <h2>🔐 Contractor Access</h2>
+      <p>Enter the master operational PIN to manage live material rates and website portfolio items.</p>
+      <input type="password" id="pinInput" class="auth-input" placeholder="••••" autofocus>
+      <button id="pinSubmitBtn" class="auth-btn">Unlock Contractor Portal</button>
+      <div id="authError" style="color: var(--danger); font-size: 0.82rem; margin-top: 0.75rem; display: none;">Invalid Contractor PIN. Try again.</div>
+    </div>
+  </div>
+
+  <div class="container" id="adminContent" style="display: none;">
+    
+    <!-- Top Header -->
+    <header class="admin-header">
+      <div>
+        <div class="brand-title">MMS CONSTRUCTION SERVICES</div>
+        <div class="brand-subtitle">CONTRACTOR OPERATIONS & PRICING DESK : JAMAICA</div>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" target="_blank" class="btn btn-outline">
+          <span>🌐 Preview Public Website</span>
+        </a>
+        <button id="lockBtn" class="btn btn-outline">
+          <span>🔒 Lock Portal</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+
+      <!-- SECTION 1: MATERIAL PRICING & ESTIMATOR CALIBRATION -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">1. Estimator Rate Calibration & Market Parity</h3>
+            <p class="card-desc">Adjust baseline Jamaican square-foot rates and materials. The website cost calculator automatically updates its mathematical formulas based on these numbers.</p>
+          </div>
+          <button id="resetRatesBtn" class="btn btn-outline" style="font-size: 0.8rem;">
+            <span>↺ Reset to Defaults</span>
+          </button>
+        </div>
+
+        <form id="ratesForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="turnkeyRate">Turnkey Luxury Build (JMD / sq ft):</label>
+              <input type="number" id="turnkeyRate" class="form-control" value="18500" required>
+            </div>
+            <div class="form-group">
+              <label for="shellRate">Structural Grey Shell (JMD / sq ft):</label>
+              <input type="number" id="shellRate" class="form-control" value="11800" required>
+            </div>
+            <div class="form-group">
+              <label for="deckingRate">House Belting & Decking Pour (JMD / sq ft):</label>
+              <input type="number" id="deckingRate" class="form-control" value="5800" required>
+            </div>
+            <div class="form-group">
+              <label for="tilingRate">Interior Tiling & Remodel (JMD / sq ft):</label>
+              <input type="number" id="tilingRate" class="form-control" value="7200" required>
+            </div>
+            <div class="form-group">
+              <label for="spatialStandard">Standard Grade Rooms (JMD / sq ft):</label>
+              <input type="number" id="spatialStandard" class="form-control" value="15000" required>
+            </div>
+            <div class="form-group">
+              <label for="spatialExecutive">Executive Grade Rooms (JMD / sq ft):</label>
+              <input type="number" id="spatialExecutive" class="form-control" value="18500" required>
+            </div>
+            <div class="form-group">
+              <label for="spatialLuxury">Luxury Grade Rooms (JMD / sq ft):</label>
+              <input type="number" id="spatialLuxury" class="form-control" value="22500" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold">
+            <span>💾 Save & Deploy Rates to Calculator</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- SECTION 2: PORTFOLIO PROJECT UPLOADER -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">2. Add Project to Website Portfolio</h3>
+            <p class="card-desc">Upload photos and details of your completed job sites. Newly published builds appear immediately at the top of your live portfolio gallery.</p>
+          </div>
+        </div>
+
+        <form id="portfolioForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="projTitle">Project Title:</label>
+              <input type="text" id="projTitle" class="form-control" placeholder="e.g. Linstead Two-Storey Decking Pour" required>
+            </div>
+            <div class="form-group">
+              <label for="projCategory">Category Classification:</label>
+              <select id="projCategory" class="form-control">
+                <option value="residential">Residential Addition & Homes</option>
+                <option value="decking">House Belting & Decking Slabs</option>
+                <option value="steeling">Steeling & Rebar Columns</option>
+                <option value="tiling">Italian Marble & Porcelain Tile</option>
+                <option value="civic">Civic & Commercial Works</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="projLocation">Site Location (Parish & Town):</label>
+              <input type="text" id="projLocation" class="form-control" placeholder="e.g. Linstead, St. Catherine" required>
+            </div>
+            <div class="form-group">
+              <label for="projTimeline">Duration / Status:</label>
+              <input type="text" id="projTimeline" class="form-control" placeholder="e.g. Completed in 3 Months" value="Verified Completion">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label for="projDesc">Project Description & Specifications:</label>
+            <textarea id="projDesc" class="form-control" placeholder="Describe the structural work, concrete grade, steel rebar gauge, or high-end finishes delivered..." required></textarea>
+          </div>
+
+          <div class="form-grid" style="margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label for="projImageFile">Upload Photo from Phone/Computer:</label>
+              <input type="file" id="projImageFile" class="form-control" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label for="projImageUrl">Or Paste Image URL directly:</label>
+              <input type="url" id="projImageUrl" class="form-control" placeholder="https://...">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold">
+            <span>🚀 Publish Project to Live Website</span>
+          </button>
+        </form>
+
+        <!-- Managed Projects Display -->
+        <div style="margin-top: 2rem; border-top: 1px solid var(--surface-border); padding-top: 1.5rem;">
+          <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.5rem;">Your Custom Uploaded Projects:</h4>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">These projects are displayed live on the public website above standard archives.</p>
+          <div id="customPortfolioGrid" class="portfolio-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div id="toastNotification" class="toast">Settings Saved Successfully!</div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const MASTER_PIN = 'mms2026';
+
+      // Elements
+      const authOverlay = document.getElementById('authOverlay');
+      const adminContent = document.getElementById('adminContent');
+      const pinInput = document.getElementById('pinInput');
+      const pinSubmitBtn = document.getElementById('pinSubmitBtn');
+      const authError = document.getElementById('authError');
+      const lockBtn = document.getElementById('lockBtn');
+      const toast = document.getElementById('toastNotification');
+
+      // Check session
+      if (sessionStorage.getItem('mms_admin_auth') === 'true') {
+        showPortal();
+      }
+
+      function showPortal() {
+        authOverlay.style.display = 'none';
+        adminContent.style.display = 'block';
+        loadRatesIntoForm();
+        renderCustomProjects();
+      }
+
+      function hidePortal() {
+        sessionStorage.removeItem('mms_admin_auth');
+        authOverlay.style.display = 'flex';
+        adminContent.style.display = 'none';
+        pinInput.value = '';
+        authError.style.display = 'none';
+      }
+
+      pinSubmitBtn.addEventListener('click', () => {
+        if (pinInput.value.trim() === MASTER_PIN) {
+          sessionStorage.setItem('mms_admin_auth', 'true');
+          showPortal();
+        } else {
+          authError.style.display = 'block';
+        }
+      });
+
+      pinInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') pinSubmitBtn.click();
+      });
+
+      lockBtn.addEventListener('click', hidePortal);
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+      }
+
+      // ==========================================
+      // RATES MANAGEMENT
+      // ==========================================
+      const DEFAULT_RATES = {
+        turnkeyRate: 18500,
+        shellRate: 11800,
+        deckingRate: 5800,
+        tilingRate: 7200,
+        spatial: {
+          standard: 15000,
+          executive: 18500,
+          luxury: 22500
+        }
+      };
+
+      function loadRatesIntoForm() {
+        const saved = localStorage.getItem('mms_custom_rates');
+        const data = saved ? JSON.parse(saved) : DEFAULT_RATES;
+
+        document.getElementById('turnkeyRate').value = data.turnkeyRate || DEFAULT_RATES.turnkeyRate;
+        document.getElementById('shellRate').value = data.shellRate || DEFAULT_RATES.shellRate;
+        document.getElementById('deckingRate').value = data.deckingRate || DEFAULT_RATES.deckingRate;
+        document.getElementById('tilingRate').value = data.tilingRate || DEFAULT_RATES.tilingRate;
+
+        const sp = data.spatial || DEFAULT_RATES.spatial;
+        document.getElementById('spatialStandard').value = sp.standard || DEFAULT_RATES.spatial.standard;
+        document.getElementById('spatialExecutive').value = sp.executive || DEFAULT_RATES.spatial.executive;
+        document.getElementById('spatialLuxury').value = sp.luxury || DEFAULT_RATES.spatial.luxury;
+      }
+
+      document.getElementById('ratesForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const payload = {
+          turnkeyRate: Number(document.getElementById('turnkeyRate').value),
+          shellRate: Number(document.getElementById('shellRate').value),
+          deckingRate: Number(document.getElementById('deckingRate').value),
+          tilingRate: Number(document.getElementById('tilingRate').value),
+          spatial: {
+            standard: Number(document.getElementById('spatialStandard').value),
+            executive: Number(document.getElementById('spatialExecutive').value),
+            luxury: Number(document.getElementById('spatialLuxury').value)
+          }
+        };
+
+        localStorage.setItem('mms_custom_rates', JSON.stringify(payload));
+        showToast('✓ Material Rates Saved & Deployed to Calculator!');
+      });
+
+      document.getElementById('resetRatesBtn').addEventListener('click', () => {
+        if (confirm('Reset all calculator rates back to 2026 default standards?')) {
+          localStorage.removeItem('mms_custom_rates');
+          loadRatesIntoForm();
+          showToast('↺ Rates Reset to Default Standards.');
+        }
+      });
+
+      // ==========================================
+      // PORTFOLIO MANAGEMENT
+      // ==========================================
+      function getCustomPortfolio() {
+        try {
+          return JSON.parse(localStorage.getItem('mms_custom_portfolio')) || [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveCustomPortfolio(list) {
+        localStorage.setItem('mms_custom_portfolio', JSON.stringify(list));
+      }
+
+      function renderCustomProjects() {
+        const grid = document.getElementById('customPortfolioGrid');
+        const list = getCustomPortfolio();
+
+        if (list.length === 0) {
+          grid.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; grid-column: 1 / -1;">No custom projects uploaded yet. Add your latest project above to feature it on the website.</p>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        list.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'portfolio-card';
+          card.innerHTML = `
+            <img src="${item.imageSrc}" alt="${item.title}" class="portfolio-thumb">
+            <div class="portfolio-body">
+              <div>
+                <div class="portfolio-tag">${item.categoryLabel || item.category}</div>
+                <div class="portfolio-title">${item.title}</div>
+                <div class="portfolio-meta">📍 ${item.location} • ${item.timeline}</div>
+              </div>
+              <button class="btn-delete" onclick="window.removeProject(${index})">Delete Project</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      window.removeProject = function(index) {
+        if (confirm('Delete this project from your live website portfolio?')) {
+          const list = getCustomPortfolio();
+          list.splice(index, 1);
+          saveCustomPortfolio(list);
+          renderCustomProjects();
+          showToast('Project Removed from Portfolio.');
+        }
+      };
+
+      document.getElementById('portfolioForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById('projTitle').value.trim();
+        const categorySelect = document.getElementById('projCategory');
+        const category = categorySelect.value;
+        const categoryLabel = categorySelect.options[categorySelect.selectedIndex].text;
+        const location = document.getElementById('projLocation').value.trim();
+        const timeline = document.getElementById('projTimeline').value.trim() || 'Verified Completion';
+        const description = document.getElementById('projDesc').value.trim();
+
+        const fileInput = document.getElementById('projImageFile');
+        const urlInput = document.getElementById('projImageUrl').value.trim();
+
+        function addAndFinish(imgSrc) {
+          const newItem = {
+            title,
+            category,
+            categoryLabel,
+            location,
+            timeline,
+            description,
+            imageSrc: imgSrc || 'assets/project_belting_decking.jpg',
+            createdAt: new Date().toISOString()
+          };
+
+          const list = getCustomPortfolio();
+          list.unshift(newItem);
+          saveCustomPortfolio(list);
+          renderCustomProjects();
+
+          document.getElementById('portfolioForm').reset();
+          showToast('🚀 Project Published Successfully to Website!');
+        }
+
+        if (fileInput.files && fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            addAndFinish(evt.target.result);
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+        } else if (urlInput) {
+          addAndFinish(urlInput);
+        } else {
+          // Default placeholder fallback
+          addAndFinish('assets/project_belting_decking.jpg');
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
