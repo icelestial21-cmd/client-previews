@@ -515,8 +515,9 @@
       const effectiveCostArea = grossInteriorArea + Math.round(verandaArea * 0.50);
 
       const baseRate = SPATIAL_RATES[sp.tier] || SPATIAL_RATES.executive;
-      effectiveUnitRateJmd = Math.round(baseRate * parishMult);
-      totalCostJmd = Math.round(effectiveCostArea * effectiveUnitRateJmd);
+      const tierRateWithParish = Math.round(baseRate * parishMult);
+      totalCostJmd = Math.round(effectiveCostArea * tierRateWithParish);
+      effectiveUnitRateJmd = measuredArea > 0 ? Math.round(totalCostJmd / measuredArea) : tierRateWithParish;
 
       elementalRatios = { sub: 0.22, sup: 0.38, fin: 0.24, mep: 0.16 };
       cementFactor = 0.45;
@@ -809,14 +810,14 @@
             card.dataset.category = item.category || 'residential';
             card.tabIndex = 0;
             card.setAttribute('role', 'button');
-            card.setAttribute('aria-label', `View details for project ${escapeHtml(item.title)}`);
+            card.setAttribute('aria-label', `View details for project ${item.title || 'Portfolio Item'}`);
 
             const safeTitle = escapeHtml(item.title);
             const safeCategory = escapeHtml(item.categoryLabel || item.category);
             const safeLocation = escapeHtml(item.location);
             const safeTimeline = escapeHtml(item.timeline || 'Verified Completion');
             const safeDesc = escapeHtml(item.description);
-            const safeImg = item.imageSrc || 'assets/project_deck_screed.jpg';
+            const safeImg = escapeHtml(item.imageSrc || 'assets/project_deck_screed.jpg');
 
             card.onclick = () => window.openLightbox(item.title, item.categoryLabel || item.category, item.location, item.imageSrc, item.description);
             card.onkeydown = (e) => {

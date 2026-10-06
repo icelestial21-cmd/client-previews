@@ -631,12 +631,6 @@
       const credsForm = document.getElementById('credsForm');
       const toast = document.getElementById('toastNotification');
 
-      // Check session
-      if (sessionStorage.getItem('mms_admin_auth') === 'true') {
-        const u = sessionStorage.getItem('mms_admin_user') || 'marcus';
-        showPortal(u);
-      }
-
       function showPortal(user) {
         authOverlay.style.display = 'none';
         adminContent.style.display = 'block';
@@ -940,6 +934,12 @@
           addAndFinish('assets/project_deck_screed.jpg');
         }
       });
+
+      // Check session after all constants, functions, and listeners are initialized
+      if (sessionStorage.getItem('mms_admin_auth') === 'true') {
+        const u = sessionStorage.getItem('mms_admin_user') || 'marcus';
+        showPortal(u);
+      }
 
     })();
   </script>
