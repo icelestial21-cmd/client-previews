@@ -1,6 +1,6 @@
 /**
- * Apex Athlete Exchange (AAX) - Global Talent & Representation Infrastructure
- * Client Application Engine: Vanilla ES6, Zero External Dependencies
+ * Apex Athlete Exchange — client prototype.
+ * Vanilla JS, no dependencies. All data below is sample data.
  */
 
 (function () {
@@ -115,7 +115,7 @@
           standardized_score: '1280 SAT'
         },
         highlights: [
-          { title: 'National Finals Breakdown : 31 Pts, 8 Reb, 4 Ast', duration: '4:12', tag: 'Game Tape' },
+          { title: 'National Finals Breakdown: 31 Pts, 8 Reb, 4 Ast', duration: '4:12', tag: 'Game Tape' },
           { title: 'NBA Combine Shooting & Wingspan Pro-Day Drill', duration: '2:45', tag: 'Combine Tape' },
           { title: 'Defensive ISO Clamps & Transition Playmaking', duration: '3:20', tag: 'Defensive Reel' }
         ],
@@ -208,7 +208,7 @@
           standardized_score: 'CSEC 8 Subjects (Distinction in Physical Ed)'
         },
         highlights: [
-          { title: 'Pace & Direct 1v1 Dribbling Compilation : 2026 Season', duration: '5:18', tag: 'Game Tape' },
+          { title: 'Pace & Direct 1v1 Dribbling Compilation, 2026 Season', duration: '5:18', tag: 'Game Tape' },
           { title: 'Goals & Decisive Assists vs Top 4 Premier Defenses', duration: '3:44', tag: 'Match Reel' },
           { title: 'High-Speed Transition Sprints & GPS Tracking Data', duration: '2:15', tag: 'Telemetry Tape' }
         ],
@@ -301,7 +301,7 @@
           standardized_score: 'Honor Roll All Semesters'
         },
         highlights: [
-          { title: 'Sub-11 Second 100m Final Win : ISSA Champs 2026', duration: '1:45', tag: 'Race Footage' },
+          { title: 'Sub-11 Second 100m Final Win, ISSA Champs 2026', duration: '1:45', tag: 'Race Footage' },
           { title: 'Starting Block Biomechanics & Acceleration Phase Analysis', duration: '3:10', tag: 'Technical Video' },
           { title: '200m Bend Technique & Speed Endurance Execution', duration: '2:30', tag: 'Race Footage' }
         ],
@@ -487,7 +487,7 @@
         },
         highlights: [
           { title: 'Pick-and-Roll Mastery & Passing Vision Compilation', duration: '6:10', tag: 'Game Tape' },
-          { title: 'Full Game Breakdown vs San German : 22 Pts, 14 Ast', duration: '8:30', tag: 'Full Game' },
+          { title: 'Full Game Breakdown vs San German: 22 Pts, 14 Ast', duration: '8:30', tag: 'Full Game' },
           { title: 'Pull-Up 3PT Shooting & Floater Package in Traffic', duration: '3:40', tag: 'Shooting Tape' }
         ],
         news: [
@@ -579,7 +579,7 @@
         },
         highlights: [
           { title: '144 km/h Bouncers & Toe-Crushing Yorkers Compilation', duration: '4:15', tag: 'Bowling Reel' },
-          { title: 'Power Hitting : 48 Runs off 19 Balls in CPL Semi-Final', duration: '3:20', tag: 'Batting Tape' },
+          { title: 'Power Hitting: 48 Runs off 19 Balls in CPL Semi-Final', duration: '3:20', tag: 'Batting Tape' },
           { title: 'Speed Gun Telemetry & Bowling Action Biomechanics', duration: '2:50', tag: 'Technical Data' }
         ],
         news: [
@@ -659,7 +659,7 @@
           { season: '2025', team: 'Barbados National Swim Team', league: 'CARIFTA Swimming Championships', notes: 'Triple Gold Medalist in 50m Free, 100m Free, 50m Fly.' }
         ],
         achievements: [
-          '2026 Barbados National Senior Record Holder (50m Free : 24.88s)',
+          '2026 Barbados National Senior Record Holder (50m free, 24.88s)',
           '2025 CARIFTA Swim Championships High Point Trophy',
           '2024 Junior Pan-Pacific Championship Finalist'
         ],
@@ -762,7 +762,7 @@
           standardized_score: 'Olympic Certified Athlete'
         },
         highlights: [
-          { title: 'Knockout Highlights : 12 Stoppages in 16 Amateur Wins', duration: '4:40', tag: 'Fight Reel' },
+          { title: 'Knockout Highlights: 12 Stoppages in 16 Amateur Wins', duration: '4:40', tag: 'Fight Reel' },
           { title: '78-Inch Reach Jab Placement & Ring Generalship', duration: '3:15', tag: 'Sparring Video' },
           { title: 'Heavy Bag Velocity Telemetry & Reaction Drills', duration: '2:30', tag: 'Training Tape' }
         ],
@@ -1073,1552 +1073,1070 @@
   };
 
   /* ==========================================================================
-     2. UI INITIALIZATION & EVENT WIRING
+     2. REFERENCE DATA FOR THE CHROME (results strip, risers, roles)
+     ========================================================================== */
+  const COUNTRY_CODES = {
+    'Jamaica': 'JAM',
+    'Trinidad & Tobago': 'TTO',
+    'Barbados': 'BAR',
+    'Puerto Rico': 'PUR',
+    'Ghana': 'GHA'
+  };
+
+  const LATEST_RESULTS = [
+    { event: 'ISSA Champs 100m', text: 'Aliyah Blake', score: '10.98' },
+    { event: 'JPL Youth final', text: 'Montego Bay 3–1 Harbour View', score: 'Sterling 2 goals' },
+    { event: 'Caribbean Hoops', text: 'Kingston Titans 88–82 St. George Elite', score: 'Harvey 31 pts' },
+    { event: 'Speed combine', text: 'Rohan Sharma', score: '144.2 km/h' },
+    { event: 'CARIFTA 50m free', text: 'Chloe Henderson', score: '24.88' },
+    { event: 'AMBC boxing', text: 'Malik Thorne', score: 'TKO R3' },
+    { event: 'BSN reserves', text: 'Mateo Rossi', score: '14 ast' }
+  ];
+
+  const FEATURED = {
+    athleteId: 'ath-01',
+    summary: 'A 6′5″ wing from Kingston with a 6′8″ wingspan and a 34.5″ vertical. Shot 51.4% from the field this season. Several European clubs and NCAA Division I programmes have asked for film, and he is looking for an agent.'
+  };
+
+  const RISERS = [
+    { athleteId: 'ath-03', delta: '#1 U20', note: '10.98 in the 100m at Champs — sprint double', time: '10 min' },
+    { athleteId: 'ath-02', delta: '34.8 km/h', note: '14 goals, 9 assists; out of contract', time: '28 min' },
+    { athleteId: 'ath-05', delta: '14 ast', note: 'Finals MVP in the BSN reserve league', time: '1 hr' },
+    { athleteId: 'ath-06', delta: '144.2 km/h', note: 'Fastest ball recorded in the U20 regional series', time: '2 hr' }
+  ];
+
+  const ROLES = {
+    athlete: {
+      name: 'Kamal Harvey',
+      summary: '14 scout views and 2 agent inquiries this week.',
+      balanceLabel: 'Balance',
+      balance: '$14,200',
+      one: ['Review agent inquiries', () => switchSection('agents')],
+      two: ['Edit your profile', () => viewProfile('ath-01')],
+      header: ['Log a result', () => showToast('Result logged. It will appear on your profile once the meet organiser confirms it.')]
+    },
+    agent: {
+      name: 'Marcus Vance, Pinnacle Sports Global',
+      summary: '42 athletes on your roster, $12.8M in active contracts.',
+      balanceLabel: 'Commission due',
+      balance: '$48,750',
+      one: ['Find unsigned athletes', () => { switchSection('discovery'); applyPreset('unrepresented'); }],
+      two: ['Escrow', () => switchSection('ledger')],
+      header: ['Add to roster', () => switchSection('discovery')]
+    },
+    scout: {
+      name: 'Derrick Sterling, international scout',
+      summary: '3 watchlists, 6 athletes tracked.',
+      balanceLabel: 'Plan',
+      balance: 'Club seat',
+      one: ['Watchlists', () => switchSection('scouting')],
+      two: ['Compare athletes', () => openCompare()],
+      header: ['New watchlist', () => showToast('Watchlist “2027 European summer targets” created.')]
+    },
+    organization: {
+      name: 'Kingston Phoenix FC',
+      summary: '48 applications waiting for your selection panel.',
+      balanceLabel: 'Escrow',
+      balance: '$120,000',
+      one: ['Review applications', () => switchSection('opportunities')],
+      two: ['Post a trial', () => showToast('Trial posting form isn’t part of this prototype.')],
+      header: ['Post a trial', () => showToast('Trial posting form isn’t part of this prototype.')]
+    },
+    admin: {
+      name: 'Platform admin',
+      summary: '2 escrow payments waiting for release, 3 agent licences to check.',
+      balanceLabel: 'Held in escrow',
+      balance: '',
+      one: ['Escrow', () => switchSection('ledger')],
+      two: ['Agent licences', () => switchSection('agents')],
+      header: ['Export ledger', () => showToast('Ledger exported as CSV.')]
+    }
+  };
+
+  const SECTIONS = ['discovery', 'profile', 'agents', 'scouting', 'opportunities', 'ledger'];
+  const DEFAULT_FILTER = { search: '', sport: 'all', position: 'all', country: 'all', status: 'all', minHeight: 66 };
+  let txCounter = 1005;
+
+  /* ==========================================================================
+     3. HELPERS
+     ========================================================================== */
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  function esc(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Data stores heights as 6'5" — render with proper prime marks.
+  const primes = (s) => esc(s).replace(/&#39;/g, '′').replace(/&quot;/g, '″');
+
+  function feetInches(totalInches) {
+    return `${Math.floor(totalInches / 12)}′${totalInches % 12}″`;
+  }
+
+  function money(n) {
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  const athleteById = (id) => STATE.athletes.find((a) => a.id === id);
+  const code = (a) => COUNTRY_CODES[a.country] || a.country;
+  const firstName = (a) => a.name.split(' ')[0];
+
+  function statusMarkup(a) {
+    if (a.status === 'Represented') {
+      return `<span class="status status-neutral">Represented${a.agent_name ? ` by ${esc(a.agent_name)}` : ''}</span>`;
+    }
+    if (a.status === 'Free Agent') return '<span class="status status-ok">Free agent</span>';
+    return '<span class="status status-wait">Seeking an agent</span>';
+  }
+
+  function compareButton(id, size = '') {
+    const on = STATE.compareQueue.includes(id);
+    return `<button type="button" class="btn btn-quiet ${size}" data-action="toggle-compare" data-id="${id}" aria-pressed="${on}">${on ? 'Comparing' : 'Compare'}</button>`;
+  }
+
+  // Board-relative standing: where this athlete sits among everyone on the board.
+  function boardStanding(getter, athlete) {
+    const values = STATE.athletes.map(getter).filter((v) => typeof v === 'number');
+    const value = getter(athlete);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const rank = values.filter((v) => v > value).length + 1;
+    const pct = max === min ? 100 : Math.round(((value - min) / (max - min)) * 100);
+    return { rank, of: values.length, pct };
+  }
+
+  const byGrade = (list) => [...list].sort((a, b) => parseFloat(b.composite_grade) - parseFloat(a.composite_grade));
+
+  /* ==========================================================================
+     4. INIT
      ========================================================================== */
   document.addEventListener('DOMContentLoaded', () => {
-    initRoleSwitcher();
-    initNavigation();
-    initDiscoveryFilters();
-    initModals();
-    initRepresentationStepper();
-    initOpportunityApplication();
-    initScoutTools();
+    STATE.filter = { ...DEFAULT_FILTER };
 
-    // Initial renders across all modules
-    renderProspectsGrid();
-    renderProfileView(STATE.selectedAthleteId);
-    renderAgentsGrid();
-    renderScoutListsGrid();
-    renderComparisonMatrix();
-    renderOpportunitiesGrid();
+    renderResultsStrip();
+    renderFeature();
+    renderRisers();
+    renderProspects();
+    renderProfile(STATE.selectedAthleteId);
+    renderAgents();
+    renderWatchlists();
+    renderCompare();
+    renderOpportunities();
     renderLedger();
-    updateCompareBadge();
+    updateCompareCount();
+    setRole('athlete');
 
-    // Sync view mode buttons
-    const btnGrid = document.getElementById('btnViewGrid');
-    const btnTable = document.getElementById('btnViewTable');
-    if (btnGrid) btnGrid.classList.toggle('active', STATE.viewMode === 'grid');
-    if (btnTable) btnTable.classList.toggle('active', STATE.viewMode === 'table');
+    wireFilters();
+    wireGlobalActions();
+    wireModals();
+
+    const initial = location.hash.slice(1);
+    switchSection(SECTIONS.includes(initial) ? initial : 'discovery', { push: false, focus: false });
+    window.addEventListener('popstate', () => {
+      const s = location.hash.slice(1);
+      switchSection(SECTIONS.includes(s) ? s : 'discovery', { push: false });
+    });
   });
 
   /* ==========================================================================
-     3. ROLE SWITCHER CONTROLLER (5-WAY DYNAMIC CONTEXT)
+     5. NAVIGATION & ROLES
      ========================================================================== */
-  function initRoleSwitcher() {
-    const pills = document.querySelectorAll('#rolePillsBar .role-pill');
-    pills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        const role = pill.getAttribute('data-role');
-        setAccountRole(role);
-      });
+  function switchSection(id, { push = true, focus = true } = {}) {
+    if (!SECTIONS.includes(id)) return;
+    STATE.activeSection = id;
+
+    $$('#navTabs .nav-tab').forEach((tab) => {
+      if (tab.dataset.section === id) tab.setAttribute('aria-current', 'page');
+      else tab.removeAttribute('aria-current');
     });
+    $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${id}`));
+
+    if (push && location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
+    if (id === 'scouting') renderCompare();
+
+    if (focus) {
+      window.scrollTo(0, 0);
+      const heading = $(`#section-${id} h1`);
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      }
+    }
   }
 
-  function setAccountRole(role) {
+  function setRole(role) {
+    const r = ROLES[role];
+    if (!r) return;
     STATE.activeRole = role;
+    $('#roleSelect').value = role;
+    $('#contextName').textContent = r.name;
+    $('#contextSummary').textContent = r.summary;
+    $('#balanceLabel').textContent = r.balanceLabel;
+    $('#balanceValue').textContent = role === 'admin' ? money(escrowHeld()) : r.balance;
 
-    // Update active pill UI
-    document.querySelectorAll('#rolePillsBar .role-pill').forEach((p) => {
-      p.classList.toggle('active', p.getAttribute('data-role') === role);
-    });
+    const [oneLabel, oneFn] = r.one;
+    const [twoLabel, twoFn] = r.two;
+    const [hLabel, hFn] = r.header;
+    $('#contextActionOne').textContent = oneLabel;
+    $('#contextActionOne').onclick = oneFn;
+    $('#contextActionTwo').textContent = twoLabel;
+    $('#contextActionTwo').onclick = twoFn;
+    $('#headerActionBtn').textContent = hLabel;
+    $('#headerActionBtn').onclick = hFn;
+  }
 
-    const userActingAs = document.getElementById('userActingAs');
-    const userTierPill = document.getElementById('userTierPill');
-    const walletAmount = document.getElementById('walletAmount');
-    const bannerAvatar = document.getElementById('bannerAvatar');
-    const bannerTitle = document.getElementById('bannerTitle');
-    const bannerSubtitle = document.getElementById('bannerSubtitle');
-    const headerActionBtn = document.getElementById('headerActionBtn');
-    const bannerActionOne = document.getElementById('bannerActionOne');
-    const bannerActionTwo = document.getElementById('bannerActionTwo');
+  function viewProfile(id) {
+    renderProfile(id);
+    switchSection('profile');
+  }
 
-    switch (role) {
-      case 'athlete':
-        userActingAs.textContent = 'Kamal Harvey (Prospect)';
-        userTierPill.textContent = 'VERIFIED PRO TIER';
-        walletAmount.textContent = '$14,200 USD';
-        bannerAvatar.textContent = 'KH';
-        bannerAvatar.style.backgroundColor = '#2563EB';
-        bannerTitle.textContent = 'Welcome to your Athletic Command Portal, Kamal Harvey';
-        bannerSubtitle.textContent = 'Your sports resume is live and verified across 4 metrics. You have 14 scout viewings and 2 pending agency representation inquiries this week.';
-        bannerActionOne.textContent = 'Review Agent Offers';
-        bannerActionTwo.textContent = 'Log Combine Time';
-        bannerActionOne.onclick = () => switchSection('agents');
-        bannerActionTwo.onclick = () => showToast('Laser gate combine splits synced with National Stadium facility.', 'success');
-        headerActionBtn.innerHTML = '<span>+ Log Combine Split</span>';
-        headerActionBtn.onclick = () => showToast('New combine split entry submitted for biometric validation.', 'success');
-        break;
-
-      case 'agent':
-        userActingAs.textContent = 'Marcus Vance (Pinnacle Sports)';
-        userTierPill.textContent = 'FIFA & FIBA LICENSED';
-        walletAmount.textContent = '$48,750 USD';
-        bannerAvatar.textContent = 'MV';
-        bannerAvatar.style.backgroundColor = '#10B981';
-        bannerTitle.textContent = 'Agency Roster & Negotiation Desk : Marcus Vance';
-        bannerSubtitle.textContent = 'Managing 42 international prospects across UK, European and Caribbean circuits. $12.8M in active pro contracts currently in escrow.';
-        bannerActionOne.textContent = 'Scout Unsigned Prospects';
-        bannerActionTwo.textContent = 'Review Escrow Pipeline';
-        bannerActionOne.onclick = () => switchSection('discovery');
-        bannerActionTwo.onclick = () => switchSection('ledger');
-        headerActionBtn.innerHTML = '<span>+ Add Prospect to Roster</span>';
-        headerActionBtn.onclick = () => switchSection('discovery');
-        break;
-
-      case 'scout':
-        userActingAs.textContent = 'Derrick Sterling (Scout)';
-        userTierPill.textContent = 'INTERNATIONAL TALENT SCOUT';
-        walletAmount.textContent = 'Enterprise Pass Active';
-        bannerAvatar.textContent = 'DS';
-        bannerAvatar.style.backgroundColor = '#F59E0B';
-        bannerTitle.textContent = 'Global Scouting & Evaluation Terminal : Derrick Sterling';
-        bannerSubtitle.textContent = 'Filter 1,280+ verified prospects with objective laser telemetry, match videos, and side-by-side biomechanical comparisons.';
-        bannerActionOne.textContent = 'Open Watchlists';
-        bannerActionTwo.textContent = 'Head-to-Head Compare';
-        bannerActionOne.onclick = () => switchSection('scouting');
-        bannerActionTwo.onclick = () => {
-          switchSection('scouting');
-          document.getElementById('comparisonMatrixCard').scrollIntoView({ behavior: 'smooth' });
-        };
-        headerActionBtn.innerHTML = '<span>+ New Scout Watchlist</span>';
-        headerActionBtn.onclick = () => showToast('New Scouting Watchlist created: "2027 European Summer Targets".', 'success');
-        break;
-
-      case 'organization':
-        userActingAs.textContent = 'Kingston Phoenix FC / Combine Dir';
-        userTierPill.textContent = 'TIER 1 COMBINE HOST';
-        walletAmount.textContent = '$120,000 USD Escrow';
-        bannerAvatar.textContent = 'KP';
-        bannerAvatar.style.backgroundColor = '#0284C7';
-        bannerTitle.textContent = 'Combine Director & Trial Operations : Kingston Phoenix FC';
-        bannerSubtitle.textContent = 'Receiving verified talent dossiers for upcoming pro trial combines. 48 prospect applications pending committee review.';
-        bannerActionOne.textContent = 'Review Combine Applications';
-        bannerActionTwo.textContent = 'Publish New Trial';
-        bannerActionOne.onclick = () => switchSection('opportunities');
-        bannerActionTwo.onclick = () => showToast('Combine registration form opened for new international trial post.', 'info');
-        headerActionBtn.innerHTML = '<span>+ Post Combine Trial</span>';
-        headerActionBtn.onclick = () => showToast('Combine trial submission form opened.', 'info');
-        break;
-
-      case 'admin':
-        userActingAs.textContent = 'Superadmin Console (AAX Oversight)';
-        userTierPill.textContent = 'MASTER ESCROW AUTHORITY';
-        walletAmount.textContent = '$38,420 USD Vault';
-        bannerAvatar.textContent = 'AA';
-        bannerAvatar.style.backgroundColor = '#8B5CF6';
-        bannerTitle.textContent = 'Apex Platform Verification & Verified Escrow Oversight';
-        bannerSubtitle.textContent = 'Auditing verified sports credentials, dispute-free multi-signature escrow settlements, and agency representation filings.';
-        bannerActionOne.textContent = 'Audit Escrow Vault';
-        bannerActionTwo.textContent = 'Verify New Prospects';
-        bannerActionOne.onclick = () => switchSection('ledger');
-        bannerActionTwo.onclick = () => switchSection('discovery');
-        headerActionBtn.innerHTML = '<span>+ Audit Ledger Release</span>';
-        headerActionBtn.onclick = () => showToast('Multi-signature escrow audit report generated successfully.', 'success');
-        break;
-    }
-
-    showToast(`Switched active view to: ${userActingAs.textContent}`, 'info');
+  function openCompare() {
+    switchSection('scouting', { focus: false });
+    const panel = $('#comparePanel');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    panel.focus({ preventScroll: true });
   }
 
   /* ==========================================================================
-     4. PRIMARY SECTION TAB NAVIGATION
+     6. DELEGATED ACTIONS
      ========================================================================== */
-  function initNavigation() {
-    const navButtons = document.querySelectorAll('#navLinksWrap .nav-tab-btn');
-    navButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const sectionId = btn.getAttribute('data-section');
-        switchSection(sectionId);
-      });
-    });
+  function wireGlobalActions() {
+    $('#roleSelect').addEventListener('change', (e) => setRole(e.target.value));
 
-    // Compare queue trigger button
-    const openCompareBtn = document.getElementById('openCompareBtn');
-    if (openCompareBtn) {
-      openCompareBtn.addEventListener('click', () => {
-        switchSection('scouting');
-        const compareCard = document.getElementById('comparisonMatrixCard');
-        if (compareCard) {
-          compareCard.scrollIntoView({ behavior: 'smooth' });
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-action]');
+      if (!el) return;
+      const { action, id } = el.dataset;
+
+      switch (action) {
+        case 'nav':
+          e.preventDefault();
+          switchSection(el.dataset.section);
+          break;
+        case 'view-profile':
+          viewProfile(id);
+          break;
+        case 'toggle-compare':
+          toggleCompare(id);
+          break;
+        case 'open-compare':
+          openCompare();
+          break;
+        case 'clear-compare':
+          STATE.compareQueue = [];
+          compareChanged();
+          break;
+        case 'load-list':
+          loadWatchlist(id);
+          break;
+        case 'print':
+          window.print();
+          break;
+        case 'open-rep':
+          // An athlete account always signs for itself; other roles act on the athlete they last opened.
+          openRepresentation(el.dataset.athlete || (STATE.activeRole === 'athlete' ? 'ath-01' : STATE.selectedAthleteId), el.dataset.agent, el);
+          break;
+        case 'contact-agent': {
+          const agent = STATE.agents.find((a) => a.id === id);
+          if (agent) showToast(`${agent.name}: ${agent.contact.email} · ${agent.contact.phone}`);
+          break;
         }
-      });
-    }
-
-    // Footer navigation links
-    document.querySelectorAll('.footer-nav-link').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = link.getAttribute('data-target');
-        if (target) {
-          switchSection(target);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
+        case 'apply':
+          openApply(id, el);
+          break;
+        case 'play-clip':
+          selectClip(parseInt(el.dataset.index, 10));
+          break;
+        case 'play-video':
+          showToast('Video playback isn’t available in this prototype.');
+          break;
+        case 'close-modal':
+          closeModal();
+          break;
+        case 'step':
+          goToStep(parseInt(el.dataset.to, 10));
+          break;
+        case 'sign':
+          signAgreement();
+          break;
+        case 'reset-filters':
+          applyPreset('reset');
+          break;
+        default:
+          break;
+      }
     });
-  }
-
-  function switchSection(sectionId) {
-    STATE.activeSection = sectionId;
-
-    // Update active nav button
-    document.querySelectorAll('#navLinksWrap .nav-tab-btn').forEach((btn) => {
-      btn.classList.toggle('active', btn.getAttribute('data-section') === sectionId);
-    });
-
-    // Update active section
-    document.querySelectorAll('.platform-section').forEach((sec) => {
-      sec.classList.remove('active');
-    });
-
-    const activeSec = document.getElementById(`section-${sectionId}`);
-    if (activeSec) {
-      activeSec.classList.add('active');
-    }
-
-    // Refresh contents if needed
-    if (sectionId === 'scouting') {
-      renderComparisonMatrix();
-    }
   }
 
   /* ==========================================================================
-     5. TALENT DISCOVERY FILTERS & PROSPECTS GRID
+     7. RESULTS STRIP, FEATURE, RISERS
      ========================================================================== */
-  function initDiscoveryFilters() {
-    const searchInput = document.getElementById('athleteSearchInput');
-    const clearBtn = document.getElementById('clearSearchBtn');
-
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        STATE.filter.search = e.target.value.trim().toLowerCase();
-        renderProspectsGrid();
-      });
-    }
-
-    if (clearBtn) {
-      clearBtn.addEventListener('click', () => {
-        if (searchInput) searchInput.value = '';
-        STATE.filter.search = '';
-        renderProspectsGrid();
-      });
-    }
-
-    // Sport pills
-    const sportPills = document.querySelectorAll('#sportFilterPills .sport-pill');
-    sportPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        sportPills.forEach((p) => p.classList.remove('active'));
-        pill.classList.add('active');
-        STATE.filter.sport = pill.getAttribute('data-sport');
-        renderProspectsGrid();
-      });
-    });
-
-    // Select filters
-    const filterPos = document.getElementById('filterPosition');
-    if (filterPos) {
-      filterPos.addEventListener('change', (e) => {
-        STATE.filter.position = e.target.value;
-        renderProspectsGrid();
-      });
-    }
-
-    const filterCountry = document.getElementById('filterCountry');
-    if (filterCountry) {
-      filterCountry.addEventListener('change', (e) => {
-        STATE.filter.country = e.target.value;
-        renderProspectsGrid();
-      });
-    }
-
-    const filterStatus = document.getElementById('filterStatus');
-    if (filterStatus) {
-      filterStatus.addEventListener('change', (e) => {
-        STATE.filter.status = e.target.value;
-        renderProspectsGrid();
-      });
-    }
-
-    const filterVerification = document.getElementById('filterVerification');
-    if (filterVerification) {
-      filterVerification.addEventListener('change', (e) => {
-        STATE.filter.verification = e.target.value;
-        renderProspectsGrid();
-      });
-    }
-
-    // Height slider
-    const filterHeight = document.getElementById('filterHeight');
-    const filterHeightVal = document.getElementById('filterHeightVal');
-    if (filterHeight && filterHeightVal) {
-      filterHeight.addEventListener('input', (e) => {
-        const val = parseInt(e.target.value, 10);
-        STATE.filter.minHeight = val;
-        const feet = Math.floor(val / 12);
-        const inches = val % 12;
-        filterHeightVal.textContent = `${feet}'${inches}"`;
-        renderProspectsGrid();
-      });
-    }
-
-    // Preset NLP chips
-    const presetChips = document.querySelectorAll('.nlp-chip');
-    presetChips.forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const preset = chip.getAttribute('data-preset');
-        applyNlpPreset(preset);
-      });
-    });
+  function renderResultsStrip() {
+    $('#resultsStrip').innerHTML = LATEST_RESULTS.map((r) => `
+      <li class="result-item">
+        <span class="result-event">${esc(r.event)}</span>
+        <span>${esc(r.text)}</span>
+        <span class="result-score num">${esc(r.score)}</span>
+      </li>`).join('');
   }
 
-  function applyNlpPreset(preset) {
-    const searchInput = document.getElementById('athleteSearchInput');
-    const filterPos = document.getElementById('filterPosition');
-    const filterCountry = document.getElementById('filterCountry');
-    const filterStatus = document.getElementById('filterStatus');
-    const filterHeight = document.getElementById('filterHeight');
-    const filterHeightVal = document.getElementById('filterHeightVal');
-
-    // Reset baselines
-    if (searchInput) searchInput.value = '';
-    STATE.filter.search = '';
-
-    const resetSportPill = (sportName) => {
-      document.querySelectorAll('#sportFilterPills .sport-pill').forEach((p) => {
-        p.classList.toggle('active', p.getAttribute('data-sport') === sportName);
-      });
-      STATE.filter.sport = sportName;
-    };
-
-    switch (preset) {
-      case 'unsigned-footballers':
-        resetSportPill('Football');
-        STATE.filter.country = 'Jamaica';
-        if (filterCountry) filterCountry.value = 'Jamaica';
-        STATE.filter.status = 'all';
-        if (filterStatus) filterStatus.value = 'all';
-        STATE.filter.position = 'Left Winger';
-        if (filterPos) filterPos.value = 'Left Winger';
-        showToast('Filter Applied: Unsigned Jamaican Wingers (18 to 22yo)', 'info');
-        break;
-
-      case 'caribbean-basketball':
-        resetSportPill('Basketball');
-        STATE.filter.minHeight = 77; // 6'5"
-        if (filterHeight) filterHeight.value = 77;
-        if (filterHeightVal) filterHeightVal.textContent = "6'5\"";
-        STATE.filter.country = 'all';
-        if (filterCountry) filterCountry.value = 'all';
-        STATE.filter.position = 'all';
-        if (filterPos) filterPos.value = 'all';
-        showToast("Filter Applied: Caribbean Basketball Wings (6'5\"+ / 30\"+ Vertical)", 'info');
-        break;
-
-      case 'sprint-prodigies':
-        resetSportPill('Track & Field');
-        STATE.filter.country = 'all';
-        if (filterCountry) filterCountry.value = 'all';
-        STATE.filter.position = '100m';
-        if (filterPos) filterPos.value = '100m';
-        showToast('Filter Applied: Sub-11.00s Track Sprinters', 'info');
-        break;
-
-      case 'free-agents':
-        resetSportPill('all');
-        STATE.filter.status = 'Seeking Agent';
-        if (filterStatus) filterStatus.value = 'Seeking Agent';
-        showToast('Filter Applied: Available Free Agents & Unrepresented Prospects', 'info');
-        break;
-
-      case 'all':
-      default:
-        resetSportPill('all');
-        STATE.filter.position = 'all';
-        if (filterPos) filterPos.value = 'all';
-        STATE.filter.country = 'all';
-        if (filterCountry) filterCountry.value = 'all';
-        STATE.filter.status = 'all';
-        if (filterStatus) filterStatus.value = 'all';
-        STATE.filter.verification = 'all';
-        const filterVerification = document.getElementById('filterVerification');
-        if (filterVerification) filterVerification.value = 'all';
-        STATE.filter.minHeight = 66;
-        if (filterHeight) filterHeight.value = 66;
-        if (filterHeightVal) filterHeightVal.textContent = "5'8\"";
-        showToast('Scouting filters reset to show all prospects.', 'info');
-        break;
-    }
-
-    renderProspectsGrid();
-  }
-
-  function getFilteredAthletes() {
-    return STATE.athletes.filter((athlete) => {
-      // Search text match
-      if (STATE.filter.search) {
-        const query = STATE.filter.search;
-        const haystack = `${athlete.name} ${athlete.sport} ${athlete.position} ${athlete.discipline} ${athlete.country} ${athlete.city}`.toLowerCase();
-        if (!haystack.includes(query)) return false;
-      }
-
-      // Sport filter
-      if (STATE.filter.sport !== 'all' && athlete.sport !== STATE.filter.sport) {
-        return false;
-      }
-
-      // Position filter
-      if (STATE.filter.position !== 'all') {
-        if (!athlete.position.toLowerCase().includes(STATE.filter.position.toLowerCase())) {
-          return false;
-        }
-      }
-
-      // Country filter
-      if (STATE.filter.country !== 'all' && athlete.country !== STATE.filter.country) {
-        return false;
-      }
-
-      // Status filter
-      if (STATE.filter.status !== 'all') {
-        if (athlete.status !== STATE.filter.status) return false;
-      }
-
-      // Min height filter
-      if (athlete.biometrics.height_in < STATE.filter.minHeight) {
-        return false;
-      }
-
-      // Verification tier
-      if (STATE.filter.verification === 'pro' && !athlete.verification.pro) {
-        return false;
-      }
-
-      return true;
-    });
-  }
-
-  function renderProspectsGrid() {
-    const grid = document.getElementById('prospectsGrid');
-    const tableContainer = document.getElementById('prospectsTableContainer');
-    const tableBody = document.getElementById('bigBoardTableBody');
-    const resultsCount = document.getElementById('resultsCount');
-    const displayCount = document.getElementById('prospectsDisplayCount');
-    if (!grid) return;
-
-    const filtered = getFilteredAthletes();
-    if (resultsCount) {
-      resultsCount.textContent = filtered.length;
-    }
-    if (displayCount) {
-      displayCount.textContent = filtered.length;
-    }
-
-    if (STATE.viewMode === 'table') {
-      grid.style.display = 'none';
-      if (tableContainer) tableContainer.style.display = 'block';
-      if (tableBody) {
-        if (filtered.length === 0) {
-          tableBody.innerHTML = `
-            <tr>
-              <td colspan="8" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
-                Zero athletes match active filters. <button class="btn btn-cyan-sm" style="margin-left: 0.5rem;" onclick="window.AAX.resetFilters()">Reset</button>
-              </td>
-            </tr>
-          `;
-        } else {
-          tableBody.innerHTML = filtered.map((ath, idx) => {
-            const inCompare = STATE.compareQueue.includes(ath.id);
-            const initials = ath.name.split(' ').map((n) => n[0]).join('');
-            const statusClass = ath.status === 'Seeking Agent' ? 'seeking' : ath.status === 'Free Agent' ? 'free' : 'represented';
-
-            return `
-              <tr onclick="window.AAX.viewProfile('${ath.id}')">
-                <td><span class="table-rank-badge ${idx < 3 ? 'top-tier' : ''}">#${idx + 1}</span></td>
-                <td>
-                  <div class="table-athlete-cell">
-                    <div class="table-avatar-tiny" style="background: ${ath.avatar_color || '#1E293B'};">${initials}</div>
-                    <div class="table-name-group">
-                      <strong class="athlete-name-text">${ath.name} <span style="font-size: 0.75rem; color: var(--accent-orange); font-family: var(--font-mono);">${ath.jersey}</span></strong>
-                      <span class="athlete-origin-text">${ath.flag} ${ath.city}, ${ath.country} • Age ${ath.age}</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="table-sport-tag">${ath.sport}</span>
-                  <span class="table-pos-text">${ath.position}</span>
-                </td>
-                <td>
-                  <div>
-                    <strong class="table-grade-score">${ath.composite_grade}</strong>
-                    <span class="table-star-rating">${ath.star_rating.split(' ')[0]}</span>
-                    <span class="table-metric-sub">${ath.national_rank}</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="table-metric-badge">${ath.biometrics.height} / ${ath.biometrics.weight_lbs} lbs</span>
-                  <span class="table-metric-sub">Reach: ${ath.biometrics.reach} • Wing: ${ath.biometrics.wingspan}</span>
-                </td>
-                <td>
-                  <span class="table-split-highlight">${ath.combine.sprint_time.split(' ')[0]}</span>
-                  <span class="table-metric-sub">Vert: ${ath.combine.vertical_leap_in}" • ${ath.performance.primary_label}: ${ath.performance.primary_val}</span>
-                </td>
-                <td>
-                  <span class="table-status-pill ${statusClass}">${ath.status}</span>
-                </td>
-                <td>
-                  <div style="display: flex; gap: 0.35rem;" onclick="event.stopPropagation();">
-                    <button class="btn btn-cyan-sm" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="window.AAX.viewProfile('${ath.id}')">Dossier</button>
-                    <button class="btn ${inCompare ? 'btn-emerald' : 'btn-outline-sm'}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="window.AAX.toggleCompare('${ath.id}')">${inCompare ? '✓' : '+'}</button>
-                  </div>
-                </td>
-              </tr>
-            `;
-          }).join('');
-        }
-      }
-      return;
-    }
-
-    // Grid View
-    grid.style.display = 'grid';
-    if (tableContainer) tableContainer.style.display = 'none';
-
-    if (filtered.length === 0) {
-      grid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-medium);">
-          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔭</div>
-          <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--text-primary); margin-bottom: 0.5rem;">Zero Athletes Match Active Filters</h3>
-          <p style="color: var(--text-secondary); max-width: 480px; margin: 0 auto 1.5rem;">Try relaxing your height threshold or position constraints, or reset filters to explore our full verified prospect directory.</p>
-          <button class="btn btn-cyan-sm" onclick="window.AAX.resetFilters()">Reset All Filters</button>
+  function renderFeature() {
+    const a = athleteById(FEATURED.athleteId);
+    if (!a) return;
+    const p = a.performance;
+    $('#featureProspect').innerHTML = `
+      <div>
+        <p class="kicker">Featured prospect · ${esc(a.sport)} · ${esc(a.position)}</p>
+        <h2 class="feature-name"><a href="#profile" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</a></h2>
+        <p class="feature-copy">${esc(FEATURED.summary)}</p>
+        <dl class="statline">
+          <div><dt>${esc(p.primary_label)}</dt><dd>${esc(p.primary_val)}</dd></div>
+          <div><dt>${esc(p.secondary_label)}</dt><dd>${esc(p.secondary_val)}</dd></div>
+          <div><dt>${esc(p.tertiary_label)}</dt><dd>${esc(p.tertiary_val)}</dd></div>
+          <div><dt>Vertical</dt><dd>${a.combine.vertical_leap_in}″</dd></div>
+          <div><dt>Wingspan</dt><dd>${primes(a.biometrics.wingspan)}</dd></div>
+        </dl>
+        <div class="feature-actions">
+          <button type="button" class="btn btn-primary" data-action="view-profile" data-id="${a.id}">Open profile</button>
+          ${statusMarkup(a)}
         </div>
-      `;
-      return;
-    }
+      </div>
+      <div class="feature-grade">
+        <div class="grade-figure num">${esc(a.composite_grade)}</div>
+        <div class="grade-label">Scout grade</div>
+        <div class="feature-rank">${esc(a.national_rank)}</div>
+      </div>`;
+  }
 
-    grid.innerHTML = filtered.map((ath) => {
-      const inCompare = STATE.compareQueue.includes(ath.id);
-      const initials = ath.name.split(' ').map((n) => n[0]).join('');
-      const statusClass = ath.status === 'Seeking Agent' ? 'seeking' : ath.status === 'Free Agent' ? 'free' : 'represented';
-
+  function renderRisers() {
+    $('#risersList').innerHTML = RISERS.map((r) => {
+      const a = athleteById(r.athleteId);
+      if (!a) return '';
       return `
-        <article class="athlete-card" data-athlete-id="${ath.id}">
-          <div class="athlete-card-top">
-            <div class="athlete-avatar-badge" style="background: ${ath.avatar_color || '#1E293B'}; position: relative;">
-              ${initials}
-              <span class="jersey-badge">${ath.jersey}</span>
-            </div>
-            <div class="athlete-meta-block">
-              <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
-                <span class="verification-shield-pill">✓ Verified Pro Telemetry</span>
-                <span class="composite-grade-pill">${ath.star_rating}</span>
-                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-orange); font-weight: 700;">${ath.national_rank}</span>
-              </div>
-              <h3 class="athlete-name">${ath.name}</h3>
-              <span class="athlete-sport-pos">${ath.sport} : ${ath.position}</span>
-              <div class="athlete-geo-row">
-                <span>${ath.flag} ${ath.city}, ${ath.country}</span>
-                <span>•</span>
-                <span>Age ${ath.age}</span>
-                <span>•</span>
-                <span style="font-weight: 600; color: var(--text-primary);">${ath.school_team}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- BIOMETRICS MICRO GRID -->
-          <div class="biometrics-micro-grid">
-            <div class="bio-item">
-              <span>HEIGHT</span>
-              <strong>${ath.biometrics.height}</strong>
-            </div>
-            <div class="bio-item">
-              <span>WEIGHT</span>
-              <strong>${ath.biometrics.weight_lbs} lbs</strong>
-            </div>
-            <div class="bio-item">
-              <span>WINGSPAN</span>
-              <strong>${ath.biometrics.wingspan}</strong>
-            </div>
-          </div>
-
-          <!-- STATS BANNER ROW -->
-          <div class="stats-banner-row">
-            <div class="stat-metric">
-              <span>VERTICAL</span>
-              <strong>${ath.combine.vertical_leap_in}"</strong>
-            </div>
-            <div class="stat-metric">
-              <span>SPRINT / SPLIT</span>
-              <strong>${ath.combine.sprint_time.split(' ')[0]}</strong>
-            </div>
-            <div class="stat-metric">
-              <span>${ath.performance.primary_label}</span>
-              <strong>${ath.performance.primary_val}</strong>
-            </div>
-          </div>
-
-          <div class="status-indicator-tag ${statusClass}">
-            ● Representation: <strong>${ath.status}${ath.agent_name ? ` (${ath.agent_name})` : ''}</strong>
-          </div>
-
-          <div class="card-actions-row">
-            <button class="btn btn-cyan-sm" onclick="window.AAX.viewProfile('${ath.id}')">
-              View Sports Resume
-            </button>
-            <button class="btn ${inCompare ? 'btn-emerald' : 'btn-outline-sm'}" onclick="window.AAX.toggleCompare('${ath.id}')" title="Add to Head-to-Head Compare">
-              ${inCompare ? '✓ In Queue' : '+ Compare'}
-            </button>
-          </div>
-        </article>
-      `;
+        <li class="riser">
+          <button type="button" class="riser-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
+          <span class="riser-delta num">${esc(r.delta)}</span>
+          <span class="riser-note">${esc(a.sport)} — ${esc(r.note)}</span>
+          <span class="riser-time">${esc(r.time)}</span>
+        </li>`;
     }).join('');
   }
 
   /* ==========================================================================
-     6. SPORTS RÉSUMÉ PROFILE VIEW CONTROLLER
+     8. FILTERS & PROSPECT BOARD
      ========================================================================== */
-  function renderProfileView(athleteId) {
-    const athlete = STATE.athletes.find((a) => a.id === athleteId) || STATE.athletes[0];
-    STATE.selectedAthleteId = athlete.id;
+  function wireFilters() {
+    $('#searchInput').addEventListener('input', (e) => {
+      STATE.filter.search = e.target.value.trim().toLowerCase();
+      renderProspects();
+    });
 
-    const container = document.getElementById('profileDossierCard');
-    if (!container) return;
+    $$('#sportTabs .sport-tab').forEach((tab) => {
+      tab.addEventListener('click', () => {
+        STATE.filter.sport = tab.dataset.sport;
+        syncFilterControls();
+        renderProspects();
+      });
+    });
 
-    const initials = athlete.name.split(' ').map((n) => n[0]).join('');
-    const verticalPercent = Math.min(100, Math.round((athlete.combine.vertical_leap_in / 42) * 100));
+    [['#filterPosition', 'position'], ['#filterCountry', 'country'], ['#filterStatus', 'status']].forEach(([sel, key]) => {
+      $(sel).addEventListener('change', (e) => {
+        STATE.filter[key] = e.target.value;
+        renderProspects();
+      });
+    });
 
-    container.innerHTML = `
-      <!-- DOSSIER HERO HEADER -->
-      <div class="dossier-hero-header">
-        <div class="dossier-avatar-large" style="background: ${athlete.avatar_color || '#2563EB'};">
-          ${initials}
-          <span class="jersey-badge">${athlete.jersey}</span>
-        </div>
-        <div class="dossier-info-col">
-          <div class="dossier-badges-row">
-            <span class="v-badge green">✓ Biometrics Laser-Verified</span>
-            <span class="v-badge cyan">✓ Official Match Telemetry</span>
-            <span class="v-badge gold">✓ ${athlete.star_rating} (${athlete.composite_grade} GRADE)</span>
-            <span class="v-badge" style="background: var(--accent-orange-soft); border: 1px solid var(--accent-orange); color: var(--accent-orange); font-weight: 800;">🏆 ${athlete.national_rank}</span>
-          </div>
-          <h2 class="dossier-name">${athlete.name}</h2>
-          <div class="dossier-discipline">${athlete.sport} • ${athlete.discipline} • ${athlete.position}</div>
-          <div class="dossier-location-row">
-            <span>${athlete.flag} ${athlete.city}, ${athlete.country}</span> | 
-            <span>Team / Academy: <strong>${athlete.school_team}</strong></span> | 
-            <span>DOB: ${athlete.dob} (${athlete.age} Yrs)</span> | 
-            <span>Status: <strong style="color: var(--accent-blue);">${athlete.status}</strong></span>
-          </div>
+    $('#filterHeight').addEventListener('input', (e) => {
+      STATE.filter.minHeight = parseInt(e.target.value, 10);
+      $('#filterHeightVal').textContent = feetInches(STATE.filter.minHeight);
+      renderProspects();
+    });
 
-          <!-- ESPN / CSQ BIG THREE SEASON STAT CALLOUT -->
-          <div style="display: flex; gap: 0.85rem; margin-top: 1rem; flex-wrap: wrap;">
-            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.primary_label}</span>
-              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--accent-orange); line-height: 1;">${athlete.performance.primary_val}</strong>
-            </div>
-            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.secondary_label}</span>
-              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); line-height: 1;">${athlete.performance.secondary_val}</strong>
-            </div>
-            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
-              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.tertiary_label}</span>
-              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); line-height: 1;">${athlete.performance.tertiary_val}</strong>
-            </div>
-          </div>
-        </div>
-        <div class="dossier-actions-group">
-          <button class="btn btn-cyan-sm" onclick="window.AAX.openRepresentationModal('${athlete.id}')">
-            Execute Representation Agreement
-          </button>
-          <button class="btn btn-outline-sm" onclick="window.AAX.toggleCompare('${athlete.id}')">
-            ${STATE.compareQueue.includes(athlete.id) ? '✓ In Comparison Queue' : '+ Add to Comparison Matrix'}
-          </button>
-          <button class="btn btn-secondary-compact" onclick="window.AAX.exportScoutReport()">
-            Export Scouting PDF
-          </button>
-        </div>
-      </div>
+    $$('[data-preset]').forEach((btn) => btn.addEventListener('click', () => applyPreset(btn.dataset.preset)));
 
-      <!-- BENTO METRICS GRID -->
-      <div class="dossier-bento-grid">
-        <!-- 1. BIOMETRIC TELEMETRY -->
-        <div class="bento-card">
-          <span class="bento-title">Biometric Measurements & Physical Frame</span>
-          <div class="biometrics-full-grid">
-            <div class="bio-full-item">
-              <span>STANDING HEIGHT</span>
-              <strong>${athlete.biometrics.height}</strong>
-            </div>
-            <div class="bio-full-item">
-              <span>WEIGHT</span>
-              <strong>${athlete.biometrics.weight_lbs} lbs</strong>
-            </div>
-            <div class="bio-full-item">
-              <span>WINGSPAN</span>
-              <strong>${athlete.biometrics.wingspan}</strong>
-            </div>
-            <div class="bio-full-item">
-              <span>STANDING REACH</span>
-              <strong>${athlete.biometrics.reach}</strong>
-            </div>
-            <div class="bio-full-item">
-              <span>DOMINANT HAND</span>
-              <strong style="font-size: 1.15rem;">${athlete.biometrics.dominant_hand}</strong>
-            </div>
-            <div class="bio-full-item">
-              <span>DOMINANT FOOT</span>
-              <strong style="font-size: 1.15rem;">${athlete.biometrics.dominant_foot}</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. COMBINE & PERFORMANCE METERS -->
-        <div class="bento-card">
-          <span class="bento-title">Combine Laser Telemetry & Speed Gates</span>
-          <div class="combine-metrics-list">
-            <div>
-              <div class="combine-row">
-                <span class="c-label">Vertical Max Leap</span>
-                <span class="c-val">${athlete.combine.vertical_leap_in} Inches (${verticalPercent}th Percentile)</span>
-              </div>
-              <div class="combine-meter-track">
-                <div class="combine-meter-fill" style="width: ${verticalPercent}%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="combine-row">
-                <span class="c-label">Sprint Gate Time</span>
-                <span class="c-val">${athlete.combine.sprint_time}</span>
-              </div>
-              <div class="combine-meter-track">
-                <div class="combine-meter-fill" style="width: 88%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="combine-row">
-                <span class="c-label">Agility & Lane Shuttle</span>
-                <span class="c-val">${athlete.combine.lane_agility}</span>
-              </div>
-              <div class="combine-meter-track">
-                <div class="combine-meter-fill" style="width: 82%;"></div>
-              </div>
-            </div>
-            <div>
-              <div class="combine-row">
-                <span class="c-label">Endurance / Shuttle Run</span>
-                <span class="c-val">${athlete.combine.shuttle_run}</span>
-              </div>
-              <div class="combine-meter-track">
-                <div class="combine-meter-fill" style="width: 85%;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PERFORMANCE STATS GRID -->
-      <div class="bento-card" style="margin-bottom: 2rem;">
-        <span class="bento-title">Verified Season Performance Box Scores</span>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;">
-          ${athlete.performance.stats_grid.map((st) => `
-            <div style="background: var(--bg-surface); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); display: block;">${st.label}</span>
-              <strong style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-gold);">${st.val}</strong>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
-      <!-- HIGHLIGHT VIDEO REEL MOCKUP -->
-      <div class="bento-card" style="margin-bottom: 2rem;">
-        <span class="bento-title">Verified Video Highlights & Technical Analysis</span>
-        <div class="highlights-tabs-row">
-          ${athlete.highlights.map((h, i) => `
-            <button class="highlight-tab-btn ${i === 0 ? 'active' : ''}" onclick="window.AAX.playHighlight(this, '${h.title}')">
-              ▶ ${h.title.substring(0, 32)}... (${h.duration})
-            </button>
-          `).join('')}
-        </div>
-        <div class="video-mockup-player" id="videoMockupPlayer">
-          <div class="camera-angles-ribbon" id="cameraAnglesRibbon">
-            <button class="cam-angle-btn active" onclick="window.AAX.switchCameraAngle(this, 'Broadcast Main Cam')">Main Cam</button>
-            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'High Sideline Tactical')">High Tactical</button>
-            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'Laser Gate Endzone Cam')">Laser Gate</button>
-            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'Slow-Mo Biometrics 240fps')">Slow-Mo Bio</button>
-          </div>
-          <div class="play-circle-icon" onclick="window.AAX.playActiveVideo()">▶</div>
-          <div class="video-overlay-title" id="videoOverlayTitle">${athlete.highlights[0].title}</div>
-          <span id="videoAngleBadge" style="position: absolute; bottom: 12px; left: 16px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-emerald); background: rgba(0,0,0,0.65); padding: 2px 8px; border-radius: 3px; border: 1px solid rgba(16,185,129,0.4);">
-            LIVE FEED: Broadcast Main Cam (1080p 60fps)
-          </span>
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #94A3B8; margin-top: 0.35rem;">
-            Duration: ${athlete.highlights[0].duration} • Tag: ${athlete.highlights[0].tag} • HD Telemetry Stream
-          </span>
-        </div>
-      </div>
-
-      <!-- CAREER HISTORY & ACHIEVEMENTS -->
-      <div class="dossier-bento-grid" style="margin-bottom: 0;">
-        <div class="bento-card">
-          <span class="bento-title">Competition History & Club Teams</span>
-          <div class="career-timeline-list">
-            ${athlete.career.map((c) => `
-              <div class="timeline-item">
-                <span class="timeline-season">${c.season} • ${c.league}</span>
-                <div class="timeline-team">${c.team}</div>
-                <p class="timeline-notes">${c.notes}</p>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
-        <div class="bento-card">
-          <span class="bento-title">Key Honors & Academic Standing</span>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem;">
-            ${athlete.achievements.map((ach) => `
-              <li style="font-size: 0.85rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
-                <span style="color: var(--accent-gold);">🏆</span>
-                <span>${ach}</span>
-              </li>
-            `).join('')}
-          </ul>
-          <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-medium);">
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-cyan); display: block; margin-bottom: 0.35rem;">ACADEMIC PROFILE & CLEARINGHOUSE</span>
-            <div style="font-size: 0.82rem; color: var(--text-secondary);">
-              <div>Institution: <strong>${athlete.academics.institution}</strong></div>
-              <div>Cumulative GPA: <strong>${athlete.academics.gpa}</strong> (${athlete.academics.standardized_score})</div>
-              <div style="color: var(--accent-emerald); margin-top: 0.25rem;">✓ ${athlete.academics.eligibility}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    // Update active permissions card UI
-    updatePermissionTiersUi(athlete.permissions.current_level);
+    $$('.segmented-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        STATE.viewMode = btn.dataset.view;
+        $$('.segmented-btn').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        renderProspects();
+      });
+    });
   }
 
-  function updatePermissionTiersUi(currentLevel) {
-    const levelTag = document.getElementById('currentPermLevelTag');
-    if (levelTag) {
-      levelTag.textContent = `ACTIVE LEVEL: ${currentLevel.toUpperCase()}`;
+  function syncFilterControls() {
+    const f = STATE.filter;
+    $('#searchInput').value = f.search;
+    $('#filterPosition').value = f.position;
+    $('#filterCountry').value = f.country;
+    $('#filterStatus').value = f.status;
+    $('#filterHeight').value = f.minHeight;
+    $('#filterHeightVal').textContent = feetInches(f.minHeight);
+    $$('#sportTabs .sport-tab').forEach((t) => t.setAttribute('aria-pressed', String(t.dataset.sport === f.sport)));
+  }
+
+  function applyPreset(preset) {
+    const presets = {
+      'jamaican-wingers': { sport: 'Football', country: 'Jamaica', position: 'Left Winger' },
+      'tall-wings': { sport: 'Basketball', minHeight: 77 },
+      'sprinters': { sport: 'Track & Field', position: '100m' },
+      'free-agents': { status: 'Free Agent' },
+      'unrepresented': { status: 'Seeking Agent' },
+      'reset': {}
+    };
+    STATE.filter = { ...DEFAULT_FILTER, ...(presets[preset] || {}) };
+    syncFilterControls();
+    renderProspects();
+  }
+
+  function filteredAthletes() {
+    const f = STATE.filter;
+    return byGrade(STATE.athletes.filter((a) => {
+      if (f.search) {
+        const hay = `${a.name} ${a.sport} ${a.position} ${a.discipline} ${a.country} ${code(a)} ${a.city} ${a.school_team}`.toLowerCase();
+        if (!f.search.split(/\s+/).every((word) => hay.includes(word))) return false;
+      }
+      if (f.sport !== 'all' && a.sport !== f.sport) return false;
+      if (f.position !== 'all' && !a.position.toLowerCase().includes(f.position.toLowerCase())) return false;
+      if (f.country !== 'all' && a.country !== f.country) return false;
+      if (f.status !== 'all' && a.status !== f.status) return false;
+      if (a.biometrics.height_in < f.minHeight) return false;
+      return true;
+    }));
+  }
+
+  function renderProspects() {
+    const list = filteredAthletes();
+    const grid = $('#prospectGrid');
+    const tableWrap = $('#prospectTableWrap');
+    $('#resultCount').textContent = list.length;
+
+    const empty = `
+      <div class="empty">
+        <h3>No athletes match these filters</h3>
+        <p>Try a lower minimum height or a different position.</p>
+        <button type="button" class="btn btn-secondary" data-action="reset-filters">Clear filters</button>
+      </div>`;
+
+    if (STATE.viewMode === 'table') {
+      grid.hidden = true;
+      tableWrap.hidden = false;
+      $('#prospectTableBody').innerHTML = list.length ? list.map((a, i) => `
+        <tr>
+          <td class="col-num"><span class="board-rank">${i + 1}</span></td>
+          <td>
+            <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
+            <span class="cell-sub">${code(a)} · ${esc(a.city)} · Age ${a.age}</span>
+          </td>
+          <td>${esc(a.sport)}<span class="cell-sub">${esc(a.position)}</span></td>
+          <td class="col-num"><span class="board-grade">${esc(a.composite_grade)}</span><span class="cell-sub">${esc(a.national_rank)}</span></td>
+          <td class="num">${primes(a.biometrics.height)} · ${a.biometrics.weight_lbs} lb<span class="cell-sub">Wingspan ${primes(a.biometrics.wingspan)}</span></td>
+          <td class="num"><span class="cell-strong">${esc(a.performance.primary_val)}</span> ${esc(a.performance.primary_label)}<span class="cell-sub">${esc(a.performance.secondary_val)} ${esc(a.performance.secondary_label)}</span></td>
+          <td>${statusMarkup(a)}</td>
+          <td><div class="cell-actions">${compareButton(a.id, 'btn-sm')}</div></td>
+        </tr>`).join('') : `<tr><td colspan="8">${empty}</td></tr>`;
+      return;
     }
 
-    const permCards = document.querySelectorAll('.perm-card');
-    permCards.forEach((card) => {
-      const perm = card.getAttribute('data-perm');
-      const isActive = perm.toLowerCase() === currentLevel.toLowerCase();
-      card.classList.toggle('active', isActive);
-      card.onclick = () => {
-        setAthletePermission(perm);
+    grid.hidden = false;
+    tableWrap.hidden = true;
+    if (!list.length) {
+      grid.innerHTML = empty;
+      return;
+    }
+
+    grid.innerHTML = list.map((a) => {
+      const p = a.performance;
+      return `
+        <article class="prospect">
+          <div class="prospect-top">
+            <div>
+              <p class="prospect-meta"><strong>${code(a)}</strong> · ${esc(a.sport)} · Age ${a.age}</p>
+              <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
+              <p class="prospect-pos">${esc(a.position)}</p>
+              <p class="prospect-team">${esc(a.school_team)}</p>
+            </div>
+            <div class="prospect-grade">
+              <div class="prospect-grade-figure num">${esc(a.composite_grade)}</div>
+              <div class="prospect-grade-label">Grade</div>
+            </div>
+          </div>
+          <dl class="measure-grid">
+            <div><dt>Height</dt><dd>${primes(a.biometrics.height)}</dd></div>
+            <div><dt>Weight</dt><dd>${a.biometrics.weight_lbs} lb</dd></div>
+            <div><dt>Wingspan</dt><dd>${primes(a.biometrics.wingspan_in ? feetInches(a.biometrics.wingspan_in) : a.biometrics.wingspan)}</dd></div>
+            <div><dt>${esc(p.primary_label)}</dt><dd>${esc(p.primary_val)}</dd></div>
+            <div><dt>${esc(p.secondary_label)}</dt><dd>${esc(p.secondary_val)}</dd></div>
+            <div><dt>${esc(p.tertiary_label)}</dt><dd>${esc(p.tertiary_val)}</dd></div>
+          </dl>
+          <div class="prospect-foot">
+            ${statusMarkup(a)}
+            ${compareButton(a.id, 'btn-sm')}
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  /* ==========================================================================
+     9. PROFILE
+     ========================================================================== */
+  function renderProfile(id) {
+    const a = athleteById(id) || STATE.athletes[0];
+    STATE.selectedAthleteId = a.id;
+    const p = a.performance;
+    const inCompare = STATE.compareQueue.includes(a.id);
+
+    const standings = [
+      ['Height', primes(a.biometrics.height), boardStanding((x) => x.biometrics.height_in, a)],
+      ['Wingspan', primes(feetInches(a.biometrics.wingspan_in)), boardStanding((x) => x.biometrics.wingspan_in, a)],
+      ['Vertical jump', `${a.combine.vertical_leap_in}″`, boardStanding((x) => x.combine.vertical_leap_in, a)]
+    ];
+
+    const signAction = a.status === 'Represented'
+      ? `<p class="muted">Represented by ${esc(a.agent_name || 'an agent')}</p>`
+      : `<button type="button" class="btn btn-primary" data-action="open-rep" data-athlete="${a.id}">Sign with an agent</button>`;
+
+    $('#profileBody').innerHTML = `
+      <header class="profile-head">
+        <div>
+          <a href="#discovery" class="btn-link profile-back" data-action="nav" data-section="discovery">← All prospects</a>
+          <p class="kicker">${esc(a.sport)} · ${esc(a.position)} · ${esc(a.jersey)}</p>
+          <h1 class="profile-name" id="profileName">${esc(a.name)}</h1>
+          <div class="profile-facts">
+            <span>Age <strong>${a.age}</strong> (born ${formatDate(a.dob)})</span>
+            <span>From <strong>${esc(a.city)}, ${code(a)}</strong></span>
+            <span>Plays for <strong>${esc(a.school_team)}</strong></span>
+            <span><strong>${primes(a.biometrics.height)}, ${a.biometrics.weight_lbs} lb</strong></span>
+          </div>
+        </div>
+        <div class="profile-side">
+          <div class="feature-grade">
+            <div class="grade-figure num">${esc(a.composite_grade)}</div>
+            <div class="grade-label">Scout grade</div>
+            <div class="feature-rank">${esc(a.national_rank)}</div>
+          </div>
+          <div class="profile-actions">
+            ${signAction}
+            <button type="button" class="btn btn-quiet" data-action="toggle-compare" data-id="${a.id}" aria-pressed="${inCompare}">${inCompare ? 'In comparison' : 'Add to comparison'}</button>
+            <button type="button" class="btn btn-quiet" data-action="print">Print profile</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="profile-block" style="margin-top:28px" aria-labelledby="h-season">
+        <h2 class="block-title" id="h-season">This season</h2>
+        <dl class="statline">
+          <div><dt>${esc(p.primary_label)}</dt><dd>${esc(p.primary_val)}</dd></div>
+          <div><dt>${esc(p.secondary_label)}</dt><dd>${esc(p.secondary_val)}</dd></div>
+          <div><dt>${esc(p.tertiary_label)}</dt><dd>${esc(p.tertiary_val)}</dd></div>
+        </dl>
+        <dl class="stat-grid">
+          ${p.stats_grid.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.val)}</dd></div>`).join('')}
+        </dl>
+      </section>
+
+      <div class="profile-cols">
+        <div>
+          <section class="profile-block" aria-labelledby="h-measure">
+            <h2 class="block-title" id="h-measure">Measurements</h2>
+            <dl class="kv">
+              <div><dt>Height</dt><dd>${primes(a.biometrics.height)}</dd></div>
+              <div><dt>Weight</dt><dd>${a.biometrics.weight_lbs} lb</dd></div>
+              <div><dt>Wingspan</dt><dd>${primes(a.biometrics.wingspan)}</dd></div>
+              <div><dt>Standing reach</dt><dd>${primes(a.biometrics.reach)}</dd></div>
+              <div><dt>Dominant hand</dt><dd>${esc(a.biometrics.dominant_hand)}</dd></div>
+              <div><dt>Dominant foot</dt><dd>${esc(a.biometrics.dominant_foot)}</dd></div>
+            </dl>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-standing">
+            <h2 class="block-title" id="h-standing">Against the board</h2>
+            <p class="muted standing-note">Where ${esc(firstName(a))} ranks among the ${STATE.athletes.length} athletes listed, across all sports.</p>
+            <ul class="standings">
+              ${standings.map(([label, value, s]) => `
+                <li class="standing">
+                  <span class="standing-label">${label}</span>
+                  <span class="standing-value num">${value}</span>
+                  <span class="standing-rank num">${s.rank} of ${s.of}</span>
+                  <span class="standing-bar" aria-hidden="true"><span style="width:${Math.max(4, s.pct)}%"></span></span>
+                </li>`).join('')}
+            </ul>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-tests">
+            <h2 class="block-title" id="h-tests">Testing</h2>
+            <ul class="plain-list num">
+              <li>Vertical jump — ${a.combine.vertical_leap_in}″</li>
+              <li>${esc(a.combine.sprint_time)}</li>
+              <li>${esc(a.combine.lane_agility)}</li>
+              <li>${esc(a.combine.shuttle_run)}</li>
+            </ul>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-career">
+            <h2 class="block-title" id="h-career">Career</h2>
+            <ol class="timeline">
+              ${a.career.map((c) => `
+                <li>
+                  <div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div>
+                  <div class="timeline-team">${esc(c.team)}</div>
+                  <p class="timeline-note">${esc(c.notes)}</p>
+                </li>`).join('')}
+            </ol>
+          </section>
+        </div>
+
+        <div>
+          <section class="profile-block" aria-labelledby="h-video">
+            <h2 class="block-title" id="h-video">Video</h2>
+            <div class="player">
+              <button type="button" class="player-play" data-action="play-video" aria-label="Play video">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <p class="player-title" id="playerTitle">${esc(a.highlights[0].title)}</p>
+              <p class="player-meta num" id="playerMeta">${esc(a.highlights[0].tag)} · ${esc(a.highlights[0].duration)}</p>
+            </div>
+            <ul class="clip-list">
+              ${a.highlights.map((h, i) => `
+                <li><button type="button" class="clip" data-action="play-clip" data-index="${i}" aria-current="${i === 0}">
+                  <span class="clip-title">${esc(h.title)}</span><span class="clip-time">${esc(h.duration)}</span>
+                </button></li>`).join('')}
+            </ul>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-honours">
+            <h2 class="block-title" id="h-honours">Honours</h2>
+            <ul class="plain-list">${a.achievements.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-school">
+            <h2 class="block-title" id="h-school">Education</h2>
+            <dl class="kv">
+              <div><dt>School</dt><dd>${esc(a.academics.institution)}</dd></div>
+              <div><dt>GPA</dt><dd>${esc(a.academics.gpa)}</dd></div>
+              <div><dt>Exams</dt><dd>${esc(a.academics.standardized_score)}</dd></div>
+              <div><dt>Eligibility</dt><dd>${esc(a.academics.eligibility)}</dd></div>
+            </dl>
+          </section>
+
+          <section class="profile-block" aria-labelledby="h-news">
+            <h2 class="block-title" id="h-news">In the news</h2>
+            <ul class="news-list">
+              ${a.news.map((n) => `<li><div class="news-source">${esc(n.source)} · ${esc(n.date)}</div><div class="news-head">${esc(n.headline)}</div></li>`).join('')}
+            </ul>
+          </section>
+        </div>
+      </div>`;
+
+    syncPermissions(a);
+  }
+
+  function selectClip(index) {
+    const a = athleteById(STATE.selectedAthleteId);
+    const clip = a && a.highlights[index];
+    if (!clip) return;
+    $('#playerTitle').textContent = clip.title;
+    $('#playerMeta').textContent = `${clip.tag} · ${clip.duration}`;
+    $$('.clip').forEach((c) => c.setAttribute('aria-current', String(parseInt(c.dataset.index, 10) === index)));
+  }
+
+  function syncPermissions(a) {
+    const level = a.permissions.current_level.toLowerCase();
+    $$('#permList input[name="perm"]').forEach((input) => {
+      input.checked = input.value === level;
+      input.onchange = () => {
+        a.permissions.current_level = input.value;
+        const label = input.closest('.perm').querySelector('.perm-name').textContent;
+        showToast(`${a.name}’s agent permission set to ${label.toLowerCase()}.`, 'success');
       };
     });
   }
 
-  function setAthletePermission(level) {
-    const athlete = STATE.athletes.find((a) => a.id === STATE.selectedAthleteId);
-    if (!athlete) return;
-
-    athlete.permissions.current_level = level;
-    updatePermissionTiersUi(level);
-    showToast(`Athlete permission updated: ${athlete.name} granted ${level.toUpperCase()} authority.`, 'success');
-  }
-
   /* ==========================================================================
-     7. AGENT MARKETPLACE & REPRESENTATION WORKFLOW
+     10. AGENTS
      ========================================================================== */
-  function renderAgentsGrid() {
-    const grid = document.getElementById('agentsGrid');
-    if (!grid) return;
-
-    grid.innerHTML = STATE.agents.map((agent) => {
-      const initials = agent.name.split(' ').map((n) => n[0]).join('');
-
-      return `
-        <article class="agent-card">
-          <div class="agent-card-top">
-            <div class="agent-crest" style="background: ${agent.avatar_color || '#1E293B'};">
-              ${initials}
-            </div>
-            <div>
-              <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-emerald); font-weight: 700;">✓ ACCREDITED REPRESENTATIVE</span>
-              <h3 class="agent-name">${agent.name}</h3>
-              <span class="agent-agency">${agent.agency}</span>
-              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">
-                📍 ${agent.headquarters} • ${agent.experience_years} Years Experience
-              </div>
-            </div>
+  function renderAgents() {
+    $('#agentList').innerHTML = STATE.agents.map((ag) => `
+      <article class="agent">
+        <div class="agent-head">
+          <div>
+            <h2 class="agent-name">${esc(ag.name)}</h2>
+            <p class="agent-firm">${esc(ag.agency)}</p>
+            <p class="agent-where">${esc(ag.headquarters)} · ${esc(ag.sports.join(', '))}</p>
           </div>
-
-          <div class="agent-license-list">
-            ${agent.credentials.map((c) => `<div>✓ ${c}</div>`).join('')}
+          <div class="agent-rating">
+            <div class="agent-rating-figure num">${ag.rating.toFixed(2)}</div>
+            <div class="grade-label">${ag.review_count} reviews</div>
           </div>
-
-          <p class="agent-bio-text">${agent.bio}</p>
-
-          <div class="agent-stats-bar">
-            <div>Athletes: <strong>${agent.athletes_count}</strong></div>
-            <div>Rating: <strong>★ ${agent.rating} (${agent.review_count})</strong></div>
-            <div>Commission: <strong>${agent.commission_rate.split(' ')[0]}</strong></div>
-          </div>
-
-          <div style="margin-bottom: 1.25rem;">
-            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">NOTABLE REPRESENTATION ROSTER:</span>
-            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
-              ${agent.notable_clients.map((cli) => `
-                <span style="background: rgba(255, 255, 255, 0.05); font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: var(--radius-full); color: var(--text-secondary);">
-                  ${cli}
-                </span>
-              `).join('')}
-            </div>
-          </div>
-
-          <div style="margin-top: auto; display: flex; gap: 0.6rem;">
-            <button class="btn btn-cyan-sm" style="flex: 1;" onclick="window.AAX.openRepresentationModalWithAgent('${agent.id}')">
-              Request Representation
-            </button>
-            <button class="btn btn-outline-sm" onclick="window.AAX.contactAgent('${agent.id}')">
-              Direct Contact
-            </button>
-          </div>
-        </article>
-      `;
-    }).join('');
-  }
-
-  /* ==========================================================================
-     8. 4-STAGE DIGITAL REPRESENTATION AGREEMENT STEPPER
-     ========================================================================== */
-  function initRepresentationStepper() {
-    const modal = document.getElementById('representationModal');
-    const closeBtn = document.getElementById('closeRepModal');
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        closeModal(modal);
-      });
-    }
-
-    // Step 1 -> Step 2
-    const nextTo2 = document.getElementById('nextToStep2');
-    if (nextTo2) {
-      nextTo2.addEventListener('click', () => goToStep(2));
-    }
-
-    // Step 2 -> Step 3
-    const backTo1 = document.getElementById('backToStep1');
-    const nextTo3 = document.getElementById('nextToStep3');
-    if (backTo1) backTo1.addEventListener('click', () => goToStep(1));
-    if (nextTo3) nextTo3.addEventListener('click', () => goToStep(3));
-
-    // Step 3 -> Step 4
-    const backTo2 = document.getElementById('backToStep2');
-    const nextTo4 = document.getElementById('nextToStep4');
-    if (backTo2) backTo2.addEventListener('click', () => goToStep(2));
-    if (nextTo4) nextTo4.addEventListener('click', () => goToStep(4));
-
-    // Step 4 Back & Sign
-    const backTo3 = document.getElementById('backToStep3');
-    const finalizeBtn = document.getElementById('finalizeContractBtn');
-    const signerInput = document.getElementById('signerNameInput');
-    const signatureScript = document.getElementById('signatureScript');
-
-    if (backTo3) backTo3.addEventListener('click', () => goToStep(3));
-
-    if (signerInput && signatureScript) {
-      signerInput.addEventListener('input', (e) => {
-        const val = e.target.value.trim() || 'Your Name';
-        signatureScript.textContent = val;
-        STATE.stepper.signerName = val;
-      });
-    }
-
-    if (finalizeBtn) {
-      finalizeBtn.addEventListener('click', () => {
-        finalizeRepresentationAgreement();
-      });
-    }
-
-    // Radio selection for permissions
-    const radios = document.querySelectorAll('input[name="permSelection"]');
-    radios.forEach((r) => {
-      r.addEventListener('change', () => {
-        document.querySelectorAll('.radio-card').forEach((rc) => rc.classList.remove('active'));
-        r.closest('.radio-card').classList.add('active');
-        STATE.stepper.authorityLevel = r.value;
-      });
-    });
-  }
-
-  function goToStep(stepNumber) {
-    STATE.stepper.currentStep = stepNumber;
-
-    // Update step nodes
-    for (let i = 1; i <= 4; i++) {
-      const node = document.getElementById(`stepNode${i}`);
-      const pane = document.getElementById(`stepPane${i}`);
-      if (node) node.classList.toggle('active', i <= stepNumber);
-      if (pane) pane.classList.toggle('active', i === stepNumber);
-    }
-  }
-
-  function openRepresentationModal(athleteId, agentId) {
-    const athlete = STATE.athletes.find((a) => a.id === athleteId) || STATE.athletes[0];
-    const agent = STATE.agents.find((ag) => ag.id === agentId) || STATE.agents[0];
-
-    STATE.stepper.targetAthleteId = athlete.id;
-    STATE.stepper.selectedAgent = agent;
-    STATE.stepper.signerName = athlete.name;
-
-    // Populate modal previews
-    const modal = document.getElementById('representationModal');
-    const repAgentName = document.getElementById('repAgentName');
-    const repAgentCredentials = document.getElementById('repAgentCredentials');
-    const repCommissionRate = document.getElementById('repCommissionRate');
-    const signerInput = document.getElementById('signerNameInput');
-    const signatureScript = document.getElementById('signatureScript');
-    const signatureTimestamp = document.getElementById('signatureTimestamp');
-
-    if (repAgentName) repAgentName.textContent = `Agent: ${agent.name} (${agent.agency})`;
-    if (repAgentCredentials) repAgentCredentials.textContent = `Credentials: ${agent.credentials[0]}`;
-    if (repCommissionRate) repCommissionRate.textContent = agent.commission_rate;
-    if (signerInput) signerInput.value = athlete.name;
-    if (signatureScript) signatureScript.textContent = athlete.name;
-
-    const now = new Date();
-    const dateStr = now.toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
-    if (signatureTimestamp) signatureTimestamp.textContent = `Cryptographically Stamped : ${dateStr}`;
-
-    goToStep(1);
-    openModal(modal);
-  }
-
-  function finalizeRepresentationAgreement() {
-    const modal = document.getElementById('representationModal');
-    const athlete = STATE.athletes.find((a) => a.id === STATE.stepper.targetAthleteId);
-    const agent = STATE.stepper.selectedAgent || STATE.agents[0];
-
-    if (athlete) {
-      athlete.status = 'Represented';
-      athlete.agent_name = agent.name;
-      athlete.agent_id = agent.id;
-      athlete.permissions.current_level = STATE.stepper.authorityLevel;
-    }
-
-    // Add escrow transaction to ledger
-    const newTx = {
-      id: `tx-${Math.floor(1000 + Math.random() * 9000)}`,
-      date: new Date().toISOString().substring(0, 10),
-      type: 'Digital Representation Agreement Retainer',
-      payer: `${athlete ? athlete.name : 'Kamal Harvey'} (Athlete)`,
-      payee: `${agent.agency} (${agent.name})`,
-      amount_usd: 2500.00,
-      fee_type: 'Representation Retainer Escrow',
-      status: 'Escrow Held',
-      contract_ref: `AGR-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-      description: `Bilateral representation agreement executed. Authority: ${STATE.stepper.authorityLevel.toUpperCase()}. Verified escrow funded.`
-    };
-    STATE.transactions.unshift(newTx);
-
-    closeModal(modal);
-    renderProspectsGrid();
-    renderProfileView(STATE.selectedAthleteId);
-    renderLedger();
-
-    showToast(`Representation Agreement Executed with ${agent.name}. Private Workspace Initialized.`, 'success');
-  }
-
-  /* ==========================================================================
-     9. SCOUT WATCHLISTS & HEAD-TO-HEAD COMPARISON MATRIX
-     ========================================================================== */
-  function initScoutTools() {
-    const clearCompareBtn = document.getElementById('clearCompareBtn');
-    if (clearCompareBtn) {
-      clearCompareBtn.addEventListener('click', () => {
-        STATE.compareQueue = [];
-        updateCompareBadge();
-        renderComparisonMatrix();
-        renderProspectsGrid();
-        showToast('Comparison queue cleared.', 'info');
-      });
-    }
-
-    const exportBtn = document.getElementById('exportScoutReportBtn');
-    if (exportBtn) {
-      exportBtn.addEventListener('click', () => {
-        exportScoutReport();
-      });
-    }
-  }
-
-  function renderScoutListsGrid() {
-    const grid = document.getElementById('scoutListsGrid');
-    if (!grid) return;
-
-    grid.innerHTML = STATE.scoutLists.map((list) => {
-      const athletes = STATE.athletes.filter((a) => list.athlete_ids.includes(a.id));
-
-      return `
-        <div class="scout-list-card">
-          <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-cyan); font-weight: 700;">PRO WATCHLIST</span>
-          <h4 style="margin-top: 0.35rem;">${list.title}</h4>
-          <p>${list.description}</p>
-          
-          <div class="scout-athlete-pill-row">
-            ${athletes.map((ath) => `
-              <span class="scout-ath-chip">
-                ${ath.flag} ${ath.name} (${ath.position.split(' ')[0]})
-              </span>
-            `).join('')}
-          </div>
-
-          <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Curator: <strong>${list.scout_name}</strong>
-          </div>
-
-          <button class="btn btn-outline-sm" style="width: 100%;" onclick="window.AAX.loadScoutListIntoCompare('${list.id}')">
-            Load List Into Comparison Matrix
-          </button>
         </div>
-      `;
+        <p class="agent-bio">${esc(ag.bio)}</p>
+        <dl class="statline">
+          <div><dt>Athletes</dt><dd>${ag.athletes_count}</dd></div>
+          <div><dt>Years</dt><dd>${ag.experience_years}</dd></div>
+          <div><dt>Commission</dt><dd>${esc(ag.commission_rate.split(' ')[0])}</dd></div>
+        </dl>
+        <ul class="agent-licences">${ag.credentials.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+        <p class="agent-clients"><strong>Clients include</strong> ${esc(ag.notable_clients.join(', '))}</p>
+        <div class="agent-actions">
+          <button type="button" class="btn btn-primary" data-action="open-rep" data-agent="${ag.id}">Start an agreement</button>
+          <button type="button" class="btn btn-quiet" data-action="contact-agent" data-id="${ag.id}">Contact</button>
+        </div>
+      </article>`).join('');
+  }
+
+  /* ==========================================================================
+     11. WATCHLISTS & COMPARISON
+     ========================================================================== */
+  function renderWatchlists() {
+    $('#watchlists').innerHTML = STATE.scoutLists.map((list) => {
+      const names = list.athlete_ids.map(athleteById).filter(Boolean);
+      return `
+        <article class="watchlist">
+          <p class="kicker">Kept by ${esc(list.scout_name)} · updated ${formatDate(list.created_at)}</p>
+          <h2 class="watchlist-title">${esc(list.title)}</h2>
+          <p class="watchlist-desc">${esc(list.description)}</p>
+          <ul class="watchlist-names">
+            ${names.map((a) => `<li><button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span>${esc(a.position)}</span></li>`).join('')}
+          </ul>
+          <p class="watchlist-note">“${esc(list.notes)}”</p>
+          <button type="button" class="btn btn-secondary" data-action="load-list" data-id="${list.id}">Compare these athletes</button>
+        </article>`;
     }).join('');
   }
 
-  function loadScoutListIntoCompare(listId) {
+  function toggleCompare(id) {
+    const i = STATE.compareQueue.indexOf(id);
+    if (i > -1) STATE.compareQueue.splice(i, 1);
+    else STATE.compareQueue.push(id);
+    compareChanged();
+  }
+
+  function loadWatchlist(listId) {
     const list = STATE.scoutLists.find((l) => l.id === listId);
     if (!list) return;
-
     STATE.compareQueue = [...new Set([...STATE.compareQueue, ...list.athlete_ids])];
-    updateCompareBadge();
-    renderComparisonMatrix();
-    renderProspectsGrid();
-    showToast(`Loaded ${list.athlete_ids.length} prospects from "${list.title}" into Comparison Matrix.`, 'success');
+    compareChanged();
+    openCompare();
+  }
 
-    const matrixCard = document.getElementById('comparisonMatrixCard');
-    if (matrixCard) {
-      matrixCard.scrollIntoView({ behavior: 'smooth' });
+  function compareChanged() {
+    updateCompareCount();
+    renderCompare();
+    renderProspects();
+    if (STATE.activeSection === 'profile') {
+      const btn = $('#profileBody [data-action="toggle-compare"]');
+      if (btn) {
+        const on = STATE.compareQueue.includes(STATE.selectedAthleteId);
+        btn.setAttribute('aria-pressed', String(on));
+        btn.textContent = on ? 'In comparison' : 'Add to comparison';
+      }
     }
   }
 
-  function toggleCompare(athleteId) {
-    const index = STATE.compareQueue.indexOf(athleteId);
-    if (index > -1) {
-      STATE.compareQueue.splice(index, 1);
-      showToast('Athlete removed from comparison queue.', 'info');
-    } else {
-      STATE.compareQueue.push(athleteId);
-      const athlete = STATE.athletes.find((a) => a.id === athleteId);
-      showToast(`${athlete ? athlete.name : 'Athlete'} added to comparison queue.`, 'success');
-    }
-
-    updateCompareBadge();
-    renderComparisonMatrix();
-    renderProspectsGrid();
+  function updateCompareCount() {
+    $('#compareCount').textContent = STATE.compareQueue.length;
   }
 
-  function updateCompareBadge() {
-    const badge = document.getElementById('compareCountBadge');
-    if (badge) {
-      badge.textContent = STATE.compareQueue.length;
-    }
-  }
+  function renderCompare() {
+    const wrap = $('#compareWrap');
+    const list = STATE.compareQueue.map(athleteById).filter(Boolean);
 
-  function renderComparisonMatrix() {
-    const wrap = document.getElementById('comparisonTableWrap');
-    if (!wrap) return;
-
-    if (STATE.compareQueue.length === 0) {
+    if (!list.length) {
       wrap.innerHTML = `
-        <div style="text-align: center; padding: 3rem 1.5rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px dashed var(--border-medium);">
-          <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚖️</div>
-          <h4 style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 0.35rem;">Comparison Queue Empty</h4>
-          <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 480px; margin: 0 auto 1.25rem;">Select 2 or more athletes from the Talent Discovery Grid or load a pre-configured Scout Watchlist above to review side-by-side telemetry.</p>
-          <button class="btn btn-cyan-sm" onclick="window.AAX.loadScoutListIntoCompare('list-01')">Load 2027 Basketball Prospects</button>
-        </div>
-      `;
+        <div class="empty">
+          <h3>Nothing to compare yet</h3>
+          <p>Add athletes from the prospects board, or load one of the watchlists above.</p>
+          <button type="button" class="btn btn-secondary" data-action="load-list" data-id="list-01">Load basketball prospects</button>
+        </div>`;
       return;
     }
 
-    const compared = STATE.athletes.filter((a) => STATE.compareQueue.includes(a.id));
+    const multi = list.length > 1;
+    const best = (getter) => Math.max(...list.map(getter));
+    const mark = (value, top) => (multi && value === top ? 'best' : '');
+    const top = {
+      height: best((a) => a.biometrics.height_in),
+      wing: best((a) => a.biometrics.wingspan_in),
+      vert: best((a) => a.combine.vertical_leap_in),
+      grade: best((a) => parseFloat(a.composite_grade))
+    };
 
-    // Dynamic Scouting Advantage Calculations
-    const maxHeight = Math.max(...compared.map((a) => a.biometrics.height_in || 0));
-    const maxWeight = Math.max(...compared.map((a) => a.biometrics.weight_lbs || 0));
-    const maxWingspan = Math.max(...compared.map((a) => a.biometrics.wingspan_in || 0));
-    const maxVertical = Math.max(...compared.map((a) => a.combine.vertical_leap_in || 0));
+    const row = (label, cell) => `<tr><td>${label}</td>${list.map((a) => `<td>${cell(a)}</td>`).join('')}</tr>`;
 
-    let html = `
-      <table class="comparison-table">
+    wrap.innerHTML = `
+      <table class="data-table compare-table">
         <thead>
           <tr>
-            <th style="width: 200px;">EVALUATION METRIC</th>
-            ${compared.map((ath) => `
-              <th>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+            <th scope="col"><span class="visually-hidden">Measure</span></th>
+            ${list.map((a) => `
+              <th scope="col">
+                <div class="compare-head">
                   <div>
-                    <span style="color: var(--accent-orange); font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.5px;">${ath.name}</span>
-                    <span style="display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);">${ath.jersey} • ${ath.school_team}</span>
+                    <button type="button" class="board-name compare-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
+                    <span class="compare-sub">${code(a)} · ${esc(a.sport)}</span>
                   </div>
-                  <button onclick="window.AAX.toggleCompare('${ath.id}')" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.3rem; padding: 0 4px;" title="Remove from queue">&times;</button>
+                  <button type="button" class="compare-remove" data-action="toggle-compare" data-id="${a.id}" aria-label="Remove ${esc(a.name)}">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                  </button>
                 </div>
-              </th>
-            `).join('')}
+              </th>`).join('')}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="metric-header">Recruiting Tier & Rank</td>
-            ${compared.map((ath) => `
-              <td>
-                <span class="composite-grade-pill">${ath.star_rating}</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-orange); font-weight: 700; margin-left: 0.35rem;">${ath.national_rank}</span>
-              </td>
-            `).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Sport & Discipline</td>
-            ${compared.map((ath) => `<td><strong>${ath.sport}</strong> (${ath.discipline})</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Primary Position</td>
-            ${compared.map((ath) => `<td>${ath.position}</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Nationality & Location</td>
-            ${compared.map((ath) => `<td>${ath.flag} ${ath.city}, ${ath.country}</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Age & DOB</td>
-            ${compared.map((ath) => `<td>${ath.age} Years (${ath.dob})</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Standing Height</td>
-            ${compared.map((ath) => `
-              <td style="font-weight: 700; color: var(--text-primary);">
-                ${ath.biometrics.height} (${ath.biometrics.height_in}")
-                ${ath.biometrics.height_in === maxHeight && compared.length > 1 ? '<span class="advantage-badge">ADVANTAGE</span>' : ''}
-              </td>
-            `).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Weight</td>
-            ${compared.map((ath) => `
-              <td>
-                ${ath.biometrics.weight_lbs} lbs
-                ${ath.biometrics.weight_lbs === maxWeight && compared.length > 1 ? '<span class="advantage-badge">FRAME ADVANTAGE</span>' : ''}
-              </td>
-            `).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Wingspan</td>
-            ${compared.map((ath) => `
-              <td style="font-weight: 700; color: var(--accent-blue);">
-                ${ath.biometrics.wingspan}
-                ${ath.biometrics.wingspan_in === maxWingspan && compared.length > 1 ? '<span class="advantage-badge">ADVANTAGE</span>' : ''}
-              </td>
-            `).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Standing Reach</td>
-            ${compared.map((ath) => `<td>${ath.biometrics.reach}</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Vertical Max Leap</td>
-            ${compared.map((ath) => `
-              <td style="font-weight: 800; color: var(--accent-emerald); font-size: 1.1rem;">
-                ${ath.combine.vertical_leap_in}"
-                ${ath.combine.vertical_leap_in === maxVertical && compared.length > 1 ? '<span class="advantage-badge">LEAP ADVANTAGE</span>' : ''}
-              </td>
-            `).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Sprint / Split Speed</td>
-            ${compared.map((ath) => `<td style="font-family: var(--font-mono);">${ath.combine.sprint_time}</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Primary Season Metric</td>
-            ${compared.map((ath) => `<td><strong style="color: var(--accent-orange); font-size: 1.1rem;">${ath.performance.primary_val}</strong> ${ath.performance.primary_label}</td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Representation Status</td>
-            ${compared.map((ath) => `<td><span class="v-badge cyan">${ath.status}</span></td>`).join('')}
-          </tr>
-          <tr>
-            <td class="metric-header">Action</td>
-            ${compared.map((ath) => `
-              <td>
-                <button class="btn btn-cyan-sm" onclick="window.AAX.viewProfile('${ath.id}')">View Sports Resume</button>
-              </td>
-            `).join('')}
-          </tr>
+          ${row('Scout grade', (a) => `<span class="num ${mark(parseFloat(a.composite_grade), top.grade)}">${esc(a.composite_grade)}</span>`)}
+          ${row('Ranking', (a) => esc(a.national_rank))}
+          ${row('Position', (a) => esc(a.position))}
+          ${row('Age', (a) => `<span class="num">${a.age}</span>`)}
+          ${row('Height', (a) => `<span class="num ${mark(a.biometrics.height_in, top.height)}">${primes(a.biometrics.height)}</span>`)}
+          ${row('Weight', (a) => `<span class="num">${a.biometrics.weight_lbs} lb</span>`)}
+          ${row('Wingspan', (a) => `<span class="num ${mark(a.biometrics.wingspan_in, top.wing)}">${primes(feetInches(a.biometrics.wingspan_in))}</span>`)}
+          ${row('Vertical jump', (a) => `<span class="num ${mark(a.combine.vertical_leap_in, top.vert)}">${a.combine.vertical_leap_in}″</span>`)}
+          ${row('Speed test', (a) => `<span class="num">${esc(a.combine.sprint_time)}</span>`)}
+          ${row('Key stat', (a) => `<span class="num"><strong>${esc(a.performance.primary_val)}</strong> ${esc(a.performance.primary_label)}</span>`)}
+          ${row('Status', (a) => statusMarkup(a))}
         </tbody>
-      </table>
-    `;
-
-    wrap.innerHTML = html;
-  }
-
-  function exportScoutReport() {
-    showToast('Compiling high-resolution Scouting PDF Dossier with verified combine metrics...', 'info');
-    setTimeout(() => {
-      showToast('Scouting Dossier PDF successfully compiled and stamped.', 'success');
-    }, 1200);
+      </table>`;
   }
 
   /* ==========================================================================
-     10. OPPORTUNITY COMBINES & DIRECT APPLICATION
+     12. TRIALS
      ========================================================================== */
-  function renderOpportunitiesGrid() {
-    const grid = document.getElementById('opportunitiesGrid');
-    if (!grid) return;
-
-    grid.innerHTML = STATE.opportunities.map((opp) => {
+  function renderOpportunities() {
+    const today = new Date();
+    $('#oppList').innerHTML = STATE.opportunities.map((o) => {
+      const r = o.requirements;
+      const threshold = r.sprint_threshold || r.height_threshold || r.timing_threshold || r.verification;
+      const daysLeft = Math.ceil((new Date(o.deadline) - today) / 86400000);
+      const soon = daysLeft >= 0 && daysLeft <= 30;
       return `
-        <article class="opportunity-card">
-          <div class="opp-badge-row">
-            ${opp.tags.map((t) => `<span class="opp-pill">${t}</span>`).join('')}
+        <article class="opp">
+          <div>
+            <p class="opp-sport">${esc(o.sport)} · ${esc(o.org_type)}</p>
+            <h2 class="opp-title">${esc(o.title)}</h2>
+            <p class="opp-org">${esc(o.organization)}</p>
+            <p class="opp-tags">${esc(o.tags.join(' · '))}</p>
           </div>
-
-          <h3 class="opp-title">${opp.title}</h3>
-          <div class="opp-org">🏟️ ${opp.organization}</div>
-
-          <div class="opp-details-box">
-            <div>📍 <strong>Location:</strong> ${opp.location}</div>
-            <div>📅 <strong>Combine Date:</strong> ${opp.date} (Deadline: ${opp.deadline})</div>
-            <div>⚡ <strong>Criteria:</strong> Age ${opp.requirements.age_range} • Position: ${opp.requirements.position}</div>
-            <div style="color: var(--accent-cyan); margin-top: 0.35rem;">💼 <strong>Package:</strong> ${opp.compensation}</div>
+          <dl class="kv">
+            <div><dt>Where</dt><dd>${esc(o.location)}</dd></div>
+            <div><dt>When</dt><dd>${esc(o.date)}</dd></div>
+            <div><dt>Apply by</dt><dd class="${soon ? 'deadline-soon' : ''}">${esc(o.deadline)}${soon ? ` — ${daysLeft} days left` : ''}</dd></div>
+            <div><dt>Age</dt><dd>${esc(r.age_range)}</dd></div>
+            <div><dt>Standard</dt><dd>${esc(threshold)}</dd></div>
+            <div><dt>On offer</dt><dd>${esc(o.compensation)}</dd></div>
+          </dl>
+          <div class="opp-side">
+            <p class="opp-spots"><strong class="num">${o.spots_available}</strong> places · ${o.applicants_count} applied</p>
+            <button type="button" class="btn btn-primary" data-action="apply" data-id="${o.id}">Apply</button>
           </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
-            <div style="font-size: 0.8rem; color: var(--text-secondary);">
-              <strong>${opp.spots_available}</strong> Open Spots | <strong>${opp.applicants_count}</strong> Verified Submissions
-            </div>
-            <button class="btn btn-cyan-sm" onclick="window.AAX.openApplyModal('${opp.id}')">
-              Apply / Submit Dossier
-            </button>
-          </div>
-        </article>
-      `;
+        </article>`;
     }).join('');
   }
 
-  function initOpportunityApplication() {
-    const modal = document.getElementById('opportunityApplyModal');
-    const closeBtn = document.getElementById('closeApplyModal');
-    const form = document.getElementById('applyDossierForm');
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => closeModal(modal));
-    }
-
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const select = document.getElementById('applyAthleteSelect');
-        const athName = select ? select.options[select.selectedIndex].text : 'Kamal Harvey';
-
-        closeModal(modal);
-        showToast(`Verified dossier for ${athName} dispatched to Combine Committee.`, 'success');
-      });
-    }
-  }
-
-  function openApplyModal(oppId) {
-    const opp = STATE.opportunities.find((o) => o.id === oppId);
-    if (!opp) return;
-
-    const modal = document.getElementById('opportunityApplyModal');
-    const title = document.getElementById('applyOpportunityTitle');
-    const org = document.getElementById('applyOpportunityOrg');
-    const select = document.getElementById('applyAthleteSelect');
-
-    if (title) title.textContent = opp.title;
-    if (org) org.textContent = `${opp.organization} • ${opp.location}`;
-
-    if (select) {
-      select.innerHTML = STATE.athletes.map((a) => `
-        <option value="${a.id}" ${a.id === STATE.selectedAthleteId ? 'selected' : ''}>
-          ${a.name} (${a.sport} : ${a.position})
-        </option>
-      `).join('');
-    }
-
-    openModal(modal);
+  function openApply(oppId, opener) {
+    const o = STATE.opportunities.find((x) => x.id === oppId);
+    if (!o) return;
+    $('#applyTitle').textContent = o.title;
+    $('#applyOrg').textContent = `${o.organization} · ${o.location}`;
+    const select = $('#applyAthlete');
+    const eligible = STATE.athletes.filter((a) => a.sport === o.sport);
+    const options = eligible.length ? eligible : STATE.athletes;
+    select.innerHTML = options.map((a) => `<option value="${a.id}">${esc(a.name)} — ${esc(a.position)}</option>`).join('');
+    if (options.some((a) => a.id === STATE.selectedAthleteId)) select.value = STATE.selectedAthleteId;
+    const syncAgent = () => {
+      const a = athleteById(select.value);
+      $('#applyAgent').value = a && a.agent_name ? a.agent_name : 'None — applying directly';
+    };
+    select.onchange = syncAgent;
+    syncAgent();
+    $('#applyNote').value = '';
+    $('#applyForm').onsubmit = (e) => {
+      e.preventDefault();
+      const a = athleteById(select.value);
+      o.applicants_count += 1;
+      renderOpportunities();
+      closeModal();
+      showToast(`Application for ${a.name} sent to ${o.organization.split(' / ')[0]}.`, 'success');
+    };
+    openModal($('#applyModal'), opener);
   }
 
   /* ==========================================================================
-     11. ESCROW & COMMERCIAL PAYMENTS LEDGER
+     13. PAYMENTS
      ========================================================================== */
+  function escrowHeld() {
+    return STATE.transactions.filter((t) => t.status !== 'Settled').reduce((s, t) => s + t.amount_usd, 0);
+  }
+
   function renderLedger() {
-    const tbody = document.getElementById('ledgerTableBody');
-    if (!tbody) return;
+    const txs = STATE.transactions;
+    const settled = txs.filter((t) => t.status === 'Settled');
+    const held = txs.filter((t) => t.status !== 'Settled');
+    const sum = (arr) => arr.reduce((s, t) => s + t.amount_usd, 0);
 
-    tbody.innerHTML = STATE.transactions.map((tx) => {
-      const isSettled = tx.status === 'Settled';
-      const statusClass = isSettled ? 'settled' : 'escrow';
+    $('#ledgerTotals').innerHTML = `
+      <div><dt>Held in escrow</dt><dd>${money(sum(held))}<span class="totals-sub">${held.length} payment${held.length === 1 ? '' : 's'} waiting for release</span></dd></div>
+      <div><dt>Settled</dt><dd>${money(sum(settled))}<span class="totals-sub">${settled.length} payments</span></dd></div>
+      <div><dt>Transactions</dt><dd>${txs.length}<span class="totals-sub">Since ${formatDate(txs[txs.length - 1].date)}</span></dd></div>`;
 
-      return `
-        <tr>
-          <td><strong style="font-family: var(--font-mono); color: var(--accent-cyan);">${tx.id}</strong></td>
-          <td style="font-family: var(--font-mono);">${tx.date}</td>
-          <td>
-            <strong>${tx.type}</strong>
-            <div style="font-size: 0.75rem; color: var(--text-secondary);">${tx.description}</div>
-          </td>
-          <td>${tx.payer}</td>
-          <td>${tx.payee}</td>
-          <td style="font-family: var(--font-mono); font-weight: 700; color: var(--text-primary);">
-            $${tx.amount_usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          </td>
-          <td>
-            <span class="tx-status-pill ${statusClass}">● ${tx.status}</span>
-          </td>
-        </tr>
-      `;
-    }).join('');
+    $('#ledgerBody').innerHTML = txs.map((t) => `
+      <tr>
+        <td>${formatDate(t.date)}<span class="cell-sub">${esc(t.contract_ref)}</span></td>
+        <td><span class="cell-strong">${esc(t.type)}</span><span class="cell-sub">${esc(t.description)}</span></td>
+        <td>${esc(t.payer)}</td>
+        <td>${esc(t.payee)}</td>
+        <td class="col-num">${money(t.amount_usd)}</td>
+        <td>${t.status === 'Settled' ? '<span class="status status-ok">Settled</span>' : '<span class="status status-wait">In escrow</span>'}</td>
+      </tr>`).join('');
+
+    if (STATE.activeRole === 'admin') $('#balanceValue').textContent = money(escrowHeld());
   }
 
   /* ==========================================================================
-     12. MODAL DIALOG UTILITIES
+     14. REPRESENTATION AGREEMENT
      ========================================================================== */
-  function initModals() {
-    // Backdrop click close handlers
-    document.querySelectorAll('.platform-modal').forEach((modal) => {
-      const backdrop = modal.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.addEventListener('click', () => closeModal(modal));
-      }
-    });
+  function openRepresentation(athleteId, agentId, opener) {
+    const a = athleteById(athleteId) || STATE.athletes[0];
+    const agent = STATE.agents.find((x) => x.id === agentId) || STATE.agents[0];
+    STATE.stepper.targetAthleteId = a.id;
+    STATE.stepper.selectedAgent = agent;
+    STATE.stepper.authorityLevel = 'representative';
 
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.platform-modal.active').forEach((m) => closeModal(m));
-      }
-    });
+    $('#repTitle').textContent = `${a.name} and ${agent.name}`;
+    $('#repAgent').textContent = `${agent.name}, ${agent.agency}`;
+    $('#repLicence').textContent = agent.credentials[0];
+    $('#repCommission').textContent = agent.commission_rate;
+    $$('input[name="repAuthority"]').forEach((r) => { r.checked = r.value === 'representative'; });
+    $('#signerName').value = a.name;
+    $('#signaturePreview').textContent = a.name;
+    $('#signatureMeta').textContent = `Signed electronically · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`;
 
-    const closeAthleteModalBtn = document.getElementById('closeAthleteModal');
-    if (closeAthleteModalBtn) {
-      closeAthleteModalBtn.addEventListener('click', () => {
-        closeModal(document.getElementById('athleteModal'));
-      });
+    $('#signerName').oninput = (e) => { $('#signaturePreview').textContent = e.target.value.trim(); };
+    $$('input[name="repAuthority"]').forEach((r) => { r.onchange = () => { STATE.stepper.authorityLevel = r.value; }; });
+
+    goToStep(1, false);
+    openModal($('#repModal'), opener);
+  }
+
+  function goToStep(n, moveFocus = true) {
+    STATE.stepper.currentStep = n;
+    $$('#repSteps li').forEach((li) => {
+      const step = parseInt(li.dataset.step, 10);
+      li.classList.toggle('is-done', step < n);
+      if (step === n) li.setAttribute('aria-current', 'step');
+      else li.removeAttribute('aria-current');
+    });
+    $$('#repModal .step').forEach((pane) => { pane.hidden = parseInt(pane.dataset.pane, 10) !== n; });
+    if (moveFocus) {
+      const pane = $(`#repModal .step[data-pane="${n}"]`);
+      const target = pane.querySelector('input:not([type="radio"]), input:checked, .btn-primary');
+      if (target) target.focus();
     }
   }
 
-  function openModal(modal) {
-    if (!modal) return;
-    modal.classList.add('active');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
+  function signAgreement() {
+    const name = $('#signerName').value.trim();
+    if (!name) {
+      showToast('Type your full name to sign.');
+      $('#signerName').focus();
+      return;
+    }
+    const a = athleteById(STATE.stepper.targetAthleteId);
+    const agent = STATE.stepper.selectedAgent || STATE.agents[0];
+    a.status = 'Represented';
+    a.agent_name = agent.name;
+    a.agent_id = agent.id;
+    a.permissions.current_level = STATE.stepper.authorityLevel;
 
-  function closeModal(modal) {
-    if (!modal) return;
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    STATE.transactions.unshift({
+      id: `tx-${txCounter++}`,
+      date: new Date().toISOString().slice(0, 10),
+      type: 'Representation retainer',
+      payer: `${a.name} (athlete)`,
+      payee: `${agent.agency} (${agent.name})`,
+      amount_usd: 2500,
+      fee_type: 'Retainer',
+      status: 'Escrow Held',
+      contract_ref: `AGR-2026-${String(txCounter).padStart(4, '0')}`,
+      description: `Agreement signed by ${name}. Authority: ${STATE.stepper.authorityLevel}.`
+    });
+
+    closeModal();
+    renderProspects();
+    renderFeature();
+    renderProfile(STATE.selectedAthleteId);
+    renderCompare();
+    renderLedger();
+    showToast(`${a.name} is now represented by ${agent.name}. A $2,500 retainer is held in escrow.`, 'success');
   }
 
   /* ==========================================================================
-     13. TOAST NOTIFICATION ENGINE
+     15. MODALS
+     ========================================================================== */
+  let activeModal = null;
+  let lastFocus = null;
+
+  function wireModals() {
+    document.addEventListener('keydown', (e) => {
+      if (!activeModal) return;
+      if (e.key === 'Escape') {
+        closeModal();
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusables = $$('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])', activeModal.querySelector('.modal-dialog'))
+          .filter((el) => !el.disabled && el.offsetParent !== null);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  function openModal(modal, opener) {
+    if (activeModal) closeModal();
+    lastFocus = opener || document.activeElement;
+    activeModal = modal;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    const first = modal.querySelector('.step:not([hidden]) .btn-primary, form select, .modal-close');
+    if (first) first.focus();
+  }
+
+  function closeModal() {
+    if (!activeModal) return;
+    activeModal.hidden = true;
+    activeModal = null;
+    document.body.style.overflow = '';
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  /* ==========================================================================
+     16. TOASTS
      ========================================================================== */
   function showToast(message, type = 'info') {
-    const container = document.getElementById('toastContainer');
-    if (!container) return;
-
+    const container = $('#toasts');
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
-    const icon = type === 'success' ? '✓' : type === 'error' ? '⚠' : 'ℹ';
-    toast.innerHTML = `
-      <span style="font-weight: 800; color: ${type === 'success' ? 'var(--accent-emerald)' : 'var(--accent-cyan)'};">${icon}</span>
-      <span>${message}</span>
-    `;
-
+    toast.textContent = message;
     container.appendChild(toast);
-
     setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(100%)';
-      toast.style.transition = 'all 0.3s ease';
-      setTimeout(() => toast.remove(), 300);
+      toast.classList.add('is-leaving');
+      setTimeout(() => toast.remove(), 220);
     }, 4000);
   }
 
-  /* ==========================================================================
-     14. GLOBAL WINDOW API (FOR INLINE ATTRIBUTE HOOKS)
-     ========================================================================== */
-  window.AAX = {
-    viewProfile: function (athleteId) {
-      renderProfileView(athleteId);
-      switchSection('profile');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
-    toggleCompare: function (athleteId) {
-      toggleCompare(athleteId);
-    },
-    openRepresentationModal: function (athleteId) {
-      openRepresentationModal(athleteId);
-    },
-    openRepresentationModalWithAgent: function (agentId) {
-      openRepresentationModal(STATE.selectedAthleteId, agentId);
-    },
-    loadScoutListIntoCompare: function (listId) {
-      loadScoutListIntoCompare(listId);
-    },
-    openApplyModal: function (oppId) {
-      openApplyModal(oppId);
-    },
-    contactAgent: function (agentId) {
-      const agent = STATE.agents.find((a) => a.id === agentId);
-      if (agent) {
-        showToast(`Connecting with ${agent.name} via secure encrypted channel (${agent.contact.whatsapp})...`, 'info');
-      }
-    },
-    playHighlight: function (btn, title) {
-      document.querySelectorAll('.highlight-tab-btn').forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      const titleElem = document.getElementById('videoOverlayTitle');
-      if (titleElem) titleElem.textContent = title;
-      showToast(`Switched video feed to: ${title}`, 'info');
-    },
-    playActiveVideo: function () {
-      const title = document.getElementById('videoOverlayTitle');
-      const text = title ? title.textContent : 'Highlight Reel';
-      showToast(`Streaming verified HD feed: "${text}" with biometric overlay.`, 'success');
-    },
-    exportScoutReport: function () {
-      exportScoutReport();
-    },
-    switchCameraAngle: function (btn, angleName) {
-      document.querySelectorAll('.cam-angle-btn').forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      const badge = document.getElementById('videoAngleBadge');
-      if (badge) badge.textContent = `LIVE FEED: ${angleName} (1080p 60fps)`;
-      showToast(`Broadcast camera angle switched to ${angleName}. Biometric telemetry synced.`, 'info');
-    },
-    resetFilters: function () {
-      applyNlpPreset('all');
-    },
-    setViewMode: function (mode) {
-      STATE.viewMode = mode;
-      const btnGrid = document.getElementById('btnViewGrid');
-      const btnTable = document.getElementById('btnViewTable');
-      if (btnGrid) btnGrid.classList.toggle('active', mode === 'grid');
-      if (btnTable) btnTable.classList.toggle('active', mode === 'table');
-      renderProspectsGrid();
-      showToast(`Switched view to: ${mode === 'grid' ? 'Editorial Cards' : 'Draft Big Board Table'}`, 'info');
-    },
-    selectProspect: function (athleteId) {
-      renderProfileView(athleteId);
-      switchSection('profile');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    },
-    switchTab: function (tabName) {
-      switchSection(tabName);
-    },
-    refreshTelemetry: function () {
-      showToast('Live telemetry radar refreshed: 4 new combine split times recorded.', 'success');
-    }
-  };
-
+  // Public hook kept for the showcase page and console use.
+  window.AAX = { viewProfile, switchSection, toggleCompare, setRole };
 })();
