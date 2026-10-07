@@ -1218,6 +1218,36 @@
 
   const byGrade = (list) => [...list].sort((a, b) => parseFloat(b.composite_grade) - parseFloat(a.composite_grade));
 
+  // Ranked by scout grade within three pools, like recruiting sites' national / position / state ranks.
+  function ranks(a) {
+    const place = (pool) => ({ rank: byGrade(pool).findIndex((x) => x.id === a.id) + 1, of: pool.length });
+    return {
+      board: place(STATE.athletes),
+      sport: place(STATE.athletes.filter((x) => x.sport === a.sport)),
+      country: place(STATE.athletes.filter((x) => x.country === a.country))
+    };
+  }
+
+  function rankRow(a) {
+    const r = ranks(a);
+    const cell = (label, p, title) => `<div title="${esc(title)}"><dt>${label}</dt><dd class="num">${p.rank}<span>/${p.of}</span></dd></div>`;
+    return `<dl class="rank-row">
+      ${cell('Board', r.board, 'Rank among all athletes on the board')}
+      ${cell(esc(a.sport === 'Track & Field' ? 'Track' : a.sport), r.sport, `Rank among ${a.sport} athletes`)}
+      ${cell(code(a), r.country, `Rank among athletes from ${a.country}`)}
+    </dl>`;
+  }
+
+  // "Kamal Harvey" -> light first name, heavy surname (player-header convention).
+  function splitName(name) {
+    const parts = name.split(' ');
+    const last = parts.pop();
+    return `<span class="name-first">${esc(parts.join(' '))}</span> <span class="name-last">${esc(last)}</span>`;
+  }
+
+  // 6'5" -> 6-5, the recruiting-board shorthand.
+  const shortHeight = (a) => `${Math.floor(a.biometrics.height_in / 12)}-${a.biometrics.height_in % 12}`;
+
   /* ==========================================================================
      4. INIT
      ========================================================================== */
@@ -1240,6 +1270,7 @@
     wireFilters();
     wireGlobalActions();
     wireModals();
+    trackHeaderHeight();
 
     const initial = location.hash.slice(1);
     switchSection(SECTIONS.includes(initial) ? initial : 'discovery', { push: false, focus: false });
@@ -1273,6 +1304,17 @@
         heading.focus({ preventScroll: true });
       }
     }
+  }
+
+  // The profile's section tabs stick just below the site header, which is only sticky on wide screens.
+  function trackHeaderHeight() {
+    const header = $('.site-header');
+    const update = () => {
+      const sticky = getComputedStyle(header).position === 'sticky';
+      document.documentElement.style.setProperty('--header-h', sticky ? `${header.offsetHeight}px` : '0px');
+    };
+    update();
+    window.addEventListener('resize', update);
   }
 
   function setRole(role) {
@@ -1370,6 +1412,15 @@
         case 'sign':
           signAgreement();
           break;
+        case 'jump': {
+          const target = document.getElementById(el.dataset.target);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+          }
+          break;
+        }
         case 'reset-filters':
           applyPreset('reset');
           break;
@@ -1536,15 +1587,17 @@
           <td class="col-num"><span class="board-rank">${i + 1}</span></td>
           <td>
             <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
-            <span class="cell-sub">${code(a)} · ${esc(a.city)} · Age ${a.age}</span>
+            <span class="cell-sub">${esc(a.school_team)} (${esc(a.city)}, ${code(a)})</span>
           </td>
-          <td>${esc(a.sport)}<span class="cell-sub">${esc(a.position)}</span></td>
-          <td class="col-num"><span class="board-grade">${esc(a.composite_grade)}</span><span class="cell-sub">${esc(a.national_rank)}</span></td>
-          <td class="num">${primes(a.biometrics.height)} · ${a.biometrics.weight_lbs} lb<span class="cell-sub">Wingspan ${primes(a.biometrics.wingspan)}</span></td>
-          <td class="num"><span class="cell-strong">${esc(a.performance.primary_val)}</span> ${esc(a.performance.primary_label)}<span class="cell-sub">${esc(a.performance.secondary_val)} ${esc(a.performance.secondary_label)}</span></td>
+          <td>${esc(a.position)}<span class="cell-sub">${esc(a.sport)}</span></td>
+          <td class="col-num">${a.age}</td>
+          <td class="num cell-nowrap">${shortHeight(a)} / ${a.biometrics.weight_lbs}</td>
+          <td class="num"><span class="cell-strong">${esc(a.performance.primary_val)}</span> <span class="cell-unit">${esc(a.performance.primary_label)}</span></td>
+          <td class="col-num"><span class="board-grade">${esc(a.composite_grade)}</span></td>
+          <td class="col-num">${(() => { const r = ranks(a); return `${r.sport.rank}<span class="cell-unit"> · </span>${r.country.rank}`; })()}</td>
           <td>${statusMarkup(a)}</td>
           <td><div class="cell-actions">${compareButton(a.id, 'btn-sm')}</div></td>
-        </tr>`).join('') : `<tr><td colspan="8">${empty}</td></tr>`;
+        </tr>`).join('') : `<tr><td colspan="10">${empty}</td></tr>`;
       return;
     }
 
@@ -1560,6 +1613,7 @@
       return `
         <article class="prospect">
           <div class="prospect-top">
+            <span class="prospect-rank num" aria-label="Board rank">${ranks(a).board.rank}</span>
             <div>
               <p class="prospect-meta"><strong>${code(a)}</strong> · ${esc(a.sport)} · Age ${a.age}</p>
               <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
@@ -1571,6 +1625,7 @@
               <div class="prospect-grade-label">Grade</div>
             </div>
           </div>
+          ${rankRow(a)}
           <dl class="measure-grid">
             <div><dt>Height</dt><dd>${primes(a.biometrics.height)}</dd></div>
             <div><dt>Weight</dt><dd>${a.biometrics.weight_lbs} lb</dd></div>
@@ -1608,21 +1663,24 @@
 
     $('#profileBody').innerHTML = `
       <header class="profile-head">
-        <div>
+        <div class="profile-id">
           <a href="#discovery" class="btn-link profile-back" data-action="nav" data-section="discovery">← All prospects</a>
-          <p class="kicker">${esc(a.sport)} · ${esc(a.position)} · ${esc(a.jersey)}</p>
-          <h1 class="profile-name" id="profileName">${esc(a.name)}</h1>
-          <div class="profile-facts">
-            <span>Age <strong>${a.age}</strong> (born ${formatDate(a.dob)})</span>
-            <span>From <strong>${esc(a.city)}, ${code(a)}</strong></span>
-            <span>Plays for <strong>${esc(a.school_team)}</strong></span>
-            <span><strong>${primes(a.biometrics.height)}, ${a.biometrics.weight_lbs} lb</strong></span>
-          </div>
+          <p class="kicker">${esc(a.sport)} · ${esc(a.position)}</p>
+          <p class="profile-number num" aria-label="Shirt number ${esc(a.jersey.replace('#', ''))}">${esc(a.jersey)}</p>
+          <h1 class="profile-name" id="profileName">${splitName(a.name)}</h1>
+          ${rankRow(a)}
         </div>
+        <dl class="bio-list">
+          <div><dt>Ht / Wt</dt><dd>${primes(a.biometrics.height)}, ${a.biometrics.weight_lbs} lb</dd></div>
+          <div><dt>Born</dt><dd>${formatDate(a.dob)} (${a.age})</dd></div>
+          <div><dt>From</dt><dd>${esc(a.city)}, ${esc(a.country)}</dd></div>
+          <div><dt>Team</dt><dd>${esc(a.school_team)}</dd></div>
+          <div><dt>Agent</dt><dd>${a.agent_name ? esc(a.agent_name) : a.status === 'Free Agent' ? 'None — free agent' : 'None — seeking'}</dd></div>
+        </dl>
         <div class="profile-side">
-          <div class="feature-grade">
-            <div class="grade-figure num">${esc(a.composite_grade)}</div>
+          <div class="profile-grade">
             <div class="grade-label">Scout grade</div>
+            <div class="grade-figure num">${esc(a.composite_grade)}</div>
             <div class="feature-rank">${esc(a.national_rank)}</div>
           </div>
           <div class="profile-actions">
@@ -1633,7 +1691,12 @@
         </div>
       </header>
 
-      <section class="profile-block" style="margin-top:28px" aria-labelledby="h-season">
+      <nav class="profile-tabs" aria-label="Profile sections">
+        ${[['h-season', 'Season'], ['h-measure', 'Measurements'], ['h-tests', 'Testing'], ['h-video', 'Video'], ['h-career', 'Career'], ['h-honours', 'Honours'], ['h-school', 'Education'], ['h-news', 'News']]
+          .map(([target, label]) => `<button type="button" class="profile-tab" data-action="jump" data-target="${target}">${label}</button>`).join('')}
+      </nav>
+
+      <section class="profile-block" aria-labelledby="h-season">
         <h2 class="block-title" id="h-season">This season</h2>
         <dl class="statline">
           <div><dt>${esc(p.primary_label)}</dt><dd>${esc(p.primary_val)}</dd></div>
