@@ -2,7 +2,7 @@
 """
 Apex Athlete Exchange (AAX) - Local Telemetry & Development Server
 Port: 8094
-Sovereign Sports Tech Infrastructure
+Global Sports Tech Infrastructure
 """
 
 import http.server

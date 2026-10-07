@@ -1,5 +1,5 @@
 /**
- * Apex Athlete Exchange (AAX) - Sovereign Talent & Representation Infrastructure
+ * Apex Athlete Exchange (AAX) - Global Talent & Representation Infrastructure
  * Client Application Engine: Vanilla ES6, Zero External Dependencies
  */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   /* ==========================================================================
-     1. MASTER SOVEREIGN IN-MEMORY STATE REPOSITORY
+     1. MASTER CLIENT IN-MEMORY STATE REPOSITORY
      ========================================================================== */
   const STATE = {
     activeRole: 'athlete',
@@ -851,7 +851,7 @@
         verification_tier: 'Professionally Verified Agency',
         rating: 4.95,
         review_count: 45,
-        bio: 'Founded on the core principle of athlete sovereignty. Andre Campbell provides bulletproof legal representation, financial literacy mentoring, and global brand endorsements for Caribbean sporting champions.',
+        bio: 'Founded on the core principle of athlete data and career ownership. Andre Campbell provides bulletproof legal representation, financial literacy mentoring, and global brand endorsements for Caribbean sporting champions.',
         notable_clients: ['Rohan Sharma (Cricket)', 'Tariq Sterling (Prospect Roster)'],
         active_deals_usd: '$16.2M Active Contracts',
         avatar_color: '#10B981',
@@ -1199,7 +1199,7 @@
         walletAmount.textContent = '$38,420 USD Vault';
         bannerAvatar.textContent = 'AA';
         bannerAvatar.style.backgroundColor = '#8B5CF6';
-        bannerTitle.textContent = 'Apex Platform Verification & Sovereign Escrow Oversight';
+        bannerTitle.textContent = 'Apex Platform Verification & Verified Escrow Oversight';
         bannerSubtitle.textContent = 'Auditing verified sports credentials, dispute-free multi-signature escrow settlements, and agency representation filings.';
         bannerActionOne.textContent = 'Audit Escrow Vault';
         bannerActionTwo.textContent = 'Verify New Prospects';
@@ -2033,7 +2033,7 @@
       fee_type: 'Representation Retainer Escrow',
       status: 'Escrow Held',
       contract_ref: `AGR-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-      description: `Bilateral representation agreement executed. Authority: ${STATE.stepper.authorityLevel.toUpperCase()}. Sovereign escrow funded.`
+      description: `Bilateral representation agreement executed. Authority: ${STATE.stepper.authorityLevel.toUpperCase()}. Verified escrow funded.`
     };
     STATE.transactions.unshift(newTx);
 
@@ -2042,7 +2042,7 @@
     renderProfileView(STATE.selectedAthleteId);
     renderLedger();
 
-    showToast(`Representation Agreement Executed with ${agent.name}. Sovereign Workspace Initialized.`, 'success');
+    showToast(`Representation Agreement Executed with ${agent.name}. Private Workspace Initialized.`, 'success');
   }
 
   /* ==========================================================================
