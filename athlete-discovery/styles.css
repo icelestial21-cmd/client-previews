@@ -1,47 +1,52 @@
 /* ==========================================================================
-   APEX ATHLETE EXCHANGE : COMMERCIAL CLIENT ATHLETIC PLATFORM STYLESHEET
-   Aesthetic: Commercial Sports Stadium & Broadcaster Standard.
-   Clean Titanium Canvas, Deep Stadium Navy, Electric Sporting Cobalt,
-   Vivid Athletic Flame Accents, Barlow Condensed Display Typography,
-   Inter Data Grid Readability, and High-Contrast Athlete Scouting Dossiers.
+   APEX ATHLETE EXCHANGE : COMMERCIAL SPORTS PLATFORM STYLESHEET
+   Inspiration: ESPN, Caribbean Sports Quest (CSQ), and Elite Scouting Databases.
+   Palette: Deep Caribbean Stadium Navy (#0A192F, #0E2439), Caribbean Sunshine Gold
+   (#F59E0B, #FBBF24), Athletic Flame Orange (#FF5722), Pitch Emerald (#10B981),
+   Titanium White Canvas (#FFFFFF, #F8FAFC), with Bebas Neue & Barlow Condensed.
    ========================================================================== */
 
 :root {
-  /* Commercial Sports Stadium Color Architecture */
+  /* Master Sports Stadium Color Architecture */
   --bg-canvas: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-surface-subtle: #F1F5F9;
   --bg-card: #FFFFFF;
   --bg-card-hover: #FFFFFF;
   --bg-elevated: #F8FAFC;
-  --bg-nav-dark: #0A1128;
-  --bg-nav-surface: #141E3C;
+  
+  --bg-stadium-dark: #07111E;
+  --bg-stadium-navy: #0A192F;
+  --bg-stadium-card: #0E2439;
+  --bg-stadium-light: #15324D;
   
   --border-subtle: #E2E8F0;
   --border-medium: #CBD5E1;
-  --border-active: #2563EB;
+  --border-active: #0284C7;
+  --border-dark: rgba(255, 255, 255, 0.12);
   
-  --accent-blue: #2563EB;
-  --accent-blue-hover: #1D4ED8;
-  --accent-blue-soft: #EFF6FF;
+  --accent-blue: #0284C7;
+  --accent-blue-hover: #0369A1;
+  --accent-blue-soft: #F0F9FF;
   --accent-orange: #FF5722;
   --accent-orange-hover: #F4511E;
   --accent-orange-soft: #FFF7ED;
-  --accent-emerald: #059669;
+  --accent-emerald: #10B981;
   --accent-emerald-soft: #ECFDF5;
-  --accent-gold: #D97706;
+  --accent-gold: #F59E0B;
   --accent-gold-soft: #FEF3C7;
-  --accent-purple: #7C3AED;
-  --accent-cyan: #0284C7;
+  --accent-purple: #8B5CF6;
+  --accent-red: #EF4444;
   
   --text-primary: #0F172A;
   --text-secondary: #475569;
   --text-muted: #64748B;
   --text-light: #F8FAFC;
-  --text-brand: #2563EB;
+  --text-brand: #0284C7;
   
   /* Typography Scale */
-  --font-display: 'Barlow Condensed', -apple-system, sans-serif;
+  --font-display: 'Bebas Neue', 'Barlow Condensed', -apple-system, sans-serif;
+  --font-condensed: 'Barlow Condensed', -apple-system, sans-serif;
   --font-sans: 'Inter', -apple-system, sans-serif;
   --font-mono: 'Space Mono', monospace;
   
@@ -54,8 +59,8 @@
   
   --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-card: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
-  --shadow-card-hover: 0 12px 28px rgba(37, 99, 235, 0.12), 0 4px 10px rgba(15, 23, 42, 0.04);
-  --shadow-modal: 0 20px 50px rgba(15, 23, 42, 0.25);
+  --shadow-card-hover: 0 14px 32px rgba(2, 132, 199, 0.15), 0 4px 10px rgba(15, 23, 42, 0.05);
+  --shadow-modal: 0 25px 60px rgba(10, 25, 47, 0.35);
 }
 
 /* RESET & BASE */
@@ -71,7 +76,7 @@ html {
 }
 
 body,
-body.theme-obsidian {
+body.theme-stadium {
   background-color: var(--bg-canvas);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -86,20 +91,20 @@ body.theme-obsidian {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--accent-blue);
+  color: var(--accent-orange);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .section-heading {
   font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-weight: 900;
+  font-size: 2.8rem;
+  font-weight: 400;
   color: var(--text-primary);
   text-transform: uppercase;
-  line-height: 1;
-  letter-spacing: -0.5px;
+  line-height: 0.95;
+  letter-spacing: 1px;
   margin-bottom: 0.5rem;
 }
 
@@ -110,15 +115,15 @@ body.theme-obsidian {
 }
 
 /* ==========================================================================
-   1. PLATFORM HEADER & MULTI-ROLE SWITCHER (BROADCAST NAVY BANNER)
+   1. PLATFORM HEADER & MULTI-ROLE SWITCHER (DEEP STADIUM BROADCAST NAVY)
    ========================================================================== */
 .platform-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--bg-nav-dark);
-  box-shadow: 0 4px 20px rgba(10, 17, 40, 0.15);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-stadium-dark);
+  box-shadow: 0 4px 20px rgba(7, 17, 30, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-top-bar {
@@ -137,16 +142,16 @@ body.theme-obsidian {
 }
 
 .brand-crest {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, #1E3A8A, #2563EB);
+  background: linear-gradient(135deg, #0A192F, #FF5722);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 2px 10px rgba(255, 87, 34, 0.4);
 }
 
 .brand-titles {
@@ -156,9 +161,8 @@ body.theme-obsidian {
 
 .brand-main {
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 900;
-  letter-spacing: 0.5px;
+  font-size: 1.6rem;
+  letter-spacing: 1.5px;
   color: #FFFFFF;
   line-height: 1;
 }
@@ -179,7 +183,7 @@ body.theme-obsidian {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: var(--bg-nav-surface);
+  background: var(--bg-stadium-card);
   padding: 4px 8px;
   border-radius: var(--radius-full);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -220,10 +224,10 @@ body.theme-obsidian {
 }
 
 .role-pill.active {
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   color: #FFFFFF;
   font-weight: 800;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.4);
 }
 
 .user-telemetry-badge {
@@ -248,7 +252,7 @@ body.theme-obsidian {
   font-family: var(--font-mono);
   font-size: 0.62rem;
   font-weight: 700;
-  color: #34D399;
+  color: var(--accent-emerald);
   letter-spacing: 0.5px;
 }
 
@@ -256,7 +260,7 @@ body.theme-obsidian {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: var(--bg-nav-surface);
+  background: var(--bg-stadium-card);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-sm);
@@ -288,22 +292,23 @@ body.theme-obsidian {
   border: none;
   padding: 0.95rem 1.15rem;
   color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
   position: relative;
   transition: all 0.2s ease;
 }
 
 .nav-tab-btn:hover {
-  color: var(--accent-blue);
+  color: var(--accent-orange);
   background: var(--bg-surface-subtle);
 }
 
 .nav-tab-btn.active {
-  color: var(--accent-blue);
-  font-weight: 700;
+  color: var(--accent-orange);
 }
 
 .nav-tab-btn.active::after {
@@ -313,7 +318,7 @@ body.theme-obsidian {
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   border-radius: 3px 3px 0 0;
 }
 
@@ -329,7 +334,9 @@ body.theme-obsidian {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-condensed);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   font-weight: 700;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -342,7 +349,7 @@ body.theme-obsidian {
   background: var(--accent-orange);
   color: #FFFFFF;
   padding: 0.5rem 1rem;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   box-shadow: 0 2px 6px rgba(255, 87, 34, 0.25);
 }
 
@@ -356,7 +363,7 @@ body.theme-obsidian {
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
   padding: 0.5rem 1rem;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
 }
 
 .btn-secondary-compact:hover {
@@ -380,7 +387,7 @@ body.theme-obsidian {
 
 .btn-cyan:hover {
   background: var(--accent-blue-hover);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
   transform: translateY(-1px);
 }
 
@@ -390,10 +397,10 @@ body.theme-obsidian {
   color: #FFFFFF;
   padding: 0.85rem;
   font-weight: 800;
+  font-size: 1.05rem;
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
-  font-size: 0.95rem;
 }
 
 .btn-cyan-full:hover {
@@ -406,8 +413,8 @@ body.theme-obsidian {
 }
 
 .btn-emerald:hover {
-  background: #047857;
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+  background: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
 }
 
 .btn-secondary {
@@ -421,7 +428,7 @@ body.theme-obsidian {
   border: 1px solid var(--border-medium);
   color: var(--text-secondary);
   padding: 0.4rem 0.85rem;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   border-radius: var(--radius-sm);
 }
 
@@ -436,11 +443,11 @@ body.theme-obsidian {
   color: #FFFFFF;
   font-weight: 700;
   padding: 0.45rem 0.9rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);
 }
 
 .btn-cyan-sm:hover {
@@ -449,10 +456,114 @@ body.theme-obsidian {
 }
 
 /* ==========================================================================
-   2. TELEMETRY MARQUEE & ROLE WELCOME BANNER
+   2. ESPN / CSQ LIVE SCORES & COMBINE TICKER STRIP
    ========================================================================== */
+.csq-live-scoreboard {
+  background: #060D17;
+  border-bottom: 2px solid var(--accent-orange);
+  display: flex;
+  align-items: stretch;
+  height: 52px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scoreboard-label {
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.pulse-beacon-red {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 8px #FFFFFF;
+  animation: pulseBeacon 1.2s infinite ease-in-out;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.scoreboard-ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scoreboard-ticker-track {
+  display: inline-flex;
+  gap: 1rem;
+  animation: marqueeScroll 40s linear infinite;
+  white-space: nowrap;
+}
+
+.scoreboard-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.score-card-chip {
+  background: #0E1B2D;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.75rem;
+  color: #FFFFFF;
+}
+
+.chip-league {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  padding-right: 0.5rem;
+}
+
+.chip-match {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.chip-val {
+  color: var(--accent-emerald);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.chip-status {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+}
+
+.text-green { background: rgba(16, 185, 129, 0.2); color: #34D399; }
+.text-orange { background: rgba(255, 87, 34, 0.2); color: #FF7043; }
+.text-gold { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+
+/* TELEMETRY MARQUEE */
 .live-marquee-band {
-  background: #0F172A;
+  background: var(--bg-stadium-navy);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   white-space: nowrap;
@@ -484,10 +595,10 @@ body.theme-obsidian {
 .dot-gold { width: 6px; height: 6px; border-radius: 50%; background: #F59E0B; }
 .dot-purple { width: 6px; height: 6px; border-radius: 50%; background: #A78BFA; }
 
-/* ROLE WELCOME BANNER */
+/* DYNAMIC ROLE WELCOME BANNER */
 .role-welcome-banner {
   padding: 1.25rem 2rem;
-  background: linear-gradient(90deg, #EFF6FF, #F8FAFC);
+  background: linear-gradient(90deg, #F0F9FF, #F8FAFC);
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -500,30 +611,30 @@ body.theme-obsidian {
 }
 
 .banner-avatar {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-sm);
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 900;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
 }
 
 .banner-copy h3 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
-  line-height: 1.1;
+  line-height: 1;
+  margin-bottom: 0.2rem;
 }
 
 .banner-copy p {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
 }
 
@@ -562,7 +673,7 @@ body.theme-obsidian {
    4. TALENT DISCOVERY & FILTER CONTROLS
    ========================================================================== */
 .discovery-header-card {
-  background: var(--bg-card);
+  background: #FFFFFF;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.75rem 2rem;
@@ -587,9 +698,9 @@ body.theme-obsidian {
 
 .search-counter-badge strong {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  color: var(--accent-blue);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--accent-orange);
   line-height: 1;
 }
 
@@ -629,8 +740,8 @@ body.theme-obsidian {
 }
 
 .nlp-search-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.15);
 }
 
 .clear-search-btn {
@@ -664,8 +775,8 @@ body.theme-obsidian {
   background: var(--bg-surface-subtle);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.78rem;
+  font-weight: 600;
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -673,14 +784,14 @@ body.theme-obsidian {
 }
 
 .nlp-chip:hover {
-  background: var(--accent-blue-soft);
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
+  background: var(--accent-orange-soft);
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
 }
 
 /* FILTER CONTROLS CARD */
 .filter-controls-card {
-  background: var(--bg-card);
+  background: #FFFFFF;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.5rem;
@@ -701,11 +812,13 @@ body.theme-obsidian {
   background: var(--bg-surface-subtle);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.15rem;
   border-radius: var(--radius-sm);
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-family: var(--font-condensed);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -716,11 +829,10 @@ body.theme-obsidian {
 }
 
 .sport-pill.active {
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   color: #FFFFFF;
-  border-color: var(--accent-blue);
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  border-color: var(--accent-orange);
+  box-shadow: 0 2px 6px rgba(255, 87, 34, 0.25);
 }
 
 .filter-criteria-grid {
@@ -749,7 +861,7 @@ body.theme-obsidian {
 .filter-slider-val {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent-blue);
+  color: var(--accent-orange);
   font-weight: 700;
 }
 
@@ -765,17 +877,17 @@ body.theme-obsidian {
 }
 
 .filter-select:focus {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
 }
 
 .filter-range {
   width: 100%;
-  accent-color: var(--accent-blue);
+  accent-color: var(--accent-orange);
   cursor: pointer;
 }
 
 /* ==========================================================================
-   5. ATHLETE PROSPECTS BENTO GRID (COMMERCIAL DOSSIER CARDS)
+   5. ATHLETE SCOUTING CARDS (247SPORTS / ON3 / CSQ STYLE)
    ========================================================================== */
 .prospects-grid {
   display: grid;
@@ -797,7 +909,7 @@ body.theme-obsidian {
 }
 
 .athlete-card:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
   transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
 }
@@ -805,21 +917,20 @@ body.theme-obsidian {
 .athlete-card-top {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .athlete-avatar-badge {
-  width: 64px;
-  height: 64px;
+  width: 68px;
+  height: 68px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 900;
+  font-size: 2.2rem;
   color: #FFFFFF;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
 }
 
@@ -827,19 +938,45 @@ body.theme-obsidian {
   flex: 1;
 }
 
+.scout-rating-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.scout-stars {
+  color: var(--accent-gold);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.composite-grade-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--accent-blue-soft);
+  color: var(--accent-blue);
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
 .athlete-name {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  line-height: 0.95;
   color: var(--text-primary);
   margin-bottom: 0.2rem;
 }
 
 .athlete-sport-pos {
-  font-size: 0.85rem;
-  color: var(--accent-blue);
+  font-family: var(--font-condensed);
+  font-size: 0.95rem;
+  color: var(--accent-orange);
   font-weight: 700;
+  text-transform: uppercase;
   display: block;
 }
 
@@ -850,21 +987,6 @@ body.theme-obsidian {
   font-size: 0.78rem;
   color: var(--text-secondary);
   margin-top: 0.2rem;
-}
-
-.verification-shield-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: var(--accent-emerald-soft);
-  border: 1px solid var(--accent-emerald);
-  color: var(--accent-emerald);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-  margin-bottom: 0.5rem;
 }
 
 /* BIOMETRICS GRID ON CARD */
@@ -892,9 +1014,10 @@ body.theme-obsidian {
 
 .bio-item strong {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 /* STATS ROW */
@@ -920,9 +1043,10 @@ body.theme-obsidian {
 
 .stat-metric strong {
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
   color: var(--accent-orange);
+  line-height: 1;
 }
 
 .status-indicator-tag {
@@ -946,7 +1070,7 @@ body.theme-obsidian {
 }
 
 /* ==========================================================================
-   6. SPORTS RÉSUMÉ PROFILE VIEW
+   6. SPORTS RÉSUMÉ PROFILE VIEW (ESPN & CSQ SHOWCASE)
    ========================================================================== */
 .profile-dossier-card {
   background: #FFFFFF;
@@ -966,19 +1090,32 @@ body.theme-obsidian {
 }
 
 .dossier-avatar-large {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: var(--radius-md);
-  background: var(--accent-blue);
+  background: linear-gradient(135deg, #0A192F, #0284C7);
   color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 900;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  font-size: 4rem;
+  box-shadow: 0 8px 24px rgba(10, 25, 47, 0.25);
   flex-shrink: 0;
+  position: relative;
+}
+
+.jersey-badge {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .dossier-info-col {
@@ -1009,17 +1146,19 @@ body.theme-obsidian {
 
 .dossier-name {
   font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 900;
-  line-height: 0.95;
+  font-size: 3.6rem;
+  letter-spacing: 1px;
+  line-height: 0.92;
   color: var(--text-primary);
   margin-bottom: 0.35rem;
 }
 
 .dossier-discipline {
-  font-size: 1.15rem;
-  color: var(--accent-blue);
+  font-family: var(--font-condensed);
+  font-size: 1.25rem;
+  color: var(--accent-orange);
   font-weight: 700;
+  text-transform: uppercase;
   margin-bottom: 0.4rem;
 }
 
@@ -1032,7 +1171,7 @@ body.theme-obsidian {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 220px;
+  min-width: 230px;
 }
 
 /* BENTO METRICS IN PROFILE */
@@ -1076,9 +1215,10 @@ body.theme-obsidian {
 
 .bio-full-item strong {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 /* COMBINE RADAR METRICS */
@@ -1116,37 +1256,40 @@ body.theme-obsidian {
 
 .combine-meter-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-emerald));
+  background: linear-gradient(90deg, var(--accent-orange), var(--accent-emerald));
   border-radius: 4px;
 }
 
-/* HIGHLIGHTS & MEDIA CARDS */
+/* HIGHLIGHTS & BROADCAST VIDEO REEL */
 .highlights-tabs-row {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .highlight-tab-btn {
   background: #FFFFFF;
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: var(--radius-sm);
-  font-size: 0.78rem;
+  font-family: var(--font-condensed);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
 .highlight-tab-btn.active {
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   color: #FFFFFF;
-  font-weight: 700;
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
 }
 
 .video-mockup-player {
-  height: 240px;
-  background: #0A1128;
+  height: 250px;
+  background: var(--bg-stadium-dark);
   border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
@@ -1157,18 +1300,44 @@ body.theme-obsidian {
   box-shadow: var(--shadow-card);
 }
 
+.camera-angles-ribbon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.cam-angle-btn {
+  background: rgba(14, 27, 45, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #CBD5E1;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.cam-angle-btn.active {
+  background: var(--accent-orange);
+  color: #FFFFFF;
+  border-color: var(--accent-orange);
+}
+
 .play-circle-icon {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--accent-orange);
   color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+  box-shadow: 0 4px 18px rgba(255, 87, 34, 0.45);
   transition: transform 0.2s ease;
 }
 
@@ -1177,10 +1346,10 @@ body.theme-obsidian {
 }
 
 .video-overlay-title {
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
   color: #FFFFFF;
 }
 
@@ -1206,22 +1375,23 @@ body.theme-obsidian {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--accent-blue);
+  background: var(--accent-orange);
   border: 2px solid #FFFFFF;
 }
 
 .timeline-season {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent-blue);
+  color: var(--accent-orange);
   font-weight: 700;
 }
 
 .timeline-team {
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 .timeline-notes {
@@ -1275,28 +1445,28 @@ body.theme-obsidian {
 }
 
 .perm-card:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
   background: #FFFFFF;
 }
 
 .perm-card.active {
-  background: var(--accent-blue-soft);
-  border-color: var(--accent-blue);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.15);
+  background: var(--accent-orange-soft);
+  border-color: var(--accent-orange);
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.15);
 }
 
 .perm-badge {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 700;
-  color: var(--accent-blue);
+  color: var(--accent-orange);
   margin-bottom: 0.4rem;
 }
 
 .perm-card h4 {
   font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
   margin-bottom: 0.35rem;
 }
@@ -1342,30 +1512,30 @@ body.theme-obsidian {
 }
 
 .agent-crest {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
+  font-size: 1.8rem;
   color: #FFFFFF;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
 }
 
 .agent-name {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .agent-agency {
-  font-size: 0.85rem;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
   color: var(--accent-blue);
   font-weight: 700;
 }
@@ -1472,8 +1642,8 @@ body.theme-obsidian {
 
 .ws-stat-highlight .stat-number {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-size: 2.6rem;
+  letter-spacing: 0.5px;
   color: var(--accent-emerald);
   display: block;
   line-height: 1;
@@ -1504,8 +1674,8 @@ body.theme-obsidian {
 
 .scout-list-card h4 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
   margin-bottom: 0.35rem;
 }
@@ -1525,7 +1695,7 @@ body.theme-obsidian {
 
 .scout-ath-chip {
   background: var(--accent-blue-soft);
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(2, 132, 199, 0.2);
   color: var(--accent-blue);
   font-size: 0.72rem;
   font-weight: 600;
@@ -1580,6 +1750,19 @@ body.theme-obsidian {
   color: var(--accent-blue);
 }
 
+.advantage-badge {
+  display: inline-block;
+  background: var(--accent-emerald-soft);
+  border: 1px solid var(--accent-emerald);
+  color: var(--accent-emerald);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-left: 0.4rem;
+}
+
 /* ==========================================================================
    10. OPPORTUNITY COMBINES BOARD
    ========================================================================== */
@@ -1613,22 +1796,24 @@ body.theme-obsidian {
   border-radius: 3px;
   background: var(--accent-blue-soft);
   color: var(--accent-blue);
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(2, 132, 199, 0.2);
 }
 
 .opp-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
-  line-height: 1.1;
+  line-height: 1.05;
   margin-bottom: 0.35rem;
 }
 
 .opp-org {
-  font-size: 0.85rem;
+  font-family: var(--font-condensed);
+  font-size: 0.95rem;
   color: var(--accent-orange);
   font-weight: 700;
+  text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
@@ -1647,7 +1832,7 @@ body.theme-obsidian {
 }
 
 /* ==========================================================================
-   11. ESCROW & PAYMENTS LEDGER
+   11. ESCROW & COMMERCIAL PAYMENTS LEDGER
    ========================================================================== */
 .ledger-kpis-grid {
   display: grid;
@@ -1675,8 +1860,8 @@ body.theme-obsidian {
 
 .kpi-val {
   font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
   line-height: 1;
   display: block;
 }
@@ -1750,7 +1935,7 @@ body.theme-obsidian {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(10, 25, 47, 0.75);
   backdrop-filter: blur(6px);
 }
 
@@ -1820,17 +2005,18 @@ body.theme-obsidian {
   border: 1px solid var(--border-subtle);
   padding: 0.5rem;
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
   text-align: center;
   color: var(--text-muted);
 }
 
 .step-node.active {
-  background: var(--accent-blue-soft);
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-  font-weight: 700;
+  background: var(--accent-orange-soft);
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
 }
 
 .step-pane {
@@ -1858,7 +2044,8 @@ body.theme-obsidian {
 
 .contract-terms-box strong {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
+  letter-spacing: 0.5px;
   color: var(--accent-orange);
   display: block;
   margin-bottom: 0.35rem;
@@ -1883,8 +2070,8 @@ body.theme-obsidian {
 }
 
 .radio-card.active {
-  border-color: var(--accent-blue);
-  background: var(--accent-blue-soft);
+  border-color: var(--accent-orange);
+  background: var(--accent-orange-soft);
 }
 
 .radio-content strong {
@@ -1933,12 +2120,12 @@ body.theme-obsidian {
 }
 
 .signature-input:focus {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
 }
 
 .signature-preview-box {
   background: var(--bg-surface-subtle);
-  border: 1px dashed var(--accent-blue);
+  border: 1px dashed var(--accent-orange);
   padding: 1.5rem;
   border-radius: var(--radius-sm);
   text-align: center;
@@ -1954,8 +2141,8 @@ body.theme-obsidian {
 
 .signature-script {
   font-family: 'Brush Script MT', cursive, sans-serif;
-  font-size: 2.8rem;
-  color: var(--accent-blue);
+  font-size: 3rem;
+  color: var(--accent-orange);
 }
 
 .timestamp-stamp {
@@ -1989,14 +2176,14 @@ body.theme-obsidian {
 }
 
 .dossier-form .form-control:focus {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-orange);
 }
 
 /* ==========================================================================
    13. FOOTER & TOAST SYSTEM (BROADCAST DEEP NAVY FOOTER)
    ========================================================================== */
 .platform-footer {
-  background: var(--bg-nav-dark);
+  background: var(--bg-stadium-dark);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 4rem 2rem 2rem;
   margin-top: 4rem;
@@ -2013,8 +2200,8 @@ body.theme-obsidian {
 
 .footer-logo {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 1.5px;
   color: #FFFFFF;
   display: block;
   margin-bottom: 0.75rem;
@@ -2099,8 +2286,8 @@ body.theme-obsidian {
 
 .toast {
   background: #0F172A;
-  border: 1px solid var(--accent-blue);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--accent-orange);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   color: #FFFFFF;
   padding: 1rem 1.25rem;
   border-radius: var(--radius-sm);

@@ -34,6 +34,11 @@
       {
         id: 'ath-01',
         name: 'Kamal Harvey',
+        jersey: '#11',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '98.4',
+        national_rank: 'NATL #1 SG',
+        school_team: "St. George's College / Kingston Titans",
         sport: 'Basketball',
         discipline: "Men's Basketball",
         position: 'Shooting Guard / Small Forward',
@@ -122,6 +127,11 @@
       {
         id: 'ath-02',
         name: 'Tariq Sterling',
+        jersey: '#7',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '97.2',
+        national_rank: 'JPL #1 WINGER',
+        school_team: 'Cornwall College / Montego Bay FC',
         sport: 'Football',
         discipline: 'Association Football',
         position: 'Left Winger / Forward',
@@ -210,6 +220,11 @@
       {
         id: 'ath-03',
         name: 'Aliyah Blake',
+        jersey: '#101',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '99.5',
+        national_rank: 'CHAMPS #1 RECORD',
+        school_team: 'Edwin Allen High / MVP Track Club',
         sport: 'Track & Field',
         discipline: 'Short Sprints',
         position: '100m / 200m Sprinter',
@@ -298,6 +313,11 @@
       {
         id: 'ath-04',
         name: 'Kofi Mensah',
+        jersey: '#4',
+        star_rating: '★★★★☆ 4-STAR',
+        composite_grade: '92.8',
+        national_rank: 'WEST AFRICA #2 CB',
+        school_team: 'Right to Dream Academy / Accra Lions',
         sport: 'Football',
         discipline: 'Association Football',
         position: 'Centre-Back',
@@ -385,6 +405,11 @@
       {
         id: 'ath-05',
         name: 'Mateo Rossi',
+        jersey: '#3',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '96.4',
+        national_rank: 'BSN #1 ROOKIE',
+        school_team: 'Capitanes de Arecibo / UPR',
         sport: 'Basketball',
         discipline: "Men's Basketball",
         position: 'Point Guard',
@@ -472,6 +497,11 @@
       {
         id: 'ath-06',
         name: 'Rohan Sharma',
+        jersey: '#18',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '95.9',
+        national_rank: 'CPL #1 U19 PACER',
+        school_team: 'Fatima College / Trinbago Knight Riders',
         sport: 'Cricket',
         discipline: 'Pace Bowling & Power Hitting',
         position: 'Fast Bowler',
@@ -559,6 +589,11 @@
       {
         id: 'ath-07',
         name: 'Chloe Henderson',
+        jersey: '#5',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '96.5',
+        national_rank: 'CARIFTA #1 SPRINT',
+        school_team: 'Harrison College / Black Sands Swim Squad',
         sport: 'Swimming',
         discipline: 'Sprint Freestyle & Butterfly',
         position: 'Freestyle',
@@ -646,6 +681,11 @@
       {
         id: 'ath-08',
         name: 'Malik Thorne',
+        jersey: '#1',
+        star_rating: '★★★★★ 5-STAR',
+        composite_grade: '97.8',
+        national_rank: 'AMBC #1 CONTENDER',
+        school_team: 'Excelsior High / Stanley Couch Gym',
         sport: 'Boxing',
         discipline: 'Combat Sports',
         position: 'Light Heavyweight',
@@ -1480,17 +1520,24 @@
       return `
         <article class="athlete-card" data-athlete-id="${ath.id}">
           <div class="athlete-card-top">
-            <div class="athlete-avatar-badge" style="background: ${ath.avatar_color || '#1E293B'};">
+            <div class="athlete-avatar-badge" style="background: ${ath.avatar_color || '#1E293B'}; position: relative;">
               ${initials}
+              <span class="jersey-badge">${ath.jersey}</span>
             </div>
             <div class="athlete-meta-block">
-              <span class="verification-shield-pill">✓ Verified Pro Telemetry</span>
+              <div style="display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                <span class="verification-shield-pill">✓ Verified Pro Telemetry</span>
+                <span class="composite-grade-pill">${ath.star_rating}</span>
+                <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-orange); font-weight: 700;">${ath.national_rank}</span>
+              </div>
               <h3 class="athlete-name">${ath.name}</h3>
               <span class="athlete-sport-pos">${ath.sport} : ${ath.position}</span>
               <div class="athlete-geo-row">
                 <span>${ath.flag} ${ath.city}, ${ath.country}</span>
                 <span>•</span>
                 <span>Age ${ath.age}</span>
+                <span>•</span>
+                <span style="font-weight: 600; color: var(--text-primary);">${ath.school_team}</span>
               </div>
             </div>
           </div>
@@ -1562,19 +1609,38 @@
       <div class="dossier-hero-header">
         <div class="dossier-avatar-large" style="background: ${athlete.avatar_color || '#2563EB'};">
           ${initials}
+          <span class="jersey-badge">${athlete.jersey}</span>
         </div>
         <div class="dossier-info-col">
           <div class="dossier-badges-row">
             <span class="v-badge green">✓ Biometrics Laser-Verified</span>
             <span class="v-badge cyan">✓ Official Match Telemetry</span>
-            <span class="v-badge gold">✓ NCAA Clearinghouse Certified</span>
+            <span class="v-badge gold">✓ ${athlete.star_rating} (${athlete.composite_grade} GRADE)</span>
+            <span class="v-badge" style="background: var(--accent-orange-soft); border: 1px solid var(--accent-orange); color: var(--accent-orange); font-weight: 800;">🏆 ${athlete.national_rank}</span>
           </div>
           <h2 class="dossier-name">${athlete.name}</h2>
           <div class="dossier-discipline">${athlete.sport} • ${athlete.discipline} • ${athlete.position}</div>
           <div class="dossier-location-row">
             <span>${athlete.flag} ${athlete.city}, ${athlete.country}</span> | 
-            <span>Date of Birth: ${athlete.dob} (${athlete.age} Years Old)</span> | 
-            <span>Status: <strong style="color: var(--accent-cyan);">${athlete.status}</strong></span>
+            <span>Team / Academy: <strong>${athlete.school_team}</strong></span> | 
+            <span>DOB: ${athlete.dob} (${athlete.age} Yrs)</span> | 
+            <span>Status: <strong style="color: var(--accent-blue);">${athlete.status}</strong></span>
+          </div>
+
+          <!-- ESPN / CSQ BIG THREE SEASON STAT CALLOUT -->
+          <div style="display: flex; gap: 0.85rem; margin-top: 1rem; flex-wrap: wrap;">
+            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.primary_label}</span>
+              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--accent-orange); line-height: 1;">${athlete.performance.primary_val}</strong>
+            </div>
+            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.secondary_label}</span>
+              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); line-height: 1;">${athlete.performance.secondary_val}</strong>
+            </div>
+            <div style="background: var(--bg-surface-subtle); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); min-width: 110px;">
+              <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); display: block;">${athlete.performance.tertiary_label}</span>
+              <strong style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); line-height: 1;">${athlete.performance.tertiary_val}</strong>
+            </div>
           </div>
         </div>
         <div class="dossier-actions-group">
@@ -1691,9 +1757,18 @@
           `).join('')}
         </div>
         <div class="video-mockup-player" id="videoMockupPlayer">
+          <div class="camera-angles-ribbon" id="cameraAnglesRibbon">
+            <button class="cam-angle-btn active" onclick="window.AAX.switchCameraAngle(this, 'Broadcast Main Cam')">Main Cam</button>
+            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'High Sideline Tactical')">High Tactical</button>
+            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'Laser Gate Endzone Cam')">Laser Gate</button>
+            <button class="cam-angle-btn" onclick="window.AAX.switchCameraAngle(this, 'Slow-Mo Biometrics 240fps')">Slow-Mo Bio</button>
+          </div>
           <div class="play-circle-icon" onclick="window.AAX.playActiveVideo()">▶</div>
           <div class="video-overlay-title" id="videoOverlayTitle">${athlete.highlights[0].title}</div>
-          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;">
+          <span id="videoAngleBadge" style="position: absolute; bottom: 12px; left: 16px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-emerald); background: rgba(0,0,0,0.65); padding: 2px 8px; border-radius: 3px; border: 1px solid rgba(16,185,129,0.4);">
+            LIVE FEED: Broadcast Main Cam (1080p 60fps)
+          </span>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #94A3B8; margin-top: 0.35rem;">
             Duration: ${athlete.highlights[0].duration} • Tag: ${athlete.highlights[0].tag} • HD Telemetry Stream
           </span>
         </div>
@@ -2083,6 +2158,12 @@
 
     const compared = STATE.athletes.filter((a) => STATE.compareQueue.includes(a.id));
 
+    // Dynamic Scouting Advantage Calculations
+    const maxHeight = Math.max(...compared.map((a) => a.biometrics.height_in || 0));
+    const maxWeight = Math.max(...compared.map((a) => a.biometrics.weight_lbs || 0));
+    const maxWingspan = Math.max(...compared.map((a) => a.biometrics.wingspan_in || 0));
+    const maxVertical = Math.max(...compared.map((a) => a.combine.vertical_leap_in || 0));
+
     let html = `
       <table class="comparison-table">
         <thead>
@@ -2091,14 +2172,26 @@
             ${compared.map((ath) => `
               <th>
                 <div style="display: flex; align-items: center; justify-content: space-between;">
-                  <span style="color: var(--accent-cyan); font-weight: 800; font-size: 0.95rem;">${ath.name}</span>
-                  <button onclick="window.AAX.toggleCompare('${ath.id}')" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;" title="Remove from queue">&times;</button>
+                  <div>
+                    <span style="color: var(--accent-orange); font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.5px;">${ath.name}</span>
+                    <span style="display: block; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);">${ath.jersey} • ${ath.school_team}</span>
+                  </div>
+                  <button onclick="window.AAX.toggleCompare('${ath.id}')" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.3rem; padding: 0 4px;" title="Remove from queue">&times;</button>
                 </div>
               </th>
             `).join('')}
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="metric-header">Recruiting Tier & Rank</td>
+            ${compared.map((ath) => `
+              <td>
+                <span class="composite-grade-pill">${ath.star_rating}</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-orange); font-weight: 700; margin-left: 0.35rem;">${ath.national_rank}</span>
+              </td>
+            `).join('')}
+          </tr>
           <tr>
             <td class="metric-header">Sport & Discipline</td>
             ${compared.map((ath) => `<td><strong>${ath.sport}</strong> (${ath.discipline})</td>`).join('')}
@@ -2117,15 +2210,30 @@
           </tr>
           <tr>
             <td class="metric-header">Standing Height</td>
-            ${compared.map((ath) => `<td style="font-weight: 700; color: var(--text-primary);">${ath.biometrics.height} (${ath.biometrics.height_in}")</td>`).join('')}
+            ${compared.map((ath) => `
+              <td style="font-weight: 700; color: var(--text-primary);">
+                ${ath.biometrics.height} (${ath.biometrics.height_in}")
+                ${ath.biometrics.height_in === maxHeight && compared.length > 1 ? '<span class="advantage-badge">ADVANTAGE</span>' : ''}
+              </td>
+            `).join('')}
           </tr>
           <tr>
             <td class="metric-header">Weight</td>
-            ${compared.map((ath) => `<td>${ath.biometrics.weight_lbs} lbs</td>`).join('')}
+            ${compared.map((ath) => `
+              <td>
+                ${ath.biometrics.weight_lbs} lbs
+                ${ath.biometrics.weight_lbs === maxWeight && compared.length > 1 ? '<span class="advantage-badge">FRAME ADVANTAGE</span>' : ''}
+              </td>
+            `).join('')}
           </tr>
           <tr>
             <td class="metric-header">Wingspan</td>
-            ${compared.map((ath) => `<td style="font-weight: 700; color: var(--accent-cyan);">${ath.biometrics.wingspan}</td>`).join('')}
+            ${compared.map((ath) => `
+              <td style="font-weight: 700; color: var(--accent-blue);">
+                ${ath.biometrics.wingspan}
+                ${ath.biometrics.wingspan_in === maxWingspan && compared.length > 1 ? '<span class="advantage-badge">ADVANTAGE</span>' : ''}
+              </td>
+            `).join('')}
           </tr>
           <tr>
             <td class="metric-header">Standing Reach</td>
@@ -2133,7 +2241,12 @@
           </tr>
           <tr>
             <td class="metric-header">Vertical Max Leap</td>
-            ${compared.map((ath) => `<td style="font-weight: 800; color: var(--accent-emerald); font-size: 1.1rem;">${ath.combine.vertical_leap_in}"</td>`).join('')}
+            ${compared.map((ath) => `
+              <td style="font-weight: 800; color: var(--accent-emerald); font-size: 1.1rem;">
+                ${ath.combine.vertical_leap_in}"
+                ${ath.combine.vertical_leap_in === maxVertical && compared.length > 1 ? '<span class="advantage-badge">LEAP ADVANTAGE</span>' : ''}
+              </td>
+            `).join('')}
           </tr>
           <tr>
             <td class="metric-header">Sprint / Split Speed</td>
@@ -2141,7 +2254,7 @@
           </tr>
           <tr>
             <td class="metric-header">Primary Season Metric</td>
-            ${compared.map((ath) => `<td><strong style="color: var(--accent-gold); font-size: 1.1rem;">${ath.performance.primary_val}</strong> ${ath.performance.primary_label}</td>`).join('')}
+            ${compared.map((ath) => `<td><strong style="color: var(--accent-orange); font-size: 1.1rem;">${ath.performance.primary_val}</strong> ${ath.performance.primary_label}</td>`).join('')}
           </tr>
           <tr>
             <td class="metric-header">Representation Status</td>
@@ -2392,6 +2505,13 @@
     },
     exportScoutReport: function () {
       exportScoutReport();
+    },
+    switchCameraAngle: function (btn, angleName) {
+      document.querySelectorAll('.cam-angle-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const badge = document.getElementById('videoAngleBadge');
+      if (badge) badge.textContent = `LIVE FEED: ${angleName} (1080p 60fps)`;
+      showToast(`Broadcast camera angle switched to ${angleName}. Biometric telemetry synced.`, 'info');
     },
     resetFilters: function () {
       applyNlpPreset('all');
