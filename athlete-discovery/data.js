@@ -17,6 +17,8 @@ window.AAX_DATA = {
   athletes: [
     {
       id: 'ath-01',
+      prevRank: 1,
+      gradeHistory: [94.8, 95.6, 96.9, 97.4, 98.9, 98.4],
       name: 'Shavar Montague',
       jersey: '11',
       grade: 98.4,
@@ -62,6 +64,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-02',
+      prevRank: 3,
+      gradeHistory: [93.1, 94.0, 95.2, 96.8, 97.6, 97.2],
       name: 'Tariq Sterling',
       jersey: '7',
       grade: 97.2,
@@ -105,6 +109,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-03',
+      prevRank: 2,
+      gradeHistory: [96.2, 97.0, 97.8, 98.6, 98.8, 99.5],
       name: 'Aliyah Blake',
       jersey: '—',
       grade: 99.5,
@@ -147,6 +153,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-04',
+      prevRank: 8,
+      gradeHistory: [91.4, 91.9, 92.2, 92.0, 92.5, 92.8],
       name: 'Kofi Mensah',
       jersey: '4',
       grade: 92.8,
@@ -188,6 +196,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-05',
+      prevRank: 4,
+      gradeHistory: [95.0, 95.8, 96.1, 97.0, 97.3, 96.4],
       name: 'Mateo Rossi',
       jersey: '3',
       grade: 96.4,
@@ -229,6 +239,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-06',
+      prevRank: 7,
+      gradeHistory: [92.6, 93.4, 94.1, 94.8, 95.5, 95.9],
       name: 'Rohan Sharma',
       jersey: '18',
       grade: 95.9,
@@ -270,6 +282,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-07',
+      prevRank: 6,
+      gradeHistory: [93.8, 94.2, 95.1, 95.4, 96.0, 96.5],
       name: 'Chloe Henderson',
       jersey: '—',
       grade: 96.5,
@@ -311,6 +325,8 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-08',
+      prevRank: 5,
+      gradeHistory: [94.5, 95.2, 95.9, 96.4, 96.9, 97.8],
       name: 'Malik Thorne',
       jersey: '—',
       grade: 97.8,
@@ -575,6 +591,9 @@ window.AAX_DATA = {
     { event: 'National amateur boxing · 175 lb', rows: [['Malik Thorne', 'W TKO R3']], status: 'Final' },
     { event: 'PR Development League final', rows: [['Mateo Rossi', '14 ast']], status: 'Final' }
   ],
+
+  // Month labels for gradeHistory (oldest first).
+  gradeMonths: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
 
   featuredAthleteId: 'ath-01',
 

@@ -148,6 +148,32 @@
     </dl>`;
   }
 
+  // Change since last week's board (the +/- column on federation rankings and motorsport standings).
+  function movement(a) {
+    const diff = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
+    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week"><span aria-hidden="true">▲</span>${diff}<span class="visually-hidden"> up</span></span>`;
+    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week"><span aria-hidden="true">▼</span>${-diff}<span class="visually-hidden"> down</span></span>`;
+    return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
+  }
+
+  // Small inline trend line (Tremor spark-chart pattern). Decorative; callers add a text equivalent.
+  function sparkline(values, { width = 56, height = 18, area = true, dot = true } = {}) {
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const pad = 2;
+    const x = (i) => pad + (i * (width - pad * 2)) / (values.length - 1);
+    const y = (v) => (max === min ? height / 2 : pad + (1 - (v - min) / (max - min)) * (height - pad * 2));
+    const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+    const last = pts[pts.length - 1].split(',');
+    return `<svg class="spark" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
+      ${area ? `<path class="spark-area" d="M${pts[0]} L${pts.join(' L')} L${x(values.length - 1).toFixed(1)},${height} L${x(0).toFixed(1)},${height} Z"/>` : ''}
+      <polyline class="spark-line" points="${pts.join(' ')}"/>
+      ${dot ? `<circle class="spark-dot" cx="${last[0]}" cy="${last[1]}" r="2.5"/>` : ''}
+    </svg>`;
+  }
+
+  const signed = (n) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(1)}`;
+
   function splitName(name) {
     const parts = name.split(' ');
     const last = parts.pop();
@@ -197,6 +223,7 @@
      INIT
      ========================================================================== */
   document.addEventListener('DOMContentLoaded', () => {
+    wireTheme();
     wireControls();
     wireModals();
     trackHeaderHeight();
@@ -217,6 +244,7 @@
     renderScores();
     renderSpotlight();
     renderWire();
+    renderLeaders();
     renderGlance();
     renderBoard();
     renderProfile(S.selectedAthleteId);
@@ -233,6 +261,29 @@
   function refresh() {
     save();
     renderAll();
+  }
+
+  function currentTheme() {
+    const set = document.documentElement.dataset.theme;
+    if (set) return set;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function wireTheme() {
+    const btn = $('#themeToggle');
+    const sync = () => {
+      const dark = currentTheme() === 'dark';
+      btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+      btn.setAttribute('aria-pressed', String(dark));
+    };
+    btn.addEventListener('click', () => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('aax-theme', next); } catch (e) { /* not persisted */ }
+      sync();
+    });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+    sync();
   }
 
   function trackHeaderHeight() {
@@ -425,7 +476,8 @@
         case 'sign': sign(); break;
         case 'reset-filters': applyPreset('reset'); break;
         case 'dismiss-toast': dismissToast(el.closest('.toast')); break;
-        case 'reset-demo': resetDemo(); break;
+        case 'reset-demo': openModal($('#confirmModal'), el); break;
+        case 'confirm-reset': resetDemo(); break;
         default: break;
       }
     });
@@ -486,6 +538,27 @@
           <span class="wire-delta">${esc(x.delta)}</span>
           <span class="wire-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</span>
         </li>`;
+    }).join('');
+  }
+
+  function renderLeaders() {
+    const cats = [
+      ['Scout grade', (a) => a.grade, (a) => a.grade.toFixed(1)],
+      ['Vertical jump', (a) => a.vertical_in, (a) => `${a.vertical_in}″`],
+      ['Wingspan', (a) => a.size.wingspan_in, (a) => feetIn(a.size.wingspan_in)],
+      ['Height', (a) => a.size.height_in, (a) => feetIn(a.size.height_in)]
+    ];
+    $('#leadersGrid').innerHTML = cats.map(([title, get, show]) => {
+      const top = [...S.athletes].sort((x, y) => get(y) - get(x)).slice(0, 3);
+      return `
+        <div class="leaders-cat">
+          <h3>${title}</h3>
+          <ol>${top.map((a) => `
+            <li class="leader">
+              <button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
+              <span class="leader-value">${show(a)}</span>
+            </li>`).join('')}</ol>
+        </div>`;
     }).join('');
   }
 
@@ -579,6 +652,7 @@
         return `
           <tr>
             <td class="col-num"><span class="board-rank">${r.board.rank}</span></td>
+            <td>${movement(a)}</td>
             <td>
               <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
               <span class="cell-sub">${esc(a.team)} · ${esc(a.city)}, ${code(a)}</span>
@@ -592,21 +666,21 @@
             <td>${statusMarkup(a)}</td>
             <td><div class="cell-actions">${compareButton(a.id)}</div></td>
           </tr>`;
-      }).join('') : `<tr><td colspan="10">${empty}</td></tr>`;
+      }).join('') : `<tr><td colspan="11">${empty}</td></tr>`;
       return;
     }
 
-    grid.innerHTML = list.length ? list.map((a) => `
-      <article class="card prospect">
+    grid.innerHTML = list.length ? list.map((a, i) => `
+      <article class="card prospect" style="--i:${i}">
         <div class="prospect-head">
-          <span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>
+          <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
           <div>
             <p class="prospect-meta"><strong>${code(a)}</strong> · ${esc(a.sport)} · Age ${ageOf(a.dob)} ${verificationBadge(a)} ${minorBadge(a)}</p>
             <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
             <p class="prospect-pos">${esc(a.position)}</p>
             <p class="prospect-team">${esc(a.team)}</p>
           </div>
-          <div class="grade-tile"><strong>${a.grade.toFixed(1)}</strong><span>Grade</span></div>
+          <div class="grade-tile"><strong>${a.grade.toFixed(1)}</strong><span>Grade</span>${sparkline(a.gradeHistory, { width: 44, height: 14, area: false })}<span class="visually-hidden">Six-month change ${signed(a.grade - a.gradeHistory[0])}</span></div>
         </div>
         ${rankRow(a)}
         <dl class="metric-grid">
@@ -699,7 +773,7 @@
       ${age < 18 ? `<p class="notice minor-notice">${esc(a.name.split(' ')[0])} is under 18. A parent or guardian must approve applications and sign any agreement. Academic records are hidden.</p>` : ''}
 
       <nav class="profile-tabs" aria-label="Profile sections">
-        ${[['p-season', 'Season'], ['p-measure', 'Measurements'], ['p-tests', 'Testing'], ['p-career', 'Career'], ['p-video', 'Video'], ['p-honours', 'Honours'], ['p-school', 'Education'], ['p-news', 'News'], ['p-perms', 'Permissions']]
+        ${[['p-season', 'Season'], ['p-trend', 'Grade'], ['p-measure', 'Measurements'], ['p-tests', 'Testing'], ['p-career', 'Career'], ['p-video', 'Video'], ['p-honours', 'Honours'], ['p-school', 'Education'], ['p-news', 'News'], ['p-perms', 'Permissions']]
           .map(([t, l]) => `<button type="button" class="profile-tab" data-action="jump" data-target="${t}">${l}</button>`).join('')}
       </nav>
 
@@ -709,6 +783,25 @@
             <div class="card-head"><h2 class="card-title" id="p-season">Season stats</h2></div>
             <dl class="metric-grid">${a.season.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl>
           </section>
+          ${card('p-trend', 'Grade history', (() => {
+            const h = a.gradeHistory;
+            const change = a.grade - h[0];
+            const r = ranks(a).board.rank;
+            const moved = (a.prevRank || r) - r;
+            return `
+              <div class="trend-card">
+                <div>
+                  <div class="trend-chart ${change >= 0 ? '' : 'trend-down'}">${sparkline(h, { width: 320, height: 120 }).replace('class="spark"', 'class="spark" preserveAspectRatio="none" style="width:100%;height:120px"')}</div>
+                  <div class="trend-axis" aria-hidden="true">${SEED.gradeMonths.map((m) => `<span>${m}</span>`).join('')}</div>
+                  <p class="visually-hidden">Scout grade by month: ${SEED.gradeMonths.map((m, i) => `${m} ${h[i]}`).join(', ')}.</p>
+                </div>
+                <dl class="trend-summary">
+                  <dt>6-month change</dt><dd class="${change >= 0 ? 'trend-up' : 'trend-down'}">${signed(change)}</dd>
+                  <dt>High</dt><dd>${Math.max(...h).toFixed(1)}</dd>
+                  <dt>This week</dt><dd>${moved > 0 ? `Up ${moved}` : moved < 0 ? `Down ${-moved}` : 'No change'}</dd>
+                </dl>
+              </div>`;
+          })())}
           ${card('p-measure', 'Measurements', `
             <dl class="kv">
               <div><dt>Height</dt><dd>${feetIn(a.size.height_in)}</dd></div>
@@ -801,7 +894,7 @@
   function renderAgents() {
     const me = S.role === 'athlete' ? athleteById(ME.athlete) : null;
     const myOpen = me && openAgreementFor(me.id);
-    $('#agentList').innerHTML = SEED.agents.map((g) => {
+    $('#agentList').innerHTML = SEED.agents.map((g, i) => {
       let action = '';
       if (S.role === 'athlete') {
         action = myOpen
@@ -809,7 +902,7 @@
           : `<button type="button" class="btn btn-accent btn-sm" data-action="start-agreement" data-athlete="${me.id}" data-agent="${g.id}">Start an agreement</button>`;
       }
       return `
-        <article class="card agent">
+        <article class="card agent" style="--i:${i}">
           <div class="agent-head">
             <span class="avatar" aria-hidden="true">${esc(initials(g.name))}</span>
             <div>
@@ -1070,11 +1163,11 @@
      WATCHLISTS & COMPARE
      ========================================================================== */
   function renderWatchlists() {
-    $('#watchlists').innerHTML = S.watchlists.map((w) => {
+    $('#watchlists').innerHTML = S.watchlists.map((w, i) => {
       const names = w.athleteIds.map(athleteById).filter(Boolean);
       const mine = w.owner === myName();
       return `
-        <article class="card watchlist">
+        <article class="card watchlist" style="--i:${i}">
           <div class="watchlist-body">
             <p class="kicker">${esc(w.owner)} · updated ${formatDate(w.updated)}</p>
             <h2 class="watchlist-title">${esc(w.title)}</h2>
@@ -1230,7 +1323,7 @@
 
   function renderOpportunities() {
     const applicants = applicantsFor();
-    $('#oppList').innerHTML = S.opportunities.map((o) => {
+    $('#oppList').innerHTML = S.opportunities.map((o, i) => {
       const days = daysUntil(o.deadline);
       const closed = days < 0;
       const org = orgById(o.orgId);
@@ -1242,7 +1335,7 @@
         action = closed ? '<span class="muted">Closed</span>' : `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply</button>`;
       }
       return `
-        <article class="card opp">
+        <article class="card opp" style="--i:${i}">
           <div>
             <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
             <h2 class="opp-title">${esc(o.title)}</h2>
@@ -1391,7 +1484,7 @@
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
     ['main', '.site-header', '.site-footer'].forEach((sel) => $(sel).setAttribute('inert', ''));
-    const first = modal.querySelector('.step:not([hidden]) select:not([disabled]), .step:not([hidden]) .btn-accent, form select:not([disabled]), form .btn-accent, .modal-close');
+    const first = modal.querySelector('.confirm-actions .btn-quiet, .step:not([hidden]) select:not([disabled]), .step:not([hidden]) .btn-accent, form select:not([disabled]), form .btn-accent, .modal-close');
     if (first) first.focus();
   }
 
@@ -1425,7 +1518,7 @@
   }
 
   function resetDemo() {
-    if (!window.confirm('Reset the demo? Agreements, applications, watchlists and comparisons added in this browser will be cleared.')) return;
+    closeModal();
     try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
     S = freshState();
     ME.athlete = S.actingAthleteId;
