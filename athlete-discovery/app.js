@@ -1093,6 +1093,12 @@
     renderOpportunitiesGrid();
     renderLedger();
     updateCompareBadge();
+
+    // Sync view mode buttons
+    const btnGrid = document.getElementById('btnViewGrid');
+    const btnTable = document.getElementById('btnViewTable');
+    if (btnGrid) btnGrid.classList.toggle('active', STATE.viewMode === 'grid');
+    if (btnTable) btnTable.classList.toggle('active', STATE.viewMode === 'table');
   });
 
   /* ==========================================================================
