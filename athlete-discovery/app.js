@@ -12,6 +12,7 @@
   const STATE = {
     activeRole: 'athlete',
     activeSection: 'discovery',
+    viewMode: 'grid',
     selectedAthleteId: 'ath-01',
     compareQueue: ['ath-01', 'ath-05'],
     filter: {
@@ -1492,13 +1493,89 @@
 
   function renderProspectsGrid() {
     const grid = document.getElementById('prospectsGrid');
+    const tableContainer = document.getElementById('prospectsTableContainer');
+    const tableBody = document.getElementById('bigBoardTableBody');
     const resultsCount = document.getElementById('resultsCount');
+    const displayCount = document.getElementById('prospectsDisplayCount');
     if (!grid) return;
 
     const filtered = getFilteredAthletes();
     if (resultsCount) {
       resultsCount.textContent = filtered.length;
     }
+    if (displayCount) {
+      displayCount.textContent = filtered.length;
+    }
+
+    if (STATE.viewMode === 'table') {
+      grid.style.display = 'none';
+      if (tableContainer) tableContainer.style.display = 'block';
+      if (tableBody) {
+        if (filtered.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                Zero athletes match active filters. <button class="btn btn-cyan-sm" style="margin-left: 0.5rem;" onclick="window.AAX.resetFilters()">Reset</button>
+              </td>
+            </tr>
+          `;
+        } else {
+          tableBody.innerHTML = filtered.map((ath, idx) => {
+            const inCompare = STATE.compareQueue.includes(ath.id);
+            const initials = ath.name.split(' ').map((n) => n[0]).join('');
+            const statusClass = ath.status === 'Seeking Agent' ? 'seeking' : ath.status === 'Free Agent' ? 'free' : 'represented';
+
+            return `
+              <tr onclick="window.AAX.viewProfile('${ath.id}')">
+                <td><span class="table-rank-badge ${idx < 3 ? 'top-tier' : ''}">#${idx + 1}</span></td>
+                <td>
+                  <div class="table-athlete-cell">
+                    <div class="table-avatar-tiny" style="background: ${ath.avatar_color || '#1E293B'};">${initials}</div>
+                    <div class="table-name-group">
+                      <strong class="athlete-name-text">${ath.name} <span style="font-size: 0.75rem; color: var(--accent-orange); font-family: var(--font-mono);">${ath.jersey}</span></strong>
+                      <span class="athlete-origin-text">${ath.flag} ${ath.city}, ${ath.country} • Age ${ath.age}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="table-sport-tag">${ath.sport}</span>
+                  <span class="table-pos-text">${ath.position}</span>
+                </td>
+                <td>
+                  <div>
+                    <strong class="table-grade-score">${ath.composite_grade}</strong>
+                    <span class="table-star-rating">${ath.star_rating.split(' ')[0]}</span>
+                    <span class="table-metric-sub">${ath.national_rank}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="table-metric-badge">${ath.biometrics.height} / ${ath.biometrics.weight_lbs} lbs</span>
+                  <span class="table-metric-sub">Reach: ${ath.biometrics.reach} • Wing: ${ath.biometrics.wingspan}</span>
+                </td>
+                <td>
+                  <span class="table-split-highlight">${ath.combine.sprint_time.split(' ')[0]}</span>
+                  <span class="table-metric-sub">Vert: ${ath.combine.vertical_leap_in}" • ${ath.performance.primary_label}: ${ath.performance.primary_val}</span>
+                </td>
+                <td>
+                  <span class="table-status-pill ${statusClass}">${ath.status}</span>
+                </td>
+                <td>
+                  <div style="display: flex; gap: 0.35rem;" onclick="event.stopPropagation();">
+                    <button class="btn btn-cyan-sm" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="window.AAX.viewProfile('${ath.id}')">Dossier</button>
+                    <button class="btn ${inCompare ? 'btn-emerald' : 'btn-outline-sm'}" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="window.AAX.toggleCompare('${ath.id}')">${inCompare ? '✓' : '+'}</button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+      return;
+    }
+
+    // Grid View
+    grid.style.display = 'grid';
+    if (tableContainer) tableContainer.style.display = 'none';
 
     if (filtered.length === 0) {
       grid.innerHTML = `
@@ -2515,6 +2592,26 @@
     },
     resetFilters: function () {
       applyNlpPreset('all');
+    },
+    setViewMode: function (mode) {
+      STATE.viewMode = mode;
+      const btnGrid = document.getElementById('btnViewGrid');
+      const btnTable = document.getElementById('btnViewTable');
+      if (btnGrid) btnGrid.classList.toggle('active', mode === 'grid');
+      if (btnTable) btnTable.classList.toggle('active', mode === 'table');
+      renderProspectsGrid();
+      showToast(`Switched view to: ${mode === 'grid' ? 'Editorial Cards' : 'Draft Big Board Table'}`, 'info');
+    },
+    selectProspect: function (athleteId) {
+      renderProfileView(athleteId);
+      switchSection('profile');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    switchTab: function (tabName) {
+      switchSection(tabName);
+    },
+    refreshTelemetry: function () {
+      showToast('Live telemetry radar refreshed: 4 new combine split times recorded.', 'success');
     }
   };
 

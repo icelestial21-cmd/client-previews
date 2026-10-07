@@ -171,18 +171,7 @@
     </div>
   </div>
 
-  <!-- LIVE TELEMETRY MARQUEE -->
-  <aside class="live-marquee-band">
-    <div class="marquee-track">
-      <div class="marquee-item"><span class="dot-green"></span> 1,280+ Verified International Prospects</div>
-      <div class="marquee-item"><span class="dot-cyan"></span> 94 Accredited Sports Agencies (FIFA, FIBA, World Athletics)</div>
-      <div class="marquee-item"><span class="dot-gold"></span> $38.4M Total Contract Value Tracked in Institutional Escrow</div>
-      <div class="marquee-item"><span class="dot-green"></span> 48 Active Combines & Collegiate Showcases</div>
-      <div class="marquee-item"><span class="dot-purple"></span> 100% Athlete Controlled Representation Permissions</div>
-      <div class="marquee-item"><span class="dot-green"></span> 1,280+ Verified International Prospects</div>
-      <div class="marquee-item"><span class="dot-cyan"></span> 94 Accredited Sports Agencies (FIFA, FIBA, World Athletics)</div>
-    </div>
-  </aside>
+
 
   <!-- DYNAMIC ROLE WELCOME BANNER -->
   <div class="role-welcome-banner" id="roleWelcomeBanner">
@@ -239,6 +228,140 @@
             <button class="nlp-chip" data-preset="free-agents">Available Free Agents Only</button>
             <button class="nlp-chip" data-preset="all">Reset Filters</button>
           </div>
+        </div>
+
+        <!-- BROADCAST HERO SHOWCASE (EDITORIAL SPOTLIGHT + TRENDING COMBINE WIRE) -->
+        <div class="broadcast-hero-grid">
+          
+          <!-- EDITORIAL LEAD FEATURE CARD -->
+          <article class="spotlight-feature-card" onclick="window.AAX.selectProspect('ath-01')">
+            <div class="spotlight-tag-row">
+              <span class="live-pill red"><span class="pulse-dot red"></span> BROADCAST SPOTLIGHT</span>
+              <span class="spotlight-class-pill">CLASS OF 2027 • 5★ PROSPECT</span>
+              <span class="spotlight-ape-index-chip">APE INDEX: +3.0"</span>
+            </div>
+            
+            <div class="spotlight-body">
+              <div class="spotlight-content">
+                <span class="spotlight-sport-label">BASKETBALL • SHOOTING GUARD / WING</span>
+                <h3 class="spotlight-headline">Kamal Harvey</h3>
+                <p class="spotlight-summary">6'5" Kingston wing with an explosive 6'8" reach, 34.5" vertical leap, and 51.4% field goal efficiency. Generating intense interest from European clubs and NCAA Division 1 programs while seeking verified agency representation.</p>
+                
+                <div class="spotlight-metrics-row">
+                  <div class="spotlight-metric-pill">
+                    <span class="pill-label">PPG</span>
+                    <strong class="pill-val">18.4</strong>
+                  </div>
+                  <div class="spotlight-metric-pill">
+                    <span class="pill-label">RPG</span>
+                    <strong class="pill-val">6.2</strong>
+                  </div>
+                  <div class="spotlight-metric-pill">
+                    <span class="pill-label">APG</span>
+                    <strong class="pill-val">4.8</strong>
+                  </div>
+                  <div class="spotlight-metric-pill">
+                    <span class="pill-label">VERTICAL</span>
+                    <strong class="pill-val">34.5"</strong>
+                  </div>
+                  <div class="spotlight-metric-pill">
+                    <span class="pill-label">EFF RATING</span>
+                    <strong class="pill-val text-green">+22.4</strong>
+                  </div>
+                </div>
+
+                <div class="spotlight-action-row">
+                  <button class="btn btn-gold-sm" onclick="event.stopPropagation(); window.AAX.selectProspect('ath-01'); window.AAX.switchTab('profile');">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Inspect Full Scouting Dossier
+                  </button>
+                  <span class="spotlight-status-flag"><span class="dot-orange"></span> Status: Seeking Agent • Direct Contact Enabled</span>
+                </div>
+              </div>
+
+              <div class="spotlight-player-visual">
+                <div class="spotlight-jersey-avatar">
+                  <span class="jersey-num">#23</span>
+                  <span class="jersey-name">HARVEY</span>
+                  <span class="jersey-flag">🇯🇲</span>
+                </div>
+                <div class="spotlight-rating-badge">
+                  <span class="star-rating">★★★★★</span>
+                  <strong class="composite-score">98.4</strong>
+                  <span class="rating-sub">AAX SCOUT INDEX</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- TRENDING WIRE / COMBINE RISERS -->
+          <aside class="trending-wire-card">
+            <div class="wire-header">
+              <div class="wire-title-group">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                <h4>TRENDING COMBINE WIRE</h4>
+              </div>
+              <span class="wire-live-tag">LIVE RADAR</span>
+            </div>
+
+            <div class="wire-list">
+              <div class="wire-item" onclick="window.AAX.selectProspect('ath-03')">
+                <div class="wire-avatar" style="background: linear-gradient(135deg, #EC4899, #BE185D);">AB</div>
+                <div class="wire-details">
+                  <div class="wire-name-row">
+                    <strong>Aliyah Blake</strong>
+                    <span class="wire-trend-badge up">▲ #1 U20</span>
+                  </div>
+                  <span class="wire-meta">Track & Field • 10.98s 100m PR (Champs Double Gold)</span>
+                </div>
+                <span class="wire-time">10m ago</span>
+              </div>
+
+              <div class="wire-item" onclick="window.AAX.selectProspect('ath-02')">
+                <div class="wire-avatar" style="background: linear-gradient(135deg, #10B981, #059669);">TS</div>
+                <div class="wire-details">
+                  <div class="wire-name-row">
+                    <strong>Tariq Sterling</strong>
+                    <span class="wire-trend-badge up">▲ 34.8 km/h</span>
+                  </div>
+                  <span class="wire-meta">Football • 14 Goals, 9 Assists (Free Agent)</span>
+                </div>
+                <span class="wire-time">28m ago</span>
+              </div>
+
+              <div class="wire-item" onclick="window.AAX.selectProspect('ath-07')">
+                <div class="wire-avatar" style="background: linear-gradient(135deg, #F59E0B, #D97706);">MR</div>
+                <div class="wire-details">
+                  <div class="wire-name-row">
+                    <strong>Mateo Rossi</strong>
+                    <span class="wire-trend-badge up">▲ 14 AST</span>
+                  </div>
+                  <span class="wire-meta">Basketball • BSN Puerto Rico Game MVP</span>
+                </div>
+                <span class="wire-time">1h ago</span>
+              </div>
+
+              <div class="wire-item" onclick="window.AAX.selectProspect('ath-04')">
+                <div class="wire-avatar" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9);">DH</div>
+                <div class="wire-details">
+                  <div class="wire-name-row">
+                    <strong>Devonte Henderson</strong>
+                    <span class="wire-trend-badge up">▲ 148 km/h</span>
+                  </div>
+                  <span class="wire-meta">Cricket • CPL Express Bowler (4/19 Figures)</span>
+                </div>
+                <span class="wire-time">2h ago</span>
+              </div>
+            </div>
+
+            <div class="wire-footer">
+              <button class="wire-refresh-btn" onclick="window.AAX.refreshTelemetry()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                Sync Real-Time Radar
+              </button>
+            </div>
+          </aside>
+
         </div>
 
         <!-- MULTI-TAXONOMY FILTER CONTROLS BAR -->
@@ -316,9 +439,51 @@
           </div>
         </div>
 
+        <!-- PROSPECTS VIEW TOOLBAR (EDITORIAL CARDS VS DRAFT BIG BOARD TABLE) -->
+        <div class="prospects-view-toolbar">
+          <div class="toolbar-left">
+            <span class="prospects-count-label"><strong id="prospectsDisplayCount">8</strong> Verified Athletes in Active Board</span>
+            <span class="toolbar-divider">|</span>
+            <span class="telemetry-live-badge"><span class="pulse-dot green"></span> Live Telemetry Active</span>
+          </div>
+          <div class="view-mode-toggle" id="viewModeToggle">
+            <button class="view-toggle-btn active" data-mode="grid" id="btnViewGrid" onclick="window.AAX.setViewMode('grid')" title="Editorial Cards View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>Editorial Cards</span>
+            </button>
+            <button class="view-toggle-btn" data-mode="table" id="btnViewTable" onclick="window.AAX.setViewMode('table')" title="Draft Big Board Table View">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              <span>Draft Big Board</span>
+            </button>
+          </div>
+        </div>
+
         <!-- ATHLETE PROSPECTS BENTO GRID -->
         <div class="prospects-grid" id="prospectsGrid">
           <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- DRAFT BIG BOARD DENSE TABLE (MODULE 4 & 5 EXTENSION) -->
+        <div class="prospects-table-container" id="prospectsTableContainer" style="display: none;">
+          <div class="table-responsive-wrapper">
+            <table class="big-board-table" id="bigBoardTable">
+              <thead>
+                <tr>
+                  <th class="col-rank">Rank</th>
+                  <th class="col-athlete">Athlete</th>
+                  <th class="col-sport">Sport / Position</th>
+                  <th class="col-rating">Scout Grade</th>
+                  <th class="col-biometrics">Biometrics</th>
+                  <th class="col-combine">Combine Key Split</th>
+                  <th class="col-status">Status</th>
+                  <th class="col-action">Action</th>
+                </tr>
+              </thead>
+              <tbody id="bigBoardTableBody">
+                <!-- Dynamically populated via app.js -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
