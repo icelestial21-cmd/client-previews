@@ -1,0 +1,29 @@
+[
+  {
+    "id": "list-01",
+    "title": "2027 Caribbean Basketball Prospects",
+    "scout_name": "Derrick Sterling (International Scout)",
+    "description": "High-ceiling guards and wings with 6'5\"+ physical frame and NCAA/EuroLeague wingspan profiles.",
+    "athlete_ids": ["ath-01", "ath-05"],
+    "created_at": "2026-10-01",
+    "notes": "Kamal Harvey is priority 1 for Miami combine. Mateo Rossi possesses elite pick-and-roll passing."
+  },
+  {
+    "id": "list-02",
+    "title": "Unsigned Attacking Football Talents (Caribbean & West Africa)",
+    "scout_name": "New York City FC / City Football Group",
+    "description": "Explosive wingers and physical centre-backs ready for professional trial combine in Kingston.",
+    "athlete_ids": ["ath-02", "ath-04"],
+    "created_at": "2026-09-25",
+    "notes": "Tariq Sterling clocked at 34.8 km/h. Kofi Mensah dominant in aerial duels (89.2%)."
+  },
+  {
+    "id": "list-03",
+    "title": "World U20 Sprint & Aquatic Medal Contenders",
+    "scout_name": "Global Olympic Pathway Consortium",
+    "description": "Track & swimming prodigies meeting World Athletics & FINA international qualifying standards.",
+    "athlete_ids": ["ath-03", "ath-07"],
+    "created_at": "2026-09-18",
+    "notes": "Aliyah Blake sub-11s 100m. Chloe Henderson national record holder under 25s in 50m free."
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "agt-01",
+    "name": "Marcus Vance",
+    "agency": "Pinnacle Sports Global",
+    "title": "Senior Managing Director & Licensed Agent",
+    "sports": ["Basketball", "Football"],
+    "disciplines": ["Men's & Women's Basketball", "Premier League & European Football"],
+    "countries": ["Jamaica", "United Kingdom", "United States", "Canada"],
+    "athletes_count": 42,
+    "experience_years": 14,
+    "credentials": [
+      "FIFA Licensed Agent (#2024-8841)",
+      "FIBA Certified Players' Agent (#FIBA-1092)",
+      "National Basketball Players Association (NBPA) Certified"
+    ],
+    "commission_rate": "7.5% Standard Gross Contract Value",
+    "verification_tier": "Professionally Verified Agency",
+    "rating": 4.9,
+    "review_count": 38,
+    "bio": "Specializing in bridging elite Caribbean and UK athletic talent into tier-1 professional leagues, collegiate scholarships, and commercial endorsement deals. Over $34M in total career contracts negotiated with zero player contract disputes.",
+    "notable_clients": ["Aliyah Blake (Track)", "Kevon Bailey (Championship Football)", "Jalen Clarke (EuroLeague)"],
+    "active_deals_usd": "$12.8M Active Contracts",
+    "avatar_color": "#2563EB",
+    "headquarters": "London & Kingston",
+    "contact": {
+      "email": "m.vance@pinnaclesports.com",
+      "phone": "+44 20 7946 0912",
+      "whatsapp": "+1 876 555 8821"
+    }
+  },
+  {
+    "id": "agt-02",
+    "name": "Elena Rostova",
+    "agency": "EuroHoops & Athletics Management",
+    "title": "Director of International Scouting & Representation",
+    "sports": ["Basketball", "Track & Field"],
+    "disciplines": ["EuroLeague / EuroCup Basketball", "Diamond League Track & Field"],
+    "countries": ["Germany", "Spain", "Jamaica", "Bahamas", "France"],
+    "athletes_count": 28,
+    "experience_years": 11,
+    "credentials": [
+      "FIBA International Agent License",
+      "World Athletics Authorised Athlete Representative (#WA-7712)",
+      "Spanish Basketball Federation (FEB) Registered"
+    ],
+    "commission_rate": "8.0% Professional Playing Contracts",
+    "verification_tier": "Professionally Verified Agency",
+    "rating": 4.8,
+    "review_count": 29,
+    "bio": "Boutique representation firm focused on high-upside Caribbean athletes seeking immediate European contracts, high-level training facilities, and Olympic pathway support.",
+    "notable_clients": ["Darius Vance (Long Jump)", "Lucas Fernandez (ACB Liga)"],
+    "active_deals_usd": "$8.4M Active Contracts",
+    "avatar_color": "#F59E0B",
+    "headquarters": "Munich & Madrid",
+    "contact": {
+      "email": "elena@eurohoopsmgmt.eu",
+      "phone": "+49 89 2018 4400",
+      "whatsapp": "+49 171 555 9012"
+    }
+  },
+  {
+    "id": "agt-03",
+    "name": "Andre Campbell",
+    "agency": "Caribbean Elite Sports Group",
+    "title": "Founding Partner & Lead Sports Attorney",
+    "sports": ["Track & Field", "Cricket", "Football"],
+    "disciplines": ["Short Sprints", "CPL / Franchise Cricket", "CONCACAF & MLS Football"],
+    "countries": ["Jamaica", "Trinidad & Tobago", "Barbados", "USA"],
+    "athletes_count": 36,
+    "experience_years": 16,
+    "credentials": [
+      "Attorney-at-Law (Jamaica & New York Bar)",
+      "World Athletics Authorised Representative",
+      "West Indies Cricket Board (WICB) Accredited Agent"
+    ],
+    "commission_rate": "7.0% Standard Marketing & Club Contracts",
+    "verification_tier": "Professionally Verified Agency",
+    "rating": 4.95,
+    "review_count": 45,
+    "bio": "Founded on the core principle of athlete sovereignty. Andre Campbell provides bulletproof legal representation, financial literacy mentoring, and global brand endorsements for Caribbean sporting champions.",
+    "notable_clients": ["Rohan Sharma (Cricket)", "Tariq Sterling (Prospect Roster)"],
+    "active_deals_usd": "$16.2M Active Contracts",
+    "avatar_color": "#10B981",
+    "headquarters": "Kingston & Port of Spain",
+    "contact": {
+      "email": "andre@caribbeanelitesports.com",
+      "phone": "+1 876 926 4410",
+      "whatsapp": "+1 876 509 9920"
+    }
+  },
+  {
+    "id": "agt-04",
+    "name": "Sarah Jenkins",
+    "agency": "Pacific Vanguard Sports",
+    "title": "Vice President of Collegiate & NIL Recruitment",
+    "sports": ["Swimming", "Basketball"],
+    "disciplines": ["NCAA D1 / NIL Endorsements", "FINA Pro Tour Swimming"],
+    "countries": ["United States", "Barbados", "Australia"],
+    "athletes_count": 22,
+    "experience_years": 9,
+    "credentials": [
+      "NCAA Registered NIL Attorney",
+      "USA Swimming Certified Agent Partner",
+      "WNBA Players Association Certified"
+    ],
+    "commission_rate": "8.5% Marketing / 0% on Student Scholarships",
+    "verification_tier": "Professionally Verified Agency",
+    "rating": 4.75,
+    "review_count": 22,
+    "bio": "Dedicated to securing 100% full-ride NCAA collegiate scholarships and compliant NIL corporate endorsements for international aquatic and basketball talent.",
+    "notable_clients": ["Chloe Henderson (Swimming)", "Maya Lin (NCAA D1 Guard)"],
+    "active_deals_usd": "$5.1M Active Endorsement Ledger",
+    "avatar_color": "#06B6D4",
+    "headquarters": "Los Angeles, CA",
+    "contact": {
+      "email": "sjenkins@pacificvanguard.com",
+      "phone": "+1 310 555 0199",
+      "whatsapp": "+1 310 555 0199"
+    }
+  }
+]

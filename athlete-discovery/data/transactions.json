@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tx-1001",
+    "date": "2026-10-04",
+    "type": "Representation Agreement Retainer",
+    "payer": "Aliyah Blake (Athlete)",
+    "payee": "Pinnacle Sports Global (Marcus Vance)",
+    "amount_usd": 1500.00,
+    "fee_type": "Retainer Escrow",
+    "status": "Escrow Held",
+    "contract_ref": "AGR-2026-0881",
+    "description": "Initial digital representation retainer and international travel logistics fund."
+  },
+  {
+    "id": "tx-1002",
+    "date": "2026-10-02",
+    "type": "Scout Enterprise Database Subscription",
+    "payer": "New York City FC Scouting Dept",
+    "payee": "Apex Athlete Exchange (Platform)",
+    "amount_usd": 4800.00,
+    "fee_type": "Annual Platform Subscription",
+    "status": "Settled",
+    "contract_ref": "SUB-SC-9021",
+    "description": "Unlimited Caribbean & Latin American biometric video database access + direct WhatsApp scout dispatch."
+  },
+  {
+    "id": "tx-1003",
+    "date": "2026-09-28",
+    "type": "Combine Registration & Medical Telemetry",
+    "payer": "Tariq Sterling (Athlete)",
+    "payee": "Apex Combine Operations",
+    "amount_usd": 250.00,
+    "fee_type": "Combine Verification Fee",
+    "status": "Settled",
+    "contract_ref": "CMB-2026-JAM-04",
+    "description": "GPS speed tracking, laser gate sprint calibration, and orthopedic medical clearance badge."
+  },
+  {
+    "id": "tx-1004",
+    "date": "2026-09-15",
+    "type": "Club Transfer Commission",
+    "payer": "EuroHoops & Athletics Management",
+    "payee": "Elena Rostova (Lead Agent)",
+    "amount_usd": 14200.00,
+    "fee_type": "Player Contract Commission",
+    "status": "Settled",
+    "contract_ref": "TRF-2026-ACB-19",
+    "description": "8.0% standard agency commission disbursed upon first-team contract execution in Spanish ACB Liga."
+  }
+]

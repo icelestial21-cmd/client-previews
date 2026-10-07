@@ -1,0 +1,701 @@
+[
+  {
+    "id": "ath-01",
+    "name": "Kamal Harvey",
+    "sport": "Basketball",
+    "discipline": "Men's Basketball",
+    "position": "Shooting Guard / Small Forward",
+    "country": "Jamaica",
+    "flag": "🇯🇲",
+    "city": "Kingston",
+    "age": 20,
+    "dob": "2006-03-14",
+    "gender": "Male",
+    "biometrics": {
+      "height": "6'5\"",
+      "height_in": 77,
+      "weight_lbs": 205,
+      "wingspan": "6'8\"",
+      "wingspan_in": 80,
+      "dominant_hand": "Right",
+      "dominant_foot": "Right",
+      "reach": "8'8\""
+    },
+    "combine": {
+      "vertical_leap_in": 34.5,
+      "sprint_time": "4.58s (3/4 Court)",
+      "lane_agility": "10.82s",
+      "shuttle_run": "3.12s"
+    },
+    "performance": {
+      "primary_label": "PPG",
+      "primary_val": "18.4",
+      "secondary_label": "RPG",
+      "secondary_val": "6.2",
+      "tertiary_label": "APG",
+      "tertiary_val": "4.8",
+      "stats_grid": [
+        { "label": "FG%", "val": "51.4%" },
+        { "label": "3PT%", "val": "39.2%" },
+        { "label": "FT%", "val": "84.6%" },
+        { "label": "SPG", "val": "1.7" },
+        { "label": "BPG", "val": "0.9" },
+        { "label": "EFF Rating", "val": "+22.4" }
+      ]
+    },
+    "status": "Seeking Agent",
+    "representation_tier": "Unassigned",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Profile, Combine Scores, Highlights",
+      "contributor": "Upload Drills, Log Game Box Scores",
+      "manager": "Manage Scouting Materials, Direct Club Messaging",
+      "representative": "Exclusive Contract Negotiation, Digital Escrow Sign-off"
+    },
+    "career": [
+      { "season": "2025-26", "team": "Kingston Titans Elite", "league": "National Super League", "notes": "Led league in scoring efficiency; All-Tournament First Team." },
+      { "season": "2024-25", "team": "St. George's Academy", "league": "ISSA National Championship", "notes": "Tournament MVP; 28 points in Championship Final." }
+    ],
+    "achievements": [
+      "2025 National Youth Basketball Championship Gold",
+      "2025 Tournament MVP (22.8 PPG Average)",
+      "2024 Caribbean U19 Invitational All-Star Five"
+    ],
+    "academics": {
+      "institution": "UWI Mona / St. George's",
+      "gpa": "3.62",
+      "eligibility": "NCAA Division 1 Clearinghouse Certified",
+      "standardized_score": "1280 SAT"
+    },
+    "highlights": [
+      { "title": "National Finals Breakdown : 31 Pts, 8 Reb, 4 Ast", "duration": "4:12", "tag": "Game Tape" },
+      { "title": "NBA Combine Shooting & Wingspan Pro-Day Drill", "duration": "2:45", "tag": "Combine Tape" },
+      { "title": "Defensive ISO Clamps & Transition Playmaking", "duration": "3:20", "tag": "Defensive Reel" }
+    ],
+    "news": [
+      { "date": "Oct 2026", "source": "Caribbean Sports Dispatch", "headline": "Kamal Harvey Declares Availability for International Scouting & Agency Representation" },
+      { "date": "Aug 2026", "source": "Hoops Intelligence", "headline": "Why Kamal Harvey's 6'8\" Wingspan Translates Instantly to Modern Guard Play" }
+    ],
+    "avatar_color": "#2563EB"
+  },
+  {
+    "id": "ath-02",
+    "name": "Tariq Sterling",
+    "sport": "Football",
+    "discipline": "Association Football",
+    "position": "Left Winger / Forward",
+    "country": "Jamaica",
+    "flag": "🇯🇲",
+    "city": "Montego Bay",
+    "age": 19,
+    "dob": "2007-06-22",
+    "gender": "Male",
+    "biometrics": {
+      "height": "5'11\"",
+      "height_in": 71,
+      "weight_lbs": 168,
+      "wingspan": "6'0\"",
+      "wingspan_in": 72,
+      "dominant_hand": "Right",
+      "dominant_foot": "Both (Left Primary)",
+      "reach": "7'10\""
+    },
+    "combine": {
+      "vertical_leap_in": 31.0,
+      "sprint_time": "10.42s (100m Split)",
+      "lane_agility": "Top Speed 34.8 km/h",
+      "shuttle_run": "Yo-Yo IR2: Level 21.6"
+    },
+    "performance": {
+      "primary_label": "Goals",
+      "primary_val": "14",
+      "secondary_label": "Assists",
+      "secondary_val": "9",
+      "tertiary_label": "Key Passes",
+      "tertiary_val": "42",
+      "stats_grid": [
+        { "label": "Matches", "val": "18" },
+        { "label": "Dribble Success", "val": "68.4%" },
+        { "label": "Shots on Target", "val": "58.1%" },
+        { "label": "Top Speed", "val": "34.8 km/h" },
+        { "label": "Expected Goals (xG)", "val": "11.8" },
+        { "label": "Minutes / Goal", "val": "114 min" }
+      ]
+    },
+    "status": "Free Agent",
+    "representation_tier": "Seeking Agent",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Manager",
+      "viewer": "Public Profile, Match Footage",
+      "contributor": "Upload Video, Update Telemetry",
+      "manager": "Trial Applications, Direct Club Contacts",
+      "representative": "Transfer Negotiations, Work Permit Filings"
+    },
+    "career": [
+      { "season": "2025-26", "team": "Montego Bay Academy", "league": "JPL Youth Premier", "notes": "Golden Boot Winner; 14 goals in 18 matches." },
+      { "season": "2024-25", "team": "Cornwall College", "league": "DaCosta Cup", "notes": "Tournament Top Scorer with 19 goals; Zone Champions." }
+    ],
+    "achievements": [
+      "2026 JPL Youth League Golden Boot (14 Goals)",
+      "2025 DaCosta Cup Most Valuable Forward",
+      "Jamaica U20 National Team Provisional Squad Selection"
+    ],
+    "academics": {
+      "institution": "Cornwall College",
+      "gpa": "3.40",
+      "eligibility": "FIFA Registered Amateur / Pro Contract Ready",
+      "standardized_score": "CSEC 8 Subjects (Distinction in Physical Ed)"
+    },
+    "highlights": [
+      { "title": "Pace & Direct 1v1 Dribbling Compilation : 2026 Season", "duration": "5:18", "tag": "Game Tape" },
+      { "title": "Goals & Decisive Assists vs Top 4 Premier Defenses", "duration": "3:44", "tag": "Match Reel" },
+      { "title": "High-Speed Transition Sprints & GPS Tracking Data", "duration": "2:15", "tag": "Telemetry Tape" }
+    ],
+    "news": [
+      { "date": "Sep 2026", "source": "Caribbean Football Review", "headline": "Tariq Sterling Clocked at 34.8 km/h During Regional Combine Showcase" },
+      { "date": "Jul 2026", "source": "Scout Wire UK", "headline": "Unsigned Jamaican Prodigy Tariq Sterling Eyed by MLS and Belgian Pro League Scouts" }
+    ],
+    "avatar_color": "#10B981"
+  },
+  {
+    "id": "ath-03",
+    "name": "Aliyah Blake",
+    "sport": "Track & Field",
+    "discipline": "Short Sprints",
+    "position": "100m / 200m Sprinter",
+    "country": "Jamaica",
+    "flag": "🇯🇲",
+    "city": "Spanish Town",
+    "age": 18,
+    "dob": "2008-01-19",
+    "gender": "Female",
+    "biometrics": {
+      "height": "5'8\"",
+      "height_in": 68,
+      "weight_lbs": 138,
+      "wingspan": "5'9\"",
+      "wingspan_in": 69,
+      "dominant_hand": "Right",
+      "dominant_foot": "Left (Block Start)",
+      "reach": "7'6\""
+    },
+    "combine": {
+      "vertical_leap_in": 28.5,
+      "sprint_time": "10.98s (100m PR)",
+      "lane_agility": "Reaction Time: 0.134s",
+      "shuttle_run": "200m PR: 22.41s"
+    },
+    "performance": {
+      "primary_label": "100m PR",
+      "primary_val": "10.98s",
+      "secondary_label": "200m PR",
+      "secondary_val": "22.41s",
+      "tertiary_label": "Reaction",
+      "tertiary_val": "0.134s",
+      "stats_grid": [
+        { "label": "Champs 100m", "val": "Gold (11.02s)" },
+        { "label": "CARIFTA 200m", "val": "Record (22.41s)" },
+        { "label": "Wind Legal", "val": "+1.4 m/s" },
+        { "label": "Fly 30m Speed", "val": "2.84s" },
+        { "label": "National Rank", "val": "#1 U20" },
+        { "label": "World Rank", "val": "#3 U20" }
+      ]
+    },
+    "status": "Represented",
+    "representation_tier": "Full Representation",
+    "agent_name": "Marcus Vance",
+    "agent_id": "agt-01",
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Meet Splits, Times",
+      "contributor": "Log Training Splits, Upload Race Footage",
+      "manager": "Meet Entries, Shoe Endorsement Inquiries",
+      "representative": "Diamond League Contract Signings, Escrow Disbursements"
+    },
+    "career": [
+      { "season": "2026", "team": "Edwin Allen High School", "league": "ISSA Boys & Girls Champs", "notes": "Class 1 Sprint Double Champion; Record 100m clocking." },
+      { "season": "2025", "team": "Jamaica Junior National Team", "league": "CARIFTA Games", "notes": "Gold Medal in 100m and 4x100m Relay Anchor." }
+    ],
+    "achievements": [
+      "2026 ISSA Boys & Girls Athletics Championships Class 1 Double Gold",
+      "2025 CARIFTA Games U20 100m Gold & Record Holder (11.02s)",
+      "2025 World U20 Championships Bronze Medalist (Lima, Peru)"
+    ],
+    "academics": {
+      "institution": "Edwin Allen High School",
+      "gpa": "3.85",
+      "eligibility": "NCAA Certified / Considering Professional Pro Tour",
+      "standardized_score": "Honor Roll All Semesters"
+    },
+    "highlights": [
+      { "title": "Sub-11 Second 100m Final Win : ISSA Champs 2026", "duration": "1:45", "tag": "Race Footage" },
+      { "title": "Starting Block Biomechanics & Acceleration Phase Analysis", "duration": "3:10", "tag": "Technical Video" },
+      { "title": "200m Bend Technique & Speed Endurance Execution", "duration": "2:30", "tag": "Race Footage" }
+    ],
+    "news": [
+      { "date": "May 2026", "source": "TrackAlerts", "headline": "Aliyah Blake Breaks Historic 11-Second Barrier at National Stadium" },
+      { "date": "Mar 2026", "source": "World Athletics", "headline": "Next Generation Sprint Star Aliyah Blake Leads World U20 Leaderboards" }
+    ],
+    "avatar_color": "#F59E0B"
+  },
+  {
+    "id": "ath-04",
+    "name": "Kofi Mensah",
+    "sport": "Football",
+    "discipline": "Association Football",
+    "position": "Centre-Back",
+    "country": "Ghana",
+    "flag": "🇬🇭",
+    "city": "Accra",
+    "age": 21,
+    "dob": "2005-08-11",
+    "gender": "Male",
+    "biometrics": {
+      "height": "6'3\"",
+      "height_in": 75,
+      "weight_lbs": 195,
+      "wingspan": "6'5\"",
+      "wingspan_in": 77,
+      "dominant_hand": "Right",
+      "dominant_foot": "Right",
+      "reach": "8'4\""
+    },
+    "combine": {
+      "vertical_leap_in": 33.0,
+      "sprint_time": "11.10s (100m Split)",
+      "lane_agility": "Pro Agility 4.22s",
+      "shuttle_run": "Beep Test 14.8"
+    },
+    "performance": {
+      "primary_label": "Aerial Win%",
+      "primary_val": "89.2%",
+      "secondary_label": "Pass Acc%",
+      "secondary_val": "91.4%",
+      "tertiary_label": "Tackles/90",
+      "tertiary_val": "3.8",
+      "stats_grid": [
+        { "label": "Interceptions/90", "val": "4.1" },
+        { "label": "Clearances/90", "val": "6.8" },
+        { "label": "Ground Duels Won", "val": "74.5%" },
+        { "label": "Clean Sheets", "val": "11" },
+        { "label": "Long Ball Acc", "val": "78.2%" },
+        { "label": "Fouls Committed/90", "val": "0.7" }
+      ]
+    },
+    "status": "Seeking Agent",
+    "representation_tier": "Seeking European Representation",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Manager",
+      "viewer": "Public Profile, Scouting Clips",
+      "contributor": "Add Tactical Analysis, Performance Data",
+      "manager": "European Trial Coordination, Club Inquiries",
+      "representative": "Club Contract Negotiations"
+    },
+    "career": [
+      { "season": "2025-26", "team": "Accra Lions Elite", "league": "Ghana Premier League", "notes": "Voted Best Young Defender of the Season." },
+      { "season": "2024-25", "team": "Right to Dream Academy", "league": "U19 International Tournaments", "notes": "Captained squad through Denmark and UK showcases." }
+    ],
+    "achievements": [
+      "2026 Ghana Premier League Best Young Defender",
+      "2025 Gothia Cup International U19 Finalist",
+      "Ghana U23 National Team Starting Centre-Back"
+    ],
+    "academics": {
+      "institution": "Right to Dream Academy",
+      "gpa": "3.50",
+      "eligibility": "FIFA Transfer Matching System (TMS) Ready",
+      "standardized_score": "WAEC Certified"
+    },
+    "highlights": [
+      { "title": "Dominant Aerial Defending & 1v1 Ground Duels 2026", "duration": "4:50", "tag": "Game Tape" },
+      { "title": "Progressive Ball-Playing & 50-Yard Diagonal Passes", "duration": "3:15", "tag": "Tactical Tape" },
+      { "title": "Goal-Line Blocks & Box Defending Showcase", "duration": "2:40", "tag": "Highlights" }
+    ],
+    "news": [
+      { "date": "Sep 2026", "source": "African Football Telemetry", "headline": "Kofi Mensah Leads Continental Defenders in Aerial Duel Success at 89.2%" }
+    ],
+    "avatar_color": "#EC4899"
+  },
+  {
+    "id": "ath-05",
+    "name": "Mateo Rossi",
+    "sport": "Basketball",
+    "discipline": "Men's Basketball",
+    "position": "Point Guard",
+    "country": "Puerto Rico",
+    "flag": "🇵🇷",
+    "city": "San Juan",
+    "age": 22,
+    "dob": "2004-11-04",
+    "gender": "Male",
+    "biometrics": {
+      "height": "6'2\"",
+      "height_in": 74,
+      "weight_lbs": 188,
+      "wingspan": "6'5\"",
+      "wingspan_in": 77,
+      "dominant_hand": "Right",
+      "dominant_foot": "Right",
+      "reach": "8'2\""
+    },
+    "combine": {
+      "vertical_leap_in": 36.0,
+      "sprint_time": "4.45s",
+      "lane_agility": "10.45s",
+      "shuttle_run": "2.98s"
+    },
+    "performance": {
+      "primary_label": "APG",
+      "primary_val": "9.2",
+      "secondary_label": "PPG",
+      "secondary_val": "16.1",
+      "tertiary_label": "3PT%",
+      "tertiary_val": "41.8%",
+      "stats_grid": [
+        { "label": "AST/TO Ratio", "val": "3.8" },
+        { "label": "SPG", "val": "2.1" },
+        { "label": "FT%", "val": "88.2%" },
+        { "label": "Plus/Minus", "val": "+14.6" },
+        { "label": "Clutch FG%", "val": "54.2%" },
+        { "label": "Minutes", "val": "33.5" }
+      ]
+    },
+    "status": "Free Agent",
+    "representation_tier": "Seeking Agent",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Profile",
+      "contributor": "Add Videos & Stats",
+      "manager": "Overseas Inquiries",
+      "representative": "BSN & Overseas Contract Negotiations"
+    },
+    "career": [
+      { "season": "2025-26", "team": "Bayamón Vaqueros Reserves", "league": "BSN Puerto Rico", "notes": "Averaged 9.2 assists per game; Sixth Man of the Year." },
+      { "season": "2023-25", "team": "Miami Dade College", "league": "NJCAA D1", "notes": "First Team All-American; 18.2 PPG, 8.4 APG." }
+    ],
+    "achievements": [
+      "2026 BSN Puerto Rico Reserve League Playoff MVP",
+      "2025 NJCAA D1 First Team All-American",
+      "2024 Pan-American U21 Silver Medalist (Puerto Rico National Team)"
+    ],
+    "academics": {
+      "institution": "Miami Dade / UPR Rio Piedras",
+      "gpa": "3.35",
+      "eligibility": "Pro Free Agent / FIBA Licensed",
+      "standardized_score": "Associate Degree in Kinesiology"
+    },
+    "highlights": [
+      { "title": "Pick-and-Roll Mastery & Passing Vision Compilation", "duration": "6:10", "tag": "Game Tape" },
+      { "title": "Full Game Breakdown vs San German : 22 Pts, 14 Ast", "duration": "8:30", "tag": "Full Game" },
+      { "title": "Pull-Up 3PT Shooting & Floater Package in Traffic", "duration": "3:40", "tag": "Shooting Tape" }
+    ],
+    "news": [
+      { "date": "Jul 2026", "source": "El Nuevo Dia Sports", "headline": "Mateo Rossi Records 14 Assists in BSN Reserve Finals Win" }
+    ],
+    "avatar_color": "#06B6D4"
+  },
+  {
+    "id": "ath-06",
+    "name": "Rohan Sharma",
+    "sport": "Cricket",
+    "discipline": "Pace Bowling & Power Hitting",
+    "position": "Right-Arm Fast Bowler / All-Rounder",
+    "country": "Trinidad & Tobago",
+    "flag": "🇹🇹",
+    "city": "Port of Spain",
+    "age": 20,
+    "dob": "2006-05-18",
+    "gender": "Male",
+    "biometrics": {
+      "height": "6'4\"",
+      "height_in": 76,
+      "weight_lbs": 190,
+      "wingspan": "6'6\"",
+      "wingspan_in": 78,
+      "dominant_hand": "Right (Bat & Bowl)",
+      "dominant_foot": "Right",
+      "reach": "8'5\""
+    },
+    "combine": {
+      "vertical_leap_in": 32.0,
+      "sprint_time": "144 km/h (Peak Bowling Speed)",
+      "lane_agility": "Beep Test 15.2",
+      "shuttle_run": "20m Sprint: 2.89s"
+    },
+    "performance": {
+      "primary_label": "Peak Speed",
+      "primary_val": "144.2 km/h",
+      "secondary_label": "Wickets",
+      "secondary_val": "32",
+      "tertiary_label": "Batting Avg",
+      "tertiary_val": "34.5",
+      "stats_grid": [
+        { "label": "Bowling Avg", "val": "18.4" },
+        { "label": "Economy Rate", "val": "5.12" },
+        { "label": "Strike Rate", "val": "21.6" },
+        { "label": "T20 Strike Rate (Bat)", "val": "158.4" },
+        { "label": "5-Wicket Hauls", "val": "3" },
+        { "label": "Matches", "val": "14" }
+      ]
+    },
+    "status": "Seeking Agent",
+    "representation_tier": "Available for Global Franchise Drafts",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Stats, Ball Telemetry",
+      "contributor": "Match Scorecards, Bowling Videos",
+      "manager": "Franchise Camp Inquiries",
+      "representative": "CPL, IPL, and Global Franchise Agency Signings"
+    },
+    "career": [
+      { "season": "2026", "team": "Trinbago Knight Riders Reserves", "league": "CPL Development League", "notes": "Took 32 wickets at 144 km/h; Hit 3 half-centuries batting at #7." },
+      { "season": "2024-25", "team": "Queen's Park CC", "league": "Trinidad Premiership", "notes": "Leading fast bowler in domestic championship." }
+    ],
+    "achievements": [
+      "2026 CPL Development League Bowler of the Tournament",
+      "2025 West Indies U19 World Cup Squad Spearhead",
+      "Fastest Recorded Ball in Regional U20 History (144.2 km/h)"
+    ],
+    "academics": {
+      "institution": "Fatima College",
+      "gpa": "3.45",
+      "eligibility": "WICB & ICC Certified Player",
+      "standardized_score": "CAPE Certified"
+    },
+    "highlights": [
+      { "title": "144 km/h Bouncers & Toe-Crushing Yorkers Compilation", "duration": "4:15", "tag": "Bowling Reel" },
+      { "title": "Power Hitting : 48 Runs off 19 Balls in CPL Semi-Final", "duration": "3:20", "tag": "Batting Tape" },
+      { "title": "Speed Gun Telemetry & Bowling Action Biomechanics", "duration": "2:50", "tag": "Technical Data" }
+    ],
+    "news": [
+      { "date": "Sep 2026", "source": "Caribbean Cricket Weekly", "headline": "Rohan Sharma Expected to Spark Bidding War in Upcoming CPL & ILT20 Drafts" }
+    ],
+    "avatar_color": "#8B5CF6"
+  },
+  {
+    "id": "ath-07",
+    "name": "Chloe Henderson",
+    "sport": "Swimming",
+    "discipline": "Sprint Freestyle & Butterfly",
+    "position": "50m / 100m Freestyle",
+    "country": "Barbados",
+    "flag": "🇧🇧",
+    "city": "Bridgetown",
+    "age": 19,
+    "dob": "2007-03-29",
+    "gender": "Female",
+    "biometrics": {
+      "height": "5'10\"",
+      "height_in": 70,
+      "weight_lbs": 145,
+      "wingspan": "6'1\"",
+      "wingspan_in": 73,
+      "dominant_hand": "Right",
+      "dominant_foot": "Right",
+      "reach": "7'11\""
+    },
+    "combine": {
+      "vertical_leap_in": 26.0,
+      "sprint_time": "24.88s (50m Free)",
+      "lane_agility": "Reaction Time: 0.62s",
+      "shuttle_run": "100m Free: 54.92s"
+    },
+    "performance": {
+      "primary_label": "50m Free",
+      "primary_val": "24.88s",
+      "secondary_label": "100m Free",
+      "secondary_val": "54.92s",
+      "tertiary_label": "50m Fly",
+      "tertiary_val": "26.42s",
+      "stats_grid": [
+        { "label": "CARIFTA Gold", "val": "3 Medals" },
+        { "label": "Reaction Time", "val": "0.62s" },
+        { "label": "Stroke Rate (50m)", "val": "54 strokes/min" },
+        { "label": "Turn Time", "val": "1.08s" },
+        { "label": "National Records", "val": "2 Senior Records" },
+        { "label": "FINA Points", "val": "848 Pts" }
+      ]
+    },
+    "status": "Seeking Agent",
+    "representation_tier": "Seeking NCAA / Pro Representation",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Meet Splits",
+      "contributor": "Add Swim Times & Stroke Video",
+      "manager": "Collegiate & Sponsor Outreach",
+      "representative": "Endorsement & Olympic Pathway Management"
+    },
+    "career": [
+      { "season": "2026", "team": "Barbados Aquatic Center Elite", "league": "World Aquatics Championship Qualifiers", "notes": "Broke national senior 50m freestyle mark with 24.88s." },
+      { "season": "2025", "team": "Barbados National Swim Team", "league": "CARIFTA Swimming Championships", "notes": "Triple Gold Medalist in 50m Free, 100m Free, 50m Fly." }
+    ],
+    "achievements": [
+      "2026 Barbados National Senior Record Holder (50m Free : 24.88s)",
+      "2025 CARIFTA Swim Championships High Point Trophy",
+      "2024 Junior Pan-Pacific Championship Finalist"
+    ],
+    "academics": {
+      "institution": "Harrison College",
+      "gpa": "3.90",
+      "eligibility": "NCAA Division 1 Certified (Fall 2027 Class)",
+      "standardized_score": "SAT 1340"
+    },
+    "highlights": [
+      { "title": "24.88s National Record 50m Free Race Video & Splits", "duration": "1:30", "tag": "Race Footage" },
+      { "title": "Underwater Turn Mechanics & Dolphin Kick Underwater Cam", "duration": "2:10", "tag": "Biomechanics" },
+      { "title": "100m Freestyle Pacing & Stroke Rate Analysis", "duration": "2:40", "tag": "Race Footage" }
+    ],
+    "news": [
+      { "date": "Apr 2026", "source": "SwimSwam Caribbean", "headline": "Chloe Henderson Becomes First Bajan Woman Under 25 Seconds in 50m Free" }
+    ],
+    "avatar_color": "#14B8A6"
+  },
+  {
+    "id": "ath-08",
+    "name": "Malik Thorne",
+    "sport": "Boxing",
+    "discipline": "Combat Sports",
+    "position": "Light Heavyweight (175 lbs)",
+    "country": "Jamaica",
+    "flag": "🇯🇲",
+    "city": "Kingston",
+    "age": 21,
+    "dob": "2005-04-12",
+    "gender": "Male",
+    "biometrics": {
+      "height": "6'2\"",
+      "height_in": 74,
+      "weight_lbs": 175,
+      "wingspan": "6'6\" (78\" Reach)",
+      "wingspan_in": 78,
+      "dominant_hand": "Orthodox (Heavy Right Hand)",
+      "dominant_foot": "Orthodox",
+      "reach": "78\""
+    },
+    "combine": {
+      "vertical_leap_in": 33.5,
+      "sprint_time": "Punch Velocity 11.2 m/s",
+      "lane_agility": "VO2 Max 62.4 ml/kg",
+      "shuttle_run": "Reaction 0.19s"
+    },
+    "performance": {
+      "primary_label": "Amateur Record",
+      "primary_val": "16-1",
+      "secondary_label": "KO Ratio",
+      "secondary_val": "75%",
+      "tertiary_label": "Punch Speed",
+      "tertiary_val": "11.2 m/s",
+      "stats_grid": [
+        { "label": "Total Fights", "val": "17" },
+        { "label": "Knockouts", "val": "12" },
+        { "label": "Jab Accuracy", "val": "48.2%" },
+        { "label": "Power Punch Acc", "val": "54.6%" },
+        { "label": "Opponent Conn%", "val": "18.2%" },
+        { "label": "National Rank", "val": "#1 Light Heavyweight" }
+      ]
+    },
+    "status": "Seeking Agent",
+    "representation_tier": "Seeking Professional Agency Sign-off",
+    "agent_name": null,
+    "agent_id": null,
+    "verification": {
+      "identity": true,
+      "athletic": true,
+      "stats": true,
+      "pro": true,
+      "tier": "Professionally Verified"
+    },
+    "permissions": {
+      "current_level": "Representative",
+      "viewer": "Public Fight Record",
+      "contributor": "Sparring Footage, Punch Metrics",
+      "manager": "Promoter & Sparring Camp Bookings",
+      "representative": "Pro Promotional Contracts & Purse Escrow"
+    },
+    "career": [
+      { "season": "2026", "team": "Stanley Couch Gym Kingston", "league": "National Amateur Boxing Series", "notes": "National Golden Gloves Champion; 4 consecutive stoppage victories." },
+      { "season": "2025", "team": "Jamaica National Boxing Team", "league": "AMBC Continental Championships", "notes": "Silver Medalist in Guayaquil, Ecuador." }
+    ],
+    "achievements": [
+      "2026 National Golden Gloves Champion (Light Heavyweight)",
+      "2025 AMBC Continental Boxing Championships Silver Medalist",
+      "2024 Caribbean Boxing Championships Outstanding Boxer Award"
+    ],
+    "academics": {
+      "institution": "Excelsior High School",
+      "gpa": "3.10",
+      "eligibility": "Ready to Transition to Professional Ranks (WBC/WBA)",
+      "standardized_score": "Olympic Certified Athlete"
+    },
+    "highlights": [
+      { "title": "Knockout Highlights : 12 Stoppages in 16 Amateur Wins", "duration": "4:40", "tag": "Fight Reel" },
+      { "title": "78-Inch Reach Jab Placement & Ring Generalship", "duration": "3:15", "tag": "Sparring Video" },
+      { "title": "Heavy Bag Velocity Telemetry & Reaction Drills", "duration": "2:30", "tag": "Training Tape" }
+    ],
+    "news": [
+      { "date": "Aug 2026", "source": "BoxingScene Caribbean", "headline": "Hard-Hitting Light Heavyweight Malik Thorne Preparing for Professional Debut" }
+    ],
+    "avatar_color": "#EF4444"
+  }
+]

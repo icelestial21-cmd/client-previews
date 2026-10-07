@@ -1,0 +1,97 @@
+[
+  {
+    "id": "opp-01",
+    "title": "International Attacking Winger & Striker Showcase",
+    "organization": "Manchester City Football Group / New York City FC Pathway",
+    "org_type": "Tier 1 Professional Club & Academy",
+    "sport": "Football",
+    "discipline": "Men's Association Football",
+    "location": "Kingston, Jamaica (National Stadium)",
+    "date": "November 14-16, 2026",
+    "deadline": "October 30, 2026",
+    "requirements": {
+      "age_range": "18 to 22 Years Old",
+      "position": "Winger / Striker",
+      "verification": "Minimum Athletic Verified Profile Required",
+      "sprint_threshold": "Top Speed > 33.5 km/h or 100m < 11.2s",
+      "eligibility": "Free Agent or Transfer Available"
+    },
+    "compensation": "Full Pro First-Team / MLS Next Pro Contract + Relocation & Visa Sponsorship",
+    "spots_available": 3,
+    "applicants_count": 48,
+    "status": "Open",
+    "tags": ["Pro Contract", "MLS / Europe Pathway", "Visa Provided"],
+    "badge_color": "#0284C7"
+  },
+  {
+    "id": "opp-02",
+    "title": "NCAA Division 1 Full Athletic Scholarship Combine",
+    "organization": "ACC / SEC Invitational Scouting Combine",
+    "org_type": "Collegiate Athletic Conference",
+    "sport": "Basketball",
+    "discipline": "Men's Basketball",
+    "location": "Miami, Florida (FIU Arena)",
+    "date": "December 5-7, 2026",
+    "deadline": "November 20, 2026",
+    "requirements": {
+      "age_range": "18 to 21 Years Old",
+      "position": "Guards & Athletic Wings",
+      "verification": "NCAA Clearinghouse Eligibility Required",
+      "height_threshold": "6'2\" Minimum for Guards / 6'6\" for Wings",
+      "academics": "GPA > 3.0"
+    },
+    "compensation": "4-Year Full Ride Tuition, Housing, Dining, Medical & NIL Collective Eligibility ($85k/yr Value)",
+    "spots_available": 6,
+    "applicants_count": 64,
+    "status": "Open",
+    "tags": ["NCAA D1", "Full Scholarship", "NIL Eligible"],
+    "badge_color": "#F59E0B"
+  },
+  {
+    "id": "opp-03",
+    "title": "Diamond League Emerging Sprinter Invitational Trials",
+    "organization": "World Athletics / European Athletics Tour",
+    "org_type": "Global Governing Body & Circuit",
+    "sport": "Track & Field",
+    "discipline": "100m / 200m Short Sprints",
+    "location": "Zurich, Switzerland (Letzigrund)",
+    "date": "January 18, 2027",
+    "deadline": "December 1, 2026",
+    "requirements": {
+      "age_range": "17 to 23 Years Old",
+      "position": "100m / 200m",
+      "verification": "World Athletics Verified Timing",
+      "timing_threshold": "Men Sub-10.30s / Women Sub-11.20s",
+      "eligibility": "Open to Caribbean & Global Athletes"
+    },
+    "compensation": "Travel Stipend ($5,000 USD), Housing, Appearance Fees & Shoe Sponsor Showcase",
+    "spots_available": 8,
+    "applicants_count": 32,
+    "status": "Open",
+    "tags": ["Diamond League", "Appearance Fee", "Shoe Contract"],
+    "badge_color": "#10B981"
+  },
+  {
+    "id": "opp-04",
+    "title": "Caribbean Premier League (CPL) Emerging Player Draft",
+    "organization": "West Indies Cricket & CPL Franchise Consortium",
+    "org_type": "T20 Professional Franchise League",
+    "sport": "Cricket",
+    "discipline": "Fast Bowling & All-Rounders",
+    "location": "Kensington Oval, Bridgetown, Barbados",
+    "date": "February 12, 2027",
+    "deadline": "January 15, 2027",
+    "requirements": {
+      "age_range": "19 to 23 Years Old",
+      "position": "Fast Bowler / Power Hitting All-Rounder",
+      "verification": "Verified Speed Gun Telemetry (>138 km/h)",
+      "eligibility": "Regional WICB Registered"
+    },
+    "compensation": "CPL Professional Draft Contract ($25,000 to $75,000 USD Base)",
+    "spots_available": 5,
+    "applicants_count": 29,
+    "status": "Open",
+    "tags": ["CPL Draft", "T20 Contract", "Franchise Bonus"],
+    "badge_color": "#8B5CF6"
+  }
+]

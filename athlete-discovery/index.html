@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Athlete Exchange : Global Athlete Discovery & Representation Infrastructure</title>
+  <meta name="description" content="Sovereign digital sports ecosystem connecting athletes, certified sports agents, professional scouts, and sporting organizations with verified sports resumes, combine telemetry, and digital representation agreements.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-stadium">
+
+  <!-- TOP TELEMETRY RIBBON & ROLE SWITCHER -->
+  <header class="platform-header">
+    <div class="header-top-bar">
+      <div class="brand-block">
+        <div class="brand-crest">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <span class="brand-main">APEX ATHLETE <strong>EXCHANGE</strong></span>
+          <span class="brand-sub">SOVEREIGN TALENT INFRASTRUCTURE : GLOBAL REGISTRY</span>
+        </div>
+      </div>
+
+      <!-- MULTI-ROLE ACCOUNT SWITCHER -->
+      <div class="role-switcher-container">
+        <span class="role-switcher-label">ACTIVE ACCOUNT ROLE:</span>
+        <div class="role-pills-bar" id="rolePillsBar" role="tablist">
+          <button class="role-pill active" data-role="athlete" title="View as Kamal Harvey (Basketball Prospect)">
+            <span class="role-icon">🏃</span>
+            <span class="role-name">Athlete View</span>
+          </button>
+          <button class="role-pill" data-role="agent" title="View as Marcus Vance (Pinnacle Sports Global)">
+            <span class="role-icon">👔</span>
+            <span class="role-name">Agent View</span>
+          </button>
+          <button class="role-pill" data-role="scout" title="View as Derrick Sterling (International Talent Scout)">
+            <span class="role-icon">🔭</span>
+            <span class="role-name">Scout View</span>
+          </button>
+          <button class="role-pill" data-role="organization" title="View as Kingston Phoenix FC / Combine Director">
+            <span class="role-icon">🏟️</span>
+            <span class="role-name">Club / Combine</span>
+          </button>
+          <button class="role-pill" data-role="admin" title="Platform Verification & Escrow Oversight">
+            <span class="role-icon">🛡️</span>
+            <span class="role-name">Admin Console</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- USER TELEMETRY & WALLET BADGE -->
+      <div class="user-telemetry-badge">
+        <div class="user-info-text">
+          <span class="user-acting-as" id="userActingAs">Kamal Harvey (Prospect)</span>
+          <span class="user-tier-pill" id="userTierPill">VERIFIED PRO TIER</span>
+        </div>
+        <div class="wallet-pill" title="Escrow & Representation Balance">
+          <span class="wallet-icon">💳</span>
+          <span class="wallet-amount" id="walletAmount">$14,200 USD</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIMARY PLATFORM NAVIGATION BAR -->
+    <nav class="primary-nav-bar">
+      <div class="nav-links-wrap" id="navLinksWrap">
+        <button class="nav-tab-btn active" data-section="discovery">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Talent Discovery</span>
+        </button>
+        <button class="nav-tab-btn" data-section="profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>Sports Résumé Profile</span>
+        </button>
+        <button class="nav-tab-btn" data-section="agents">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Agent Marketplace</span>
+        </button>
+        <button class="nav-tab-btn" data-section="scouting">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <span>Scout Watchlist & Compare</span>
+        </button>
+        <button class="nav-tab-btn" data-section="opportunities">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 14.66V17c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
+          <span>Combine & Opportunity Board</span>
+        </button>
+        <button class="nav-tab-btn" data-section="ledger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+          <span>Escrow & Payments Ledger</span>
+        </button>
+      </div>
+
+      <div class="nav-right-actions">
+        <button class="btn btn-secondary-compact" id="openCompareBtn" title="Compare Selected Athletes">
+          <span class="compare-badge-count" id="compareCountBadge">0</span>
+          <span>Compare Queue</span>
+        </button>
+        <button class="btn btn-primary-compact" id="headerActionBtn">
+          <span>+ Submit New Prospect</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LIVE TELEMETRY MARQUEE -->
+  <aside class="live-marquee-band">
+    <div class="marquee-track">
+      <div class="marquee-item"><span class="dot-green"></span> 1,280+ Verified International Prospects</div>
+      <div class="marquee-item"><span class="dot-cyan"></span> 94 Accredited Sports Agencies (FIFA, FIBA, World Athletics)</div>
+      <div class="marquee-item"><span class="dot-gold"></span> $38.4M Total Contract Value Tracked in Sovereign Escrow</div>
+      <div class="marquee-item"><span class="dot-green"></span> 48 Active Combines & Collegiate Showcases</div>
+      <div class="marquee-item"><span class="dot-purple"></span> 100% Athlete Controlled Representation Permissions</div>
+      <div class="marquee-item"><span class="dot-green"></span> 1,280+ Verified International Prospects</div>
+      <div class="marquee-item"><span class="dot-cyan"></span> 94 Accredited Sports Agencies (FIFA, FIBA, World Athletics)</div>
+    </div>
+  </aside>
+
+  <!-- DYNAMIC ROLE WELCOME BANNER -->
+  <div class="role-welcome-banner" id="roleWelcomeBanner">
+    <div class="banner-inner">
+      <div class="banner-avatar" id="bannerAvatar">KH</div>
+      <div class="banner-copy">
+        <h3 id="bannerTitle">Welcome to your Athletic Command Portal, Kamal Harvey</h3>
+        <p id="bannerSubtitle">Your sports résumé is live and verified across 4 metrics. You have 14 scout viewings and 2 pending agency representation inquiries this week.</p>
+      </div>
+      <div class="banner-quick-actions" id="bannerQuickActions">
+        <button class="btn btn-cyan-sm" id="bannerActionOne">Review Agent Offers</button>
+        <button class="btn btn-outline-sm" id="bannerActionTwo">Log Combine Time</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="platform-main">
+
+    <!-- =========================================================================
+         SECTION 1: TALENT DISCOVERY ENGINE (MODULE 4 & 5)
+         ========================================================================= -->
+    <section id="section-discovery" class="platform-section active">
+      <div class="section-container">
+        
+        <!-- INTEL SEARCH HEADER & NLP QUERY BAR -->
+        <div class="discovery-header-card">
+          <div class="search-title-row">
+            <div>
+              <span class="eyebrow-accent">INTELLIGENT SCOUTING ENGINE</span>
+              <h2 class="section-heading">GLOBAL ATHLETE TALENT REGISTRY</h2>
+              <p class="section-subtext">Discover, filter, and scout verified prospects across biometric combines, performance statistics, and availability status.</p>
+            </div>
+            <div class="search-counter-badge">
+              <strong id="resultsCount">8</strong>
+              <span>Prospects Match Active Criteria</span>
+            </div>
+          </div>
+
+          <!-- NATURAL LANGUAGE QUERY BAR -->
+          <div class="nlp-search-box">
+            <div class="nlp-input-wrapper">
+              <svg class="search-glass-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="athleteSearchInput" class="nlp-search-input" placeholder="Search athletes by name, sport, position, country, or natural query (e.g. 'Jamaican winger sub-11s pace')...">
+              <button class="clear-search-btn" id="clearSearchBtn">&times;</button>
+            </div>
+          </div>
+
+          <!-- NLP QUERY CHIPS (INSTANT PRESETS) -->
+          <div class="nlp-presets-bar">
+            <span class="preset-label">Scout Presets:</span>
+            <button class="nlp-chip" data-preset="unsigned-footballers">Unsigned Jamaican Wingers (18 to 22yo)</button>
+            <button class="nlp-chip" data-preset="caribbean-basketball">Caribbean Basketball Wings (6'5"+ / 30"+ Vertical)</button>
+            <button class="nlp-chip" data-preset="sprint-prodigies">Sub-11.00s Track Sprinters</button>
+            <button class="nlp-chip" data-preset="free-agents">Available Free Agents Only</button>
+            <button class="nlp-chip" data-preset="all">Reset Filters</button>
+          </div>
+        </div>
+
+        <!-- MULTI-TAXONOMY FILTER CONTROLS BAR -->
+        <div class="filter-controls-card">
+          <!-- Sport Selector Pills -->
+          <div class="sport-taxonomy-pills" id="sportFilterPills">
+            <button class="sport-pill active" data-sport="all">All Sports</button>
+            <button class="sport-pill" data-sport="Basketball">🏀 Basketball</button>
+            <button class="sport-pill" data-sport="Football">⚽ Football (Soccer)</button>
+            <button class="sport-pill" data-sport="Track & Field">⚡ Track & Field</button>
+            <button class="sport-pill" data-sport="Cricket">🏏 Cricket</button>
+            <button class="sport-pill" data-sport="Swimming">🏊 Swimming</button>
+            <button class="sport-pill" data-sport="Boxing">🥊 Boxing</button>
+          </div>
+
+          <!-- Advanced Criteria Grid -->
+          <div class="filter-criteria-grid">
+            <!-- Filter: Position -->
+            <div class="filter-group">
+              <label for="filterPosition">Discipline / Position</label>
+              <select id="filterPosition" class="filter-select">
+                <option value="all" selected>All Positions & Events</option>
+                <option value="Shooting Guard">Shooting Guard / Small Forward</option>
+                <option value="Point Guard">Point Guard</option>
+                <option value="Left Winger">Left Winger / Forward</option>
+                <option value="Centre-Back">Centre-Back</option>
+                <option value="100m">100m / 200m Short Sprints</option>
+                <option value="Fast Bowler">Fast Bowler / All-Rounder</option>
+                <option value="Freestyle">Freestyle / Butterfly</option>
+                <option value="Light Heavyweight">Light Heavyweight (175 lbs)</option>
+              </select>
+            </div>
+
+            <!-- Filter: Nationality / Location -->
+            <div class="filter-group">
+              <label for="filterCountry">Nationality / Region</label>
+              <select id="filterCountry" class="filter-select">
+                <option value="all" selected>All Countries</option>
+                <option value="Jamaica">🇯🇲 Jamaica</option>
+                <option value="Trinidad & Tobago">🇹🇹 Trinidad & Tobago</option>
+                <option value="Barbados">🇧🇧 Barbados</option>
+                <option value="Puerto Rico">🇵🇷 Puerto Rico</option>
+                <option value="Ghana">🇬🇭 Ghana</option>
+              </select>
+            </div>
+
+            <!-- Filter: Status -->
+            <div class="filter-group">
+              <label for="filterStatus">Representation Status</label>
+              <select id="filterStatus" class="filter-select">
+                <option value="all" selected>All Statuses</option>
+                <option value="Seeking Agent">Seeking Agent</option>
+                <option value="Free Agent">Free Agent</option>
+                <option value="Represented">Represented</option>
+              </select>
+            </div>
+
+            <!-- Filter: Height Range -->
+            <div class="filter-group">
+              <div class="slider-label-row">
+                <label for="filterHeight">Min Height:</label>
+                <span id="filterHeightVal" class="filter-slider-val">5'8"</span>
+              </div>
+              <input type="range" id="filterHeight" class="filter-range" min="66" max="78" step="1" value="66">
+            </div>
+
+            <!-- Filter: Verification Tier -->
+            <div class="filter-group">
+              <label for="filterVerification">Verification Standard</label>
+              <select id="filterVerification" class="filter-select">
+                <option value="all" selected>All Profiles</option>
+                <option value="pro">Professionally Verified Only</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ATHLETE PROSPECTS BENTO GRID -->
+        <div class="prospects-grid" id="prospectsGrid">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: SPORTS RÉSUMÉ PROFILE (MODULE 10 & 6)
+         ========================================================================= -->
+    <section id="section-profile" class="platform-section">
+      <div class="section-container">
+        
+        <!-- PROFILE HERO BANNER & RESUME DOSSIER -->
+        <div class="profile-dossier-card" id="profileDossierCard">
+          <!-- Dynamically populated via app.js with Kamal Harvey default -->
+        </div>
+
+        <!-- PERMISSION TIERS CONTROLLER (MODULE 6: ATHLETE-CONTROLLED REPRESENTATION) -->
+        <div class="permissions-card">
+          <div class="card-header-flex">
+            <div>
+              <span class="eyebrow-accent">ATHLETE SOVEREIGNTY STANDARD</span>
+              <h3 class="card-title">REPRESENTATION PERMISSION CONTROLS</h3>
+              <p class="card-subtext">The athlete retains 100% legal ownership of their identity. Grant and revoke granular permissions to your representing agent at any time.</p>
+            </div>
+            <div class="permission-status-tag" id="currentPermLevelTag">ACTIVE LEVEL: REPRESENTATIVE</div>
+          </div>
+
+          <div class="permission-levels-grid">
+            <div class="perm-card" data-perm="viewer">
+              <div class="perm-badge">TIER 1</div>
+              <h4>Viewer Access</h4>
+              <p>Basic public profile visibility, combine scores, and verified video highlights.</p>
+              <span class="perm-rule">✓ Read-Only Public</span>
+            </div>
+            <div class="perm-card" data-perm="contributor">
+              <div class="perm-badge">TIER 2</div>
+              <h4>Contributor Access</h4>
+              <p>Agent can log game box scores, upload training drills, and add recent news coverage.</p>
+              <span class="perm-rule">✓ Upload Media & Stats</span>
+            </div>
+            <div class="perm-card" data-perm="manager">
+              <div class="perm-badge">TIER 3</div>
+              <h4>Manager Access</h4>
+              <p>Agent can manage scouting materials, communicate with club directors, and submit to trials.</p>
+              <span class="perm-rule">✓ Opportunity Submissions</span>
+            </div>
+            <div class="perm-card active" data-perm="representative">
+              <div class="perm-badge">TIER 4</div>
+              <h4>Exclusive Representative</h4>
+              <p>Full professional contract negotiation, shoe deal representation, and escrow disbursement sign-off.</p>
+              <span class="perm-rule">✓ Complete Contract Authority</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: AGENT MARKETPLACE & REPRESENTATION WORKFLOW (MODULE 3 & 7)
+         ========================================================================= -->
+    <section id="section-agents" class="platform-section">
+      <div class="section-container">
+        <div class="section-header-wrap">
+          <span class="eyebrow-accent">ACCREDITED SPORTS REPRESENTATION</span>
+          <h2 class="section-heading">CERTIFIED AGENT MARKETPLACE</h2>
+          <p class="section-subtext">Discover licensed sports agents and agencies. Review credentials, roster track records, and initiate digital representation agreements with full transparent oversight.</p>
+        </div>
+
+        <div class="agents-grid" id="agentsGrid">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- AGENT-ATHLETE PRIVATE WORKSPACE PREVIEW (MODULE 7) -->
+        <div class="workspace-preview-card">
+          <div class="workspace-header">
+            <div>
+              <span class="eyebrow-accent">PRIVATE RELATIONSHIP VAULT</span>
+              <h3>ACTIVE REPRESENTATION WORKSPACE : MARCUS VANCE x ALIYAH BLAKE</h3>
+              <p>Transparent agent-athlete collaboration hub with live contract pipeline, verified documents, and travel escrow.</p>
+            </div>
+            <span class="workspace-live-badge"><span class="pulse-beacon"></span>ACTIVE WORKSPACE</span>
+          </div>
+
+          <div class="workspace-modules-grid">
+            <div class="ws-box">
+              <span class="ws-label">ACTIVE PRO CONTRACT PIPELINE</span>
+              <ul class="ws-list">
+                <li><strong>Nike Track & Field:</strong> Pro Shoe Endorsement Term Sheet (Reviewing)</li>
+                <li><strong>Diamond League:</strong> 2027 Continental Tour Appearance Agreement (Executed)</li>
+                <li><strong>Kingston Speed Combine:</strong> Technical Sponsor Contract ($24,000 USD Escrow)</li>
+              </ul>
+            </div>
+            <div class="ws-box">
+              <span class="ws-label">DOCUMENT REPOSITORY</span>
+              <ul class="ws-list">
+                <li>📄 Standard Representation Agreement (Signed 2026-10-04)</li>
+                <li>📄 World Athletics Anti-Doping Bio-Passport Form</li>
+                <li>📄 Orthopedic Laser Knee Telemetry Report</li>
+              </ul>
+            </div>
+            <div class="ws-box">
+              <span class="ws-label">ESCROW & FINANCIAL STATUS</span>
+              <div class="ws-stat-highlight">
+                <span class="stat-number">$15,700 USD</span>
+                <span class="stat-sub">Held in Sovereign Escrow for 2027 European Tour</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: SCOUT WATCHLISTS & HEAD-TO-HEAD COMPARISON (MODULE 8)
+         ========================================================================= -->
+    <section id="section-scouting" class="platform-section">
+      <div class="section-container">
+        <div class="section-header-wrap">
+          <span class="eyebrow-accent">PRO SCOUTING WORKBENCH</span>
+          <h2 class="section-heading">SCOUT WATCHLISTS & PROSPECT COMPARISON</h2>
+          <p class="section-subtext">Manage talent watchlists, compare physical combine measurements side-by-side, and export comparative evaluation dossiers.</p>
+        </div>
+
+        <!-- Scout Lists Grid -->
+        <div class="scout-lists-grid" id="scoutListsGrid">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- HEAD-TO-HEAD COMPARISON MATRIX CONTAINER -->
+        <div class="comparison-matrix-card" id="comparisonMatrixCard">
+          <div class="comparison-header-row">
+            <div>
+              <span class="eyebrow-accent">OBJECTIVE TALENT EVALUATION</span>
+              <h3>HEAD-TO-HEAD ATHLETIC COMPARISON MATRIX</h3>
+              <p>Direct side-by-side telemetry comparison of selected prospects.</p>
+            </div>
+            <div class="compare-actions">
+              <button class="btn btn-secondary-sm" id="clearCompareBtn">Clear Queue</button>
+              <button class="btn btn-cyan-sm" id="exportScoutReportBtn">Export Scouting PDF</button>
+            </div>
+          </div>
+
+          <div class="comparison-table-wrap" id="comparisonTableWrap">
+            <!-- Dynamically populated via app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: OPPORTUNITIES & COMBINES BOARD (MODULE 12)
+         ========================================================================= -->
+    <section id="section-opportunities" class="platform-section">
+      <div class="section-container">
+        <div class="section-header-wrap">
+          <span class="eyebrow-accent">TALENT MARKETPLACE</span>
+          <h2 class="section-heading">ACTIVE TRIALS, COMBINES & PRO CONTRACTS</h2>
+          <p class="section-subtext">Verified tryouts, NCAA scholarships, and club contracts published directly by sporting organizations. Athletes and certified representatives can apply directly.</p>
+        </div>
+
+        <div class="opportunities-grid" id="opportunitiesGrid">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: ESCROW & PAYMENTS LEDGER (MODULE 9)
+         ========================================================================= -->
+    <section id="section-ledger" class="platform-section">
+      <div class="section-container">
+        <div class="section-header-wrap">
+          <span class="eyebrow-accent">COMMERCIAL INFRASTRUCTURE</span>
+          <h2 class="section-heading">SOVEREIGN ESCROW & TRANSACTION LEDGER</h2>
+          <p class="section-subtext">Audited representation retainers, scout subscriptions, combine fees, and contract disbursements.</p>
+        </div>
+
+        <!-- Ledger KPI Summary -->
+        <div class="ledger-kpis-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">TOTAL ESCROW IN REPOSITORY</span>
+            <span class="kpi-val text-cyan">$38,420.00 USD</span>
+            <span class="kpi-sub">Across 42 Active Representation Contracts</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">SETTLED IN LAST 30 DAYS</span>
+            <span class="kpi-val text-green">$19,250.00 USD</span>
+            <span class="kpi-sub">Zero Contractual Disputes Recorded</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">PLATFORM SUBSCRIPTION RUNWAY</span>
+            <span class="kpi-val text-gold">100% Sovereign</span>
+            <span class="kpi-sub">Self-Contained Local Database Architecture</span>
+          </div>
+        </div>
+
+        <div class="ledger-table-card">
+          <table class="ledger-table" id="ledgerTable">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Date</th>
+                <th>Type & Description</th>
+                <th>Payer</th>
+                <th>Payee</th>
+                <th>Amount (USD)</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ledgerTableBody">
+              <!-- Dynamically populated via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       MODALS: ATHLETE DOSSIER, DIGITAL CONTRACT SIGNER, & APPLICATION
+       ========================================================================= -->
+
+  <!-- MODAL 1: FULL ATHLETE PROFILE RESUME MODAL -->
+  <div class="platform-modal" id="athleteModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog-large">
+      <button class="modal-close-btn" id="closeAthleteModal">&times;</button>
+      <div class="modal-body" id="athleteModalBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: 4-STAGE DIGITAL REPRESENTATION AGREEMENT SIGNER -->
+  <div class="platform-modal" id="representationModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog-medium">
+      <button class="modal-close-btn" id="closeRepModal">&times;</button>
+      <div class="modal-body">
+        <div class="modal-header-block">
+          <span class="eyebrow-accent">LEGAL SOVEREIGNTY PROTOCOL</span>
+          <h3 id="repModalTitle">EXECUTE DIGITAL REPRESENTATION AGREEMENT</h3>
+          <p id="repModalSubtitle">Initiate bilateral agency representation with verified commission terms and athlete-controlled permissions.</p>
+        </div>
+
+        <div class="contract-stepper">
+          <div class="step-node active" id="stepNode1">1. Agency Review</div>
+          <div class="step-node" id="stepNode2">2. Permission Tiers</div>
+          <div class="step-node" id="stepNode3">3. Standard Terms</div>
+          <div class="step-node" id="stepNode4">4. Digital Signature</div>
+        </div>
+
+        <!-- STEP 1 CONTENT -->
+        <div class="step-pane active" id="stepPane1">
+          <div class="contract-card-preview">
+            <h4 id="repAgentName">Agent: Marcus Vance (Pinnacle Sports Global)</h4>
+            <p id="repAgentCredentials">Credentials: FIFA Licensed Agent #2024-8841 | FIBA Certified #1092</p>
+            <div class="contract-terms-box">
+              <span class="box-tag">Standard Commission Baseline</span>
+              <strong id="repCommissionRate">7.5% Gross Contract Value</strong>
+              <p>Applicable only to professional club salaries and verified corporate endorsement contracts. Zero commission on amateur educational scholarships.</p>
+            </div>
+          </div>
+          <button class="btn btn-cyan-full" id="nextToStep2">Proceed to Permission Selection &rarr;</button>
+        </div>
+
+        <!-- STEP 2 CONTENT -->
+        <div class="step-pane" id="stepPane2">
+          <h4>Select Agent Authority Level</h4>
+          <p class="step-desc">Determine what actions your representing agent is legally authorized to execute on your behalf:</p>
+          <div class="radio-selection-list">
+            <label class="radio-card">
+              <input type="radio" name="permSelection" value="manager">
+              <div class="radio-content">
+                <strong>Manager Access (Recommended for Developing Athletes)</strong>
+                <span>Agent coordinates trials, submits dossiers, and discusses opportunities. Athlete must personally counter-sign any final contracts.</span>
+              </div>
+            </label>
+            <label class="radio-card active">
+              <input type="radio" name="permSelection" value="representative" checked>
+              <div class="radio-content">
+                <strong>Exclusive Representative (Pro Athlete Standard)</strong>
+                <span>Agent represents athlete in official league negotiations, endorsement pitches, and legal filings with escrow deposit oversight.</span>
+              </div>
+            </label>
+          </div>
+          <div class="stepper-buttons-row">
+            <button class="btn btn-secondary" id="backToStep1">&larr; Back</button>
+            <button class="btn btn-cyan" id="nextToStep3">Proceed to Contract Terms &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 CONTENT -->
+        <div class="step-pane" id="stepPane3">
+          <h4>Review Standard Legal Provisions</h4>
+          <div class="legal-scroll-box">
+            <p><strong>1. APPOINTMENT & TERM:</strong> The Athlete hereby appoints the Agent as their certified sporting representative for a term of twenty-four (24) months, subject to immediate termination upon 30 days written notice for breach of fiduciary duty.</p>
+            <p><strong>2. ATHLETE SOVEREIGNTY:</strong> The Athlete retains absolute digital ownership of their sports resume, combine metrics, and biometric data on the Apex Athlete Exchange platform.</p>
+            <p><strong>3. ESCROW DISBURSEMENT:</strong> All representation fees, club signing bonuses, and endorsement retainers must be settled through the platform's multi-signature escrow protocol.</p>
+            <p><strong>4. GOVERNING LAW:</strong> This agreement is executed under international sports arbitration conventions and World Athletics / FIFA statutory codes.</p>
+          </div>
+          <div class="stepper-buttons-row">
+            <button class="btn btn-secondary" id="backToStep2">&larr; Back</button>
+            <button class="btn btn-cyan" id="nextToStep4">Proceed to Digital Signature &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 CONTENT -->
+        <div class="step-pane" id="stepPane4">
+          <h4>Execute Sovereign Digital Signature</h4>
+          <p class="step-desc">Type your full legal name below to generate an immutable cryptographic digital signature stamp:</p>
+          <div class="signature-input-group">
+            <input type="text" id="signerNameInput" class="signature-input" placeholder="e.g. Kamal Harvey" value="Kamal Harvey">
+            <div class="signature-preview-box">
+              <span class="preview-label">DIGITAL SIGNATURE STAMP:</span>
+              <div class="signature-script" id="signatureScript">Kamal Harvey</div>
+              <span class="timestamp-stamp" id="signatureTimestamp">Cryptographically Stamped : 2026-10-07 14:45 UTC</span>
+            </div>
+          </div>
+          <div class="stepper-buttons-row">
+            <button class="btn btn-secondary" id="backToStep3">&larr; Back</button>
+            <button class="btn btn-emerald" id="finalizeContractBtn">✓ Sign Agreement & Activate Workspace</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: SUBMIT DOSSIER TO OPPORTUNITY -->
+  <div class="platform-modal" id="opportunityApplyModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog-small">
+      <button class="modal-close-btn" id="closeApplyModal">&times;</button>
+      <div class="modal-body">
+        <span class="eyebrow-accent">DIRECT TRIAL APPLICATION</span>
+        <h3 id="applyOpportunityTitle">Submit Athlete Dossier</h3>
+        <p id="applyOpportunityOrg" class="apply-org-sub">Organization Name</p>
+        
+        <form id="applyDossierForm" class="dossier-form">
+          <div class="form-group">
+            <label>Selected Athlete Candidate</label>
+            <select id="applyAthleteSelect" class="form-control">
+              <!-- Populated via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Representing Agent (if applicable)</label>
+            <input type="text" id="applyAgentName" class="form-control" value="Marcus Vance (Pinnacle Sports Global)" readonly>
+          </div>
+          <div class="form-group">
+            <label>Cover Statement & Verified Metric Highlights</label>
+            <textarea id="applyNotes" class="form-control" rows="3" placeholder="Highlight why this prospect matches the club combine parameters..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-cyan-full">Submit Verified Dossier to Combine Committee</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- FOOTER -->
+  <footer class="platform-footer">
+    <div class="footer-container">
+      <div class="footer-brand-col">
+        <span class="footer-logo">APEX ATHLETE <strong>EXCHANGE</strong></span>
+        <p>The sovereign digital talent infrastructure connecting international athletes, certified sports agents, scouts, and sporting organizations through verified sports resumes and digital agreements.</p>
+        <div class="footer-badge-row">
+          <span class="f-badge">ISO 27001 Data Security</span>
+          <span class="f-badge">FIFA & FIBA Registered Standard</span>
+          <span class="f-badge">100% Sovereign Protocol</span>
+        </div>
+      </div>
+      <div class="footer-links-col">
+        <h5>Platform Infrastructure</h5>
+        <ul>
+          <li><a href="#" class="footer-nav-link" data-target="discovery">Talent Discovery Engine</a></li>
+          <li><a href="#" class="footer-nav-link" data-target="profile">Sports Résumé Standard</a></li>
+          <li><a href="#" class="footer-nav-link" data-target="agents">Agent Accreditation Portal</a></li>
+          <li><a href="#" class="footer-nav-link" data-target="scouting">Scouting Watchlists & Comparison</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h5>Sovereignty & Standards</h5>
+        <ul>
+          <li>Athlete Representation Rights</li>
+          <li>Standard Digital Agreement Templates</li>
+          <li>Combine Telemetry Verification</li>
+          <li>Sovereign Escrow & Payments</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-line">
+      <div class="footer-container bottom-flex">
+        <span>© 2026 Apex Athlete Exchange (AAX). Sovereign Sports Tech Infrastructure. All rights reserved.</span>
+        <span>Benchmarked to World Athletics, FIBA, and FIFA Professional Representation Statutes.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
