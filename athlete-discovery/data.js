@@ -17,7 +17,7 @@ window.AAX_DATA = {
   athletes: [
     {
       id: 'ath-01',
-      photo: { src: 'img/ath-01', alt: 'A basketball player dunking on an outdoor court' },
+      photo: { src: 'img/ath-01', w: 720, h: 960, pos: '45% 32%', alt: 'A basketball player dunking on an outdoor court' },
       prevRank: 1,
       gradeHistory: [94.8, 95.6, 96.9, 97.4, 98.9, 98.4],
       name: 'Shavar Montague',
@@ -65,7 +65,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-02',
-      photo: { src: 'img/ath-02', alt: 'A footballer in a red and white kit running onto the ball' },
+      photo: { src: 'img/ath-02', w: 960, h: 540, pos: '60% 45%', alt: 'A footballer in a red and white kit running onto the ball' },
       prevRank: 3,
       gradeHistory: [93.1, 94.0, 95.2, 96.8, 97.6, 97.2],
       name: 'Tariq Sterling',
@@ -111,7 +111,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-03',
-      photo: { src: 'img/ath-03', alt: 'A sprinter kneeling at the start line of a red running track' },
+      photo: { src: 'img/ath-03', w: 641, h: 960, pos: '50% 55%', alt: 'A sprinter kneeling at the start line of a red running track' },
       prevRank: 2,
       gradeHistory: [96.2, 97.0, 97.8, 98.6, 98.8, 99.5],
       name: 'Aliyah Blake',
@@ -156,7 +156,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-04',
-      photo: { src: 'img/ath-04', alt: 'Two footballers contesting the ball on a grass pitch' },
+      photo: { src: 'img/ath-04', w: 960, h: 638, pos: '45% 60%', alt: 'Two footballers contesting the ball on a grass pitch' },
       prevRank: 8,
       gradeHistory: [91.4, 91.9, 92.2, 92.0, 92.5, 92.8],
       name: 'Kofi Mensah',
@@ -200,7 +200,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-05',
-      photo: { src: 'img/ath-05', alt: 'A basketball player shooting at an outdoor hoop under trees' },
+      photo: { src: 'img/ath-05', w: 665, h: 960, pos: '72% 55%', alt: 'A basketball player shooting at an outdoor hoop under trees' },
       prevRank: 4,
       gradeHistory: [95.0, 95.8, 96.1, 97.0, 97.3, 96.4],
       name: 'Mateo Rossi',
@@ -244,7 +244,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-06',
-      photo: { src: 'img/ath-06', alt: 'A cricket match in progress, batter and wicketkeeper at the crease' },
+      photo: { src: 'img/ath-06', w: 960, h: 634, pos: '55% 50%', alt: 'A cricket match in progress, batter and wicketkeeper at the crease' },
       prevRank: 7,
       gradeHistory: [92.6, 93.4, 94.1, 94.8, 95.5, 95.9],
       name: 'Rohan Sharma',
@@ -288,7 +288,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-07',
-      photo: { src: 'img/ath-07', alt: 'A swimmer seen from underwater, mid-stroke in a pool lane' },
+      photo: { src: 'img/ath-07', w: 960, h: 720, pos: '50% 55%', alt: 'A swimmer seen from underwater, mid-stroke in a pool lane' },
       prevRank: 6,
       gradeHistory: [93.8, 94.2, 95.1, 95.4, 96.0, 96.5],
       name: 'Chloe Henderson',
@@ -332,7 +332,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-08',
-      photo: { src: 'img/ath-08', alt: 'A boxer in black gloves in a guard stance' },
+      photo: { src: 'img/ath-08', w: 640, h: 960, pos: '50% 30%', alt: 'A boxer in black gloves in a guard stance' },
       prevRank: 5,
       gradeHistory: [94.5, 95.2, 95.9, 96.4, 96.9, 97.8],
       name: 'Malik Thorne',
