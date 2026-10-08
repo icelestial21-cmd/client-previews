@@ -64,13 +64,7 @@
 }
 
 :root {
-  /* The track & field band: fine white line, regular yellow stripe, fine red line, regular yellow stripe, fine white line */
-  --track-yellow: #FFC22E;
-  --track-red: #E0185A;
-  --track-white: #FFFFFF;
-  --line-fine: 1.5px;
-
-  /* Accent tokens */
+  /* The carnival band: identical in both themes. */
   --hibiscus: #FF2E63;
   --band-sun: #FFC22E;
   --band-sea: #00C2C7;
@@ -192,31 +186,21 @@ html { scrollbar-color: var(--line-strong) var(--ground); }
 h1, h2, h3, .card-title, .opp-title, .agent-name { text-wrap: balance; }
 p { text-wrap: pretty; }
 
-/* ---------- The band (Track & Field signature) ---------- */
+/* ---------- The band (signature) ---------- */
 
 .band {
   position: absolute; z-index: 0; pointer-events: none;
-  display: grid;
-  grid-template-rows:
-    var(--line-fine, 1.5px)
-    var(--stripe, 6px)
-    var(--line-fine, 1.5px)
-    var(--stripe, 6px)
-    var(--line-fine, 1.5px);
+  display: grid; grid-template-rows: repeat(4, var(--stripe, 8px));
   transform: rotate(var(--band-angle, -3deg)); transform-origin: 50% 50%;
 }
 .band i { display: block; }
-.band i:nth-child(1) { background: var(--track-white, #FFFFFF); --n: 0; }
-.band i:nth-child(2) { background: var(--track-yellow, #FFC22E); --n: 1; }
-.band i:nth-child(3) { background: var(--track-red, #E0185A); --n: 2; }
-.band i:nth-child(4) { background: var(--track-yellow, #FFC22E); --n: 3; }
-.band i:nth-child(5) { background: var(--track-white, #FFFFFF); --n: 4; }
-/* Sweeps across once when the view opens, then rests. Staggered cascade. */
+.band i:nth-child(1) { background: var(--hibiscus); --n: 0; }
+.band i:nth-child(2) { background: var(--band-sun); --n: 1; }
+.band i:nth-child(3) { background: var(--band-sea); --n: 2; }
+.band i:nth-child(4) { background: var(--mas); --n: 3; }
+/* Sweeps across once when the view opens, then rests. */
 @keyframes band-sweep { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-.is-sweeping .band i {
-  animation: band-sweep 1.15s var(--ease-expo) both;
-  animation-delay: calc(var(--n) * 55ms + 60ms);
-}
+.is-sweeping .band i { animation: band-sweep 1.15s var(--ease-expo) both; animation-delay: calc(var(--n) * 70ms + 80ms); }
 
 /* ---------- Buttons & controls ---------- */
 
@@ -432,7 +416,7 @@ body[data-route="front"] { background: var(--night); }
   font-size: clamp(44px, 5vw, 64px); line-height: .9; letter-spacing: .005em; text-transform: uppercase;
   margin-bottom: 10px;
 }
-.view-head .band { --stripe: 4px; --line-fine: 1px; --band-angle: -1.1deg; left: 50%; bottom: 18px; width: 100vw; margin-left: -50vw; }
+.view-head .band { --stripe: 6px; --band-angle: -1.1deg; left: 50%; bottom: 18px; width: 100vw; margin-left: -50vw; }
 .view-lede { max-width: 66ch; color: var(--text-2); font-size: 17px; }
 
 .card {
@@ -477,7 +461,7 @@ body[data-route="front"] { background: var(--night); }
     linear-gradient(0deg, var(--night) 0%, rgba(11, 16, 48, 0.55) 24%, transparent 48%),
     linear-gradient(180deg, rgba(11, 16, 48, 0.85) 0%, transparent 22%);
 }
-.hero .band-hero { --stripe: 8px; --line-fine: 1.5px; --band-angle: -4.5deg; left: -6%; right: -6%; top: 58%; z-index: -1; }
+.hero .band-hero { --stripe: 15px; --band-angle: -4.5deg; left: -6%; right: -6%; top: 58%; z-index: -1; }
 
 .hero-inner {
   width: 100%; max-width: var(--max); margin: 0 auto; padding: var(--s5) var(--gutter) var(--s6);
@@ -807,7 +791,7 @@ body[data-route="front"] { background: var(--night); }
     linear-gradient(90deg, var(--night) 0%, rgba(11, 16, 48, 0.6) 28%, rgba(11, 16, 48, 0.12) 70%, transparent 100%),
     linear-gradient(0deg, var(--night) 0%, transparent 50%);
 }
-.player-header > .band { --stripe: 6px; --line-fine: 1.5px; --band-angle: -3.5deg; left: -5%; right: -5%; top: 46%; z-index: -1; }
+.player-header > .band { --stripe: 10px; --band-angle: -3.5deg; left: -5%; right: -5%; top: 46%; z-index: -1; }
 .player-header-main {
   display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 24px 40px;
   padding: 40px 36px 28px; align-items: end;
@@ -1278,7 +1262,7 @@ body[data-route="front"] { background: var(--night); }
   .hero-inner { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding-top: var(--s2); padding-bottom: var(--s3); }
   .hero-lead, .hero-athlete, .ticker { grid-column: 1; grid-row: auto; }
   .hero-athlete { padding-top: 120px; }
-  .hero .band-hero { --stripe: 6px; --line-fine: 1px; --band-angle: -7deg; top: auto; bottom: 222px; }
+  .hero .band-hero { --stripe: 9px; --band-angle: -7deg; top: auto; bottom: 222px; }
   .hero-name { font-size: clamp(54px, 15vw, 84px); margin-bottom: 12px; }
   .hero-meta { font-size: 16px; }
   .hero-score { margin-top: 16px; gap: 14px 20px; }
@@ -1354,7 +1338,7 @@ body[data-route="front"] { background: var(--night); }
   .sport-tabs::-webkit-scrollbar { display: none; }
   .sport-tab { flex-shrink: 0; }
   .player-header-main { grid-template-columns: 1fr; padding: 140px 18px 20px; }
-  .player-header > .band { top: 92px; --stripe: 5px; --line-fine: 1px; --band-angle: -6deg; }
+  .player-header > .band { top: 92px; --stripe: 7px; --band-angle: -6deg; }
   .player-side { flex-direction: column; align-items: stretch; }
   .grade-box { align-items: flex-start; text-align: left; }
   .player-actions { min-width: 0; }
@@ -1373,7 +1357,7 @@ body[data-route="front"] { background: var(--night); }
   .ladder li { grid-template-columns: 1fr; gap: 4px; }
   .terms-summary > div { grid-template-columns: 1fr; gap: 2px; }
   .home-hero-main { grid-template-columns: 1fr; padding: 150px 18px 8px; }
-  .home-hero > .band { top: 100px; --stripe: 5px; --line-fine: 1px; --band-angle: -6deg; }
+  .home-hero > .band { top: 100px; --stripe: 7px; --band-angle: -6deg; }
   .home-hero-grade { align-items: flex-start; }
   .home-hero-grade .grade-box { align-items: flex-start; }
   .home-hero-path { margin: 16px 12px 0; padding: 18px 16px 4px; }

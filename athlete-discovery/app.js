@@ -211,8 +211,8 @@
     return `<img class="${cls}" src="${src}-sm.webp" srcset="${src}-sm.webp ${sw}w, ${src}.webp ${lw}w" sizes="${sizes}" width="${lw}" height="${Math.round(lw / ratio)}" alt="${decorative ? '' : esc(a.photo.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
   }
 
-  // The band: track and field lane pattern (fine white line, yellow stripe, fine red line, yellow stripe, fine white line)
-  const BAND = '<div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>';
+  // The band: four costume colours, once per view. Decorative.
+  const BAND = '<div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i></div>';
 
   /* ---------- The athlete's path ----------
      Six stops from the board to a contract abroad. Every filled stop comes from
