@@ -11,45 +11,61 @@
    Signature motion: lane lines draw across a card or row when it is focused
    or added to the comparison; lane plates swap numbers when filters change. */
 
+/* Archivo (SIL OFL 1.1, licence in fonts/OFL.txt), self-hosted: one variable file
+   cut to the widths (62-100) and weights (400-900) this site uses and to Latin
+   characters only. */
+@font-face {
+  font-family: 'Archivo';
+  src: url('fonts/archivo-latin-var.woff2') format('woff2');
+  font-weight: 400 900;
+  font-stretch: 62% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Tartan red. White text on --red is 6.4:1; --red-ink as text is 5.6:1 on the page. */
   --red: #AD362B;
   --red-deep: #8E2B22;
-  --red-ink: #9A2E27;
-  --red-hover: #7E241D;
-  --red-wash: #F5E1DD;
+  --red-ink: #8A2A23;              /* 5.0:1 on the page ground, 5.7:1 on cards */
+  --red-hover: #6E1F19;
+  --red-wash: #EDD3CE;
   --on-red: #FFFFFF;
   --on-red-2: #F8DEDA;            /* secondary text on red: 5.0:1 */
   --on-red-line: rgba(255, 255, 255, 0.86);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.12'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -2.4 1.16'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23d)' opacity='.32'/%3E%3Crect width='160' height='160' filter='url(%23l)' opacity='.16'/%3E%3C/svg%3E");
 
-  /* Infield greys (a touch of grass in them). */
-  --page: #DFE4E0;
-  --chrome: #F2F4F2;
-  --strip: #D3DAD5;
-  --surface: #ECEFEC;
-  --surface-2: #E3E8E4;
+  /* Infield greys (a touch of grass in them). The ground is a value step darker
+     than the cards, and both are dark enough for white lane lines to read:
+     white is 1.71:1 on the page, 1.51:1 on cards, 1.64:1 on inner zones and
+     1.88:1 on the strips. The header stays pale. */
+  --page: #BFC8C2;
+  --chrome: #EEF1EE;
+  --banner: #E2E7E3;
+  --strip: #B6BFB9;
+  --surface: #CDD4CF;
+  --surface-2: #C4CCC7;
   --field: #FFFFFF;
-  --field-border: #7F8782;       /* 3.6:1 against white: inputs read as inputs */
-  --border: #C9D0CB;
+  --field-border: #6F7772;       /* 4.6:1 against white, 3.05:1 against a card */
+  --border: #A9B3AD;
   --lane: #FFFFFF;               /* lane lines */
   --text: #1A1C1B;
-  --text-2: #424745;
-  --text-3: #575D5A;
+  --text-2: #383D3B;
+  --text-3: #434946;
 
   /* Ink plate: the scout-grade tile, toasts, the footer. */
   --plate: #1C1F1E;
   --on-plate: #FFFFFF;
   --on-plate-2: #C6CCC8;
 
-  --ok: #0A6F40;
-  --ok-wash: #DCEFE3;
-  --wait: #845400;
-  --wait-wash: #F5EAD2;
-  --live: #B0281E;
-  --error-wash: #F7E0DC;
-  --info: #1A56A0;
-  --info-wash: #DDE7F3;
+  --ok: #065634;
+  --ok-wash: #D5EADD;
+  --wait: #6E4600;
+  --wait-wash: #EEDFC0;
+  --live: #96211A;
+  --error-wash: #F0D5D0;
+  --info: #164C8E;
+  --info-wash: #D3DFEE;
   --scrim: rgba(20, 23, 22, 0.62);
   --chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%231A1C1B' stroke-width='2'/%3E%3C/svg%3E");
 
@@ -81,6 +97,7 @@
   --red-wash: rgba(214, 70, 55, 0.18);
   --page: #121415;
   --chrome: #1A1D1E;
+  --banner: #222627;
   --strip: #222627;
   --surface: #1B1E1F;
   --surface-2: #232728;
@@ -113,6 +130,7 @@
     --red-wash: rgba(214, 70, 55, 0.18);
     --page: #121415;
     --chrome: #1A1D1E;
+    --banner: #222627;
     --strip: #222627;
     --surface: #1B1E1F;
     --surface-2: #232728;
@@ -320,6 +338,10 @@ input[type="range"] { width: 100%; accent-color: var(--red); margin: 10px 0 0; }
 .badge-minor { background: var(--wait-wash); color: var(--wait); }
 .badge-live { background: var(--grain), var(--red); color: #fff; }
 
+.thumb {
+  flex-shrink: 0; width: 44px; height: 44px; border-radius: 2px;
+  object-fit: cover; background: var(--surface-2);
+}
 .avatar {
   display: inline-grid; place-items: center; flex-shrink: 0;
   width: 40px; height: 40px; border-radius: 2px;
@@ -330,7 +352,7 @@ input[type="range"] { width: 100%; accent-color: var(--red); margin: 10px 0 0; }
 /* ---------- Demo banner & header (light infield chrome) ---------- */
 
 .demo-banner {
-  background: var(--strip); color: var(--text-2);
+  background: var(--banner); color: var(--text-2);
   font-size: 12.5px; text-align: center; padding: 6px var(--gutter);
 }
 
@@ -559,7 +581,7 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 }
 .spotlight-lane::before { top: 12px; }
 .spotlight-lane::after { bottom: 8px; }
-.spotlight-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.spotlight-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .spotlight-top { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 18px; align-items: end; }
 .spotlight-name {
   font-size: clamp(40px, 4.6vw, 66px); font-stretch: var(--condensed); line-height: .88; letter-spacing: -.005em;
@@ -589,7 +611,7 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
   padding: 10px 18px; border-bottom: 3px double var(--lane);
 }
 .wire-item:last-child { border-bottom: 0; }
-.wire-item .avatar { grid-row: span 2; }
+.wire-item :is(.avatar, .thumb) { grid-row: span 2; }
 .wire-name {
   border: 0; background: none; padding: 0; text-align: left;
   font-size: 16px; font-weight: 800; font-stretch: var(--narrow);
@@ -850,7 +872,7 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 .timeline li { position: relative; padding: 0 0 14px 20px; border-left: 3px double var(--field-border); margin-left: 4px; }
 .timeline li:last-child { padding-bottom: 0; }
 .timeline li::before { content: ''; position: absolute; left: -8px; top: 3px; width: 13px; height: 13px; border-radius: 1px; background: var(--grain), var(--red); }
-.timeline-when { font: var(--label); letter-spacing: var(--track); text-transform: uppercase; color: var(--red-ink); }
+.timeline-when { margin-top: 1px; font: var(--label); letter-spacing: var(--track); text-transform: uppercase; color: var(--red-ink); }
 .timeline-team { font-size: 18px; font-weight: 900; font-stretch: var(--narrow); }
 .timeline-note { font-size: 14px; color: var(--text-2); }
 
@@ -1071,6 +1093,8 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 
 /* ---------- Rank movement ---------- */
 
+.icon-inline { display: inline-block; vertical-align: -1px; flex-shrink: 0; }
+.cell-sub .icon-inline { margin: 0 2px; }
 .move { display: inline-flex; align-items: center; gap: 2px; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .move-up { color: var(--ok); }
 .move-down { color: var(--live); }
@@ -1152,13 +1176,13 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 .card-note { font-size: 13px; margin-top: var(--s1); }
 
 .mini-list { margin: 0; padding: 0; list-style: none; }
-.mini-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 18px; border-bottom: 3px double var(--lane); }
+.mini-list li { display: grid; grid-template-columns: 34px 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 18px; border-bottom: 3px double var(--lane); }
 .mini-list li:last-child { border-bottom: 0; }
 .mini-list li.muted { display: block; }
 .mini-main { min-width: 0; display: flex; flex-direction: column; }
 .mini-grade { font-size: 24px; font-weight: 900; font-stretch: var(--condensed); }
 .mini-grade .move { font-size: 11px; margin-left: 4px; }
-.mini-list li:has(.mini-action) { grid-template-columns: 40px minmax(0, 1fr) auto auto; }
+.mini-list li:has(.mini-action) { grid-template-columns: 44px minmax(0, 1fr) auto auto; }
 
 /* ---------- Breadcrumb ---------- */
 
@@ -1201,14 +1225,33 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 .story:last-child { border-bottom: 0; }
 .story-meta { font-size: 12px; color: var(--text-3); }
 .story-sport { font: var(--label); letter-spacing: var(--track); text-transform: uppercase; color: var(--red-ink); margin-right: 4px; }
-.story-head { font-size: 17px; font-weight: 700; line-height: 1.3; margin-top: 2px; }
+.story-head { font-size: 17px; font-weight: 700; line-height: 1.3; }
+.story-meta { margin-top: 3px; }
 .story-lead .story-head { font-size: 30px; font-weight: 900; font-stretch: var(--condensed); text-transform: uppercase; line-height: 1.02; }
 .story-dek { font-size: 14px; color: var(--text-2); margin-top: 4px; }
 
 .front-how { margin-top: var(--s6); }
 .how-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: var(--s2); border-left: 3px double var(--lane); }
-.how { padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 8px; border-radius: 0; border-width: 0 3px 0 0; border-style: double; border-color: var(--lane); background: transparent; }
-.how-who { font-size: 34px; font-weight: 900; font-stretch: var(--condensed); text-transform: uppercase; line-height: 1; }
+.how { padding: 0 22px 20px; display: flex; flex-direction: column; gap: 8px; border-radius: 0; border-width: 0 3px 0 0; border-style: double; border-color: var(--lane); background: transparent; }
+/* Each role is one leg of a relay: its name runs in a lane, and the next leg
+   starts with the exchange-zone marks where the baton changes hands. */
+.how-who {
+  margin: 0 -22px 8px; padding: 18px 22px 16px;
+  font-size: 32px; font-weight: 900; font-stretch: var(--condensed); text-transform: uppercase; line-height: 1; color: #fff;
+  background:
+    linear-gradient(var(--on-red-line) 0 0) 0 4px / 100% 1px no-repeat,
+    linear-gradient(var(--on-red-line) 0 0) 0 calc(100% - 4px) / 100% 1px no-repeat,
+    var(--grain), var(--red);
+}
+.how + .how .how-who {
+  padding-left: 92px;
+  background:
+    var(--zone) 0 50% / auto 100% no-repeat,
+    linear-gradient(var(--on-red-line) 0 0) 0 4px / 100% 1px no-repeat,
+    linear-gradient(var(--on-red-line) 0 0) 0 calc(100% - 4px) / 100% 1px no-repeat,
+    var(--grain), var(--red);
+}
+:root { --zone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='66' viewBox='0 0 76 66'%3E%3Cg fill='%23fff' fill-opacity='.92'%3E%3Cpath d='M12 22l12 11-12 11z'/%3E%3Cpath d='M32 22l12 11-12 11z'/%3E%3Crect x='58' y='8' width='3' height='50'/%3E%3C/g%3E%3C/svg%3E"); }
 .how-head { font-size: 17px; font-weight: 800; line-height: 1.25; color: var(--red-ink); }
 .how-text { color: var(--text-2); font-size: 14px; flex: 1; }
 .how .card-actions { margin-top: 6px; flex-wrap: wrap; }
@@ -1282,7 +1325,8 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
   .front-grid { grid-template-columns: 1fr; }
   .front-stories { grid-row: auto; }
   .how-grid { grid-template-columns: 1fr; border-left: 0; }
-  .how { border-width: 0 0 3px 0; padding-left: 0; padding-right: 0; }
+  .how { border-width: 0 0 3px 0; padding: 0 0 20px; margin-bottom: 16px; }
+  .how-who { margin: 0 0 8px; }
   .kpi-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -1320,14 +1364,21 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
   .spotlight-top .grade-box { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; text-align: left; }
   .lane-numeral { font-size: 96px; }
   .home-hero-main .lane-numeral { font-size: 84px; }
-  .spotlight-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .spotlight-stats > div { min-width: 0; margin: 0; padding: 8px 10px; }
-  .spotlight-stats > div:nth-child(3n+1) { padding-left: 0; }
-  .spotlight-stats > div:nth-child(3n), .spotlight-stats > div:last-child { border-right: 0; }
-  .spotlight-stats > div:nth-child(n+4) { border-top: 1px solid rgba(255, 255, 255, .4); }
+  /* Five stats: three across, then two wider ones, with no empty cell. */
+  .spotlight-stats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .spotlight-stats > div { grid-column: span 2; min-width: 0; margin: 0; padding: 8px 10px; }
+  .spotlight-stats > div:nth-child(n+4) { grid-column: span 3; border-top: 1px solid rgba(255, 255, 255, .4); }
+  .spotlight-stats > div:nth-child(1), .spotlight-stats > div:nth-child(4) { padding-left: 0; }
+  .spotlight-stats > div:nth-child(3), .spotlight-stats > div:nth-child(5) { border-right: 0; }
   .spotlight-stats dd { font-size: 22px; }
   .front-search { grid-template-columns: 1fr; grid-template-areas: "label" "row" "sports"; }
-  .front-search-sports { justify-self: start; }
+  /* The label and five sports fill two even rows of three. */
+  .front-search-sports { justify-self: stretch; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .front-search-sports span { align-self: center; line-height: 1.25; }
+  .front-search-sports .btn-link {
+    display: grid; place-items: center; text-align: center; text-decoration: none;
+    border: 1px solid var(--field-border); border-radius: var(--radius-sm); background: var(--field); color: var(--red-ink);
+  }
   .front-search-row { grid-template-columns: 1fr; }
   .filter-row { grid-template-columns: 1fr 1fr; }
   .field-range { grid-column: 1 / -1; }
@@ -1367,7 +1418,6 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
   .steps li { font-size: 11px; letter-spacing: 0.02em; padding: 8px 6px; }
   .nav-tab { padding: 0 14px 0 12px; }
   .chip, .sport-tab, .segmented-btn, .btn-sm { min-height: 44px; }
-  .front-search-sports .btn-link { min-height: 44px; }
   .compare-remove { width: 44px; height: 44px; }
 }
 

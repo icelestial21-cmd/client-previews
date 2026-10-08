@@ -185,12 +185,20 @@
     return `<p class="rank-line"><span>#${r.board.rank} of ${r.board.of} on the board</span><span>#${r.sport.rank} of ${r.sport.of} in ${esc(sport)}</span><span>#${r.country.rank} of ${r.country.of} from ${esc(a.country)}</span></p>`;
   }
 
+  // Small stroke icons, drawn in the site's icon style (24-unit grid, round caps).
+  const ICON = {
+    up: '<svg class="icon-inline" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20V5M5.5 11.5 12 5l6.5 6.5"/></svg>',
+    down: '<svg class="icon-inline" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v15M5.5 12.5 12 19l6.5-6.5"/></svg>',
+    same: '<svg class="icon-inline" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/></svg>',
+    to: '<svg class="icon-inline" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h15M13 6l6 6-6 6"/></svg>'
+  };
+
   // Change since last week's board (the +/- column on federation rankings and motorsport standings).
   function movement(a) {
     const diff = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
-    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week"><span aria-hidden="true">▲</span>${diff}<span class="visually-hidden"> up</span></span>`;
-    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week"><span aria-hidden="true">▼</span>${-diff}<span class="visually-hidden"> down</span></span>`;
-    return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
+    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week">${ICON.up}${diff}<span class="visually-hidden"> up</span></span>`;
+    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week">${ICON.down}${-diff}<span class="visually-hidden"> down</span></span>`;
+    return `<span class="move move-same" title="No change since last week">${ICON.same}<span class="visually-hidden">no change</span></span>`;
   }
 
   // Small inline trend line (spark-chart pattern). Decorative; callers add a text equivalent.
@@ -217,6 +225,13 @@
     if (!p) return '';
     const src = esc(p.src);
     return `<img src="${src}-sm.webp" srcset="${src}-sm.webp ${p.sw}w, ${src}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${esc(p.pos || '50% 50%')}">`;
+  }
+
+  // A small square face for lists (Trending, Top of the board). Always lazy: these sit below or beside the fold.
+  function thumb(a) {
+    const p = a.photo;
+    if (!p) return `<span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>`;
+    return `<img class="thumb" src="${esc(p.src)}-sm.webp" width="${p.sw}" height="${Math.round((p.sw * p.h) / p.w)}" alt="${esc(p.alt)}" loading="lazy" decoding="async" style="object-position:${esc(p.pos || '50% 50%')}">`;
   }
 
   // A lane-number plate: white numeral painted on tartan red. When the athlete in a lane
@@ -757,7 +772,7 @@
           <div class="card-head"><h2 class="card-title" id="h-prospects">Unsigned in your sports</h2><a href="#board" class="btn-link" data-action="find-unsigned">See all</a></div>
           <ul class="mini-list">${prospects.map((a) => `
             <li>
-              <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+              ${thumb(a)}
               <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
               <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
               <button type="button" class="btn btn-quiet btn-sm mini-action" data-action="start-agreement" data-athlete="${a.id}" data-agent="${me.id}">Offer<span class="visually-hidden"> representation to ${esc(a.name)}</span></button>
@@ -809,7 +824,7 @@
       <section class="card home-wide" aria-labelledby="h-recent">
         <div class="card-head"><h2 class="card-title" id="h-recent">Recent payments</h2><a href="#payments" class="btn-link" data-action="go" data-route="payments">Ledger</a></div>
         <div class="profile-card-body"><ul class="plain-list">${recent.map((t) => `
-          <li class="row-split"><span><strong>${esc(t.type)}</strong><span class="cell-sub">${esc(t.payer)} → ${esc(t.payee)} · ${formatDate(t.date)}</span></span><span class="num cell-strong">${money(t.amount)}</span></li>`).join('')}</ul></div>
+          <li class="row-split"><span><strong>${esc(t.type)}</strong><span class="cell-sub">${esc(t.payer)} ${ICON.to}<span class="visually-hidden">to</span> ${esc(t.payee)} · ${formatDate(t.date)}</span></span><span class="num cell-strong">${money(t.amount)}</span></li>`).join('')}</ul></div>
       </section>`;
   }
 
@@ -868,14 +883,15 @@
       .sort((x, y) => when(y) - when(x)).slice(0, 6);
     $('#storyList').innerHTML = stories.map(({ a, source, date, headline }, i) => `
       <li class="story${i === 0 ? ' story-lead' : ''}">
-        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
         <h3 class="story-head"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h3>
         ${i === 0 ? `<p class="story-dek">${esc(a.name)} · ${esc(a.position)} · scout grade ${a.grade.toFixed(1)}</p>` : ''}
+        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
       </li>`).join('');
 
     $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
       <li>
         ${rankPlate(ranks(a).board.rank, { size: 'sm' })}
+        ${thumb(a)}
         <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
         <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
       </li>`).join('');
@@ -909,15 +925,12 @@
     $('#spotlight').innerHTML = `
       <div class="spotlight-photo">${photo(a, { eager: true, sizes: '(max-width: 640px) 100vw, (max-width: 1080px) 36vw, 330px' })}</div>
       <div class="spotlight-lane">
-        <div class="spotlight-tags">
-          <span class="badge badge-live">Featured</span>
-          ${verificationBadge(a)} ${minorBadge(a)}
-        </div>
         <div class="spotlight-top">
           <p class="lane-numeral" aria-hidden="true">${r.board.rank}</p>
           <div class="spotlight-who">
             <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
             <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
+            <p class="spotlight-tags">${verificationBadge(a)} ${minorBadge(a)}</p>
           </div>
           <div class="grade-box">
             <div class="grade-figure">${a.grade.toFixed(1)}</div>
@@ -941,7 +954,7 @@
       const a = athleteById(x.athleteId);
       return `
         <li class="wire-item">
-          <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+          ${thumb(a)}
           <button type="button" class="wire-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
           <span class="wire-delta">${esc(x.delta)}</span>
           <span class="wire-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</span>
@@ -1186,9 +1199,8 @@
           <div class="player-who">
             <p class="lane-numeral" aria-hidden="true">${ranks(a).board.rank}</p>
             <div>
-            ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
-            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
+            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${a.jersey !== '—' ? `<span class="num"><span class="visually-hidden">Shirt number </span><span aria-hidden="true">#</span>${esc(a.jersey)}</span> · ` : ''}${esc(a.sport)} · ${esc(a.position)}</p>
             </div>
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
           </div>
@@ -1263,7 +1275,7 @@
             <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the levels mean</button></p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
-              <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
+              <li><div class="timeline-team">${esc(c.team)}</div><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
         </div>
         <div class="profile-col">
           ${card('p-video', 'Video', `
@@ -1285,7 +1297,7 @@
             </dl>
             <p class="muted card-note">${isMe ? 'Only you, the platform and an agent you’ve given manager access can see this.' : 'Visible because of your role or the athlete’s permission.'}</p>` : `
             <p class="locked">${lockIcon}<span>Academic records are private. ${age < 18 ? 'They are hidden for athletes under 18.' : 'The athlete shares them only with their own agent (manager access or higher).'}</span></p>`)}
-          ${card('p-news', 'In the news', `<ul class="plain-list">${a.news.map((n) => `<li><div class="news-source">${esc(n.source)} · ${esc(n.date)}</div><div class="news-head">${esc(n.headline)}</div></li>`).join('')}</ul>`)}
+          ${card('p-news', 'In the news', `<ul class="plain-list">${a.news.map((n) => `<li><div class="news-head">${esc(n.headline)}</div><div class="news-source">${esc(n.source)} · ${esc(n.date)}</div></li>`).join('')}</ul>`)}
         </div>
       </div>
 
