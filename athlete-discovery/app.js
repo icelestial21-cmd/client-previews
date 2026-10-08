@@ -94,14 +94,13 @@
   const kg = (lb) => `${Math.round(lb * 0.4536)} kg`;
   const levelMeans = (id) => (SEED.verificationLevels.find((l) => l.id === id) || {}).means || '';
   const shortHeight = (inches) => `${Math.floor(inches / 12)}-${inches % 12}`;
-  const initials = (name) => name.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
   const plural = (n, word, many = word + 's') => `${n} ${n === 1 ? word : many}`;
   const code = (a) => COUNTRY_CODES[a.country] || a.country;
   const sportShort = (sport) => (sport === 'Track & Field' ? 'Track' : sport);
   const levelIndex = (id) => LEVELS.indexOf(id);
   const levelLabel = (id) => (SEED.verificationLevels.find((l) => l.id === id) || {}).label || id;
-  // Mid-sentence form: "results verified", but keep "ID verified" capitalised.
-  const levelText = (id) => { const l = levelLabel(id); return l.startsWith('ID') ? l : l.toLowerCase(); };
+  // Mid-sentence form, quoting the stamp: “Results checked”.
+  const levelText = (id) => (id === 'none' ? 'no stamp yet' : `the “${levelLabel(id)}” stamp`);
   const normName = (s) => s.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
   const firstName = (a) => a.name.split(' ')[0];
   const signed = (n) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(1)}`;
@@ -164,8 +163,29 @@
   };
   const appStatusMarkup = (ap) => `<span class="status ${APP_STATUS[ap.status][0]}">${APP_STATUS[ap.status][1]}</span>`;
 
-  const verificationBadge = (a) => `<span class="badge badge-${a.verification}">${esc(levelLabel(a.verification))}</span>`;
-  const minorBadge = (a) => (isMinor(a) ? '<span class="badge badge-minor">Under 18</span>' : '');
+  // Verification is printed as an ink stamp on the entry. No check at all gets a pencilled "unofficial" note instead.
+  function stampFor(level, { big = false } = {}) {
+    if (level === 'none') return `<span class="pencil"><span class="visually-hidden">Checked: </span>Unofficial · not checked</span>`;
+    return `<span class="stamp stamp-${level}${big ? ' stamp-big' : ''}"><span class="visually-hidden">Checked: </span>${esc(levelLabel(level))}</span>`;
+  }
+  const verificationBadge = (a) => stampFor(a.verification);
+  const minorBadge = (a) => (isMinor(a) ? '<span class="tag tag-minor">Under 18</span>' : '');
+
+  // Stock photo standing in for a fictional athlete, printed as a halftone plate.
+  // size 'sm' for list entries (lazy), 'lg' for the profile and the featured entry.
+  function photoFor(a, { sizes = '120px', eager = false, cls = '' } = {}) {
+    const ph = a.photo;
+    if (!ph) return '';
+    return `<span class="plate ${cls}"><img src="${esc(ph.src)}-sm.webp" srcset="${esc(ph.src)}-sm.webp ${ph.smW}w, ${esc(ph.src)}.webp ${ph.w}w" sizes="${sizes}" width="${ph.w}" height="${ph.h}" alt="${esc(ph.alt)}" decoding="async"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></span>`;
+  }
+
+  // The user's own mark: a blue ballpoint ring drawn round an entry they are comparing.
+  // Only the entry just added draws itself in; every other ring is already on the page.
+  let justMarked = null;
+  function ballpoint(id) {
+    if (!S.compare.includes(id)) return '';
+    return `<svg class="ballpoint${justMarked === id ? ' is-drawing' : ''}" viewBox="0 0 120 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M70 6C40 3 10 14 6 38c-3 22 22 37 56 36 32-1 54-15 52-37C112 15 86 4 52 7c-12 1-22 5-28 10"/></svg>`;
+  }
 
   // Ranked by scout grade within three pools (recruiting-site national / position / state convention).
   function ranks(a) {
@@ -186,9 +206,10 @@
   // Change since last week's board (the +/- column on federation rankings and motorsport standings).
   function movement(a) {
     const diff = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
-    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week"><span aria-hidden="true">▲</span>${diff}<span class="visually-hidden"> up</span></span>`;
-    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week"><span aria-hidden="true">▼</span>${-diff}<span class="visually-hidden"> down</span></span>`;
-    return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
+    const tri = (d) => `<svg width="8" height="7" viewBox="0 0 8 7" aria-hidden="true" focusable="false"><path d="${d}"/></svg>`;
+    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week">${tri('M4 0 8 7H0Z')}${diff}<span class="visually-hidden"> up since last week</span></span>`;
+    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week">${tri('M0 0h8L4 7Z')}${-diff}<span class="visually-hidden"> down since last week</span></span>`;
+    return '<span class="move move-same" title="No change since last week"><svg width="8" height="7" viewBox="0 0 8 7" aria-hidden="true" focusable="false"><path d="M0 3h8v1.4H0Z"/></svg><span class="visually-hidden">no change since last week</span></span>';
   }
 
   // Small inline trend line (spark-chart pattern). Decorative; callers add a text equivalent.
@@ -271,7 +292,7 @@
     if (a.sport !== o.sport) reasons.push(`This listing is for ${o.sport.toLowerCase()}.`);
     else if (o.positions.length && !o.positions.some((p) => a.position.toLowerCase().includes(p.toLowerCase()))) reasons.push(`Open to ${o.positions.join(', ').toLowerCase()} only.`);
     if (age < o.age[0] || age > o.age[1]) reasons.push(`Ages ${o.age[0]}–${o.age[1]} only (${firstName(a)} is ${age}).`);
-    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelText(o.minVerification)} or higher (this profile is ${levelText(a.verification)}).`);
+    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelText(o.minVerification)} or higher (this profile has ${levelText(a.verification)}).`);
     if (!isOpen(o)) reasons.push('Applications have closed.');
     if (!ignoreExisting && applicationFor(a.id, o.id)) reasons.push('Already applied.');
     return reasons;
@@ -292,7 +313,7 @@
     wireTheme();
     wireControls();
     wireModals();
-    wireTicker();
+    wireFrontSearch();
     trackHeaderHeight();
     $('#navTabs').addEventListener('scroll', syncNavCue, { passive: true });
     // Esc or a click outside closes the explainer natively; put focus back where it came from.
@@ -307,7 +328,6 @@
     $('#roleSelect').value = S.role === 'athlete' ? `athlete:${ME.athlete}` : S.role;
     $$('.segmented-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === S.viewMode)));
     renderChrome();
-    renderTicker();
     renderFront();
     renderBoard();
     renderHome();
@@ -320,6 +340,7 @@
     renderLedger();
     if (current.route === 'athlete') renderProfile(current.id);
     $('#compareCount').textContent = S.compare.length;
+    justMarked = null; // a ring draws itself in once, on the render right after it was added
   }
 
   // Persist, then re-render everything that depends on representation, payments or applications.
@@ -351,11 +372,15 @@
     sync();
   }
 
+  // On wide screens the masthead scrolls away and the running header (the nav) stays pinned.
+  // --masthead-h lets the header stick with only the nav showing; --header-h keeps jump targets clear of it.
   function trackHeaderHeight() {
     const header = $('.site-header');
     const update = () => {
       const sticky = getComputedStyle(header).position === 'sticky';
-      document.documentElement.style.setProperty('--header-h', sticky ? `${header.offsetHeight}px` : '0px');
+      const masthead = $('.masthead').offsetHeight;
+      document.documentElement.style.setProperty('--masthead-h', `${masthead}px`);
+      document.documentElement.style.setProperty('--header-h', sticky ? `${header.offsetHeight - masthead}px` : '0px');
     };
     update();
     window.addEventListener('resize', update);
@@ -418,7 +443,6 @@
 
     markNav();
     $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
-    $('#ticker').hidden = route !== 'front';
 
     const hash = hashFor(current);
     if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
@@ -488,7 +512,7 @@
       go(homeRoute(), { focus: false });
     });
 
-    $('#searchInput').addEventListener('input', (e) => { filter.search = e.target.value.trim().toLowerCase(); renderBoard(); });
+    $('#searchInput').addEventListener('input', (e) => { filter.search = e.target.value.trim(); renderBoard(); });
     $$('#sportTabs .sport-tab').forEach((t) => t.addEventListener('click', () => { filter.sport = t.dataset.sport; syncFilters(); renderBoard(); }));
     [['#filterPosition', 'position'], ['#filterCountry', 'country'], ['#filterStatus', 'status'], ['#filterVerification', 'verification']].forEach(([sel, key]) => {
       $(sel).addEventListener('change', (e) => { filter[key] = e.target.value; renderBoard(); });
@@ -514,12 +538,13 @@
       switch (action) {
         case 'go': go(el.dataset.route); break;
         case 'home': go('front'); break;
+        case 'front-sport': openBoardWith({ sport: el.dataset.sport }); break;
         case 'try-role': $('#roleSelect').value = el.dataset.role; $('#roleSelect').dispatchEvent(new Event('change')); break;
         case 'back': if (history.length > 1) history.back(); else go(homeRoute()); break;
         case 'view-profile': viewProfile(id); break;
         case 'find-unsigned': go('board'); applyPreset('available'); break;
         case 'find-for-trial': go('board'); filter = { ...DEFAULT_FILTER, sport: el.dataset.sport }; syncFilters(); renderBoard(); break;
-        case 'toggle-compare': toggleCompare(id); break;
+        case 'toggle-compare': toggleCompare(id, el); break;
         case 'open-compare': openCompare(); break;
         case 'clear-compare': S.compare = []; refresh(); break;
         case 'load-list': loadWatchlist(id); break;
@@ -615,7 +640,7 @@
       steps.push(task({ tone: 'done', title: `${esc(orgById(o.orgId).name)} invited you to the ${esc(o.title.toLowerCase())}`, text: `${esc(o.location)} · ${esc(o.date)}. The club will contact you with details.` }));
     });
     if (!openForMe.length && !myApps.length) steps.push(task({ tone: 'info', title: 'No open trials match your profile yet', text: 'Each trial says what it needs. Higher verification opens more of them.', action: '<button type="button" class="btn btn-quiet btn-sm" data-action="go" data-route="trials">See all trials</button>' }));
-    if (me.verification !== 'pro') steps.push(task({ tone: 'info', title: `Your profile is ${esc(levelText(me.verification))}`, text: 'Combine-verified profiles qualify for more trials.', action: '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How verification works</button>' }));
+    if (me.verification !== 'pro') steps.push(task({ tone: 'info', title: `Your profile has ${esc(levelText(me.verification))}`, text: 'Profiles measured at a combine qualify for more trials.', action: '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How the stamps work</button>' }));
     if (isMinor(me)) steps.push(task({ tone: 'info', title: 'You’re under 18', text: 'Your parent or guardian approves each application and signs any agreement, from a link we send them. Visitors to the site can’t see your profile.' }));
 
     return `
@@ -626,23 +651,29 @@
         </div>
       </header>
       <div class="home-grid">
-        <section class="player-header home-hero" aria-label="Your board position">
+        <section class="home-hero" aria-labelledby="h-entry">
+          <h2 class="sheet-title" id="h-entry"><span>Your entry</span> <span class="sheet-title-meta">${esc(me.sport)} · ${esc(me.position)}</span></h2>
           <div class="home-hero-main">
-            <div>
-              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
+            <p class="player-place"><span class="place place-xl">${ranks(me).board.rank}</span><span class="player-place-text">Place on the board<br><span class="num">of ${ranks(me).board.of}</span> ${movement(me)}</span></p>
+            <div class="home-hero-who">
               <p class="home-hero-name">${splitName(me.name)}</p>
               <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
             </div>
+            ${photoFor(me, { sizes: '96px', cls: 'home-hero-photo' })}
             <div class="grade-box">
               <div class="grade-label">Scout grade</div>
-              <div class="grade-figure">${me.grade.toFixed(1)}</div>
+              <div class="grade-figure num">${me.grade.toFixed(1)}</div>
               <div class="grade-label">${signed(change)} in 6 months</div>
             </div>
           </div>
-          <div class="home-hero-trend">${sparkline(h, { width: 400, height: 48, fill: true })}<span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span></div>
+          <div class="home-hero-trend">
+            ${sparkline(h, { width: 400, height: 56, fill: true })}
+            <div class="trend-axis" aria-hidden="true">${SEED.gradeMonths.map((m) => `<span>${m}</span>`).join('')}</div>
+            <span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span>
+          </div>
           <div class="home-hero-foot">
             ${rankRow(me)}
-            <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">View my profile</button>
+            <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">Open my entry</button>
           </div>
         </section>
         <section class="card" aria-labelledby="h-next">
@@ -729,7 +760,7 @@
           <div class="card-head"><h2 class="card-title" id="h-prospects">Unsigned in your sports</h2><a href="#board" class="btn-link" data-action="find-unsigned">See all</a></div>
           <ul class="mini-list">${prospects.map((a) => `
             <li>
-              <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+              <span class="mini-rank num" title="Place on the board">${ranks(a).board.rank}</span>
               <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
               <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
               <button type="button" class="btn btn-quiet btn-sm mini-action" data-action="start-agreement" data-athlete="${a.id}" data-agent="${me.id}">Offer<span class="visually-hidden"> representation to ${esc(a.name)}</span></button>
@@ -765,7 +796,7 @@
             : task({ tone: 'done', title: 'Nothing waiting', text: 'Every agreement has both signatures.' })}</ul>
         </section>
         <section class="card" aria-labelledby="h-verify">
-          <div class="card-head"><h2 class="card-title" id="h-verify">Verification</h2><span class="card-meta">${total} athletes</span></div>
+          <div class="card-head"><h2 class="card-title" id="h-verify">Stamps on the board</h2><span class="card-meta">${total} athletes</span></div>
           <div class="profile-card-body"><ul>${[...LEVELS].reverse().map((l) => {
             const n = S.athletes.filter((a) => a.verification === l).length;
             return `
@@ -786,85 +817,94 @@
   }
 
   /* ==========================================================================
-     SCORES, SPOTLIGHT, TRENDING, LEADERS (prospect board only)
+     FRONT PAGE: the season's programme (same for every role; minors hidden from visitors)
      ========================================================================== */
-  // Results ticker (the sports-site score strip). The list is rendered twice so the
-  // scroll can loop seamlessly; the copy is hidden from assistive tech and the tab order.
-  function renderTicker() {
-    const items = SEED.results.filter((r) => inPool(r.athleteId));
-    const day = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    const item = (r, copy) => `
-      <li class="tick"${copy ? ' aria-hidden="true"' : ''}>
-        <a href="#athlete/${r.athleteId}" data-action="view-profile" data-id="${r.athleteId}"${copy ? ' tabindex="-1"' : ''}>
-          <span class="tick-event"><span class="tick-sport">${esc(r.sport)}</span>${esc(r.event)}</span>
-          ${r.rows.map(([name, value]) => `<span class="tick-row"><span>${esc(name)}</span><strong>${esc(value)}</strong></span>`).join('')}
-          <span class="tick-status">${esc(r.status)} · ${day(r.date)}</span>
-        </a>
-      </li>`;
-    const track = $('#tickerTrack');
-    track.innerHTML = items.map((r) => item(r, false)).join('') + items.map((r) => item(r, true)).join('');
-    // Constant reading speed (~40px a second) whatever the number of results.
-    requestAnimationFrame(() => track.style.setProperty('--ticker-duration', `${Math.max(20, Math.round(track.scrollWidth / 2 / 40))}s`));
-  }
+  const shortDay = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 
-  function wireTicker() {
-    const ticker = $('#ticker');
-    const btn = $('#tickerToggle');
-    const set = (paused) => {
-      ticker.classList.toggle('is-paused', paused);
-      btn.setAttribute('aria-pressed', String(paused));
-      btn.setAttribute('aria-label', paused ? 'Play the results ticker' : 'Pause the results ticker');
-    };
-    let paused = false;
-    try { paused = localStorage.getItem('aax-ticker') === 'paused'; } catch (e) { /* default: playing */ }
-    set(paused);
-    btn.addEventListener('click', () => {
-      const next = !ticker.classList.contains('is-paused');
-      set(next);
-      try { localStorage.setItem('aax-ticker', next ? 'paused' : 'playing'); } catch (e) { /* not persisted */ }
+  // The search on the front of the programme opens the board with the query (or a sport) already applied.
+  function wireFrontSearch() {
+    $('#frontSearch').addEventListener('submit', (e) => {
+      e.preventDefault();
+      openBoardWith({ search: $('#frontSearchInput').value.trim() });
     });
   }
 
-  /* ==========================================================================
-     FRONT PAGE (the site's home: same for every role, minors hidden from visitors)
-     ========================================================================== */
+  function openBoardWith(patch) {
+    filter = { ...DEFAULT_FILTER, ...patch };
+    syncFilters();
+    renderBoard();
+    go('board');
+  }
+
   function renderFront() {
     renderSpotlight();
+    renderResultsBrief();
     renderWire();
     renderGlance();
 
+    // Roles without the board (athletes) get their own entry instead of a search they can't use.
+    const canSearch = hasRoute('board');
+    $('#frontSearch').hidden = !canSearch;
+    $('#frontBoardLink').hidden = !canSearch;
+    const own = $('#frontOwn');
+    own.hidden = canSearch;
+    if (!canSearch && S.role === 'athlete') {
+      const me = athleteById(ME.athlete);
+      const r = ranks(me);
+      own.innerHTML = `
+        <p>You’re viewing as <strong>${esc(me.name)}</strong>, place ${r.board.rank} of ${r.board.of} on the board. Scouts, agents and clubs search the board; you keep your own entry up to date.</p>
+        <div class="card-actions">
+          <button type="button" class="btn btn-accent" data-action="go" data-route="me">Open your entry</button>
+          <button type="button" class="btn btn-secondary" data-action="go" data-route="home">Your dashboard</button>
+        </div>`;
+    } else own.innerHTML = '';
+
+    $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => {
+      const key = a.season[0];
+      const mine = S.role === 'athlete' && a.id === ME.athlete;
+      return `
+      <tr${mine ? ' class="is-mine"' : ''}>
+        <td class="col-num"><span class="place">${ranks(a).board.rank}${ballpoint(a.id)}</span></td>
+        <td>
+          <a href="#athlete/${a.id}" class="entry-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</a>${mine ? ' <span class="tag tag-you">You</span>' : ''}
+          <span class="cell-sub">${esc(a.team)} · ${code(a)}<span class="heat-sub-narrow"> · ${esc(sportShort(a.sport))} · ${esc(key.value)} ${esc(key.label)}</span></span>
+          <span class="heat-sub-narrow heat-sub-stamp">${verificationBadge(a)}</span>
+        </td>
+        <td class="heat-event">${esc(sportShort(a.sport))}<span class="cell-sub">${esc(a.position)}</span></td>
+        <td class="col-num heat-mark"><span class="mark">${esc(key.value)}</span><span class="cell-sub">${esc(key.label)}</span></td>
+        <td class="col-num"><span class="grade">${a.grade.toFixed(1)}</span>${movement(a)}</td>
+        <td class="heat-check">${verificationBadge(a)}</td>
+      </tr>`;
+    }).join('');
+
     const when = (d) => new Date(`1 ${d.date}`).getTime() || 0;
     const stories = pool().flatMap((a) => a.news.map((n) => ({ ...n, a })))
-      .sort((x, y) => when(y) - when(x)).slice(0, 6);
+      .sort((x, y) => when(y) - when(x)).slice(0, 5);
     $('#storyList').innerHTML = stories.map(({ a, source, date, headline }, i) => `
       <li class="story${i === 0 ? ' story-lead' : ''}">
-        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
-        <h3 class="story-head"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h3>
-        ${i === 0 ? `<p class="story-dek">${esc(a.name)} · ${esc(a.position)} · scout grade ${a.grade.toFixed(1)}</p>` : ''}
-      </li>`).join('');
-
-    $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
-      <li>
-        <span class="mini-rank num">${ranks(a).board.rank}</span>
-        <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
-        <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
+        <h3 class="story-head"><a href="#athlete/${a.id}" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</a></h3>
+        <p class="story-meta">${esc(source)} · ${esc(date)} · ${esc(sportShort(a.sport))}</p>
       </li>`).join('');
 
     const closing = S.opportunities.filter(isOpen).sort((x, y) => x.deadline.localeCompare(y.deadline)).slice(0, 3);
     $('#frontTrials').innerHTML = closing.map((o) => {
       const days = daysUntil(o.deadline);
-      return task({ tone: 'wait', title: esc(o.title), text: `${esc(orgById(o.orgId).name)} · ${esc(o.sport)} · closes ${formatDate(o.deadline)} (${plural(days, 'day')})` });
-    }).join('') || task({ tone: 'info', title: 'No trials open right now' });
+      return `
+      <li class="fixture">
+        <p class="fixture-date"><span class="fixture-label">Closes</span> <span class="num">${shortDay(o.deadline)}</span> <span class="fixture-left">${plural(days, 'day')} left</span></p>
+        <p class="fixture-main"><strong>${esc(o.title)}</strong><span class="cell-sub">${esc(orgById(o.orgId).name)} · ${esc(o.sport)} · ${esc(o.location)}</span></p>
+      </li>`;
+    }).join('') || '<li class="fixture fixture-empty"><p>No trials are open right now. New listings show here first.</p></li>';
 
     const how = [
-      ['Athletes', 'Get ranked, get seen, get represented.', 'Post your season stats and video, get verified at a combine, and sign with an agent who is paid only when you are. Under-18s need a parent or guardian to approve.', [['athlete:ath-01', 'Try it as an athlete']]],
+      ['Athletes', 'Get ranked, get seen, get represented.', 'Post your season’s marks and video, get measured at a combine, and sign with an agent who is paid only when you are. Under-18s need a parent or guardian to approve.', [['athlete:ath-01', 'Try it as an athlete']]],
       ['Agents', 'Find talent before anyone else does.', 'Filter the board for unsigned athletes in your sports, send agreements for e-signature, and apply to trials for your clients.', [['agent', 'Try it as an agent']]],
-      ['Scouts & clubs', 'Search by what athletes can actually do.', 'Compare measurements and verified test results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
+      ['Scouts and clubs', 'Search by what athletes can actually do.', 'Compare measurements and checked results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
     ];
     $('#howGrid').innerHTML = how.map(([who, head, text, ctas]) => `
-      <article class="card how">
-        <p class="how-who">${who}</p>
-        <h3 class="how-head">${head}</h3>
+      <article class="how">
+        <h3 class="how-who">${who}</h3>
+        <p class="how-head">${head}</p>
         <p class="how-text">${text}</p>
         <div class="card-actions">${ctas.map(([role, label]) => (role.split(':')[0] === S.role
           ? '<span class="muted how-current">You’re viewing as this role</span>'
@@ -872,37 +912,35 @@
       </article>`).join('');
   }
 
+  // The featured entry: a halftone plate with the scout grade stamped on its corner.
   function renderSpotlight() {
     const a = athleteById(SEED.featuredAthleteId);
     const r = ranks(a);
-    const stats = a.season.slice(0, 3).concat([{ label: 'Vertical', value: `${a.vertical_in}″` }, { label: 'Wingspan', value: feetIn(a.size.wingspan_in) }]);
+    const marks = a.season.slice(0, 3).concat([{ label: 'Vertical', value: `${a.vertical_in}″` }, { label: 'Wingspan', value: feetIn(a.size.wingspan_in) }]);
     $('#spotlight').innerHTML = `
-      <div class="spotlight-tags">
-        <span class="badge badge-live">Featured</span>
-        ${verificationBadge(a)} ${minorBadge(a)}
+      <h2 class="sheet-title" id="h-feature"><span>Featured entry</span></h2>
+      <div class="feature-photo">
+        ${photoFor(a, { sizes: '(max-width: 860px) 44vw, 360px', eager: true, cls: 'plate-lg' })}
+        <p class="grade-stamp"><span class="grade-stamp-label">Scout grade</span><span class="grade-stamp-figure num">${a.grade.toFixed(1)}</span><span class="grade-stamp-label">Place ${r.board.rank} of ${r.board.of}</span></p>
       </div>
-      <div>
-        <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
-        <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
-        <p class="spotlight-copy">${esc(a.summary || '')}</p>
-        <dl class="spotlight-stats">
-          ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
-        </dl>
-        <div class="spotlight-actions">
-          <button type="button" class="btn btn-accent" data-action="view-profile" data-id="${a.id}">Open profile</button>
-          ${statusMarkup(a)}
-        </div>
-      </div>
-      <div class="spotlight-side">
-        <div class="jersey" aria-hidden="true">
-          <span class="jersey-number">${a.jersey !== '—' ? esc(a.jersey) : esc(initials(a.name))}</span>
-          <span class="jersey-name">${esc(a.name.split(' ').pop())}</span>
-        </div>
-        <div class="grade-box">
-          <div class="grade-figure">${a.grade.toFixed(1)}</div>
-          <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
-        </div>
-      </div>`;
+      <h3 class="feature-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h3>
+      <p class="feature-event">${esc(a.sport)} · ${esc(a.position)}<br>${esc(a.team)} · ${esc(a.city)}, ${code(a)}</p>
+      <p class="feature-stamps">${verificationBadge(a)} ${statusMarkup(a)}</p>
+      <p class="feature-copy">${esc(a.summary || '')}</p>
+      <dl class="feature-marks">${marks.map((s) => `<div><dt>${esc(s.label)}</dt><dd class="num">${esc(s.value)}</dd></div>`).join('')}</dl>
+      <button type="button" class="btn btn-secondary" data-action="view-profile" data-id="${a.id}">Read ${esc(firstName(a))}’s entry</button>`;
+  }
+
+  // Results in brief: printed, not scrolling. Static demo data, not a live feed.
+  function renderResultsBrief() {
+    const items = SEED.results.filter((r) => inPool(r.athleteId));
+    $('#resultsBrief').innerHTML = items.map((r) => `
+      <li class="brief-item">
+        <p class="brief-head"><strong>${esc(r.sport)}.</strong> ${esc(r.event)}</p>
+        <p class="brief-line">${r.rows.map(([name, value]) => `${esc(name)} <strong class="num">${esc(value)}</strong>`).join(', ')}. ${esc(r.status)}. <span class="brief-date">${shortDay(r.date)}</span> <a href="#athlete/${r.athleteId}" class="btn-link" data-action="view-profile" data-id="${r.athleteId}">Entry<span class="visually-hidden">: ${esc(athleteById(r.athleteId).name)}</span></a></p>
+      </li>`).join('');
+    const last = SEED.results.map((r) => r.date).sort().pop();
+    $('#mastheadMeta').innerHTML = `Scouting and representation for Caribbean athletes<br>Results to ${formatDate(last)}`;
   }
 
   function renderWire() {
@@ -910,22 +948,16 @@
       const a = athleteById(x.athleteId);
       return `
         <li class="wire-item">
-          <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
-          <button type="button" class="wire-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
-          <span class="wire-delta">${esc(x.delta)}</span>
+          <a href="#athlete/${a.id}" class="wire-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</a>
+          <span class="wire-delta num">${esc(x.delta)}</span>
           <span class="wire-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</span>
         </li>`;
     }).join('');
   }
 
   function renderGlance() {
-    const cells = [
-      ['Athletes', pool().length],
-      ['Combine verified', pool().filter((a) => a.verification === 'pro').length],
-      ['Without an agent', pool().filter((a) => !openAgreementFor(a.id)).length],
-      ['Open trials', S.opportunities.filter(isOpen).length]
-    ];
-    $('#glance').innerHTML = cells.map(([k, v]) => `<div><dt>${k}</dt><dd class="num">${v}</dd></div>`).join('');
+    const p = pool();
+    $('#glance').textContent = `${plural(p.length, 'entry', 'entries')} on the board · ${p.filter((a) => a.verification === 'pro').length} measured at a combine · ${p.filter((a) => !openAgreementFor(a.id)).length} without an agent · ${plural(S.opportunities.filter(isOpen).length, 'trial')} open.`;
   }
 
   /* ==========================================================================
@@ -978,7 +1010,7 @@
     return byGrade(pool().filter((a) => {
       if (filter.search) {
         const hay = `${a.name} ${a.sport} ${a.position} ${a.country} ${code(a)} ${a.city} ${a.team} ${a.school}`.toLowerCase();
-        if (!filter.search.split(/\s+/).every((w) => hay.includes(w))) return false;
+        if (!filter.search.toLowerCase().split(/\s+/).every((w) => hay.includes(w))) return false;
       }
       if (filter.sport !== 'all' && a.sport !== filter.sport) return false;
       if (filter.position !== 'all' && !a.position.toLowerCase().includes(filter.position.toLowerCase())) return false;
@@ -1024,6 +1056,7 @@
     const table = S.viewMode === 'table';
     grid.hidden = table;
     tableWrap.hidden = !table;
+    $('#heatHead').hidden = table || !list.length;
 
     if (table) {
       $('#prospectTableBody').innerHTML = list.length ? list.map((a) => {
@@ -1031,7 +1064,7 @@
         const key = a.season[0];
         return `
           <tr>
-            <td class="col-num"><span class="board-rank">${r.board.rank}</span></td>
+            <td class="col-num"><span class="board-rank place">${r.board.rank}${ballpoint(a.id)}</span></td>
             <td>${movement(a)}</td>
             <td>
               <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
@@ -1051,28 +1084,28 @@
       return;
     }
 
-    grid.innerHTML = list.length ? list.map((a, i) => `
-      <article class="card prospect" style="--i:${i}">
-        <div class="prospect-head">
-          <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
-          <div>
-            <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
-            <p class="prospect-pos">${esc(a.position)} · ${esc(a.sport)}</p>
-            <p class="prospect-team">${esc(a.team)} · ${esc(a.country)} · age ${ageOf(a.dob)}</p>
-            <p class="prospect-badges">${verificationBadge(a)} ${minorBadge(a)}</p>
-          </div>
-          <div class="grade-tile">
-            <strong>${a.grade.toFixed(1)}</strong>
-            <button type="button" class="grade-help" data-action="explain" data-topic="grade" aria-label="Scout grade: what it means">Grade</button>
-          </div>
+    // Heat-sheet entries: place, plate, name and stamp, marks, grade; ranks in words underneath.
+    grid.innerHTML = list.length ? list.map((a) => `
+      <article class="prospect${S.compare.includes(a.id) ? ' is-compared' : ''}" aria-labelledby="pn-${a.id}">
+        <div class="prospect-place"><span class="place place-lg" title="Place on the board">${ranks(a).board.rank}${ballpoint(a.id)}</span>${movement(a)}</div>
+        ${photoFor(a, { sizes: '(max-width: 640px) 84px, 112px', cls: 'prospect-photo' })}
+        <div class="prospect-main">
+          <h3 class="prospect-name" id="pn-${a.id}"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
+          <p class="prospect-pos">${esc(a.position)} · ${esc(a.sport)}</p>
+          <p class="prospect-team">${esc(a.team)} · ${esc(a.country)} · age ${ageOf(a.dob)}</p>
+          <p class="prospect-badges">${verificationBadge(a)} ${minorBadge(a)}</p>
         </div>
-        ${rankRow(a)}
         <dl class="metric-grid metric-grid-4">
           <div><dt>Height</dt><dd>${feetIn(a.size.height_in)}</dd></div>
           <div><dt>Weight</dt><dd>${a.size.weight_lb} lb</dd></div>
           ${a.season.slice(0, 2).map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
         </dl>
+        <div class="grade-tile">
+          <strong class="num">${a.grade.toFixed(1)}</strong>
+          <button type="button" class="grade-help" data-action="explain" data-topic="grade" aria-label="Scout grade: what it means">Grade</button>
+        </div>
         <div class="prospect-foot">
+          ${rankRow(a)}
           ${statusMarkup(a)}
           <div class="prospect-actions">${compareButton(a.id)}</div>
         </div>
@@ -1137,16 +1170,23 @@
     const change = a.grade - h[0];
     const moved = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
 
+    const r = ranks(a);
     $('#profileBody').innerHTML = `
       ${crumbs}
       <header class="player-header">
-        <div class="player-header-main">
-          <div>
-            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
-            ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
-            <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
-            <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
+        <div class="player-photo">
+          ${photoFor(a, { sizes: '(max-width: 640px) 92vw, (max-width: 1080px) 40vw, 400px', eager: true, cls: 'plate-lg' })}
+          <div class="grade-stamp">
+            <button type="button" class="grade-help grade-stamp-label" data-action="explain" data-topic="grade">Scout grade</button>
+            <span class="grade-stamp-figure num">${a.grade.toFixed(1)}</span>
+            <span class="grade-stamp-label">${signed(change)} in 6 months</span>
           </div>
+        </div>
+        <div class="player-header-main">
+          <p class="player-place"><span class="place place-xl">${r.board.rank}${ballpoint(a.id)}</span><span class="player-place-text">Place on the board<br><span class="num">of ${r.board.of}</span> ${movement(a)}</span></p>
+          <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
+          <p class="player-sport">${isMe ? 'Your entry · ' : ''}${esc(a.sport)} · ${esc(a.position)}${a.jersey !== '—' ? ` · <span class="num">No. ${esc(a.jersey)}</span>` : ''}</p>
+          <div class="player-badges">${stampFor(a.verification, { big: true })} ${minorBadge(a)}</div>
           <dl class="bio-list">
             <div><dt>Height</dt><dd>${feetIn(a.size.height_in)} <span class="unit-alt">${cm(a.size.height_in)}</span></dd></div>
             <div><dt>Weight</dt><dd>${a.size.weight_lb} lb <span class="unit-alt">${kg(a.size.weight_lb)}</span></dd></div>
@@ -1155,13 +1195,7 @@
             <div><dt>Team</dt><dd>${esc(a.team)}</dd></div>
             <div><dt>Status</dt><dd>${statusMarkup(a)}</dd></div>
           </dl>
-          <div class="player-side">
-            <div class="grade-box">
-              <button type="button" class="grade-help grade-label" data-action="explain" data-topic="grade">Scout grade</button>
-              <div class="grade-figure">${a.grade.toFixed(1)}</div>
-            </div>
-            <div class="player-actions">${profileActions(a)}</div>
-          </div>
+          <div class="player-actions">${profileActions(a)}</div>
         </div>
         <div class="player-statblock">
           ${rankRow(a)}
@@ -1170,7 +1204,7 @@
 
       ${age < 18 ? `<p class="notice minor-notice">${esc(firstName(a))} is under 18. A parent or guardian must approve applications and sign any agreement. Academic records are hidden.</p>` : ''}
 
-      <nav class="profile-tabs" aria-label="Profile sections">
+      <nav class="profile-tabs" aria-label="In this entry">
         ${[['p-season', 'Season'], ['p-trend', 'Grade'], ['p-measure', 'Measurements'], ['p-tests', 'Testing'], ['p-career', 'Career'], ['p-video', 'Video'], ['p-honours', 'Honours'], ['p-school', 'Education'], ['p-news', 'News'], ['p-perms', 'Permissions']]
           .map(([t, l]) => `<button type="button" class="profile-tab" data-action="jump" data-target="${t}">${l}</button>`).join('')}
       </nav>
@@ -1215,7 +1249,7 @@
               </li>`).join('')}</ul>`}`)}
           ${card('p-tests', 'Testing', `
             <dl class="kv">${a.tests.map((t) => `<div><dt>${esc(t.label)}</dt><dd>${esc(t.value)}</dd></div>`).join('')}</dl>
-            <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the levels mean</button></p>`)}
+            <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the stamps mean</button></p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
               <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
@@ -1223,7 +1257,7 @@
         <div class="profile-col">
           ${card('p-video', 'Video', `
             <div class="player">
-              <span class="badge badge-identity player-soon">Playback coming soon</span>
+              <span class="tag player-soon">Playback coming soon</span>
               <span class="player-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
               <p class="player-title" id="playerTitle">${esc(a.video[0].title)}</p>
               <p class="player-meta num" id="playerMeta">${esc(a.video[0].tag)} · ${esc(a.video[0].duration)}</p>
@@ -1306,7 +1340,6 @@
       return `
         <article class="card agent" style="--i:${i}">
           <div class="agent-head">
-            <span class="avatar" aria-hidden="true">${esc(initials(g.name))}</span>
             <div>
               <h2 class="agent-name">${esc(g.name)}</h2>
               <p class="agent-firm">${esc(g.agency)}</p>
@@ -1321,7 +1354,7 @@
           </dl>
           <div class="agent-body">
             <p class="agent-bio">${esc(g.bio)}</p>
-            <ul class="agent-licences" aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
+            <ul class="agent-licences" aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="tag">${esc(c)}</li>`).join('')}</ul>
             <p class="agent-clients">${S.role === 'admin' ? `${plural(onExchange, 'active agreement')} on the exchange` : esc(g.clients)}</p>
             <div class="agent-contact" id="contact-${g.id}" hidden>
               <span>Email: <a href="mailto:${esc(g.contact.email)}">${esc(g.contact.email)}</a></span>
@@ -1469,7 +1502,7 @@
     $('#repTitle').textContent = a && g ? `${a.name} & ${g.name}` : 'New agreement';
     $('#repSummary').innerHTML = g ? `
       <div><strong>${esc(g.name)}</strong>, ${esc(g.agency)} · commission ${esc(g.commission)} of earnings</div>
-      <ul aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
+      <ul aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="tag">${esc(c)}</li>`).join('')}</ul>
       ${a && isMinor(a) ? `<div class="notice">${esc(a.name)} is ${ageOf(a.dob)}. A parent or guardian must also sign.</div>` : ''}
       ${a && !g.sports.includes(a.sport) ? `<div class="notice">${esc(g.name)} doesn’t list ${esc(a.sport.toLowerCase())} among their sports.</div>` : ''}` : '';
   }
@@ -1584,8 +1617,8 @@
       : needsGuardian(g) ? `We’ve sent ${g.guardian} a link at ${g.guardianContact}. The agreement starts when they sign.`
       : `It’s on ${ag.name}’s dashboard to sign. The agreement starts when they do.`;
     $('#doneBody').innerHTML = `
-      <svg class="done-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
-      <h3>${g.status === 'active' ? 'Agreement active' : 'Signed'}</h3>
+      <span class="stamp stamp-big stamp-press" aria-hidden="true">${g.status === 'active' ? 'Active' : 'Signed'}<span class="stamp-date num">${formatDate(todayISO())}</span></span>
+      <h3>${g.status === 'active' ? 'Agreement active' : 'Your signature is on it'}</h3>
       <p>${esc(next)}</p>
       <dl class="terms-summary">${termsSummary()}</dl>`;
     goToStep(5);
@@ -1676,11 +1709,18 @@
     $('#sharedLists').innerHTML = shared.map((w, i) => watchlistCard(w, i, false)).join('');
   }
 
-  function toggleCompare(id) {
+  // Adding an entry draws the ballpoint ring round its place. Everything re-renders, so focus goes
+  // back to the same control (or, after a remove in the comparison, to the comparison itself).
+  function toggleCompare(id, opener) {
     const i = S.compare.indexOf(id);
     if (i > -1) S.compare.splice(i, 1);
-    else S.compare.push(id);
+    else { S.compare.push(id); justMarked = id; }
+    const box = opener && opener.closest('[id]');
     refresh();
+    if (!box) return;
+    const again = document.querySelector(`#${box.id} [data-action="toggle-compare"][data-id="${id}"]`);
+    if (again) again.focus();
+    else if (box.closest('#comparePanel')) $('#comparePanel').focus();
   }
 
   function openCompare() {
@@ -1781,7 +1821,7 @@
           ${row('Wingspan', (a) => `<span class="${mark.wing(a)}">${feetIn(a.size.wingspan_in)}</span>`)}
           ${row('Vertical jump', (a) => `<span class="${mark.vert(a)}">${a.vertical_in}″</span>`)}
           ${row('Key stat', (a) => `<strong>${esc(a.season[0].value)}</strong> ${esc(a.season[0].label)}`)}
-          ${row('Verification', (a) => verificationBadge(a))}
+          ${row('Checked', (a) => verificationBadge(a))}
           ${row('Status', (a) => statusMarkup(a))}
         </tbody>
       </table>`;
@@ -1795,10 +1835,10 @@
     const closed = days < 0;
     return `
       <div>
-        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <h2 class="opp-title">${esc(o.title)}</h2>
         <p class="opp-org">${esc(orgById(o.orgId).name)}</p>
-        <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
+        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
+        <div class="opp-tags">${o.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
       </div>
       <dl class="kv">
         <div><dt>Where</dt><dd>${esc(o.location)}</dd></div>
@@ -1806,7 +1846,7 @@
         <div><dt>Apply by</dt><dd class="${closed ? 'deadline-past' : days <= 30 ? 'deadline-soon' : ''}">${formatDate(o.deadline)}${closed ? ' (closed)' : days <= 30 ? ` — ${plural(days, 'day')} left` : ''}</dd></div>
         <div><dt>Ages</dt><dd>${o.age[0]}–${o.age[1]}</dd></div>
         <div><dt>Standard</dt><dd>${esc(o.standard)}</dd></div>
-        <div><dt>Verification</dt><dd>${esc(levelLabel(o.minVerification))} or higher</dd></div>
+        <div><dt>Stamp needed</dt><dd>${o.minVerification === 'none' ? 'None' : `${esc(levelLabel(o.minVerification))} or higher`}</dd></div>
         <div><dt>On offer</dt><dd>${esc(o.offer)}</dd></div>
       </dl>`;
   }
@@ -1826,7 +1866,7 @@
         <div class="opp-applicants">
           <h3>Applications through the exchange</h3>
           ${apps.length ? `<div class="table-wrap"><table class="data-table applicant-table">
-            <thead><tr><th scope="col">Athlete</th><th scope="col">Position</th><th scope="col" class="col-num">Age</th><th scope="col">Verification</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Decision</span></th></tr></thead>
+            <thead><tr><th scope="col">Athlete</th><th scope="col">Position</th><th scope="col" class="col-num">Age</th><th scope="col">Checked</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Decision</span></th></tr></thead>
             <tbody>${apps.map((ap) => {
               const a = athleteById(ap.athleteId);
               return `
@@ -1863,7 +1903,7 @@
 
     const people = applicantsFor().filter(Boolean);
     const copy = {
-      athlete: ['Trials & scholarships', 'Listings you can apply to come first. Each is checked against your sport, age, verification and the deadline.'],
+      athlete: ['Trials & scholarships', 'Listings you can apply to come first. Each is checked against your sport, age, stamp and the deadline.'],
       agent: ['Trials & scholarships', 'Apply for your clients. Each listing shows which of them qualify.'],
       scout: ['Trials & combines', 'Where to see prospects in person, and which athletes on the board qualify for each.'],
       visitor: ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges. Each one lists exactly who can apply.']
@@ -1891,7 +1931,7 @@
         // The verdict leads the card: it is the first thing an athlete needs to know.
         if (!ap) {
           const verifyBlocked = levelIndex(me.verification) < levelIndex(o.minVerification);
-          verdict = `<div class="opp-verdict fit ${reasons.length ? 'fit-no' : 'fit-yes'}"><p>${reasons.length ? `<strong>Not open to you yet.</strong> ${esc(reasons.join(' '))}` : `<strong>You can apply.</strong> You meet every requirement${isMinor(me) ? '; your parent or guardian approves it first' : ''}.`}</p>${verifyBlocked ? '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How to get verified</button>' : ''}</div>`;
+          verdict = `<div class="opp-verdict fit ${reasons.length ? 'fit-no' : 'fit-yes'}"><p>${reasons.length ? `<strong>Not open to you yet.</strong> ${esc(reasons.join(' '))}` : `<strong>You can apply.</strong> You meet every requirement${isMinor(me) ? '; your parent or guardian approves it first' : ''}.`}</p>${verifyBlocked ? '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How to get checked</button>' : ''}</div>`;
         }
       } else if (S.role === 'agent') {
         const ready = people.filter((c) => eligibility(c, o).length === 0);
@@ -2080,21 +2120,21 @@
 
   function ladder() {
     return `<ol class="ladder">${[...SEED.verificationLevels].reverse().map((l) => `
-      <li><span class="badge badge-${l.id}">${esc(l.label)}</span><span>${esc(l.means)}</span></li>`).join('')}</ol>`;
+      <li><span class="ladder-mark">${stampFor(l.id)}</span><span>${esc(l.means)}</span></li>`).join('')}</ol>`;
   }
 
   function explain(topic, opener) {
     const panel = $('#explain');
     const body = {
       grade: ['Scout grade', `
-        <p>A score out of 100 that sets the order of the board: the higher the grade, the higher the athlete ranks. It weighs measurements, test results and recent performances.</p>
-        <p>A grade is only as reliable as the data behind it, so every grade sits next to the athlete’s verification level. Compare a self-reported 96 with care against a combine-verified 95.</p>
+        <p>A score out of 100 that sets the order of the board: the higher the grade, the higher the athlete’s place. It weighs measurements, test results and recent performances.</p>
+        <p>A grade is only as reliable as the figures behind it, so every grade sits next to the athlete’s stamp. Read a 96 with no stamp with care next to a 95 measured at a combine.</p>
         <p class="muted">In this demo, every grade is a fictional sample figure.</p>
-        <h3 class="explain-sub">Verification levels</h3>${ladder()}`],
-      verification: ['How verification works', `
-        <p>Every athlete shows how much of their profile has been checked. Higher levels qualify for more trials, and scouts trust them more.</p>
+        <h3 class="explain-sub">The stamps</h3>${ladder()}`],
+      verification: ['How the stamps work', `
+        <p>Every entry carries a stamp that says how much of it has been checked. Higher stamps qualify for more trials, and scouts trust them more. An entry nobody has checked carries a pencilled “unofficial” note instead.</p>
         ${ladder()}
-        <p class="muted">Combine verification is done in person at partner combines. Trials list the level they need.</p>`]
+        <p class="muted">Combine measurements are taken in person at partner combines. Each trial lists the stamp it needs.</p>`]
     }[topic];
     if (!body) return;
     $('#explainTitle').textContent = body[0];
