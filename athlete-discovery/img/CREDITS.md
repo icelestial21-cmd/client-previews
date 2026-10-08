@@ -20,5 +20,7 @@ identifiable face. Each WebP also carries its source URL in its metadata.
 
 `ath-XX-ht.webp`, `ath-XX-ht-sm.webp` and `ath-XX-ht-th.webp` are printed versions made in code from
 the colour originals above: an amplitude-modulated halftone (round dots on a 45° screen, dot area
-set by tone, per-photo tone correction so the athlete reads), two colours, lossless WebP. The
-`-th` file is a 112px square thumbnail. Each file's `.json` sidecar records exactly how it was made.
+set by tone, per-photo tone correction so the athlete reads), two colours, lossless WebP. The 960 and
+440 prints share one screen ruling: a dot cell is about 4.2 CSS px when a print fills a board card.
+The `-th` file is a 176px square thumbnail, tightly cropped on the athlete, with a finer screen so
+the athlete reads at 44 CSS px. Each file's `.json` sidecar records exactly how it was made.

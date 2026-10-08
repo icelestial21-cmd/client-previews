@@ -185,7 +185,7 @@
   }
 
   // Small printed thumbnail for lists (a square crop around the athlete).
-  const athleteThumb = (a) => (a.photo ? `<img class="thumb" src="${esc(a.photo.src)}-ht-th.webp" width="112" height="112" alt="${esc(a.photo.alt)}" loading="lazy" decoding="async">` : '');
+  const athleteThumb = (a) => (a.photo ? `<img class="thumb" src="${esc(a.photo.src)}-ht-th.webp" width="176" height="176" alt="${esc(a.photo.alt)}" loading="lazy" decoding="async">` : '');
 
   // Load the colour originals for an entry the first time it is hovered or keyboard-focused.
   function warmPhotos(e) {
@@ -367,15 +367,21 @@
     renderLedger();
     if (current.route === 'athlete') renderProfile(current.id);
     $('#compareCount').textContent = S.compare.length;
-    oneSpotRed();
+    checkSpotRed();
   }
 
-  // One spot red per view: the first visible red action stays the primary;
-  // any later one in the same view is printed in ink instead.
-  function oneSpotRed() {
-    $$('main .view').forEach((v) => {
-      $$('.btn-accent', v).filter((b) => !b.closest('[hidden]')).slice(1)
-        .forEach((b) => b.classList.replace('btn-accent', 'btn-secondary'));
+  // One spot red per view. Each template chooses its own red primary (the BTN.primary
+  // class below); this is only a development check that warns when the visible view or
+  // an open dialog shows more than one. It never changes the page.
+  const BTN = { primary: 'btn btn-accent', ink: 'btn btn-secondary' };
+  const DEV = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+  function checkSpotRed() {
+    if (!DEV) return;
+    requestAnimationFrame(() => {
+      const scope = document.querySelector('.modal:not([hidden]) .modal-dialog') || document.querySelector('main .view.is-active');
+      if (!scope) return;
+      const reds = $$('.btn-accent, .btn-danger', scope).filter((b) => b.offsetParent !== null);
+      if (reds.length > 1) console.warn(`Spot red: ${reds.length} red primaries in ${scope.id || scope.closest('[id]').id}:`, reds.map((b) => b.textContent.trim()));
     });
   }
 
@@ -476,6 +482,7 @@
     markNav();
     $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
     $('#ticker').hidden = route !== 'front';
+    checkSpotRed();
 
     const hash = hashFor(current);
     if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
@@ -745,9 +752,9 @@
     const prospects = byGrade(S.athletes.filter((a) => !openAgreementFor(a.id) && me.sports.includes(a.sport))).slice(0, 4);
 
     const attention = [
-      ...toSign.map((g) => {
+      ...toSign.map((g, i) => {
         const a = athleteById(g.athleteId);
-        return task({ title: `Sign the agreement with ${esc(a.name)}`, text: `${esc(a.name)}${g.guardianSigned ? ' and their guardian have' : ' has'} signed. Your signature makes it active.`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` });
+        return task({ title: `Sign the agreement with ${esc(a.name)}`, text: `${esc(a.name)}${g.guardianSigned ? ' and their guardian have' : ' has'} signed. Your signature makes it active.`, action: `<button type="button" class="${i === 0 ? BTN.primary : BTN.ink} btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` });
       }),
       ...waiting.map((g) => {
         const a = athleteById(g.athleteId);
@@ -1125,7 +1132,7 @@
 
     grid.innerHTML = list.length ? list.map((a, i) => `
       <article class="card prospect${S.compare.includes(a.id) ? ' is-circled' : ''}" style="--i:${i}">
-        ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 320px', cls: 'prospect-photo' })}
+        ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 290px', cls: 'prospect-photo' })}
         <div class="prospect-head">
           <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}${penCircle(a.id)}</span>${movement(a)}</div>
           <div>
@@ -1166,10 +1173,11 @@
     else if (S.role === 'agent') parts.push(`<button type="button" class="btn btn-accent" data-action="start-agreement" data-athlete="${a.id}" data-agent="${ME.agent}">Offer representation</button>`);
 
     if (S.role === 'organization') {
+      let invites = 0;
       S.opportunities.filter((o) => o.orgId === ME.organization).forEach((o) => {
         const ap = applicationFor(a.id, o.id);
         if (ap) parts.push(`<p class="player-represented">${esc(o.title)}: ${APP_STATUS[ap.status][1].toLowerCase()}</p>`);
-        else if (!eligibility(a, o).length) parts.push(`<button type="button" class="btn btn-accent" data-action="invite" data-athlete="${a.id}" data-opp="${o.id}">Invite to ${esc(o.title.toLowerCase())}</button>`);
+        else if (!eligibility(a, o).length) parts.push(`<button type="button" class="${invites++ === 0 ? BTN.primary : BTN.ink}" data-action="invite" data-athlete="${a.id}" data-opp="${o.id}">Invite to ${esc(o.title.toLowerCase())}</button>`);
         else if (a.sport === o.sport) parts.push(`<p class="player-represented">Not eligible for your ${esc(o.title.toLowerCase())}: ${esc(eligibility(a, o).join(' '))}</p>`);
       });
     }
@@ -1214,7 +1222,7 @@
       ${crumbs}
       <header class="player-header">
         <div class="player-header-main">
-          ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 200px', eager: true, cls: 'player-photo' })}
+          ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 230px', eager: true, cls: 'player-photo' })}
           <div class="player-id">
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
             <p class="player-sport">${esc(a.sport)} · ${esc(a.position)}${a.jersey !== '—' ? ` · <span class="num">No. ${esc(a.jersey)}</span>` : ''}${isMe ? ' · your profile' : ''}</p>
@@ -1342,7 +1350,7 @@
         showToast(`Agent permission set to ${PERMISSION_LABELS[input.value][0].toLowerCase()}.`, 'success');
       }));
     }
-    oneSpotRed();
+    checkSpotRed();
   }
 
   function selectClip(i) {
@@ -1431,7 +1439,7 @@
     return '<span class="status status-info">Waiting for the agent to sign</span>';
   }
 
-  function agreementCard(g, level = 2) {
+  function agreementCard(g, level = 2, primary = true) {
     const a = athleteById(g.athleteId);
     const ag = agentById(g.agentId);
     const h = `h${level}`;
@@ -1465,14 +1473,16 @@
           <ul class="plain-list">${g.documents.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
         </div>
       </div>
-      ${canSign ? `<div class="agreement-foot"><button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted">${S.role === 'athlete' && g.guardianRequired ? 'Your parent or guardian signs after you.' : 'Your signature makes the agreement active.'}</span></div>` : ''}`;
+      ${canSign ? `<div class="agreement-foot"><button type="button" class="${primary ? BTN.primary : BTN.ink} btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted">${S.role === 'athlete' && g.guardianRequired ? 'Your parent or guardian signs after you.' : 'Your signature makes the agreement active.'}</span></div>` : ''}`;
   }
 
   // Pending first: those are the ones somebody needs to act on.
   const pendingFirst = (list) => [...list].sort((x, y) => (x.status === y.status ? 0 : x.status === 'pending' ? -1 : 1));
 
   function renderAgreementList(el, list, emptyHtml) {
-    el.innerHTML = list.length ? pendingFirst(list).map((g) => `<article class="card agreement-wrap">${agreementCard(g)}</article>`).join('') : emptyHtml;
+    let reds = 0;
+    const mineToSign = (g) => g.status === 'pending' && ((S.role === 'agent' && g.agentId === ME.agent && !g.agentSigned) || (S.role === 'athlete' && g.athleteId === ME.athlete && !g.athleteSigned));
+    el.innerHTML = list.length ? pendingFirst(list).map((g) => `<article class="card agreement-wrap">${agreementCard(g, 2, mineToSign(g) && reds++ === 0)}</article>`).join('') : emptyHtml;
   }
 
   function renderClients() {
@@ -1956,6 +1966,8 @@
     });
 
     const intro = S.role === 'visitor' ? visitorNote('Athletes apply here, and agents apply for their clients. Try the demo to see how.', [['athlete:ath-01', 'Try it as an athlete'], ['agent', 'Try it as an agent']]) : '';
+    let reds = 0;
+    const applyClass = () => (reds++ === 0 ? BTN.primary : BTN.ink);
     list.innerHTML = intro + sorted.map((o, i) => {
       let side = '';
       let foot = '';
@@ -1964,7 +1976,7 @@
         const ap = applicationFor(me.id, o.id);
         const reasons = eligibility(me, o, { ignoreExisting: true });
         if (ap) side = `${appStatusMarkup(ap)}<span class="cell-sub">${ap.via === 'club' ? 'Invited' : 'Sent'} ${formatDate(ap.date)}</span>`;
-        else if (!reasons.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply</button>`;
+        else if (!reasons.length) side = `<button type="button" class="${applyClass()}" data-action="apply" data-id="${o.id}">Apply</button>`;
         // The verdict leads the card: it is the first thing an athlete needs to know.
         if (!ap) {
           const verifyBlocked = levelIndex(me.verification) < levelIndex(o.minVerification);
@@ -1973,7 +1985,7 @@
       } else if (S.role === 'agent') {
         const ready = people.filter((c) => eligibility(c, o).length === 0);
         const sent = S.applications.filter((ap) => ap.oppId === o.id && people.some((c) => c.id === ap.athleteId));
-        if (ready.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply for a client</button>`;
+        if (ready.length) side = `<button type="button" class="${applyClass()}" data-action="apply" data-id="${o.id}">Apply for a client</button>`;
         foot = `<p class="fit ${ready.length ? 'fit-yes' : 'fit-no'}">${ready.length ? `Clients who qualify: ${ready.map((c) => esc(c.name)).join(', ')}.` : people.length ? 'None of your clients qualify.' : 'You don’t represent anyone yet.'}</p>
           ${sent.length ? `<ul class="plain-list">${sent.map((ap) => `<li class="row-split"><span>${esc(athleteById(ap.athleteId).name)} · ${formatDate(ap.date)}</span>${appStatusMarkup(ap)}</li>`).join('')}</ul>` : ''}`;
       } else if (S.role === 'visitor') {

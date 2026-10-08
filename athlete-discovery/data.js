@@ -332,7 +332,7 @@ window.AAX_DATA = {
     },
     {
       id: 'ath-08',
-      photo: { src: 'img/ath-08', w: 640, h: 960, pos: '50% 30%', alt: 'A boxer in black gloves in a guard stance' },
+      photo: { src: 'img/ath-08', w: 640, h: 960, pos: '50% 42%', alt: 'A boxer in black gloves in a guard stance' },
       prevRank: 5,
       gradeHistory: [94.5, 95.2, 95.9, 96.4, 96.9, 97.8],
       name: 'Malik Thorne',

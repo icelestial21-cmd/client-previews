@@ -650,7 +650,7 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 
 .player-header { background: var(--paper); color: var(--text); border: 1px solid var(--rule); border-top: 6px solid var(--rule); }
 .player-header-main {
-  display: grid; grid-template-columns: 190px minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 20px 32px;
+  display: grid; grid-template-columns: 230px minmax(0, 1.3fr) minmax(0, 1fr) auto; gap: 20px 32px;
   padding: 24px 28px; align-items: end;
 }
 .player-photo { aspect-ratio: 4 / 5; align-self: stretch; border: 1px solid var(--rule); }
@@ -1171,7 +1171,7 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
 @media (max-width: 1180px) {
   .filter-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .perm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .player-header-main { grid-template-columns: 170px minmax(0, 1fr) minmax(0, 1fr); }
+  .player-header-main { grid-template-columns: 210px minmax(0, 1fr) minmax(0, 1fr); }
   .player-side { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; }
   .player-actions { flex-direction: row; flex-wrap: wrap; min-width: 0; }
 }
