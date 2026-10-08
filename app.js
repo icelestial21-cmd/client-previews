@@ -326,27 +326,6 @@
     });
   }
 
-  // --- DEPARTAMENT Man Sizing Telemetry ---
-  const depSizeTelemetry = document.getElementById('depSizeTelemetry');
-  const depPostalCalcBtn = document.getElementById('depPostalCalcBtn');
-
-  document.querySelectorAll('[data-dep-size]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-dep-size]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const chest = btn.getAttribute('data-chest');
-      const sh = btn.getAttribute('data-sh');
-      if (depSizeTelemetry) {
-        depSizeTelemetry.textContent = `Chest: ${chest} • Shoulder: ${sh}`;
-      }
-    });
-  });
-
-  if (depPostalCalcBtn) {
-    depPostalCalcBtn.addEventListener('click', () => {
-      showToast('Express Air Dispatch: 35 AZN (Tracked courier delivery within 3 to 5 business days).', '&#9992;');
-    });
-  }
 
   // --- Chibest Worldwide Anthropometric Studio ---
   const chibestIntakeBtn = document.getElementById('chibestIntakeBtn');
@@ -512,16 +491,30 @@
     },
     {
       type: 'flagship',
-      title: 'DEPARTAMENT Man',
-      desc: 'Outerwear and shearling aviators with model telemetry and sizing matrix.',
-      tag: 'Baku Outerwear',
+      title: 'Chibest Fashion Worldwide',
+      desc: 'Imperial Nigerian couture with anthropometric computer vision scan.',
+      tag: 'Lagos Royal',
       action: () => document.getElementById('flagships').scrollIntoView({ behavior: 'smooth' })
     },
     {
       type: 'flagship',
-      title: 'Chibest Fashion Worldwide',
-      desc: 'Imperial Nigerian couture with anthropometric computer vision scan.',
-      tag: 'Lagos Royal',
+      title: 'Apex Athlete Exchange (AAX)',
+      desc: 'Global athletic scouting platform with combine laser telemetry.',
+      tag: 'Kingston & Miami',
+      action: () => document.getElementById('flagships').scrollIntoView({ behavior: 'smooth' })
+    },
+    {
+      type: 'flagship',
+      title: 'Caribbean Sports Quest (CSQ)',
+      desc: 'Regional sports media network, live tournament scores, and ticketing analytics.',
+      tag: 'West Indies',
+      action: () => document.getElementById('flagships').scrollIntoView({ behavior: 'smooth' })
+    },
+    {
+      type: 'flagship',
+      title: 'Atelier Veylora',
+      desc: 'Haute couture and 22-Momme Mulberry silk evening wear flagship.',
+      tag: 'Parisian Silk',
       action: () => document.getElementById('flagships').scrollIntoView({ behavior: 'smooth' })
     },
     {

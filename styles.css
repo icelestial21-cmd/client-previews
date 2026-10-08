@@ -321,7 +321,7 @@ section {
 }
 
 /* ==========================================================================
-   HERO SECTION (LIVING SOVEREIGN CANVAS)
+   HERO SECTION (LIVING DYNAMIC CANVAS)
    ========================================================================== */
 .hero-section {
   position: relative;
@@ -667,7 +667,7 @@ section {
 
 .case-card {
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
+  grid-template-columns: 1.25fr 1fr;
   background: rgba(27, 14, 51, 0.82);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -676,6 +676,7 @@ section {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  align-items: stretch;
 }
 
 .case-card:hover {
@@ -684,7 +685,7 @@ section {
 }
 
 .case-card.reverse {
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: 1fr 1.25fr;
 }
 
 .case-card.reverse .case-media {
@@ -698,27 +699,128 @@ section {
 .case-media {
   position: relative;
   overflow: hidden;
-  min-height: 480px;
-  background: #0A0514;
+  padding: 2.25rem 2rem;
+  background: radial-gradient(circle at 50% 50%, rgba(37, 20, 69, 0.7), rgba(12, 6, 25, 0.95));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
 }
 
-.case-media img {
+/* Authentic Desktop Browser Mockup Frame */
+.browser-mockup {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0D071A;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.case-card:hover .browser-mockup {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(255, 122, 0, 0.5);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 122, 0, 0.2);
+}
+
+.browser-chrome {
+  height: 38px;
+  background: #190E30;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.75rem;
+}
+
+.browser-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-close { background: #FF5F56; }
+.dot-min { background: #FFBD2E; }
+.dot-expand { background: #27C93F; }
+
+.browser-address-bar {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-secondary);
+  gap: 0.45rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.browser-ssl-lock {
+  font-size: 0.65rem;
+  color: var(--accent-emerald, #34D399);
+}
+
+.browser-url {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.browser-external-link {
+  color: var(--ink-tertiary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.browser-external-link:hover {
+  color: var(--accent-orange);
+  transform: translateY(-1px);
+}
+
+.browser-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #000000;
+}
+
+.browser-viewport img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: top center;
+  display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.case-card:hover .case-media img {
-  transform: scale(1.03);
+.case-card:hover .browser-viewport img {
+  transform: scale(1.02);
 }
 
 .case-badge-floating {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 2;
+  align-self: flex-start;
+  margin-bottom: 1rem;
   background: rgba(17, 9, 34, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -726,9 +828,12 @@ section {
   border: 1px solid var(--border-light);
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  padding: 0.4rem 0.9rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 999px;
   letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .case-content {
@@ -1686,7 +1791,8 @@ section {
     grid-template-columns: 1fr;
   }
   .case-media {
-    min-height: 360px;
+    padding: 1.5rem 1.25rem 0.5rem;
+    min-height: auto;
   }
   .case-card.reverse .case-content {
     order: 2;
