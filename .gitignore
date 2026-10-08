@@ -1,0 +1,4 @@
+
+# Impeccable: keep critique history, not local live-mode state
+.impeccable/live/
+.impeccable/config.local.json

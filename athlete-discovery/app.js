@@ -8,7 +8,7 @@
   'use strict';
 
   const SEED = window.AAX_DATA;
-  const STORE_KEY = 'aax-demo-v3';
+  const STORE_KEY = 'aax-demo-v4';
   const LEVELS = SEED.verificationLevels.map((l) => l.id);
   const PERMISSIONS = ['viewer', 'contributor', 'manager', 'representative'];
   const PERMISSION_LABELS = {
@@ -38,7 +38,7 @@
 
   function freshState() {
     return {
-      version: 3,
+      version: 4,
       role: 'visitor',
       actingAthleteId: 'ath-01',
       viewMode: 'grid',
@@ -50,6 +50,7 @@
       transactions: clone(SEED.transactions),
       agreements: clone(SEED.agreements),
       applications: clone(SEED.applications),
+      guardians: {},
       counters: { agreement: 2, application: 2, watchlist: 5 }
     };
   }
@@ -57,7 +58,7 @@
   function loadState() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-      if (saved && saved.version === 3) return Object.assign(freshState(), saved);
+      if (saved && saved.version === 4) return Object.assign(freshState(), saved);
     } catch (e) { /* storage unavailable or corrupt: start fresh */ }
     return freshState();
   }
@@ -88,6 +89,10 @@
   const todayISO = () => new Date().toISOString().slice(0, 10);
   const formatDate = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
   const feetIn = (inches) => `${Math.floor(inches / 12)}′${inches % 12}″`;
+  // Metric alongside imperial: the exchange sells to UK and European clubs as well as US colleges.
+  const cm = (inches) => `${Math.round(inches * 2.54)} cm`;
+  const kg = (lb) => `${Math.round(lb * 0.4536)} kg`;
+  const levelMeans = (id) => (SEED.verificationLevels.find((l) => l.id === id) || {}).means || '';
   const shortHeight = (inches) => `${Math.floor(inches / 12)}-${inches % 12}`;
   const initials = (name) => name.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
   const plural = (n, word, many = word + 's') => `${n} ${n === 1 ? word : many}`;
@@ -95,6 +100,8 @@
   const sportShort = (sport) => (sport === 'Track & Field' ? 'Track' : sport);
   const levelIndex = (id) => LEVELS.indexOf(id);
   const levelLabel = (id) => (SEED.verificationLevels.find((l) => l.id === id) || {}).label || id;
+  // Mid-sentence form: "results verified", but keep "ID verified" capitalised.
+  const levelText = (id) => { const l = levelLabel(id); return l.startsWith('ID') ? l : l.toLowerCase(); };
   const normName = (s) => s.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
   const firstName = (a) => a.name.split(' ')[0];
   const signed = (n) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(1)}`;
@@ -150,6 +157,7 @@
   }
 
   const APP_STATUS = {
+    guardian: ['status-wait', 'Waiting for guardian'],
     submitted: ['status-info', 'Submitted'],
     invited: ['status-ok', 'Invited'],
     declined: ['status-neutral', 'Not selected']
@@ -171,12 +179,8 @@
 
   function rankRow(a) {
     const r = ranks(a);
-    const cell = (label, p, title) => `<div title="${esc(title)}"><dt>${label}</dt><dd class="num">${p.rank}<span>/${p.of}</span></dd></div>`;
-    return `<dl class="rank-row">
-      ${cell('Board', r.board, 'Rank among all athletes on the board, by scout grade')}
-      ${cell(esc(sportShort(a.sport)), r.sport, `Rank among ${a.sport} athletes`)}
-      ${cell(code(a), r.country, `Rank among athletes from ${a.country}`)}
-    </dl>`;
+    const sport = a.sport === 'Track & Field' ? 'track & field' : a.sport.toLowerCase();
+    return `<p class="rank-line"><span>#${r.board.rank} of ${r.board.of} on the board</span><span>#${r.sport.rank} of ${r.sport.of} in ${esc(sport)}</span><span>#${r.country.rank} of ${r.country.of} from ${esc(a.country)}</span></p>`;
   }
 
   // Change since last week's board (the +/- column on federation rankings and motorsport standings).
@@ -210,9 +214,9 @@
     return `<span class="name-first">${esc(parts.join(' '))}</span> <span class="name-last">${esc(last)}</span>`;
   }
 
-  // Where an athlete stands among everyone on the board for a measurable.
+  // Where an athlete stands for a measurable among others in the same sport.
   function standing(getter, a) {
-    const values = pool().map(getter);
+    const values = pool().filter((x) => x.sport === a.sport).map(getter);
     const value = getter(a);
     const min = Math.min(...values);
     const max = Math.max(...values);
@@ -235,11 +239,20 @@
   }
 
   function visibleTransactions() {
-    if (S.role === 'admin') return S.transactions;
-    if (S.role === 'athlete') return S.transactions.filter((t) => t.athleteId === ME.athlete);
-    if (S.role === 'agent') return S.transactions.filter((t) => t.agentId === ME.agent);
-    if (S.role === 'organization') return S.transactions.filter((t) => t.orgId === ME.organization);
+    const newestFirst = (list) => [...list].sort((x, y) => y.date.localeCompare(x.date));
+    if (S.role === 'admin') return newestFirst(S.transactions);
+    if (S.role === 'athlete') return newestFirst(S.transactions.filter((t) => t.athleteId === ME.athlete));
+    if (S.role === 'agent') return newestFirst(S.transactions.filter((t) => t.agentId === ME.agent));
+    if (S.role === 'organization') return newestFirst(S.transactions.filter((t) => t.orgId === ME.organization));
     return [];
+  }
+
+  // The name this role appears under in the ledger, so each row can say money in or money out.
+  function ledgerParty() {
+    if (S.role === 'athlete') return athleteById(ME.athlete).name;
+    if (S.role === 'agent') return agentById(ME.agent).agency;
+    if (S.role === 'organization') return orgById(ME.organization).name;
+    return null;
   }
 
   /* ==========================================================================
@@ -258,7 +271,7 @@
     if (a.sport !== o.sport) reasons.push(`This listing is for ${o.sport.toLowerCase()}.`);
     else if (o.positions.length && !o.positions.some((p) => a.position.toLowerCase().includes(p.toLowerCase()))) reasons.push(`Open to ${o.positions.join(', ').toLowerCase()} only.`);
     if (age < o.age[0] || age > o.age[1]) reasons.push(`Ages ${o.age[0]}–${o.age[1]} only (${firstName(a)} is ${age}).`);
-    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelLabel(o.minVerification).toLowerCase()} (profile is ${levelLabel(a.verification).toLowerCase()}).`);
+    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelText(o.minVerification)} or higher (this profile is ${levelText(a.verification)}).`);
     if (!isOpen(o)) reasons.push('Applications have closed.');
     if (!ignoreExisting && applicationFor(a.id, o.id)) reasons.push('Already applied.');
     return reasons;
@@ -281,6 +294,10 @@
     wireModals();
     wireTicker();
     trackHeaderHeight();
+    $('#navTabs').addEventListener('scroll', syncNavCue, { passive: true });
+    // Esc or a click outside closes the explainer natively; put focus back where it came from.
+    $('#explain').addEventListener('toggle', (e) => { if (e.newState === 'closed' && explainOpener && document.contains(explainOpener)) explainOpener.focus(); });
+    window.addEventListener('resize', syncNavCue);
     renderAll();
     go(parseHash(), { push: false, focus: false });
     window.addEventListener('popstate', () => go(parseHash(), { push: false }));
@@ -292,7 +309,6 @@
     renderChrome();
     renderTicker();
     renderFront();
-    renderLeaders();
     renderBoard();
     renderHome();
     renderAgents();
@@ -369,9 +385,21 @@
   function markNav() {
     const key = navKeyFor(current);
     $$('#navTabs .nav-tab').forEach((t) => {
-      if (t.dataset.route === key) t.setAttribute('aria-current', 'page');
-      else t.removeAttribute('aria-current');
+      if (t.dataset.route === key) {
+        t.setAttribute('aria-current', 'page');
+        const strip = $('#navTabs');
+        if (strip.scrollWidth > strip.clientWidth) strip.scrollLeft = Math.max(0, t.offsetLeft - 16);
+      } else t.removeAttribute('aria-current');
     });
+    syncNavCue();
+  }
+
+  // On narrow screens the tabs scroll sideways; fade the edge that has more tabs behind it.
+  function syncNavCue() {
+    const strip = $('#navTabs');
+    const more = strip.scrollWidth - strip.clientWidth - strip.scrollLeft > 4;
+    strip.classList.toggle('has-more', more);
+    strip.classList.toggle('has-before', strip.scrollLeft > 4);
   }
 
   function go(target, { push = true, focus = true } = {}) {
@@ -390,7 +418,7 @@
 
     markNav();
     $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
-    $('#ticker').hidden = route !== 'front' && route !== 'board';
+    $('#ticker').hidden = route !== 'front';
 
     const hash = hashFor(current);
     if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
@@ -501,6 +529,11 @@
         case 'export-csv': exportCsv(); break;
         case 'start-agreement': openAgreement({ athleteId: el.dataset.athlete, agentId: el.dataset.agent }, el); break;
         case 'countersign': openCountersign(id, el); break;
+        case 'guardian-sign': openGuardianSign(id, el); break;
+        case 'guardian-approve': openGuardianApprove(id, el); break;
+        case 'explain': explain(el.dataset.topic, el); break;
+        case 'close-explain': closeExplain(); break;
+        case 'toggle-filters': toggleFilters(); break;
         case 'toggle-contact': toggleContact(el); break;
         case 'apply': openApply(id, el); break;
         case 'invite': inviteToTrial(el.dataset.athlete, el.dataset.opp); break;
@@ -567,18 +600,23 @@
 
     const steps = [];
     if (!g) steps.push(task({ title: 'Find an agent', text: 'Agents are paid a share of what you earn — never an upfront fee.', action: '<button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="agents">Browse agents</button>' }));
-    else if (g.status === 'pending' && !g.athleteSigned) steps.push(task({ title: `Sign your agreement with ${esc(agent.name)}`, text: `${esc(agent.name)} has signed. Your signature makes it active.${isMinor(me) ? ' A parent or guardian signs with you.' : ''}`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` }));
+    else if (g.status === 'pending' && !g.athleteSigned) steps.push(task({ title: `Sign your agreement with ${esc(agent.name)}`, text: `${esc(agent.name)} has signed. ${isMinor(me) ? 'After you sign, we send your parent or guardian a link to sign too.' : 'Your signature makes it active.'}`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` }));
+    else if (g.status === 'pending' && needsGuardian(g)) steps.push(task({ tone: 'wait', title: `Waiting for ${esc(g.guardian)} to sign`, text: `We sent them a link at ${esc(g.guardianContact)}. The agreement starts when they sign.`, action: `<button type="button" class="btn btn-quiet btn-sm" data-action="guardian-sign" data-id="${g.id}">Open their link (demo)</button>` }));
     else if (g.status === 'pending') steps.push(task({ tone: 'wait', title: `Waiting for ${esc(agent.name)} to sign`, text: 'You’ve signed. Nothing to do until the agent signs.' }));
     else steps.push(task({ tone: 'done', title: `Represented by ${esc(agent.name)}`, text: `${esc(agent.agency)} · ${esc(PERMISSION_LABELS[g.authority][0])}` }));
 
+    myApps.filter((ap) => ap.status === 'guardian').forEach((ap) => {
+      const o = oppById(ap.oppId);
+      steps.push(task({ tone: 'wait', title: `Waiting for ${esc(ap.guardian)} to approve your application`, text: `${esc(o.title)}. It goes to ${esc(orgById(o.orgId).name)} once they approve.`, action: `<button type="button" class="btn btn-quiet btn-sm" data-action="guardian-approve" data-id="${ap.id}">Open their link (demo)</button>` }));
+    });
     openForMe.forEach((o) => steps.push(task({ title: `Apply: ${esc(o.title)}`, text: `${esc(orgById(o.orgId).name)} · closes ${formatDate(o.deadline)}`, action: `<button type="button" class="btn btn-quiet btn-sm" data-action="apply" data-id="${o.id}">Apply</button>` })));
     myApps.filter((ap) => ap.status === 'invited').forEach((ap) => {
       const o = oppById(ap.oppId);
       steps.push(task({ tone: 'done', title: `${esc(orgById(o.orgId).name)} invited you to the ${esc(o.title.toLowerCase())}`, text: `${esc(o.location)} · ${esc(o.date)}. The club will contact you with details.` }));
     });
-    if (!openForMe.length && !myApps.length) steps.push(task({ tone: 'info', title: 'No open trials match your profile yet', text: 'Listings show up here when your sport, age and verification level match.' }));
-    if (me.verification !== 'pro') steps.push(task({ tone: 'info', title: `Your profile is ${esc(levelLabel(me.verification).toLowerCase())}`, text: 'Combine-verified profiles qualify for more trials. Verification is done in person at partner combines.' }));
-    if (isMinor(me)) steps.push(task({ tone: 'info', title: 'You’re under 18', text: 'A parent or guardian approves your applications and signs any agreement.' }));
+    if (!openForMe.length && !myApps.length) steps.push(task({ tone: 'info', title: 'No open trials match your profile yet', text: 'Each trial says what it needs. Higher verification opens more of them.', action: '<button type="button" class="btn btn-quiet btn-sm" data-action="go" data-route="trials">See all trials</button>' }));
+    if (me.verification !== 'pro') steps.push(task({ tone: 'info', title: `Your profile is ${esc(levelText(me.verification))}`, text: 'Combine-verified profiles qualify for more trials.', action: '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How verification works</button>' }));
+    if (isMinor(me)) steps.push(task({ tone: 'info', title: 'You’re under 18', text: 'Your parent or guardian approves each application and signs any agreement, from a link we send them. Visitors to the site can’t see your profile.' }));
 
     return `
       <header class="view-head">
@@ -640,6 +678,7 @@
     const clients = myClients();
     const toSign = mine.filter((g) => g.status === 'pending' && !g.agentSigned);
     const waiting = mine.filter((g) => g.status === 'pending' && g.agentSigned);
+    const pendingApps = S.applications.filter((ap) => ap.status === 'guardian');
     const apps = S.applications.filter((ap) => clients.some((c) => c.id === ap.athleteId));
     const commission = S.transactions.filter((t) => t.agentId === me.id && t.status === 'settled').reduce((s, t) => s + t.amount, 0);
     const prospects = byGrade(S.athletes.filter((a) => !openAgreementFor(a.id) && me.sports.includes(a.sport))).slice(0, 4);
@@ -647,11 +686,16 @@
     const attention = [
       ...toSign.map((g) => {
         const a = athleteById(g.athleteId);
-        return task({ title: `Sign the agreement with ${esc(a.name)}`, text: `${esc(a.name)}${g.guardian ? ' and a guardian have' : ' has'} signed. Your signature makes it active.`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` });
+        return task({ title: `Sign the agreement with ${esc(a.name)}`, text: `${esc(a.name)}${g.guardianSigned ? ' and their guardian have' : ' has'} signed. Your signature makes it active.`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` });
       }),
       ...waiting.map((g) => {
         const a = athleteById(g.athleteId);
-        return task({ tone: 'wait', title: `Waiting for ${esc(a.name)} to sign`, text: isMinor(a) ? 'Under 18 — a parent or guardian signs too.' : 'You’ve signed and sent it.' });
+        if (needsGuardian(g)) return task({ tone: 'wait', title: `Waiting for ${esc(a.name)}’s parent or guardian to sign`, text: `${esc(a.name)} has signed. The agreement starts when ${esc(g.guardian)} signs.` });
+        return task({ tone: 'wait', title: `Waiting for ${esc(a.name)} to sign`, text: isMinor(a) ? 'Under 18: a parent or guardian signs after them.' : 'You’ve signed and sent it.' });
+      }),
+      ...pendingApps.filter((ap) => clients.some((c) => c.id === ap.athleteId)).map((ap) => {
+        const a = athleteById(ap.athleteId);
+        return task({ tone: 'wait', title: `${esc(a.name)}’s application is waiting for guardian approval`, text: `${esc(oppById(ap.oppId).title)}. It goes to the club once ${esc(ap.guardian)} approves.` });
       }),
       ...apps.filter((ap) => ap.status === 'invited').map((ap) => {
         const o = oppById(ap.oppId);
@@ -688,6 +732,7 @@
               <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
               <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
               <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
+              <button type="button" class="btn btn-quiet btn-sm mini-action" data-action="start-agreement" data-athlete="${a.id}" data-agent="${me.id}">Offer<span class="visually-hidden"> representation to ${esc(a.name)}</span></button>
             </li>`).join('') || '<li class="muted">Everyone in your sports has an agent.</li>'}</ul>
         </section>
       </div>`;
@@ -873,27 +918,6 @@
     }).join('');
   }
 
-  function renderLeaders() {
-    const cats = [
-      ['Scout grade', (a) => a.grade, (a) => a.grade.toFixed(1)],
-      ['Vertical jump', (a) => a.vertical_in, (a) => `${a.vertical_in}″`],
-      ['Wingspan', (a) => a.size.wingspan_in, (a) => feetIn(a.size.wingspan_in)],
-      ['Height', (a) => a.size.height_in, (a) => feetIn(a.size.height_in)]
-    ];
-    $('#leadersGrid').innerHTML = cats.map(([title, get, show]) => {
-      const top = [...pool()].sort((x, y) => get(y) - get(x)).slice(0, 3);
-      return `
-        <div class="leaders-cat">
-          <h3>${title}</h3>
-          <ol>${top.map((a) => `
-            <li class="leader">
-              <button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
-              <span class="leader-value">${show(a)}</span>
-            </li>`).join('')}</ol>
-        </div>`;
-    }).join('');
-  }
-
   function renderGlance() {
     const cells = [
       ['Athletes', pool().length],
@@ -907,6 +931,23 @@
   /* ==========================================================================
      PROSPECT BOARD
      ========================================================================== */
+  function activeFilterCount() {
+    return ['position', 'country', 'status', 'verification', 'minHeight'].filter((k) => filter[k] !== DEFAULT_FILTER[k]).length;
+  }
+
+  function toggleFilters(open) {
+    const box = $('.filters');
+    const next = typeof open === 'boolean' ? open : !box.classList.contains('is-open');
+    box.classList.toggle('is-open', next);
+    $('#filterToggle').setAttribute('aria-expanded', String(next));
+  }
+
+  function syncFilterCount() {
+    const n = activeFilterCount();
+    $('#filterCount').textContent = n;
+    $('#filterCount').hidden = !n;
+  }
+
   function syncFilters() {
     $('#searchInput').value = filter.search;
     $('#filterPosition').value = filter.position;
@@ -933,6 +974,7 @@
   }
 
   function filteredAthletes() {
+    syncFilterCount();
     return byGrade(pool().filter((a) => {
       if (filter.search) {
         const hay = `${a.name} ${a.sport} ${a.position} ${a.country} ${code(a)} ${a.city} ${a.team} ${a.school}`.toLowerCase();
@@ -967,11 +1009,14 @@
     const list = filteredAthletes();
     $('#resultCount').textContent = list.length;
     $('#resultNoun').textContent = list.length === 1 ? 'athlete' : 'athletes';
+    const hint = filter.search
+      ? `Nothing on the board matches “${esc(filter.search)}”. Check the spelling, or search by sport, position, team or country.`
+      : 'No one meets every filter at once. Loosen one, such as the minimum height or the verification level.';
     const empty = `
       <div class="empty">
-        <h3>No athletes match</h3>
-        <p>Try a lower minimum height or a different sport.</p>
-        <button type="button" class="btn btn-secondary btn-sm" data-action="reset-filters">Clear filters</button>
+        <h2>No athletes match</h2>
+        <p>${hint}</p>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="reset-filters">Clear search and filters</button>
       </div>`;
 
     const grid = $('#prospectGrid');
@@ -997,11 +1042,12 @@
             <td class="cell-nowrap">${shortHeight(a.size.height_in)} / ${a.size.weight_lb}</td>
             <td class="cell-nowrap"><span class="cell-strong">${esc(key.value)}</span> <span class="cell-unit">${esc(key.label)}</span></td>
             <td class="col-num"><span class="board-grade">${a.grade.toFixed(1)}</span></td>
+            <td>${verificationBadge(a)}</td>
             <td class="col-num">${r.sport.rank} <span class="cell-unit">·</span> ${r.country.rank}</td>
             <td>${statusMarkup(a)}</td>
             <td><div class="cell-actions">${compareButton(a.id)}</div></td>
           </tr>`;
-      }).join('') : `<tr><td colspan="11">${empty}</td></tr>`;
+      }).join('') : `<tr><td colspan="12">${empty}</td></tr>`;
       return;
     }
 
@@ -1010,21 +1056,21 @@
         <div class="prospect-head">
           <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
           <div>
-            <p class="prospect-meta"><strong>${code(a)}</strong> · ${esc(a.sport)} · Age ${ageOf(a.dob)} ${verificationBadge(a)} ${minorBadge(a)}</p>
             <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
-            <p class="prospect-pos">${esc(a.position)}</p>
-            <p class="prospect-team">${esc(a.team)}</p>
+            <p class="prospect-pos">${esc(a.position)} · ${esc(a.sport)}</p>
+            <p class="prospect-team">${esc(a.team)} · ${esc(a.country)} · age ${ageOf(a.dob)}</p>
+            <p class="prospect-badges">${verificationBadge(a)} ${minorBadge(a)}</p>
           </div>
-          <div class="grade-tile"><strong>${a.grade.toFixed(1)}</strong><span>Grade</span>${sparkline(a.gradeHistory, { width: 44, height: 14, area: false })}<span class="visually-hidden">Six-month change ${signed(a.grade - a.gradeHistory[0])}</span></div>
+          <div class="grade-tile">
+            <strong>${a.grade.toFixed(1)}</strong>
+            <button type="button" class="grade-help" data-action="explain" data-topic="grade" aria-label="Scout grade: what it means">Grade</button>
+          </div>
         </div>
         ${rankRow(a)}
-        <dl class="metric-grid">
+        <dl class="metric-grid metric-grid-4">
           <div><dt>Height</dt><dd>${feetIn(a.size.height_in)}</dd></div>
           <div><dt>Weight</dt><dd>${a.size.weight_lb} lb</dd></div>
-          <div><dt>Wingspan</dt><dd>${feetIn(a.size.wingspan_in)}</dd></div>
-        </dl>
-        <dl class="metric-grid alt">
-          ${a.season.slice(0, 3).map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
+          ${a.season.slice(0, 2).map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
         </dl>
         <div class="prospect-foot">
           ${statusMarkup(a)}
@@ -1079,12 +1125,8 @@
       ['Wingspan', feetIn(a.size.wingspan_in), standing((x) => x.size.wingspan_in, a)],
       ['Vertical jump', `${a.vertical_in}″`, standing((x) => x.vertical_in, a)]
     ];
-    const verifyNote = {
-      pro: 'measured at a partner combine.',
-      athletic: 'results checked against official meet or match records.',
-      identity: 'identity checked; results are self-reported.',
-      none: 'nothing checked yet.'
-    }[a.verification];
+    const sportPeers = pool().filter((x) => x.sport === a.sport).length;
+    const sportName = a.sport === 'Track & Field' ? 'track & field' : a.sport.toLowerCase();
     const lockIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
     const card = (hid, title, body) => `
       <section class="card profile-card" aria-labelledby="${hid}">
@@ -1106,7 +1148,8 @@
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
           </div>
           <dl class="bio-list">
-            <div><dt>Ht / Wt</dt><dd>${feetIn(a.size.height_in)}, ${a.size.weight_lb} lb</dd></div>
+            <div><dt>Height</dt><dd>${feetIn(a.size.height_in)} <span class="unit-alt">${cm(a.size.height_in)}</span></dd></div>
+            <div><dt>Weight</dt><dd>${a.size.weight_lb} lb <span class="unit-alt">${kg(a.size.weight_lb)}</span></dd></div>
             <div><dt>Age</dt><dd>${age}</dd></div>
             <div><dt>From</dt><dd>${esc(a.city)}, ${esc(a.country)}</dd></div>
             <div><dt>Team</dt><dd>${esc(a.team)}</dd></div>
@@ -1114,15 +1157,13 @@
           </dl>
           <div class="player-side">
             <div class="grade-box">
-              <div class="grade-label">Scout grade</div>
+              <button type="button" class="grade-help grade-label" data-action="explain" data-topic="grade">Scout grade</button>
               <div class="grade-figure">${a.grade.toFixed(1)}</div>
             </div>
             <div class="player-actions">${profileActions(a)}</div>
           </div>
         </div>
         <div class="player-statblock">
-          <p class="player-statblock-title">This season</p>
-          <dl>${a.season.slice(0, 4).map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl>
           ${rankRow(a)}
         </div>
       </header>
@@ -1162,18 +1203,19 @@
               <div><dt>Dominant hand</dt><dd>${esc(a.size.hand)}</dd></div>
               <div><dt>Dominant foot</dt><dd>${esc(a.size.foot)}</dd></div>
             </dl>
-            <h3 class="label" style="margin:16px 0 4px">Against the board</h3>
-            <p class="muted" style="font-size:13px">Rank among all ${pool().length} athletes, across sports.</p>
+            <h3 class="label standing-title">Against other ${esc(sportName)} athletes</h3>
+            ${sportPeers < 2 ? `<p class="muted card-note">${esc(firstName(a))} is the only ${esc(sportName)} athlete on the board so far, so there is no one to compare with yet.</p>` : `
+            <p class="muted card-note">Rank among the ${sportPeers} ${esc(sportName)} athletes on the board.</p>
             <ul>${standings.map(([label, value, s]) => `
               <li class="standing">
                 <span class="standing-label">${label}</span>
                 <span class="standing-value num">${value}</span>
                 <span class="standing-rank num">${s.rank} of ${s.of}</span>
                 <span class="standing-bar" aria-hidden="true"><span style="width:${Math.max(4, s.pct)}%"></span></span>
-              </li>`).join('')}</ul>`)}
+              </li>`).join('')}</ul>`}`)}
           ${card('p-tests', 'Testing', `
             <dl class="kv">${a.tests.map((t) => `<div><dt>${esc(t.label)}</dt><dd>${esc(t.value)}</dd></div>`).join('')}</dl>
-            <p class="muted card-note">${esc(levelLabel(a.verification))}: ${verifyNote}</p>`)}
+            <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the levels mean</button></p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
               <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
@@ -1210,14 +1252,14 @@
           </div>
         </div>
         <div class="profile-card-body">
-          <fieldset class="perm-grid" id="permList">
+          ${isMe ? `<fieldset class="perm-grid" id="permList">
             <legend class="visually-hidden">Permission level</legend>
             ${PERMISSIONS.map((p) => `
               <label class="option">
-                <input type="radio" name="perm" value="${p}" ${a.permission === p ? 'checked' : ''} ${isMe ? '' : 'disabled'}>
+                <input type="radio" name="perm" value="${p}" ${a.permission === p ? 'checked' : ''}>
                 <span><strong>${PERMISSION_LABELS[p][0]}</strong><span>${PERMISSION_LABELS[p][1]}</span></span>
               </label>`).join('')}
-          </fieldset>
+          </fieldset>` : `<p class="perm-current"><strong>${PERMISSION_LABELS[a.permission][0]}.</strong> ${PERMISSION_LABELS[a.permission][1]}</p>`}
         </div>
       </section>`;
 
@@ -1246,9 +1288,12 @@
     const me = S.role === 'athlete' ? athleteById(ME.athlete) : null;
     const myOpen = me && openAgreementFor(me.id);
     $('#agentsLede').textContent = me
-      ? 'Agents are paid a share of what you earn — never an upfront fee. Pick one and start an agreement; it becomes active when you both sign.'
-      : 'Agents working with athletes on the exchange. Licences are checked when an agent signs up.';
-    $('#agentBanner').innerHTML = myOpen ? `<article class="card agreement-wrap"><p class="kicker">Your agreement</p>${agreementCard(myOpen)}</article>` : '';
+      ? 'Agents are paid a share of what you earn, never an upfront fee. Pick one and start an agreement; it becomes active when everyone has signed.'
+      : 'Agents working with athletes on the exchange. They are paid a share of what an athlete earns, never an upfront fee.';
+    let banner = '';
+    if (myOpen) banner = `<h2 class="section-title">Your agreement</h2><article class="card agreement-wrap">${agreementCard(myOpen, 3)}</article>`;
+    else if (S.role === 'visitor') banner = visitorNote('To start an agreement with an agent, try the demo as an athlete.', [['athlete:ath-01', 'Try it as an athlete']]);
+    $('#agentBanner').innerHTML = banner;
 
     $('#agentList').innerHTML = SEED.agents.map((g, i) => {
       let action = '';
@@ -1267,7 +1312,7 @@
               <p class="agent-firm">${esc(g.agency)}</p>
               <p class="agent-where">${esc(g.city)} · ${esc(g.sports.join(', '))}</p>
             </div>
-            <div class="agent-rating"><strong class="num">${g.rating.toFixed(2)}</strong><span>${g.reviews} reviews</span></div>
+            <div class="agent-rating"><strong class="num">${g.rating.toFixed(1)}</strong><span>rating from ${g.reviews} athletes</span></div>
           </div>
           <dl class="metric-grid alt">
             <div><dt>Athletes</dt><dd>${g.athletes}</dd></div>
@@ -1276,7 +1321,7 @@
           </dl>
           <div class="agent-body">
             <p class="agent-bio">${esc(g.bio)}</p>
-            <ul class="agent-licences" aria-label="Credentials">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
+            <ul class="agent-licences" aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
             <p class="agent-clients">${S.role === 'admin' ? `${plural(onExchange, 'active agreement')} on the exchange` : esc(g.clients)}</p>
             <div class="agent-contact" id="contact-${g.id}" hidden>
               <span>Email: <a href="mailto:${esc(g.contact.email)}">${esc(g.contact.email)}</a></span>
@@ -1291,6 +1336,11 @@
     }).join('');
   }
 
+  // A short prompt for signed-out visitors on pages where the real action needs a role.
+  function visitorNote(text, roles) {
+    return `<div class="visitor-note"><p>${esc(text)}</p><div class="card-actions">${roles.map(([role, label]) => `<button type="button" class="btn btn-secondary btn-sm" data-action="try-role" data-role="${role}">${esc(label)}</button>`).join('')}</div></div>`;
+  }
+
   function toggleContact(btn) {
     const panel = document.getElementById(btn.getAttribute('aria-controls'));
     const open = btn.getAttribute('aria-expanded') !== 'true';
@@ -1299,44 +1349,51 @@
     btn.textContent = open ? 'Hide contact details' : 'Show contact details';
   }
 
+  // Under-18 agreements need the guardian's signature as well; it comes from a link sent to them.
+  const needsGuardian = (g) => !!g.guardianRequired && !!g.athleteSigned && !g.guardianSigned;
+
   function agreementStatusText(g) {
     if (g.status === 'active') return '<span class="status status-ok">Active</span>';
-    if (!g.agentSigned) return '<span class="status status-info">Waiting for the agent to sign</span>';
-    return '<span class="status status-info">Waiting for the athlete to sign</span>';
+    if (!g.athleteSigned) return '<span class="status status-info">Waiting for the athlete to sign</span>';
+    if (needsGuardian(g)) return '<span class="status status-info">Waiting for a parent or guardian to sign</span>';
+    return '<span class="status status-info">Waiting for the agent to sign</span>';
   }
 
-  function agreementCard(g) {
+  function agreementCard(g, level = 2) {
     const a = athleteById(g.athleteId);
     const ag = agentById(g.agentId);
+    const h = `h${level}`;
+    const sub = `h${level + 1}`;
     const canSign = g.status === 'pending' && (
       (S.role === 'agent' && g.agentId === ME.agent && !g.agentSigned) ||
       (S.role === 'athlete' && g.athleteId === ME.athlete && !g.athleteSigned));
     const dealStatus = { signed: '<span class="status status-ok">Signed</span>', held: '<span class="status status-wait">In escrow</span>', review: '<span class="status status-info">In review</span>' };
     return `
       <div class="agreement-head">
-        <h3 class="agreement-parties"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button> &amp; ${esc(ag.name)}</h3>
+        <${h} class="agreement-parties"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button> &amp; ${esc(ag.name)}</${h}>
         ${agreementStatusText(g)}
       </div>
       <div class="agreement-body">
         <div>
-          <h4>Terms</h4>
+          <${sub}>Terms</${sub}>
           <dl class="kv">
             <div><dt>Authority</dt><dd>${esc(PERMISSION_LABELS[g.authority][0])}</dd></div>
             <div><dt>Commission</dt><dd>${esc(g.commission)} of earnings</dd></div>
-            <div><dt>Athlete signed</dt><dd>${g.athleteSigned ? formatDate(g.athleteSigned) : '—'}${g.guardian ? ` (guardian: ${esc(g.guardian)})` : ''}</dd></div>
-            <div><dt>Agent signed</dt><dd>${g.agentSigned ? formatDate(g.agentSigned) : '—'}</dd></div>
+            <div><dt>Athlete signed</dt><dd>${g.athleteSigned ? formatDate(g.athleteSigned) : 'Not yet'}</dd></div>
+            ${g.guardianRequired ? `<div><dt>Guardian signed</dt><dd>${g.guardianSigned ? `${formatDate(g.guardianSigned)} (${esc(g.guardian)})` : g.guardian ? `Not yet. Link sent to ${esc(g.guardianContact)}` : 'Not yet'}</dd></div>` : ''}
+            <div><dt>Agent signed</dt><dd>${g.agentSigned ? formatDate(g.agentSigned) : 'Not yet'}</dd></div>
           </dl>
         </div>
         <div>
-          <h4>Deals</h4>
-          ${g.deals.length ? `<ul class="plain-list">${g.deals.map((d) => `<li><strong>${esc(d.name)}</strong> — ${esc(d.detail)} ${dealStatus[d.status] || ''}</li>`).join('')}</ul>` : '<p class="muted">No deals yet.</p>'}
+          <${sub}>Deals</${sub}>
+          ${g.deals.length ? `<ul class="plain-list">${g.deals.map((d) => `<li><strong>${esc(d.name)}</strong>: ${esc(d.detail)} ${dealStatus[d.status] || ''}</li>`).join('')}</ul>` : '<p class="muted">No deals yet.</p>'}
         </div>
         <div>
-          <h4>Documents</h4>
+          <${sub}>Documents</${sub}>
           <ul class="plain-list">${g.documents.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
         </div>
       </div>
-      ${canSign ? `<div class="agreement-foot"><button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted">Your signature makes the agreement active.</span></div>` : ''}`;
+      ${canSign ? `<div class="agreement-foot"><button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted">${S.role === 'athlete' && g.guardianRequired ? 'Your parent or guardian signs after you.' : 'Your signature makes the agreement active.'}</span></div>` : ''}`;
   }
 
   // Pending first: those are the ones somebody needs to act on.
@@ -1348,21 +1405,37 @@
 
   function renderClients() {
     renderAgreementList($('#clientList'), S.agreements.filter((g) => g.agentId === ME.agent), `
-      <div class="card empty"><h3>No clients yet</h3><p>Find an athlete without an agent and offer representation from their profile.</p>
+      <div class="card empty"><h2>No clients yet</h2><p>Find an athlete without an agent and offer representation from their profile.</p>
       <button type="button" class="btn btn-secondary btn-sm" data-action="find-unsigned">Find unsigned athletes</button></div>`);
   }
 
   function renderAgreementsPage() {
-    renderAgreementList($('#agreementList'), S.agreements, '<div class="card empty"><h3>No agreements yet</h3><p>Agreements show up here once an athlete or agent starts one.</p></div>');
+    renderAgreementList($('#agreementList'), S.agreements, '<div class="card empty"><h2>No agreements yet</h2><p>Agreements show up here once an athlete or agent starts one.</p></div>');
   }
 
   /* ---------- Agreement flow ---------- */
 
   const availableAthletes = () => S.athletes.filter((a) => !openAgreementFor(a.id));
 
+  // Start from the athlete's own permission setting; under-18s start at Manager, never full authority.
+  function defaultAuthority(a) {
+    if (!a) return 'manager';
+    if (isMinor(a)) return 'manager';
+    return a.permission === 'representative' ? 'representative' : 'manager';
+  }
+
+  function syncAuthority() {
+    const a = athleteById($('#repAthlete').value);
+    const value = defaultAuthority(a);
+    $$('input[name="repAuthority"]').forEach((r) => { r.checked = r.value === value; });
+    $('#repAuthorityHint').textContent = !a ? ''
+      : isMinor(a) ? `${a.name} is under 18, so this starts at Manager. A parent or guardian also signs.`
+      : `Starts from ${firstName(a)}’s own profile setting: ${PERMISSION_LABELS[a.permission][0].toLowerCase()}.`;
+  }
+
   function openAgreement({ athleteId, agentId }, opener) {
     if (S.role !== 'athlete' && S.role !== 'agent') return;
-    stepper = { mode: 'new', authority: 'representative' };
+    stepper = { mode: 'new' };
     const athleteSel = $('#repAthlete');
     const agentSel = $('#repAgent');
 
@@ -1371,20 +1444,20 @@
       athleteSel.innerHTML = `<option value="${me.id}">${esc(me.name)} (you)</option>`;
       athleteSel.disabled = true;
       agentSel.disabled = false;
-      agentSel.innerHTML = '<option value="">Choose an agent</option>' + SEED.agents.map((g) => `<option value="${g.id}">${esc(g.name)} — ${esc(g.agency)}</option>`).join('');
+      agentSel.innerHTML = '<option value="">Choose an agent</option>' + SEED.agents.map((g) => `<option value="${g.id}">${esc(g.name)}, ${esc(g.agency)}</option>`).join('');
       agentSel.value = agentId || '';
     } else {
       const me = agentById(ME.agent);
       agentSel.innerHTML = `<option value="${me.id}">${esc(me.name)} (you)</option>`;
       agentSel.disabled = true;
       athleteSel.disabled = false;
-      athleteSel.innerHTML = '<option value="">Choose an athlete</option>' + availableAthletes().map((a) => `<option value="${a.id}">${esc(a.name)} — ${esc(a.sport)}, ${ageOf(a.dob)}</option>`).join('');
+      athleteSel.innerHTML = '<option value="">Choose an athlete</option>' + availableAthletes().map((a) => `<option value="${a.id}">${esc(a.name)}: ${esc(a.sport)}, age ${ageOf(a.dob)}</option>`).join('');
       athleteSel.value = availableAthletes().some((a) => a.id === athleteId) ? athleteId : '';
     }
-    athleteSel.onchange = renderPartySummary;
+    athleteSel.onchange = () => { renderPartySummary(); syncAuthority(); };
     agentSel.onchange = renderPartySummary;
-    $$('input[name="repAuthority"]').forEach((r) => { r.checked = r.value === 'representative'; });
     renderPartySummary();
+    syncAuthority();
     goToStep(1, false);
     openModal($('#repModal'), opener);
   }
@@ -1396,38 +1469,63 @@
     $('#repTitle').textContent = a && g ? `${a.name} & ${g.name}` : 'New agreement';
     $('#repSummary').innerHTML = g ? `
       <div><strong>${esc(g.name)}</strong>, ${esc(g.agency)} · commission ${esc(g.commission)} of earnings</div>
-      <ul aria-label="Credentials">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
+      <ul aria-label="Credentials the agent lists">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
       ${a && isMinor(a) ? `<div class="notice">${esc(a.name)} is ${ageOf(a.dob)}. A parent or guardian must also sign.</div>` : ''}
       ${a && !g.sports.includes(a.sport) ? `<div class="notice">${esc(g.name)} doesn’t list ${esc(a.sport.toLowerCase())} among their sports.</div>` : ''}` : '';
   }
 
-  function openCountersign(agreementId, opener) {
+  // Opens an existing agreement at the terms step: to countersign, or as the guardian (from their link).
+  function openExisting(agreementId, mode, opener) {
     const g = S.agreements.find((x) => x.id === agreementId);
     if (!g) return;
-    stepper = { mode: 'countersign', agreementId };
+    stepper = { mode, agreementId };
     const a = athleteById(g.athleteId);
     const ag = agentById(g.agentId);
-    $('#repTitle').textContent = `${a.name} & ${ag.name}`;
+    $('#repTitle').textContent = mode === 'guardian' ? `${a.name}’s agreement with ${ag.name}` : `${a.name} & ${ag.name}`;
     $('#repAthlete').innerHTML = `<option value="${a.id}">${esc(a.name)}</option>`;
     $('#repAgent').innerHTML = `<option value="${ag.id}">${esc(ag.name)}</option>`;
     $$('input[name="repAuthority"]').forEach((r) => { r.checked = r.value === g.authority; });
     goToStep(3, false);
     openModal($('#repModal'), opener);
   }
+  const openCountersign = (id, opener) => openExisting(id, 'countersign', opener);
+  const openGuardianSign = (id, opener) => openExisting(id, 'guardian', opener);
+
+  // The terms in one glance, shown on the terms and signing steps.
+  function termsSummary() {
+    const a = athleteById($('#repAthlete').value);
+    const g = agentById($('#repAgent').value);
+    const existing = stepper && stepper.agreementId && S.agreements.find((x) => x.id === stepper.agreementId);
+    const authority = existing ? existing.authority : stepper.authority;
+    const signers = [`${a.name}`, isMinor(a) ? 'a parent or guardian' : null, g.name].filter(Boolean);
+    return `
+      <div><dt>Agent</dt><dd>${esc(g.name)}, ${esc(g.agency)}</dd></div>
+      <div><dt>Commission</dt><dd>${esc(g.commission)} of what ${esc(firstName(a))} earns from deals the agent arranges. No upfront fee.</dd></div>
+      <div><dt>Authority</dt><dd>${esc(PERMISSION_LABELS[authority][0])}: ${esc(PERMISSION_LABELS[authority][1])}</dd></div>
+      <div><dt>Length</dt><dd>24 months, with 30 days’ notice to end it</dd></div>
+      <div><dt>Signed by</dt><dd>${esc(signers.join(', '))}</dd></div>`;
+  }
 
   function goToStep(n, moveFocus = true) {
     if (!stepper) return;
-    if (stepper.mode === 'new' && n > 1) {
+    if (stepper.mode === 'new' && n > 1 && n < 5) {
       const a = athleteById($('#repAthlete').value);
       const g = agentById($('#repAgent').value);
       const err = $('#repPartyError');
       if (!a || !g) { err.textContent = 'Choose both an athlete and an agent.'; err.hidden = false; return; }
       if (openAgreementFor(a.id)) { err.textContent = `${a.name} already has an agreement. It must end before a new one starts.`; err.hidden = false; return; }
     }
-    if (stepper.mode === 'countersign' && n < 3) n = 3;
-    if (stepper.mode === 'new' && n === 3) stepper.authority = ($('input[name="repAuthority"]:checked') || {}).value || 'representative';
+    if (stepper.mode !== 'new' && n < 3) n = 3;
+    if (stepper.mode === 'new' && n === 3) stepper.authority = ($('input[name="repAuthority"]:checked') || {}).value || 'manager';
+    if (n === 3 || n === 4) {
+      const g = agentById($('#repAgent').value);
+      $('#termsCommission').textContent = `${g.commission}`;
+      $('#termsSummary').innerHTML = termsSummary();
+      $('#signSummary').innerHTML = termsSummary();
+    }
     if (n === 4) prepareSignStep();
 
+    $('#repSteps').hidden = n === 5;
     $$('#repSteps li').forEach((li) => {
       const s = parseInt(li.dataset.step, 10);
       li.classList.toggle('is-done', s < n);
@@ -1435,7 +1533,7 @@
       else li.removeAttribute('aria-current');
     });
     $$('#repModal .step').forEach((p) => { p.hidden = parseInt(p.dataset.pane, 10) !== n; });
-    $$('#repModal .step[data-pane="3"] [data-to="2"]').forEach((b) => { b.hidden = stepper.mode === 'countersign'; });
+    $$('#repModal .step[data-pane="3"] [data-to="2"]').forEach((b) => { b.hidden = stepper.mode !== 'new'; });
     if (moveFocus) {
       const pane = $(`#repModal .step[data-pane="${n}"]`);
       const target = pane.querySelector('input:not([type="radio"]):not([type="checkbox"]):not([disabled])') || pane.querySelector('.btn-accent');
@@ -1443,29 +1541,54 @@
     }
   }
 
-  // The signer is the current role's side of the agreement.
-  const signerParty = () => (S.role === 'athlete' ? 'athlete' : 'agent');
+  // Who is signing now: the guardian (from their link), the athlete, or the agent.
+  const signerParty = () => (stepper && stepper.mode === 'guardian' ? 'guardian' : S.role === 'athlete' ? 'athlete' : 'agent');
 
   function prepareSignStep() {
     const a = athleteById($('#repAthlete').value);
     const g = agentById($('#repAgent').value);
     const party = signerParty();
-    const minorSigning = party === 'athlete' && isMinor(a);
-    const expected = party === 'athlete' ? a.name : g.name;
-    $('#signAs').textContent = party === 'athlete'
-      ? `Signing as the athlete, ${a.name}${minorSigning ? ', with a parent or guardian' : ''}.`
-      : `Signing as the agent, ${g.name} (${g.agency}).`;
-    $('#guardianFields').hidden = !minorSigning;
-    $('#guardianNote').textContent = minorSigning ? `${a.name} is ${ageOf(a.dob)}. A parent or legal guardian must sign too.` : '';
-    $('#guardianName').value = '';
+    const existing = stepper.agreementId && S.agreements.find((x) => x.id === stepper.agreementId);
+    const minorAthlete = party === 'athlete' && isMinor(a);
+    const known = S.guardians[a.id] || {};
+    const expected = party === 'guardian' ? existing.guardian : party === 'athlete' ? a.name : g.name;
+    $('#signAs').textContent = party === 'guardian'
+      ? `Signing as ${a.name}’s parent or guardian, ${existing.guardian}.`
+      : party === 'athlete' ? `Signing as the athlete, ${a.name}.` : `Signing as the agent, ${g.name} (${g.agency}).`;
+    $('#guardianFields').hidden = !minorAthlete;
+    $('#guardianNote').textContent = minorAthlete ? `You’re ${ageOf(a.dob)}, so a parent or guardian signs too. We’ll send them a link to read these terms and sign on their own phone. The agreement starts only when they do.` : '';
+    $('#guardianName').value = known.name || '';
+    $('#guardianContact').value = known.contact || '';
+    $('#guardianConsentRow').hidden = party !== 'guardian';
     $('#guardianConsent').checked = false;
+    $('#guardianConsentText').textContent = `I am ${a.name}’s parent or legal guardian and I agree to these terms on their behalf.`;
     $('#signerLabel').textContent = `Type your full name (${expected}) to sign`;
     $('#signerName').value = '';
     $('#signaturePreview').textContent = '';
     $('#signatureMeta').textContent = `E-signature (demo) · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`;
     $('#signError').hidden = true;
-    $('#signBtn').textContent = stepper.mode === 'countersign' ? 'Sign and activate' : `Sign and send to the ${party === 'athlete' ? 'agent' : 'athlete'}`;
+    $('#signBtn').textContent = party === 'guardian' ? 'Sign as guardian'
+      : minorAthlete ? 'Sign and send to my guardian'
+      : stepper.mode === 'countersign' ? 'Sign and activate'
+      : `Sign and send to the ${party === 'athlete' ? 'agent' : 'athlete'}`;
     $('#signerName').oninput = (e) => { $('#signaturePreview').textContent = e.target.value; };
+  }
+
+  // After signing: say what happened and what happens next, instead of a toast that disappears.
+  function showDone(g) {
+    const a = athleteById(g.athleteId);
+    const ag = agentById(g.agentId);
+    const next = g.status === 'active'
+      ? `The agreement is active from ${formatDate(todayISO())}. ${ag.name} can now act for ${firstName(a)} as ${PERMISSION_LABELS[g.authority][0].toLowerCase()}. Commission is ${g.commission} of earnings from deals ${firstName(ag)} arranges, paid only when ${firstName(a)} is paid.`
+      : !g.athleteSigned ? `It’s on ${a.name}’s dashboard to review and sign.`
+      : needsGuardian(g) ? `We’ve sent ${g.guardian} a link at ${g.guardianContact}. The agreement starts when they sign.`
+      : `It’s on ${ag.name}’s dashboard to sign. The agreement starts when they do.`;
+    $('#doneBody').innerHTML = `
+      <svg class="done-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+      <h3>${g.status === 'active' ? 'Agreement active' : 'Signed'}</h3>
+      <p>${esc(next)}</p>
+      <dl class="terms-summary">${termsSummary()}</dl>`;
+    goToStep(5);
   }
 
   function sign() {
@@ -1473,46 +1596,52 @@
     const a = athleteById($('#repAthlete').value);
     const g = agentById($('#repAgent').value);
     const party = signerParty();
-    const expected = party === 'athlete' ? a.name : g.name;
+    const existing = stepper.agreementId && S.agreements.find((x) => x.id === stepper.agreementId);
+    const expected = party === 'guardian' ? existing.guardian : party === 'athlete' ? a.name : g.name;
     const err = $('#signError');
     const fail = (msg, focusEl) => { err.textContent = msg; err.hidden = false; if (focusEl) focusEl.focus(); };
 
-    if (normName($('#signerName').value) !== normName(expected)) return fail(`The name must match ${expected}.`, $('#signerName'));
     let guardian = null;
     if (party === 'athlete' && isMinor(a)) {
-      guardian = $('#guardianName').value.trim();
-      if (guardian.split(/\s+/).length < 2) return fail('Enter the parent or guardian’s full name.', $('#guardianName'));
-      if (!$('#guardianConsent').checked) return fail('The parent or guardian must confirm they agree.', $('#guardianConsent'));
+      guardian = { name: $('#guardianName').value.trim(), contact: $('#guardianContact').value.trim() };
+      if (guardian.name.split(/\s+/).length < 2) return fail('Enter your parent or guardian’s full name.', $('#guardianName'));
+      if (!/@|\d{7,}/.test(guardian.contact.replace(/[\s()-]/g, ''))) return fail('Enter a mobile number or email address so we can send them the link.', $('#guardianContact'));
     }
+    if (party === 'guardian' && !$('#guardianConsent').checked) return fail('Tick the box to confirm you are the parent or legal guardian.', $('#guardianConsent'));
+    if (normName($('#signerName').value) !== normName(expected)) return fail(`Type the name exactly as shown: ${expected}.`, $('#signerName'));
 
-    if (stepper.mode === 'countersign') {
-      const ag = S.agreements.find((x) => x.id === stepper.agreementId);
-      if (party === 'agent') ag.agentSigned = todayISO();
-      else { ag.athleteSigned = todayISO(); ag.guardian = guardian; }
-      if (ag.agentSigned && ag.athleteSigned) ag.status = 'active';
-      closeModal();
-      refresh();
-      showToast(`The agreement between ${a.name} and ${g.name} is now active.`, 'success');
-      return;
+    let ag = existing;
+    if (existing) {
+      if (party === 'guardian') existing.guardianSigned = todayISO();
+      else if (party === 'agent') existing.agentSigned = todayISO();
+      else {
+        existing.athleteSigned = todayISO();
+        if (guardian) Object.assign(existing, { guardian: guardian.name, guardianContact: guardian.contact });
+      }
+    } else {
+      if (openAgreementFor(a.id)) return fail(`${a.name} already has an agreement.`);
+      ag = {
+        id: `agr-${String(S.counters.agreement++).padStart(4, '0')}`,
+        athleteId: a.id,
+        agentId: g.id,
+        authority: stepper.authority,
+        commission: g.commission,
+        athleteSigned: party === 'athlete' ? todayISO() : null,
+        agentSigned: party === 'agent' ? todayISO() : null,
+        guardianRequired: isMinor(a),
+        guardian: guardian ? guardian.name : null,
+        guardianContact: guardian ? guardian.contact : null,
+        guardianSigned: null,
+        status: 'pending',
+        deals: [],
+        documents: ['Representation agreement (e-signature, demo)']
+      };
+      S.agreements.unshift(ag);
     }
-
-    if (openAgreementFor(a.id)) return fail(`${a.name} already has an agreement.`);
-    S.agreements.unshift({
-      id: `agr-${String(S.counters.agreement++).padStart(4, '0')}`,
-      athleteId: a.id,
-      agentId: g.id,
-      authority: stepper.authority,
-      commission: g.commission,
-      athleteSigned: party === 'athlete' ? todayISO() : null,
-      agentSigned: party === 'agent' ? todayISO() : null,
-      guardian,
-      status: 'pending',
-      deals: [],
-      documents: ['Representation agreement (e-signature, demo)']
-    });
-    closeModal();
+    if (guardian) S.guardians[a.id] = guardian;
+    if (ag.agentSigned && ag.athleteSigned && (!ag.guardianRequired || ag.guardianSigned)) ag.status = 'active';
     refresh();
-    showToast(`Signed and sent. It’s now on ${party === 'athlete' ? `${g.name}’s` : `${a.name}’s`} home page to sign.`, 'success');
+    showDone(ag);
   }
 
   /* ==========================================================================
@@ -1523,8 +1652,8 @@
     return `
       <article class="card watchlist" style="--i:${i}">
         <div class="watchlist-body">
-          <p class="kicker">${mine ? (w.shared ? 'Shared' : 'Private') : esc(w.owner)} · updated ${formatDate(w.updated)}</p>
           <h3 class="watchlist-title">${esc(w.title)}</h3>
+          <p class="watchlist-meta">${mine ? (w.shared ? 'Shared' : 'Private') : esc(w.owner)} · updated ${formatDate(w.updated)}</p>
           ${w.description ? `<p class="watchlist-desc">${esc(w.description)}</p>` : ''}
           <ul class="watchlist-names">${names.map((a) => `<li><button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span>${esc(a.position)}</span></li>`).join('')}</ul>
           ${w.note ? `<p class="watchlist-note">“${esc(w.note)}”</p>` : ''}
@@ -1685,14 +1814,14 @@
   const nameLinks = (list) => list.map((a) => `<button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>`).join(', ');
 
   function clubTrialCard(o, i) {
-    const apps = S.applications.filter((ap) => ap.oppId === o.id);
+    const apps = S.applications.filter((ap) => ap.oppId === o.id && ap.status !== 'guardian');
     const notApplied = eligibleAthletes(o).filter((a) => !applicationFor(a.id, o.id));
     const via = { club: 'Invited by you', agent: 'Sent by their agent', athlete: '' };
     return `
       <article class="card opp" style="--i:${i}">
         ${oppSummary(o)}
         <div class="opp-side">
-          <p class="opp-places"><strong class="num">${o.places}</strong><span>places · ${o.applicants} applications in total</span></p>
+          <p class="opp-places"><strong class="num">${o.places}</strong> ${o.places === 1 ? 'place' : 'places'}<span>${o.applicants} applications in total</span></p>
         </div>
         <div class="opp-applicants">
           <h3>Applications through the exchange</h3>
@@ -1728,7 +1857,7 @@
       title.textContent = 'Your trials';
       lede.textContent = 'Review applications, invite athletes, and find more on the prospect board.';
       const mine = S.opportunities.filter((o) => o.orgId === ME.organization);
-      list.innerHTML = mine.map(clubTrialCard).join('') || '<div class="card empty"><h3>No trials listed</h3><p>Your listings will show up here.</p></div>';
+      list.innerHTML = mine.map(clubTrialCard).join('') || '<div class="card empty"><h2>No trials listed</h2><p>Your listings will show up here.</p></div>';
       return;
     }
 
@@ -1737,7 +1866,7 @@
       athlete: ['Trials & scholarships', 'Listings you can apply to come first. Each is checked against your sport, age, verification and the deadline.'],
       agent: ['Trials & scholarships', 'Apply for your clients. Each listing shows which of them qualify.'],
       scout: ['Trials & combines', 'Where to see prospects in person, and which athletes on the board qualify for each.'],
-      visitor: ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges. Athletes and agents apply once signed in.']
+      visitor: ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges. Each one lists exactly who can apply.']
     }[S.role] || ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges.'];
     title.textContent = copy[0];
     lede.textContent = copy[1];
@@ -1745,18 +1874,25 @@
     const me = S.role === 'athlete' ? people[0] : null;
     const sorted = [...S.opportunities].sort((x, y) => {
       if (!me) return x.deadline.localeCompare(y.deadline);
-      return (eligibility(me, x).length ? 1 : 0) - (eligibility(me, y).length ? 1 : 0) || x.deadline.localeCompare(y.deadline);
+      const blocked = (o) => (eligibility(me, o, { ignoreExisting: true }).length ? 1 : 0);
+      return blocked(x) - blocked(y) || x.deadline.localeCompare(y.deadline);
     });
 
-    list.innerHTML = sorted.map((o, i) => {
+    const intro = S.role === 'visitor' ? visitorNote('Athletes apply here, and agents apply for their clients. Try the demo to see how.', [['athlete:ath-01', 'Try it as an athlete'], ['agent', 'Try it as an agent']]) : '';
+    list.innerHTML = intro + sorted.map((o, i) => {
       let side = '';
       let foot = '';
+      let verdict = '';
       if (me) {
         const ap = applicationFor(me.id, o.id);
         const reasons = eligibility(me, o, { ignoreExisting: true });
         if (ap) side = `${appStatusMarkup(ap)}<span class="cell-sub">${ap.via === 'club' ? 'Invited' : 'Sent'} ${formatDate(ap.date)}</span>`;
         else if (!reasons.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply</button>`;
-        if (!ap) foot = `<p class="fit ${reasons.length ? 'fit-no' : 'fit-yes'}">${reasons.length ? `Not open to you: ${esc(reasons.join(' '))}` : 'You meet this listing’s requirements.'}</p>`;
+        // The verdict leads the card: it is the first thing an athlete needs to know.
+        if (!ap) {
+          const verifyBlocked = levelIndex(me.verification) < levelIndex(o.minVerification);
+          verdict = `<div class="opp-verdict fit ${reasons.length ? 'fit-no' : 'fit-yes'}"><p>${reasons.length ? `<strong>Not open to you yet.</strong> ${esc(reasons.join(' '))}` : `<strong>You can apply.</strong> You meet every requirement${isMinor(me) ? '; your parent or guardian approves it first' : ''}.`}</p>${verifyBlocked ? '<button type="button" class="btn btn-quiet btn-sm" data-action="explain" data-topic="verification">How to get verified</button>' : ''}</div>`;
+        }
       } else if (S.role === 'agent') {
         const ready = people.filter((c) => eligibility(c, o).length === 0);
         const sent = S.applications.filter((ap) => ap.oppId === o.id && people.some((c) => c.id === ap.athleteId));
@@ -1771,9 +1907,10 @@
       }
       return `
         <article class="card opp" style="--i:${i}">
+          ${verdict}
           ${oppSummary(o)}
           <div class="opp-side">
-            <p class="opp-places"><strong class="num">${o.places}</strong><span>places · ${o.applicants} applications</span></p>
+            <p class="opp-places"><strong class="num">${o.places}</strong> ${o.places === 1 ? 'place' : 'places'}<span>${o.applicants} applications so far</span></p>
             ${side}
           </div>
           ${foot ? `<div class="opp-applicants">${foot}</div>` : ''}
@@ -1793,7 +1930,7 @@
     $('#applyOrg').textContent = `${orgById(o.orgId).name} · ${o.location} · ${o.date}`;
     const select = $('#applyAthlete');
     const ordered = [...people].sort((x, y) => eligibility(x, o).length - eligibility(y, o).length);
-    select.innerHTML = ordered.map((a) => `<option value="${a.id}">${esc(a.name)} — ${esc(a.position)}</option>`).join('');
+    select.innerHTML = ordered.map((a) => `<option value="${a.id}">${esc(a.name)}: ${esc(a.position)}</option>`).join('');
     select.disabled = people.length === 1;
     $('#applyNote').value = '';
     $('#applyError').hidden = true;
@@ -1805,9 +1942,13 @@
       box.className = `eligibility ${reasons.length ? 'no' : 'ok'}`;
       box.textContent = reasons.length ? `Not eligible: ${reasons.join(' ')}` : `${a.name} meets this listing’s requirements.`;
       const g = openAgreementFor(a.id);
-      $('#applyAgent').value = g && g.status === 'active' ? agentById(g.agentId).name : 'None — applying directly';
+      $('#applyAgent').textContent = g && g.status === 'active' ? agentById(g.agentId).name : 'no agent, applying directly';
+      const known = S.guardians[a.id] || {};
       $('#applyGuardianRow').hidden = !isMinor(a);
-      $('#applyGuardian').checked = false;
+      $('#applyGuardianNote').textContent = `${a.name} is ${ageOf(a.dob)}. We’ll send a parent or guardian a link to approve this application; it goes to the club once they do.`;
+      $('#applyGuardianName').value = known.name || '';
+      $('#applyGuardianContact').value = known.contact || '';
+      $('#applySubmit').textContent = isMinor(a) ? 'Send to guardian for approval' : 'Send application';
       $('#applySubmit').disabled = reasons.length > 0;
     };
     select.onchange = update;
@@ -1817,18 +1958,50 @@
       e.preventDefault();
       const a = athleteById(select.value);
       if (eligibility(a, o).length) return;
-      if (isMinor(a) && !$('#applyGuardian').checked) {
-        $('#applyError').textContent = 'A parent or guardian must approve applications for athletes under 18.';
-        $('#applyError').hidden = false;
+      const fail = (msg, el) => { $('#applyError').textContent = msg; $('#applyError').hidden = false; el.focus(); };
+      let guardian = null;
+      if (isMinor(a)) {
+        guardian = { name: $('#applyGuardianName').value.trim(), contact: $('#applyGuardianContact').value.trim() };
+        if (guardian.name.split(/\s+/).length < 2) return fail('Enter the parent or guardian’s full name.', $('#applyGuardianName'));
+        if (!/@|\d{7,}/.test(guardian.contact.replace(/[\s()-]/g, ''))) return fail('Enter a mobile number or email address so we can send them the link.', $('#applyGuardianContact'));
+        S.guardians[a.id] = guardian;
+      }
+      S.applications.push({ id: `app-${String(S.counters.application++).padStart(4, '0')}`, oppId: o.id, athleteId: a.id, date: todayISO(), note: $('#applyNote').value.trim(), status: guardian ? 'guardian' : 'submitted', via: S.role, guardian: guardian && guardian.name, guardianContact: guardian && guardian.contact });
+      if (!guardian) o.applicants += 1;
+      closeModal();
+      refresh();
+      showToast(guardian ? `Sent to ${guardian.name} to approve. It goes to ${orgById(o.orgId).name} once they do.` : `Application for ${a.name} sent to ${orgById(o.orgId).name}.`, 'success');
+    };
+    openModal($('#applyModal'), opener);
+  }
+
+  // Demo stand-in for the page a guardian reaches from the link we send them.
+  function openGuardianApprove(id, opener) {
+    const ap = S.applications.find((x) => x.id === id);
+    if (!ap || ap.status !== 'guardian') return;
+    const a = athleteById(ap.athleteId);
+    const o = oppById(ap.oppId);
+    $('#guardianTitle').textContent = `Approve ${firstName(a)}’s application`;
+    $('#guardianIntro').textContent = `${ap.guardian}, ${a.name} (${ageOf(a.dob)}) wants to apply to the ${o.title.toLowerCase()} run by ${orgById(o.orgId).name} in ${o.location}, ${o.date}. Once you approve, the application goes to the club. This is what you’d see from the link we sent to ${ap.guardianContact}.`;
+    $('#guardianSignLabel').textContent = `Type your full name (${ap.guardian}) to approve`;
+    $('#guardianSignName').value = '';
+    $('#guardianError').hidden = true;
+    $('#guardianForm').onsubmit = (e) => {
+      e.preventDefault();
+      if (normName($('#guardianSignName').value) !== normName(ap.guardian)) {
+        $('#guardianError').textContent = `Type the name exactly as shown: ${ap.guardian}.`;
+        $('#guardianError').hidden = false;
+        $('#guardianSignName').focus();
         return;
       }
-      S.applications.push({ id: `app-${String(S.counters.application++).padStart(4, '0')}`, oppId: o.id, athleteId: a.id, date: todayISO(), note: $('#applyNote').value.trim(), status: 'submitted', via: S.role });
+      ap.status = 'submitted';
+      ap.guardianApproved = todayISO();
       o.applicants += 1;
       closeModal();
       refresh();
-      showToast(`Application for ${a.name} sent to ${orgById(o.orgId).name}.`, 'success');
+      showToast(`Approved. ${a.name}’s application is now with ${orgById(o.orgId).name}.`, 'success');
     };
-    openModal($('#applyModal'), opener);
+    openModal($('#guardianModal'), opener);
   }
 
   function inviteToTrial(athleteId, oppId) {
@@ -1864,17 +2037,23 @@
     $('#ledgerTotals').innerHTML = `
       <div class="card kpi kpi-held"><dt>Held in escrow</dt><dd>${money(sum(held))}<span>${plural(held.length, 'payment')} waiting for release</span></dd></div>
       <div class="card kpi kpi-settled"><dt>Settled</dt><dd>${money(sum(settled))}<span>${plural(settled.length, 'payment')}</span></dd></div>
-      <div class="card kpi"><dt>Agent commission</dt><dd>${money(sum(commission))}<span>${plural(commission.length, 'payment')}</span></dd></div>`;
+      ${commission.length || S.role === 'agent' || S.role === 'admin' ? `<div class="card kpi"><dt>Agent commission</dt><dd>${money(sum(commission))}<span>${plural(commission.length, 'payment')}</span></dd></div>` : ''}`;
 
+    const me = ledgerParty();
+    const amount = (t) => {
+      if (me && t.payee === me) return `<span class="amount-in">+${money(t.amount)}</span><span class="visually-hidden"> received</span>`;
+      if (me && t.payer === me) return `<span class="amount-out">−${money(t.amount)}</span><span class="visually-hidden"> paid</span>`;
+      return money(t.amount);
+    };
     $('#ledgerBody').innerHTML = txs.length ? txs.map((t) => `
       <tr>
         <td>${formatDate(t.date)}<span class="cell-sub">${esc(t.id)}</span></td>
         <td><span class="cell-strong">${esc(t.type)}</span><span class="cell-sub">${esc(t.description)}</span></td>
         <td>${esc(t.payer)}</td>
         <td>${esc(t.payee)}</td>
-        <td class="col-num">${money(t.amount)}</td>
-        <td>${t.status === 'settled' ? '<span class="status status-ok">Settled</span>' : '<span class="status status-wait">In escrow</span>'}</td>
-      </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><h3>No payments yet</h3><p>${S.role === 'athlete' ? 'Sponsor and contract payments will show here once you sign deals.' : 'Nothing to show for this account yet.'}</p></div></td></tr>`;
+        <td class="col-num cell-nowrap">${amount(t)}</td>
+        <td>${t.status === 'settled' ? '<span class="status status-ok">Settled</span>' : `<span class="status status-wait">In escrow</span>${t.release ? `<span class="cell-sub">${esc(t.release)}</span>` : ''}`}</td>
+      </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><h2>No payments yet</h2><p>${S.role === 'athlete' ? 'Sponsor and contract payments will show here once you sign deals.' : 'Nothing to show for this account yet.'}</p></div></td></tr>`;
     $('[data-action="export-csv"]').hidden = !txs.length;
   }
 
@@ -1892,6 +2071,46 @@
     link.click();
     link.remove();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  }
+
+  /* ==========================================================================
+     EXPLAINER (scout grade, verification levels)
+     ========================================================================== */
+  let explainOpener = null;
+
+  function ladder() {
+    return `<ol class="ladder">${[...SEED.verificationLevels].reverse().map((l) => `
+      <li><span class="badge badge-${l.id}">${esc(l.label)}</span><span>${esc(l.means)}</span></li>`).join('')}</ol>`;
+  }
+
+  function explain(topic, opener) {
+    const panel = $('#explain');
+    const body = {
+      grade: ['Scout grade', `
+        <p>A score out of 100 that sets the order of the board: the higher the grade, the higher the athlete ranks. It weighs measurements, test results and recent performances.</p>
+        <p>A grade is only as reliable as the data behind it, so every grade sits next to the athlete’s verification level. Compare a self-reported 96 with care against a combine-verified 95.</p>
+        <p class="muted">In this demo, every grade is a fictional sample figure.</p>
+        <h3 class="explain-sub">Verification levels</h3>${ladder()}`],
+      verification: ['How verification works', `
+        <p>Every athlete shows how much of their profile has been checked. Higher levels qualify for more trials, and scouts trust them more.</p>
+        ${ladder()}
+        <p class="muted">Combine verification is done in person at partner combines. Trials list the level they need.</p>`]
+    }[topic];
+    if (!body) return;
+    $('#explainTitle').textContent = body[0];
+    $('#explainBody').innerHTML = body[1];
+    explainOpener = opener || document.activeElement;
+    if (panel.showPopover) {
+      if (!panel.matches(':popover-open')) panel.showPopover();
+    } else panel.classList.add('is-open');
+    $('.modal-close', panel).focus();
+  }
+
+  function closeExplain() {
+    const panel = $('#explain');
+    if (panel.hidePopover && panel.matches(':popover-open')) panel.hidePopover();
+    panel.classList.remove('is-open');
+    if (explainOpener && document.contains(explainOpener)) explainOpener.focus();
   }
 
   /* ==========================================================================
@@ -1922,7 +2141,9 @@
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
     ['main', '.site-header', '.site-footer'].forEach((sel) => $(sel).setAttribute('inert', ''));
-    const first = modal.querySelector('.confirm-actions .btn-quiet, .step:not([hidden]) select:not([disabled]), .step:not([hidden]) .btn-accent, form select:not([disabled]), form .btn-accent, .modal-close');
+    // First match in priority order (not document order), so focus never lands on Close.
+    const first = ['.confirm-actions .btn-quiet', '.step:not([hidden]) select:not([disabled])', '.step:not([hidden]) input:not([type="radio"]):not([type="checkbox"])', '.step:not([hidden]) .btn-accent', 'form select:not([disabled])', 'form input:not([type="hidden"])', 'form .btn-accent', '.modal-close']
+      .map((sel) => modal.querySelector(sel)).find((el) => el && el.offsetParent !== null);
     if (first) first.focus();
   }
 

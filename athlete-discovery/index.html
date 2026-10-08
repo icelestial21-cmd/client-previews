@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
   <!-- Bump ?v= on styles.css, data.js and app.js whenever they change, so browsers never mix a new page with old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=20261008">
+  <link rel="stylesheet" href="styles.css?v=20261008-2">
   <script>
     // Apply a saved theme before first paint so there's no flash.
     try { var t = localStorage.getItem('aax-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
@@ -46,13 +46,13 @@
         <label class="account-role">
           <span class="account-role-label">Demo · view as</span>
           <select id="roleSelect" class="select select-dark">
-            <option value="visitor">Visitor (not signed in)</option>
-            <option value="athlete:ath-01">Athlete — Shavar Montague</option>
-            <option value="athlete:ath-07">Athlete — Chloe Henderson (17)</option>
+            <option value="visitor">Visitor (signed out)</option>
+            <option value="athlete:ath-01">Athlete: Shavar</option>
+            <option value="athlete:ath-07">Athlete: Chloe (17)</option>
             <option value="agent">Agent</option>
             <option value="scout">Scout</option>
             <option value="organization">Club</option>
-            <option value="admin">Platform admin</option>
+            <option value="admin">Admin</option>
           </select>
         </label>
         <div class="account-balance">
@@ -90,7 +90,28 @@
 
     <!-- FRONT PAGE (the site's home, same for everyone) -->
     <section id="section-front" class="view" aria-labelledby="h-front">
-      <h1 class="visually-hidden" id="h-front">Apex Athlete Exchange: Caribbean prospects, ranked and verified</h1>
+      <header class="front-intro">
+        <h1 id="h-front">Caribbean prospects, ranked and verified</h1>
+        <p class="view-lede">Apex Athlete Exchange connects young Caribbean athletes with scouts, clubs, colleges and agents, with every figure showing how it was checked.</p>
+        <ul class="promises">
+          <li>
+            <svg class="promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+            <p><strong>Verified data.</strong> Every figure carries its verification level. <button type="button" class="btn-link" data-action="explain" data-topic="verification">How verification works</button></p>
+          </li>
+          <li>
+            <svg class="promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.6-1-1.7-1.5-3-1.5-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2-1.4 0-2.6-.6-3.1-1.6M12 6.5V8m0 8v1.5"/></svg>
+            <p><strong>Commission-only agents.</strong> Agents earn a share of what athletes earn. Never an upfront fee.</p>
+          </li>
+          <li>
+            <svg class="promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14.5v2.5"/></svg>
+            <p><strong>Money held in escrow.</strong> Sponsor and contract money waits with an escrow partner until it is released.</p>
+          </li>
+          <li>
+            <svg class="promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.2"/><path d="M3.5 20c.5-3.4 2.8-5.5 5.5-5.5s5 2.1 5.5 5.5M14.5 20c.3-2.3 1.4-3.8 2.5-3.8s2.5 1.5 2.8 3.8"/></svg>
+            <p><strong>Under-18s protected.</strong> A parent or guardian approves applications and signs agreements. Visitors never see minors.</p>
+          </li>
+        </ul>
+      </header>
       <div class="hero-grid">
         <article class="spotlight" id="spotlight" aria-label="Featured prospect"></article>
         <aside class="card wire" aria-labelledby="h-wire">
@@ -147,14 +168,6 @@
         </div>
       </header>
 
-      <section class="card leaders" aria-labelledby="h-leaders">
-        <div class="card-head">
-          <h2 class="card-title" id="h-leaders">Board leaders</h2>
-          <span class="card-meta">Top three across all sports</span>
-        </div>
-        <div class="leaders-grid" id="leadersGrid"></div>
-      </section>
-
       <div class="card filters" role="search">
         <div class="search">
           <label class="visually-hidden" for="searchInput">Search prospects</label>
@@ -172,6 +185,11 @@
           <button type="button" class="sport-tab" data-sport="Boxing" aria-pressed="false">Boxing</button>
         </div>
 
+        <button type="button" class="btn btn-secondary btn-sm filter-toggle" id="filterToggle" data-action="toggle-filters" aria-expanded="false" aria-controls="filterMore">
+          Filters <span class="count-chip num" id="filterCount" hidden>0</span>
+        </button>
+
+        <div class="filter-more" id="filterMore">
         <div class="filter-row">
           <label class="field">
             <span class="field-label">Position / event</span>
@@ -231,6 +249,7 @@
           <button type="button" class="chip" data-preset="combine">Combine verified</button>
           <button type="button" class="chip chip-muted" data-preset="reset">Clear all</button>
         </div>
+        </div>
       </div>
 
       <div class="board-bar">
@@ -256,6 +275,7 @@
                 <th scope="col">Ht / Wt</th>
                 <th scope="col">Key stat</th>
                 <th scope="col" class="col-num">Grade</th>
+                <th scope="col">Verified</th>
                 <th scope="col" class="col-num"><abbr title="Rank within sport · rank within country">Sport · Ctry</abbr></th>
                 <th scope="col">Status</th>
                 <th scope="col"><span class="visually-hidden">Actions</span></th>
@@ -387,7 +407,6 @@
       <button type="button" class="modal-close" data-action="close-modal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
-      <p class="kicker">Representation agreement · demo</p>
       <h2 class="modal-title" id="repTitle">New agreement</h2>
 
       <ol class="steps" id="repSteps">
@@ -418,7 +437,8 @@
 
       <div class="step" data-pane="2" hidden>
         <fieldset class="option-list">
-          <legend class="field-label">What can the agent do on the athlete’s behalf?</legend>
+          <legend class="field-label field-label-plain">What can the agent do on the athlete’s behalf?</legend>
+          <p class="field-hint" id="repAuthorityHint"></p>
           <label class="option">
             <input type="radio" name="repAuthority" value="manager">
             <span><strong>Manager</strong><span>Arranges trials and talks to clubs. The athlete signs every contract.</span></span>
@@ -435,9 +455,10 @@
       </div>
 
       <div class="step" data-pane="3" hidden>
+        <dl class="terms-summary" id="termsSummary"></dl>
         <div class="terms" tabindex="0" role="region" aria-label="Agreement terms">
           <p><strong>1. Term.</strong> 24 months from the date both parties sign. Either party may end the agreement for any reason with 30 days’ written notice, or immediately if the other party materially breaches it.</p>
-          <p><strong>2. Commission.</strong> The agent is paid only a percentage of money the athlete earns from contracts and sponsorship the agent negotiates. No upfront or retainer fees. No commission on scholarships.</p>
+          <p><strong>2. Commission.</strong> The agent is paid only <span id="termsCommission">a percentage</span> of money the athlete earns from contracts and sponsorship the agent negotiates. No upfront or retainer fees. No commission on scholarships.</p>
           <p><strong>3. Data.</strong> The athlete owns their profile, results and medical information, and decides who can see them.</p>
           <p><strong>4. Payments.</strong> Contract and sponsor payments are held by a licensed escrow partner and released when both parties confirm.</p>
           <p><strong>5. Minors.</strong> If the athlete is under 18, a parent or legal guardian must sign as well.</p>
@@ -451,6 +472,7 @@
       </div>
 
       <div class="step" data-pane="4" hidden>
+        <dl class="terms-summary" id="signSummary"></dl>
         <p class="sign-as" id="signAs"></p>
         <div class="form">
           <div class="guardian" id="guardianFields" hidden>
@@ -459,11 +481,15 @@
               <span class="field-label">Parent or guardian’s full name</span>
               <input type="text" id="guardianName" class="input" autocomplete="off">
             </label>
-            <label class="check">
-              <input type="checkbox" id="guardianConsent">
-              <span>I am the athlete’s parent or legal guardian and I agree to these terms on their behalf.</span>
+            <label class="field">
+              <span class="field-label">Their mobile number or email</span>
+              <input type="text" id="guardianContact" class="input" autocomplete="off" inputmode="email">
             </label>
           </div>
+          <label class="check" id="guardianConsentRow" hidden>
+            <input type="checkbox" id="guardianConsent">
+            <span id="guardianConsentText">I am the athlete’s parent or legal guardian and I agree to these terms on their behalf.</span>
+          </label>
           <label class="field">
             <span class="field-label" id="signerLabel">Type your full name to sign</span>
             <input type="text" id="signerName" class="input" autocomplete="off">
@@ -479,6 +505,14 @@
           <button type="button" class="btn btn-accent" data-action="sign" id="signBtn">Sign</button>
         </div>
       </div>
+
+      <div class="step" data-pane="5" hidden>
+        <div class="done" id="doneBody" role="status"></div>
+        <div class="step-actions">
+          <span></span>
+          <button type="button" class="btn btn-accent" data-action="close-modal">Done</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -489,7 +523,6 @@
       <button type="button" class="modal-close" data-action="close-modal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
-      <p class="kicker">Apply</p>
       <h2 class="modal-title" id="applyTitle">Trial</h2>
       <p class="muted" id="applyOrg"></p>
       <form id="applyForm" class="form" novalidate>
@@ -498,22 +531,54 @@
           <select id="applyAthlete" class="select"></select>
         </label>
         <p class="eligibility" id="applyEligibility" aria-live="polite"></p>
+        <p class="apply-agent">Applying through: <strong id="applyAgent"></strong></p>
+        <div class="guardian" id="applyGuardianRow" hidden>
+          <p class="notice" id="applyGuardianNote"></p>
+          <label class="field">
+            <span class="field-label">Parent or guardian’s full name</span>
+            <input type="text" id="applyGuardianName" class="input" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="field-label">Their mobile number or email</span>
+            <input type="text" id="applyGuardianContact" class="input" autocomplete="off" inputmode="email">
+          </label>
+        </div>
         <label class="field">
-          <span class="field-label">Agent</span>
-          <input type="text" id="applyAgent" class="input" readonly>
-        </label>
-        <label class="check" id="applyGuardianRow" hidden>
-          <input type="checkbox" id="applyGuardian">
-          <span>A parent or guardian has approved this application (athlete is under 18).</span>
-        </label>
-        <label class="field">
-          <span class="field-label">Note to the selection panel (optional)</span>
+          <span class="field-label">Note to the club (optional)</span>
           <textarea id="applyNote" class="input" rows="3"></textarea>
         </label>
         <p class="form-error" id="applyError" role="alert" hidden></p>
         <button type="submit" class="btn btn-accent btn-block" id="applySubmit">Send application</button>
       </form>
     </div>
+  </div>
+
+  <!-- GUARDIAN APPROVAL (demo: what the parent or guardian sees from their link) -->
+  <div class="modal" id="guardianModal" hidden>
+    <div class="modal-scrim" data-action="close-modal"></div>
+    <div class="modal-dialog modal-dialog-sm" role="dialog" aria-modal="true" aria-labelledby="guardianTitle">
+      <button type="button" class="modal-close" data-action="close-modal" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <h2 class="modal-title" id="guardianTitle">Approve an application</h2>
+      <p class="muted" id="guardianIntro"></p>
+      <form id="guardianForm" class="form" novalidate>
+        <label class="field">
+          <span class="field-label" id="guardianSignLabel">Type your full name to approve</span>
+          <input type="text" id="guardianSignName" class="input" autocomplete="off">
+        </label>
+        <p class="form-error" id="guardianError" role="alert" hidden></p>
+        <button type="submit" class="btn btn-accent btn-block">Approve</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="explain" id="explain" popover role="dialog" aria-labelledby="explainTitle">
+    <button type="button" class="modal-close" data-action="close-explain" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <h2 class="explain-title" id="explainTitle"></h2>
+    <div id="explainBody"></div>
   </div>
 
   <!-- CONFIRM (destructive actions) -->
@@ -547,7 +612,7 @@
     </div>
   </footer>
 
-  <script src="data.js?v=20261008"></script>
-  <script src="app.js?v=20261008"></script>
+  <script src="data.js?v=20261008-2"></script>
+  <script src="app.js?v=20261008-2"></script>
 </body>
 </html>

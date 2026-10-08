@@ -8,10 +8,10 @@
 window.AAX_DATA = {
   // Verification levels, lowest to highest.
   verificationLevels: [
-    { id: 'none', label: 'Not verified', short: 'Unverified' },
-    { id: 'identity', label: 'ID verified', short: 'ID' },
-    { id: 'athletic', label: 'Results verified', short: 'Results' },
-    { id: 'pro', label: 'Combine verified', short: 'Combine' }
+    { id: 'none', label: 'Not verified', short: 'Unverified', means: 'Nothing has been checked yet. Treat every figure as the athlete’s own claim.' },
+    { id: 'identity', label: 'ID verified', short: 'ID', means: 'Identity and age are checked. Stats and test results are still self-reported.' },
+    { id: 'athletic', label: 'Results verified', short: 'Results', means: 'Results are checked against official meet or match records.' },
+    { id: 'pro', label: 'Combine verified', short: 'Combine', means: 'Measured in person at a partner combine: height, reach, speed and other tests.' }
   ],
 
   athletes: [
@@ -443,7 +443,8 @@ window.AAX_DATA = {
     { id: 'org-01', name: 'Harbourside FC Academy' },
     { id: 'org-02', name: 'Atlantic Collegiate Showcase' },
     { id: 'org-03', name: 'Meridian Invitational Tour' },
-    { id: 'org-04', name: 'Island T20 League' }
+    { id: 'org-04', name: 'Island T20 League' },
+    { id: 'org-05', name: 'Coral Bay Aquatics Academy' }
   ],
 
   opportunities: [
@@ -518,6 +519,24 @@ window.AAX_DATA = {
       places: 5,
       applicants: 29,
       tags: ['Draft contract']
+    },
+    {
+      id: 'opp-05',
+      orgId: 'org-05',
+      title: 'Junior sprint freestyle squad',
+      type: 'Junior development place',
+      sport: 'Swimming',
+      positions: ['Freestyle'],
+      location: 'Bridgetown, Barbados',
+      date: '6–8 Dec 2026',
+      deadline: '2026-11-20',
+      age: [15, 18],
+      minVerification: 'identity',
+      standard: '50 m freestyle under 26.5 seconds',
+      offer: 'Funded training place for the 2027 season, with travel and kit covered',
+      places: 6,
+      applicants: 14,
+      tags: ['Under-18s welcome', 'Guardian approval']
     }
   ],
 
@@ -566,9 +585,9 @@ window.AAX_DATA = {
 
   // Commission-only model: agents are paid a share of money the athlete earns, never an upfront fee.
   transactions: [
-    { id: 'tx-1007', date: '2026-10-06', type: 'Travel grant', description: 'Junior aquatics championships travel. Released to a parent or guardian, not the athlete.', payer: 'Harbour Swim Club Boosters', payee: 'Chloe Henderson', amount: 600, status: 'held', athleteId: 'ath-07', agentId: null, orgId: null },
+    { id: 'tx-1007', date: '2026-10-06', type: 'Travel grant', description: 'Travel to the junior aquatics championships.', release: 'Paid to a parent or guardian once the meet entry is confirmed', payer: 'Harbour Swim Club Boosters', payee: 'Chloe Henderson', amount: 600, status: 'held', athleteId: 'ath-07', agentId: null, orgId: null },
     { id: 'tx-1006', date: '2026-09-30', type: 'Combine testing fee', description: 'Wingspan, vertical and shooting tests at the Kingston combine.', payer: 'Shavar Montague', payee: 'Apex Combine, Kingston', amount: 250, status: 'settled', athleteId: 'ath-01', agentId: null, orgId: null },
-    { id: 'tx-1005', date: '2026-10-04', type: 'Endorsement fee', description: 'Stride Athletic (fictional brand) shoe deal, first instalment. Released when the athlete confirms delivery.', payer: 'Stride Athletic', payee: 'Aliyah Blake', amount: 12000, status: 'held', athleteId: 'ath-03', agentId: null, orgId: null },
+    { id: 'tx-1005', date: '2026-10-04', type: 'Endorsement fee', description: 'Stride Athletic (fictional brand) shoe deal, first instalment.', release: 'Paid out when the athlete confirms the shoes were delivered', payer: 'Stride Athletic', payee: 'Aliyah Blake', amount: 12000, status: 'held', athleteId: 'ath-03', agentId: null, orgId: null },
     { id: 'tx-1004', date: '2026-10-02', type: 'Club subscription', description: 'Annual access to scouting profiles and video.', payer: 'Harbourside FC Academy', payee: 'Apex Athlete Exchange', amount: 4800, status: 'settled', athleteId: null, agentId: null, orgId: 'org-01' },
     { id: 'tx-1003', date: '2026-09-28', type: 'Combine testing fee', description: 'Sprint timing, GPS speed test and medical check at the Kingston combine.', payer: 'Tariq Sterling', payee: 'Apex Combine, Kingston', amount: 250, status: 'settled', athleteId: 'ath-02', agentId: null, orgId: null },
     { id: 'tx-1002', date: '2026-09-16', type: 'Agent commission', description: '8% of the Meridian Invitational appearance fee, under the agreement signed 20 Aug 2026.', payer: 'Aliyah Blake', payee: 'Northgate Sports Management', amount: 640, status: 'settled', athleteId: 'ath-03', agentId: 'agt-01', orgId: null },
