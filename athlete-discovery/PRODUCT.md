@@ -53,12 +53,14 @@ Undecided (do not assume): the production stack, real authentication, the escrow
 
 - Name: **Apex Athlete Exchange** (AAX).
 - A dark mode must remain available.
+- Must not read as a generic startup or SaaS page, as playful or cartoonish, or as cold and corporate. It has to be serious enough for investors and clubs and still feel like it belongs to a 16-year-old athlete.
 
 ## Evidence on Hand
 
 - Everything in the demo is **fictional**: athletes, agents, clubs, schools, brands, results, news and payments (`athlete-discovery/data.js`). Real organisations, governing bodies and leagues must not appear; contact details use `@example.com` addresses and 555 numbers.
 - No real users, testimonials, customers, case studies, press, partner logos, licences or usage numbers exist. Future work must not invent them or present demo figures as real.
 - Assets: `athlete-discovery/og-image.png` (social share image).
+- Photography: licensed stock action photos (unnamed athletes) may stand in for the fictional athletes, covered by the site-wide notice that every person and figure is fictional. No real athlete, team or event photography. Photos of under-18s should not show an identifiable face.
 
 ## Product Principles
 
