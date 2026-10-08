@@ -31,7 +31,7 @@
 
   <header class="site-header">
     <div class="masthead">
-      <a class="wordmark" href="#discovery" data-action="nav" data-section="discovery">
+      <a class="wordmark" href="#home" data-action="home" aria-label="Apex Athlete Exchange, home">
         <span class="wordmark-mark" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 32 32"><path d="M9 24 16 7l7 17h-4.2l-1.3-3.4h-3l-1.3 3.4Z" fill="currentColor"/></svg>
         </span>
@@ -61,50 +61,33 @@
     </div>
 
     <nav class="site-nav" aria-label="Sections">
-      <div class="site-nav-tabs" id="navTabs">
-        <a href="#discovery" class="nav-tab" data-action="nav" data-section="discovery" aria-current="page">Prospects</a>
-        <a href="#profile" class="nav-tab" data-action="nav" data-section="profile">Profile</a>
-        <a href="#agents" class="nav-tab" data-action="nav" data-section="agents">Agents</a>
-        <a href="#scouting" class="nav-tab" data-action="nav" data-section="scouting">Watchlists</a>
-        <a href="#opportunities" class="nav-tab" data-action="nav" data-section="opportunities">Trials</a>
-        <a href="#ledger" class="nav-tab" data-action="nav" data-section="ledger">Payments</a>
-      </div>
-      <div class="site-nav-actions">
-        <button type="button" class="btn btn-ghost-dark" data-action="open-compare">
+      <div class="site-nav-tabs" id="navTabs"><!-- built per role in app.js --></div>
+      <div class="site-nav-actions" id="navActions">
+        <button type="button" class="btn btn-ghost-dark" data-action="open-compare" id="compareBtn">
           Compare <span class="count-chip num" id="compareCount">0</span>
         </button>
-        <button type="button" class="btn btn-accent" id="headerActionBtn">My profile</button>
       </div>
     </nav>
   </header>
 
-  <section class="scores" aria-labelledby="scoresLabel">
+  <section class="scores" id="scores" aria-labelledby="scoresLabel" hidden>
     <h2 class="scores-label" id="scoresLabel">Results</h2>
     <ol class="scores-list" id="scoresList"></ol>
   </section>
 
-  <div class="welcome">
-    <div class="welcome-inner">
-      <span class="avatar avatar-lg" id="welcomeAvatar" aria-hidden="true">SM</span>
-      <div class="welcome-copy">
-        <p class="welcome-title" id="welcomeTitle">Welcome back, Shavar</p>
-        <p class="welcome-text" id="welcomeText"></p>
-      </div>
-      <div class="welcome-actions">
-        <button type="button" class="btn btn-secondary btn-sm" id="welcomeActionOne"></button>
-        <button type="button" class="btn btn-quiet btn-sm" id="welcomeActionTwo"></button>
-      </div>
-    </div>
-  </div>
-
   <main id="main" class="page">
 
+    <!-- HOME (role dashboard) -->
+    <section id="section-home" class="view" aria-labelledby="homeTitle">
+      <div id="homeBody"></div>
+    </section>
+
     <!-- PROSPECTS -->
-    <section id="section-discovery" class="view is-active" aria-labelledby="h-discovery">
+    <section id="section-board" class="view" aria-labelledby="h-board">
       <header class="view-head">
         <div>
-          <h1 id="h-discovery">Prospect board</h1>
-          <p class="view-lede">Ranked by scout grade. Measurements, test results and representation status for every athlete.</p>
+          <h1 id="h-board">Prospect board</h1>
+          <p class="view-lede" id="boardLede">Ranked by scout grade. Measurements, test results and representation status for every athlete.</p>
         </div>
       </header>
 
@@ -240,8 +223,8 @@
       </div>
     </section>
 
-    <!-- PROFILE -->
-    <section id="section-profile" class="view" aria-labelledby="profileName">
+    <!-- ATHLETE PROFILE (own profile or someone else's) -->
+    <section id="section-athlete" class="view" aria-labelledby="profileName">
       <div id="profileBody"></div>
     </section>
 
@@ -250,30 +233,49 @@
       <header class="view-head">
         <div>
           <h1 id="h-agents">Agents</h1>
-          <p class="view-lede">Agents working with athletes on the exchange. Agents are paid commission on what an athlete earns, never an upfront fee. Licences are checked when an agent signs up.</p>
+          <p class="view-lede" id="agentsLede">Agents working with athletes on the exchange. Agents are paid commission on what an athlete earns, never an upfront fee. Licences are checked when an agent signs up.</p>
         </div>
       </header>
+      <div id="agentBanner"></div>
       <div class="agent-grid" id="agentList"></div>
-
-      <section class="section-block" aria-labelledby="h-agreements">
-        <div class="section-block-head">
-          <h2 class="section-title" id="h-agreements">Agreements</h2>
-          <p class="muted">Representation agreements on the exchange. Both the athlete (or a guardian, if under 18) and the agent must sign.</p>
-        </div>
-        <div class="agreement-list" id="agreementList"></div>
-      </section>
     </section>
 
-    <!-- WATCHLISTS -->
-    <section id="section-scouting" class="view" aria-labelledby="h-scouting">
+    <!-- CLIENTS (agent) -->
+    <section id="section-clients" class="view" aria-labelledby="h-clients">
       <header class="view-head">
         <div>
-          <h1 id="h-scouting">Watchlists</h1>
-          <p class="view-lede">Shortlists kept by scouts and clubs. Open a list in the comparison table below.</p>
+          <h1 id="h-clients">Clients</h1>
+          <p class="view-lede">Athletes you represent and agreements waiting for a signature.</p>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" data-action="find-unsigned">Find unsigned athletes</button>
+      </header>
+      <div class="agreement-list" id="clientList"></div>
+    </section>
+
+    <!-- AGREEMENTS (admin) -->
+    <section id="section-agreements" class="view" aria-labelledby="h-agreements">
+      <header class="view-head">
+        <div>
+          <h1 id="h-agreements">Agreements</h1>
+          <p class="view-lede">Every representation agreement on the exchange. Both the athlete (or a guardian, if under 18) and the agent must sign.</p>
+        </div>
+      </header>
+      <div class="agreement-list" id="agreementList"></div>
+    </section>
+
+    <!-- SHORTLISTS -->
+    <section id="section-shortlists" class="view" aria-labelledby="h-shortlists">
+      <header class="view-head">
+        <div>
+          <h1 id="h-shortlists">Shortlists</h1>
+          <p class="view-lede">Your saved shortlists, lists other scouts have shared, and a side-by-side comparison.</p>
         </div>
       </header>
 
-      <div class="watchlists" id="watchlists"></div>
+      <h2 class="section-title">Yours</h2>
+      <div class="watchlists" id="myLists"></div>
+      <h2 class="section-title" id="sharedTitle">Shared on the exchange</h2>
+      <div class="watchlists" id="sharedLists"></div>
 
       <section class="card compare-card" id="comparePanel" aria-labelledby="h-compare" tabindex="-1">
         <div class="card-head card-head-lg">
@@ -283,7 +285,7 @@
           </div>
           <div class="card-actions">
             <button type="button" class="btn btn-quiet btn-sm" data-action="clear-compare">Clear</button>
-            <button type="button" class="btn btn-quiet btn-sm" data-action="save-watchlist" id="saveWatchlistBtn">Save as watchlist</button>
+            <button type="button" class="btn btn-quiet btn-sm" data-action="save-watchlist" id="saveWatchlistBtn">Save as shortlist</button>
             <button type="button" class="btn btn-secondary btn-sm" data-action="print">Print / save PDF</button>
           </div>
         </div>
@@ -292,18 +294,18 @@
     </section>
 
     <!-- TRIALS -->
-    <section id="section-opportunities" class="view" aria-labelledby="h-opps">
+    <section id="section-trials" class="view" aria-labelledby="h-trials">
       <header class="view-head">
         <div>
-          <h1 id="h-opps">Trials &amp; scholarships</h1>
-          <p class="view-lede">Trials, combines and scholarship places posted by clubs, leagues and colleges. Applications are checked against each listing’s sport, age, verification and deadline.</p>
+          <h1 id="h-trials">Trials &amp; scholarships</h1>
+          <p class="view-lede" id="trialsLede">Trials, combines and scholarship places posted by clubs, leagues and colleges.</p>
         </div>
       </header>
       <div class="opp-list" id="oppList"></div>
     </section>
 
     <!-- PAYMENTS -->
-    <section id="section-ledger" class="view" aria-labelledby="h-ledger">
+    <section id="section-payments" class="view" aria-labelledby="h-ledger">
       <header class="view-head">
         <div>
           <h1 id="h-ledger">Payments</h1>
@@ -492,13 +494,7 @@
         <p class="footer-text">A product demo for a scouting and representation platform for Caribbean athletes. Kingston · London · Miami.</p>
       </div>
       <nav aria-label="Footer">
-        <ul class="footer-links">
-          <li><a href="#discovery" data-action="nav" data-section="discovery">Prospects</a></li>
-          <li><a href="#agents" data-action="nav" data-section="agents">Agents</a></li>
-          <li><a href="#scouting" data-action="nav" data-section="scouting">Watchlists</a></li>
-          <li><a href="#opportunities" data-action="nav" data-section="opportunities">Trials</a></li>
-          <li><a href="#ledger" data-action="nav" data-section="ledger">Payments</a></li>
-        </ul>
+        <ul class="footer-links" id="footerLinks"></ul>
       </nav>
     </div>
     <div class="footer-bottom">

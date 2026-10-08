@@ -1,14 +1,14 @@
 /**
  * Apex Athlete Exchange — demo client.
  * Vanilla JS, no dependencies. Data comes from data.js (all fictional).
- * Changes are saved to this browser's localStorage so the demo survives a refresh.
+ * Each demo role gets its own navigation and home page; changes are saved to
+ * this browser's localStorage so the demo survives a refresh.
  */
 (function () {
   'use strict';
 
   const SEED = window.AAX_DATA;
-  const STORE_KEY = 'aax-demo-v2';
-  const SECTIONS = ['discovery', 'profile', 'agents', 'scouting', 'opportunities', 'ledger'];
+  const STORE_KEY = 'aax-demo-v3';
   const LEVELS = SEED.verificationLevels.map((l) => l.id);
   const PERMISSIONS = ['viewer', 'contributor', 'manager', 'representative'];
   const PERMISSION_LABELS = {
@@ -18,15 +18,24 @@
     representative: ['Exclusive representative', 'Negotiates contracts and sponsorship and approves payouts from escrow.']
   };
   const COUNTRY_CODES = { 'Jamaica': 'JAM', 'Trinidad & Tobago': 'TTO', 'Barbados': 'BAR', 'Puerto Rico': 'PUR', 'Ghana': 'GHA' };
-  // Who "you" are in each demo role.
+  // Who "you" are in each demo role. The athlete is switchable (adult or under-18).
   const ME = { athlete: 'ath-01', agent: 'agt-01', scout: 'sct-01', organization: 'org-01', admin: null };
   const DEFAULT_FILTER = { search: '', sport: 'all', position: 'all', country: 'all', status: 'all', verification: 'none', minHeight: 66 };
+
+  // Navigation per role. The first entry is the role's home page.
+  const ROLE_NAV = {
+    athlete: [['home', 'Home'], ['me', 'My profile'], ['agents', 'Agents'], ['trials', 'Trials'], ['payments', 'Payments']],
+    agent: [['home', 'Home'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['clients', 'Clients'], ['trials', 'Trials'], ['payments', 'Payments']],
+    scout: [['board', 'Prospects'], ['shortlists', 'Shortlists'], ['trials', 'Trials & combines']],
+    organization: [['trials', 'Your trials'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['payments', 'Payments']],
+    admin: [['home', 'Overview'], ['board', 'Prospects'], ['agents', 'Agents'], ['agreements', 'Agreements'], ['payments', 'Payments']]
+  };
 
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
   function freshState() {
     return {
-      version: 2,
+      version: 3,
       role: 'athlete',
       actingAthleteId: 'ath-01',
       viewMode: 'grid',
@@ -38,14 +47,14 @@
       transactions: clone(SEED.transactions),
       agreements: clone(SEED.agreements),
       applications: clone(SEED.applications),
-      counters: { agreement: 2, application: 1, watchlist: 4 }
+      counters: { agreement: 2, application: 2, watchlist: 5 }
     };
   }
 
   function loadState() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-      if (saved && saved.version === 2) return Object.assign(freshState(), saved);
+      if (saved && saved.version === 3) return Object.assign(freshState(), saved);
     } catch (e) { /* storage unavailable or corrupt: start fresh */ }
     return freshState();
   }
@@ -58,6 +67,7 @@
   ME.athlete = S.actingAthleteId || 'ath-01';
   let filter = { ...DEFAULT_FILTER };
   let stepper = null;
+  let current = { route: null, id: null };
 
   /* ==========================================================================
      HELPERS
@@ -83,6 +93,8 @@
   const levelIndex = (id) => LEVELS.indexOf(id);
   const levelLabel = (id) => (SEED.verificationLevels.find((l) => l.id === id) || {}).label || id;
   const normName = (s) => s.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
+  const firstName = (a) => a.name.split(' ')[0];
+  const signed = (n) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(1)}`;
 
   function ageOf(dob) {
     const d = new Date(dob + 'T00:00:00');
@@ -96,19 +108,23 @@
   const athleteById = (id) => S.athletes.find((a) => a.id === id);
   const agentById = (id) => SEED.agents.find((a) => a.id === id);
   const orgById = (id) => SEED.organizations.find((o) => o.id === id);
+  const oppById = (id) => S.opportunities.find((o) => o.id === id);
   const byGrade = (list) => [...list].sort((a, b) => b.grade - a.grade);
+  const navFor = (role = S.role) => ROLE_NAV[role];
+  const homeRoute = () => navFor()[0][0];
+  const hasRoute = (route) => navFor().some(([r]) => r === route);
 
   function myName() {
-    const id = ME[S.role];
-    if (S.role === 'athlete') return athleteById(id).name;
-    if (S.role === 'agent') return agentById(id).name;
+    if (S.role === 'athlete') return athleteById(ME.athlete).name;
+    if (S.role === 'agent') return agentById(ME.agent).name;
     if (S.role === 'scout') return SEED.scouts[0].name;
-    if (S.role === 'organization') return orgById(id).name;
+    if (S.role === 'organization') return orgById(ME.organization).name;
     return 'Platform admin';
   }
 
   // Live or pending agreement for an athlete (an athlete can have only one).
   const openAgreementFor = (athleteId) => S.agreements.find((g) => g.athleteId === athleteId && (g.status === 'active' || g.status === 'pending'));
+  const myClients = () => S.agreements.filter((g) => g.agentId === ME.agent && g.status === 'active').map((g) => athleteById(g.athleteId));
 
   function repStatus(a) {
     const g = openAgreementFor(a.id);
@@ -124,6 +140,13 @@
     if (r.kind === 'free') return '<span class="status status-ok">Free agent</span>';
     return '<span class="status status-wait">Seeking an agent</span>';
   }
+
+  const APP_STATUS = {
+    submitted: ['status-info', 'Submitted'],
+    invited: ['status-ok', 'Invited'],
+    declined: ['status-neutral', 'Not selected']
+  };
+  const appStatusMarkup = (ap) => `<span class="status ${APP_STATUS[ap.status][0]}">${APP_STATUS[ap.status][1]}</span>`;
 
   const verificationBadge = (a) => `<span class="badge badge-${a.verification}">${esc(levelLabel(a.verification))}</span>`;
   const minorBadge = (a) => (isMinor(a) ? '<span class="badge badge-minor">Under 18</span>' : '');
@@ -156,8 +179,8 @@
     return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
   }
 
-  // Small inline trend line (Tremor spark-chart pattern). Decorative; callers add a text equivalent.
-  function sparkline(values, { width = 56, height = 18, area = true, dot = true } = {}) {
+  // Small inline trend line (spark-chart pattern). Decorative; callers add a text equivalent.
+  function sparkline(values, { width = 56, height = 18, area = true, dot = true, fill = false } = {}) {
     const min = Math.min(...values);
     const max = Math.max(...values);
     const pad = 2;
@@ -165,14 +188,13 @@
     const y = (v) => (max === min ? height / 2 : pad + (1 - (v - min) / (max - min)) * (height - pad * 2));
     const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
     const last = pts[pts.length - 1].split(',');
-    return `<svg class="spark" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
+    const sizing = fill ? `preserveAspectRatio="none" style="width:100%;height:${height}px"` : `width="${width}" height="${height}"`;
+    return `<svg class="spark" ${sizing} viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
       ${area ? `<path class="spark-area" d="M${pts[0]} L${pts.join(' L')} L${x(values.length - 1).toFixed(1)},${height} L${x(0).toFixed(1)},${height} Z"/>` : ''}
       <polyline class="spark-line" points="${pts.join(' ')}"/>
-      ${dot ? `<circle class="spark-dot" cx="${last[0]}" cy="${last[1]}" r="2.5"/>` : ''}
+      ${dot && !fill ? `<circle class="spark-dot" cx="${last[0]}" cy="${last[1]}" r="2.5"/>` : ''}
     </svg>`;
   }
-
-  const signed = (n) => `${n > 0 ? '+' : n < 0 ? '−' : '±'}${Math.abs(n).toFixed(1)}`;
 
   function splitName(name) {
     const parts = name.split(' ');
@@ -212,11 +234,34 @@
     return [];
   }
 
-  function visibleAgreements() {
-    if (S.role === 'admin') return S.agreements;
-    if (S.role === 'athlete') return S.agreements.filter((g) => g.athleteId === ME.athlete);
-    if (S.role === 'agent') return S.agreements.filter((g) => g.agentId === ME.agent);
-    return null; // private to the parties
+  /* ==========================================================================
+     TRIAL ELIGIBILITY & APPLICATIONS
+     ========================================================================== */
+  function daysUntil(iso) {
+    return Math.ceil((new Date(iso + 'T23:59:59') - new Date()) / 86400000);
+  }
+  const isOpen = (o) => daysUntil(o.deadline) >= 0;
+  const applicationFor = (athleteId, oppId) => S.applications.find((ap) => ap.athleteId === athleteId && ap.oppId === oppId);
+
+  // Reasons an athlete can't apply; an empty list means eligible.
+  function eligibility(a, o, { ignoreExisting = false } = {}) {
+    const reasons = [];
+    const age = ageOf(a.dob);
+    if (a.sport !== o.sport) reasons.push(`This listing is for ${o.sport.toLowerCase()}.`);
+    else if (o.positions.length && !o.positions.some((p) => a.position.toLowerCase().includes(p.toLowerCase()))) reasons.push(`Open to ${o.positions.join(', ').toLowerCase()} only.`);
+    if (age < o.age[0] || age > o.age[1]) reasons.push(`Ages ${o.age[0]}–${o.age[1]} only (${firstName(a)} is ${age}).`);
+    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelLabel(o.minVerification).toLowerCase()} (profile is ${levelLabel(a.verification).toLowerCase()}).`);
+    if (!isOpen(o)) reasons.push('Applications have closed.');
+    if (!ignoreExisting && applicationFor(a.id, o.id)) reasons.push('Already applied.');
+    return reasons;
+  }
+
+  const eligibleAthletes = (o) => S.athletes.filter((a) => eligibility(a, o, { ignoreExisting: true }).length === 0);
+
+  function applicantsFor() {
+    if (S.role === 'athlete') return [athleteById(ME.athlete)];
+    if (S.role === 'agent') return myClients();
+    return [];
   }
 
   /* ==========================================================================
@@ -228,32 +273,29 @@
     wireModals();
     trackHeaderHeight();
     renderAll();
-
-    const initial = location.hash.slice(1);
-    switchSection(SECTIONS.includes(initial) ? initial : 'discovery', { push: false, focus: false });
-    window.addEventListener('popstate', () => {
-      const s = location.hash.slice(1);
-      switchSection(SECTIONS.includes(s) ? s : 'discovery', { push: false });
-    });
+    go(parseHash(), { push: false, focus: false });
+    window.addEventListener('popstate', () => go(parseHash(), { push: false }));
   });
 
   function renderAll() {
     $('#roleSelect').value = S.role === 'athlete' ? `athlete:${ME.athlete}` : S.role;
     $$('.segmented-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === S.viewMode)));
-    renderRoleChrome();
+    renderChrome();
     renderScores();
     renderSpotlight();
     renderWire();
     renderLeaders();
     renderGlance();
     renderBoard();
-    renderProfile(S.selectedAthleteId);
+    renderHome();
     renderAgents();
-    renderAgreements();
-    renderWatchlists();
+    renderClients();
+    renderAgreementsPage();
+    renderShortlists();
     renderCompare();
-    renderOpportunities();
+    renderTrials();
     renderLedger();
+    if (current.route === 'athlete') renderProfile(current.id);
     $('#compareCount').textContent = S.compare.length;
   }
 
@@ -297,19 +339,58 @@
   }
 
   /* ==========================================================================
-     NAVIGATION & ROLES
+     ROUTING
+     Routes: #home #board #athlete/<id> #me #agents #clients #agreements
+     #shortlists #trials #payments. A route the current role doesn't have
+     falls back to that role's home page.
      ========================================================================== */
-  function switchSection(id, { push = true, focus = true } = {}) {
-    if (!SECTIONS.includes(id)) return;
+  function parseHash() {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (h.startsWith('athlete/')) return { route: 'athlete', id: h.slice(8) };
+    return { route: h || homeRoute(), id: null };
+  }
+
+  const hashFor = ({ route, id }) => (route === 'athlete' ? `#athlete/${id}` : `#${route}`);
+
+  // Which nav tab a route belongs to.
+  function navKeyFor({ route, id }) {
+    if (route !== 'athlete') return route;
+    if (S.role === 'athlete' && id === ME.athlete) return 'me';
+    return hasRoute('board') ? 'board' : null;
+  }
+
+  function markNav() {
+    const key = navKeyFor(current);
     $$('#navTabs .nav-tab').forEach((t) => {
-      if (t.dataset.section === id) t.setAttribute('aria-current', 'page');
+      if (t.dataset.route === key) t.setAttribute('aria-current', 'page');
       else t.removeAttribute('aria-current');
     });
-    $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${id}`));
-    if (push && location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
+  }
+
+  function go(target, { push = true, focus = true } = {}) {
+    let { route, id } = typeof target === 'string' ? { route: target, id: null } : target;
+    if (route === 'me' && S.role === 'athlete') { route = 'athlete'; id = ME.athlete; }
+    if (route === 'athlete' && !athleteById(id)) route = homeRoute();
+    if (route !== 'athlete' && !hasRoute(route)) route = homeRoute();
+    if (route === 'me') { route = 'athlete'; id = ME.athlete; }
+    current = { route, id: route === 'athlete' ? id : null };
+
+    if (route === 'athlete') {
+      S.selectedAthleteId = id;
+      save();
+      renderProfile(id);
+    }
+
+    markNav();
+    $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
+    $('#scores').hidden = route !== 'board';
+
+    const hash = hashFor(current);
+    if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
+
     if (focus) {
       window.scrollTo(0, 0);
-      const heading = $(`#section-${id} h1`);
+      const heading = $(`#section-${route} h1`);
       if (heading) {
         heading.setAttribute('tabindex', '-1');
         heading.focus({ preventScroll: true });
@@ -317,12 +398,7 @@
     }
   }
 
-  function viewProfile(id) {
-    S.selectedAthleteId = id;
-    save();
-    renderProfile(id);
-    switchSection('profile');
-  }
+  const viewProfile = (id) => go({ route: 'athlete', id });
 
   function scrollToEl(el) {
     if (!el) return;
@@ -331,94 +407,36 @@
     el.focus({ preventScroll: true });
   }
 
-  function roleConfig() {
-    const role = S.role;
-    if (role === 'athlete') {
+  /* ==========================================================================
+     CHROME: nav, header figure, footer
+     ========================================================================== */
+  // The one number each role most wants to see in the header (none for scouts).
+  function headerFigure() {
+    if (S.role === 'athlete') {
       const me = athleteById(ME.athlete);
-      const r = ranks(me);
-      const openTrials = S.opportunities.filter((o) => eligibility(me, o).length === 0).length;
-      const g = openAgreementFor(me.id);
-      const agentLine = g ? (g.status === 'active' ? `Represented by ${agentById(g.agentId).name}.` : 'Your agent agreement is waiting for a signature.') : 'You don’t have an agent yet.';
-      return {
-        avatar: initials(me.name),
-        title: `Welcome back, ${me.name.split(' ')[0]}`,
-        text: `You’re #${r.board.rank} of ${r.board.of} on the board. ${agentLine} ${plural(openTrials, 'trial')} open to you.`,
-        balanceLabel: 'Held for you',
-        balance: money(S.transactions.filter((t) => t.athleteId === me.id && t.payee === me.name && t.status === 'held').reduce((s, t) => s + t.amount, 0)),
-        header: ['My profile', () => viewProfile(me.id)],
-        one: ['Find an agent', () => switchSection('agents')],
-        two: ['Open trials', () => switchSection('opportunities')]
-      };
+      return ['Held for you', money(S.transactions.filter((t) => t.athleteId === me.id && t.payee === me.name && t.status === 'held').reduce((s, t) => s + t.amount, 0))];
     }
-    if (role === 'agent') {
-      const me = agentById(ME.agent);
-      const mine = S.agreements.filter((g) => g.agentId === me.id);
-      const available = S.athletes.filter((a) => !openAgreementFor(a.id)).length;
-      return {
-        avatar: initials(me.name),
-        title: `${me.name} · ${me.agency}`,
-        text: `${plural(mine.filter((g) => g.status === 'active').length, 'active agreement')}, ${mine.filter((g) => g.status === 'pending').length} pending. ${plural(available, 'athlete')} on the board without an agent.`,
-        balanceLabel: 'Commission received',
-        balance: money(S.transactions.filter((t) => t.agentId === me.id && t.status === 'settled').reduce((s, t) => s + t.amount, 0)),
-        header: ['Find athletes', () => { switchSection('discovery'); applyPreset('available'); }],
-        one: ['Your agreements', () => { switchSection('agents', { focus: false }); scrollToEl($('#h-agreements')); }],
-        two: ['Payments', () => switchSection('ledger')]
-      };
+    if (S.role === 'agent') return ['Commission received', money(S.transactions.filter((t) => t.agentId === ME.agent && t.status === 'settled').reduce((s, t) => s + t.amount, 0))];
+    if (S.role === 'organization') {
+      const mine = S.opportunities.filter((o) => o.orgId === ME.organization).map((o) => o.id);
+      return ['Applications to review', String(S.applications.filter((ap) => mine.includes(ap.oppId) && ap.status === 'submitted').length)];
     }
-    if (role === 'scout') {
-      const me = SEED.scouts[0];
-      const lists = S.watchlists.filter((w) => w.owner === me.name);
-      return {
-        avatar: initials(me.name),
-        title: `${me.name} · ${me.org}`,
-        text: `${plural(lists.length, 'watchlist')}, ${plural(S.compare.length, 'athlete')} in your comparison.`,
-        balanceLabel: 'Watchlists',
-        balance: String(lists.length),
-        header: ['Save comparison', saveComparisonAsWatchlist],
-        one: ['Watchlists', () => switchSection('scouting')],
-        two: ['Compare', openCompare]
-      };
-    }
-    if (role === 'organization') {
-      const me = orgById(ME.organization);
-      const myOpps = S.opportunities.filter((o) => o.orgId === me.id);
-      const apps = S.applications.filter((ap) => myOpps.some((o) => o.id === ap.oppId));
-      return {
-        avatar: initials(me.name),
-        title: me.name,
-        text: `${plural(myOpps.length, 'trial')} listed. ${plural(apps.length, 'application')} received through the exchange.`,
-        balanceLabel: 'Applications',
-        balance: String(apps.length),
-        header: ['Review applications', () => switchSection('opportunities')],
-        one: ['Your trials', () => switchSection('opportunities')],
-        two: ['Payments', () => switchSection('ledger')]
-      };
-    }
-    const held = S.transactions.filter((t) => t.status === 'held');
-    return {
-      avatar: 'AX',
-      title: 'Platform admin',
-      text: `${plural(S.agreements.filter((g) => g.status === 'pending').length, 'agreement')} waiting for a signature. ${plural(held.length, 'payment')} held in escrow.`,
-      balanceLabel: 'Held in escrow',
-      balance: money(held.reduce((s, t) => s + t.amount, 0)),
-      header: ['Download ledger', exportCsv],
-      one: ['Payments', () => switchSection('ledger')],
-      two: ['Agreements', () => { switchSection('agents', { focus: false }); scrollToEl($('#h-agreements')); }]
-    };
+    if (S.role === 'admin') return ['Held in escrow', money(S.transactions.filter((t) => t.status === 'held').reduce((s, t) => s + t.amount, 0))];
+    return null;
   }
 
-  function renderRoleChrome() {
-    const c = roleConfig();
-    $('#welcomeAvatar').textContent = c.avatar;
-    $('#welcomeTitle').textContent = c.title;
-    $('#welcomeText').textContent = c.text;
-    $('#balanceLabel').textContent = c.balanceLabel;
-    $('#balanceValue').textContent = c.balance;
-    const bind = (el, [label, fn]) => { el.textContent = label; el.onclick = fn; };
-    bind($('#headerActionBtn'), c.header);
-    bind($('#welcomeActionOne'), c.one);
-    bind($('#welcomeActionTwo'), c.two);
-    $('#saveWatchlistBtn').hidden = S.role === 'athlete';
+  function renderChrome() {
+    const nav = navFor();
+    $('#navTabs').innerHTML = nav.map(([route, label]) => `<a href="#${route}" class="nav-tab" data-action="go" data-route="${route}">${esc(label)}</a>`).join('');
+    $('#footerLinks').innerHTML = nav.map(([route, label]) => `<li><a href="#${route}" data-action="go" data-route="${route}">${esc(label)}</a></li>`).join('');
+    $('#compareBtn').hidden = !hasRoute('shortlists');
+    const fig = headerFigure();
+    $('.account-balance').hidden = !fig;
+    if (fig) {
+      $('#balanceLabel').textContent = fig[0];
+      $('#balanceValue').textContent = fig[1];
+    }
+    markNav();
   }
 
   /* ==========================================================================
@@ -429,7 +447,10 @@
       const [role, athleteId] = e.target.value.split(':');
       S.role = role;
       if (athleteId) S.actingAthleteId = ME.athlete = athleteId;
+      S.compare = [];
+      current = { route: null, id: null };
       refresh();
+      go(homeRoute(), { focus: false });
     });
 
     $('#searchInput').addEventListener('input', (e) => { filter.search = e.target.value.trim().toLowerCase(); renderBoard(); });
@@ -453,10 +474,15 @@
     document.addEventListener('click', (e) => {
       const el = e.target.closest('[data-action]');
       if (!el) return;
+      if (el.tagName === 'A') e.preventDefault();
       const { action, id } = el.dataset;
       switch (action) {
-        case 'nav': e.preventDefault(); switchSection(el.dataset.section); break;
-        case 'view-profile': e.preventDefault(); viewProfile(id); break;
+        case 'go': go(el.dataset.route); break;
+        case 'home': go(homeRoute()); break;
+        case 'back': if (history.length > 1) history.back(); else go(homeRoute()); break;
+        case 'view-profile': viewProfile(id); break;
+        case 'find-unsigned': go('board'); applyPreset('available'); break;
+        case 'find-for-trial': go('board'); filter = { ...DEFAULT_FILTER, sport: el.dataset.sport }; syncFilters(); renderBoard(); break;
         case 'toggle-compare': toggleCompare(id); break;
         case 'open-compare': openCompare(); break;
         case 'clear-compare': S.compare = []; refresh(); break;
@@ -469,6 +495,8 @@
         case 'countersign': openCountersign(id, el); break;
         case 'toggle-contact': toggleContact(el); break;
         case 'apply': openApply(id, el); break;
+        case 'invite': inviteToTrial(el.dataset.athlete, el.dataset.opp); break;
+        case 'app-status': setApplicationStatus(id, el.dataset.status); break;
         case 'play-clip': selectClip(parseInt(el.dataset.index, 10)); break;
         case 'jump': scrollToEl(document.getElementById(el.dataset.target)); break;
         case 'close-modal': closeModal(); break;
@@ -484,7 +512,228 @@
   }
 
   /* ==========================================================================
-     SCORES, SPOTLIGHT, TRENDING
+     HOME (per role)
+     ========================================================================== */
+  function kpis(items) {
+    return `<dl class="kpi-grid kpi-grid-4">${items.map(([label, value, sub, tone]) => `
+      <div class="card kpi ${tone ? `kpi-${tone}` : ''}"><dt>${label}</dt><dd>${value}${sub ? `<span>${sub}</span>` : ''}</dd></div>`).join('')}</dl>`;
+  }
+
+  const TASK_ICONS = {
+    todo: '<circle cx="12" cy="12" r="9"/>',
+    done: '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    wait: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'
+  };
+
+  // A row in a to-do style list. title and text must already be escaped.
+  function task({ title, text = '', action = '', tone = 'todo' }) {
+    return `<li class="task task-${tone}">
+      <svg class="task-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${TASK_ICONS[tone]}</svg>
+      <div class="task-body"><p class="task-title">${title}</p>${text ? `<p class="task-text">${text}</p>` : ''}</div>
+      ${action ? `<div class="task-action">${action}</div>` : ''}
+    </li>`;
+  }
+
+  function renderHome() {
+    const el = $('#homeBody');
+    if (S.role === 'athlete') el.innerHTML = athleteHome();
+    else if (S.role === 'agent') el.innerHTML = agentHome();
+    else if (S.role === 'admin') el.innerHTML = adminHome();
+    else el.innerHTML = '';
+  }
+
+  function athleteHome() {
+    const me = athleteById(ME.athlete);
+    const h = me.gradeHistory;
+    const change = me.grade - h[0];
+    const g = openAgreementFor(me.id);
+    const agent = g && agentById(g.agentId);
+    const myApps = S.applications.filter((ap) => ap.athleteId === me.id);
+    const openForMe = S.opportunities.filter((o) => eligibility(me, o).length === 0);
+    const mine = S.transactions.filter((t) => t.athleteId === me.id);
+    const toMe = mine.filter((t) => t.payee === me.name);
+    const held = toMe.filter((t) => t.status === 'held');
+    const settled = toMe.filter((t) => t.status === 'settled');
+    const paid = mine.filter((t) => t.payer === me.name);
+
+    const steps = [];
+    if (!g) steps.push(task({ title: 'Find an agent', text: 'Agents are paid a share of what you earn — never an upfront fee.', action: '<button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="agents">Browse agents</button>' }));
+    else if (g.status === 'pending' && !g.athleteSigned) steps.push(task({ title: `Sign your agreement with ${esc(agent.name)}`, text: `${esc(agent.name)} has signed. Your signature makes it active.${isMinor(me) ? ' A parent or guardian signs with you.' : ''}`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` }));
+    else if (g.status === 'pending') steps.push(task({ tone: 'wait', title: `Waiting for ${esc(agent.name)} to sign`, text: 'You’ve signed. Nothing to do until the agent signs.' }));
+    else steps.push(task({ tone: 'done', title: `Represented by ${esc(agent.name)}`, text: `${esc(agent.agency)} · ${esc(PERMISSION_LABELS[g.authority][0])}` }));
+
+    openForMe.forEach((o) => steps.push(task({ title: `Apply: ${esc(o.title)}`, text: `${esc(orgById(o.orgId).name)} · closes ${formatDate(o.deadline)}`, action: `<button type="button" class="btn btn-quiet btn-sm" data-action="apply" data-id="${o.id}">Apply</button>` })));
+    myApps.filter((ap) => ap.status === 'invited').forEach((ap) => {
+      const o = oppById(ap.oppId);
+      steps.push(task({ tone: 'done', title: `${esc(orgById(o.orgId).name)} invited you to the ${esc(o.title.toLowerCase())}`, text: `${esc(o.location)} · ${esc(o.date)}. The club will contact you with details.` }));
+    });
+    if (!openForMe.length && !myApps.length) steps.push(task({ tone: 'info', title: 'No open trials match your profile yet', text: 'Listings show up here when your sport, age and verification level match.' }));
+    if (me.verification !== 'pro') steps.push(task({ tone: 'info', title: `Your profile is ${esc(levelLabel(me.verification).toLowerCase())}`, text: 'Combine-verified profiles qualify for more trials. Verification is done in person at partner combines.' }));
+    if (isMinor(me)) steps.push(task({ tone: 'info', title: 'You’re under 18', text: 'A parent or guardian approves your applications and signs any agreement.' }));
+
+    return `
+      <header class="view-head">
+        <div>
+          <h1 id="homeTitle">Welcome back, ${esc(firstName(me))}</h1>
+          <p class="view-lede">Your board position, what needs doing next, and where things stand.</p>
+        </div>
+      </header>
+      <div class="home-grid">
+        <section class="player-header home-hero" aria-label="Your board position">
+          <div class="home-hero-main">
+            <div>
+              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
+              <p class="home-hero-name">${splitName(me.name)}</p>
+              <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
+            </div>
+            <div class="grade-box">
+              <div class="grade-label">Scout grade</div>
+              <div class="grade-figure">${me.grade.toFixed(1)}</div>
+              <div class="grade-label">${signed(change)} in 6 months</div>
+            </div>
+          </div>
+          <div class="home-hero-trend">${sparkline(h, { width: 400, height: 48, fill: true })}<span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span></div>
+          <div class="home-hero-foot">
+            ${rankRow(me)}
+            <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">View my profile</button>
+          </div>
+        </section>
+        <section class="card" aria-labelledby="h-next">
+          <div class="card-head"><h2 class="card-title" id="h-next">Next steps</h2></div>
+          <ul class="task-list">${steps.join('')}</ul>
+        </section>
+      </div>
+      <div class="home-cols">
+        <section class="card" aria-labelledby="h-myapps">
+          <div class="card-head"><h2 class="card-title" id="h-myapps">Your applications</h2><a href="#trials" class="btn-link" data-action="go" data-route="trials">All trials</a></div>
+          <div class="profile-card-body">${myApps.length ? `<ul class="plain-list">${myApps.map((ap) => {
+            const o = oppById(ap.oppId);
+            return `<li class="row-split"><span><strong>${esc(o.title)}</strong><span class="cell-sub">${esc(orgById(o.orgId).name)} · ${ap.via === 'club' ? 'invited' : 'sent'} ${formatDate(ap.date)}</span></span>${appStatusMarkup(ap)}</li>`;
+          }).join('')}</ul>` : '<p class="muted">You haven’t applied to anything yet.</p>'}</div>
+        </section>
+        <section class="card" aria-labelledby="h-mypay">
+          <div class="card-head"><h2 class="card-title" id="h-mypay">Payments</h2><a href="#payments" class="btn-link" data-action="go" data-route="payments">Details</a></div>
+          <div class="profile-card-body">
+            <dl class="kv">
+              <div><dt>Held for you</dt><dd>${money(held.reduce((s, t) => s + t.amount, 0))}</dd></div>
+              <div><dt>Paid to you</dt><dd>${money(settled.reduce((s, t) => s + t.amount, 0))}</dd></div>
+              <div><dt>Fees you’ve paid</dt><dd>${money(paid.reduce((s, t) => s + t.amount, 0))}</dd></div>
+            </dl>
+            ${toMe.length ? '' : '<p class="muted card-note">Sponsor and contract payments will show here.</p>'}
+          </div>
+        </section>
+      </div>`;
+  }
+
+  function agentHome() {
+    const me = agentById(ME.agent);
+    const mine = S.agreements.filter((g) => g.agentId === me.id);
+    const clients = myClients();
+    const toSign = mine.filter((g) => g.status === 'pending' && !g.agentSigned);
+    const waiting = mine.filter((g) => g.status === 'pending' && g.agentSigned);
+    const apps = S.applications.filter((ap) => clients.some((c) => c.id === ap.athleteId));
+    const commission = S.transactions.filter((t) => t.agentId === me.id && t.status === 'settled').reduce((s, t) => s + t.amount, 0);
+    const prospects = byGrade(S.athletes.filter((a) => !openAgreementFor(a.id) && me.sports.includes(a.sport))).slice(0, 4);
+
+    const attention = [
+      ...toSign.map((g) => {
+        const a = athleteById(g.athleteId);
+        return task({ title: `Sign the agreement with ${esc(a.name)}`, text: `${esc(a.name)}${g.guardian ? ' and a guardian have' : ' has'} signed. Your signature makes it active.`, action: `<button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button>` });
+      }),
+      ...waiting.map((g) => {
+        const a = athleteById(g.athleteId);
+        return task({ tone: 'wait', title: `Waiting for ${esc(a.name)} to sign`, text: isMinor(a) ? 'Under 18 — a parent or guardian signs too.' : 'You’ve signed and sent it.' });
+      }),
+      ...apps.filter((ap) => ap.status === 'invited').map((ap) => {
+        const o = oppById(ap.oppId);
+        return task({ tone: 'done', title: `${esc(athleteById(ap.athleteId).name)} invited to the ${esc(o.title.toLowerCase())}`, text: `${esc(orgById(o.orgId).name)} · ${esc(o.date)}` });
+      })
+    ];
+    S.opportunities.forEach((o) => {
+      const ready = clients.filter((c) => eligibility(c, o).length === 0);
+      if (ready.length) attention.push(task({ title: `${ready.map((c) => esc(c.name)).join(', ')} can apply to the ${esc(o.title.toLowerCase())}`, text: `${esc(orgById(o.orgId).name)} · closes ${formatDate(o.deadline)}`, action: `<button type="button" class="btn btn-quiet btn-sm" data-action="apply" data-id="${o.id}">Apply</button>` }));
+    });
+
+    return `
+      <header class="view-head">
+        <div>
+          <h1 id="homeTitle">${esc(me.name)}</h1>
+          <p class="view-lede">${esc(me.agency)} · ${esc(me.sports.join(', '))}</p>
+        </div>
+      </header>
+      ${kpis([
+        ['Clients', clients.length, 'active agreements'],
+        ['To sign', toSign.length, 'waiting for you', toSign.length ? 'held' : ''],
+        ['Applications', apps.length, 'sent for clients'],
+        ['Commission', money(commission), 'received', 'settled']
+      ])}
+      <div class="home-cols">
+        <section class="card" aria-labelledby="h-attention">
+          <div class="card-head"><h2 class="card-title" id="h-attention">Needs your attention</h2></div>
+          <ul class="task-list">${attention.length ? attention.join('') : task({ tone: 'done', title: 'Nothing waiting on you', text: 'New agreements and trial invitations will show up here.' })}</ul>
+        </section>
+        <section class="card" aria-labelledby="h-prospects">
+          <div class="card-head"><h2 class="card-title" id="h-prospects">Unsigned in your sports</h2><a href="#board" class="btn-link" data-action="find-unsigned">See all</a></div>
+          <ul class="mini-list">${prospects.map((a) => `
+            <li>
+              <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+              <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
+              <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
+            </li>`).join('') || '<li class="muted">Everyone in your sports has an agent.</li>'}</ul>
+        </section>
+      </div>`;
+  }
+
+  function adminHome() {
+    const pending = S.agreements.filter((g) => g.status === 'pending');
+    const active = S.agreements.filter((g) => g.status === 'active');
+    const held = S.transactions.filter((t) => t.status === 'held');
+    const total = S.athletes.length;
+    const recent = [...S.transactions].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+    return `
+      <header class="view-head">
+        <div>
+          <h1 id="homeTitle">Overview</h1>
+          <p class="view-lede">Agreements, verification and escrow across the exchange.</p>
+        </div>
+      </header>
+      ${kpis([
+        ['Athletes', total, `${S.athletes.filter(isMinor).length} under 18`],
+        ['Active agreements', active.length, 'signed by both sides', 'settled'],
+        ['Awaiting signature', pending.length, 'agreements', pending.length ? 'held' : ''],
+        ['Held in escrow', money(held.reduce((s, t) => s + t.amount, 0)), plural(held.length, 'payment')]
+      ])}
+      <div class="home-cols">
+        <section class="card" aria-labelledby="h-pending">
+          <div class="card-head"><h2 class="card-title" id="h-pending">Awaiting signature</h2><a href="#agreements" class="btn-link" data-action="go" data-route="agreements">All agreements</a></div>
+          <ul class="task-list">${pending.length
+            ? pending.map((g) => task({ tone: 'wait', title: `${esc(athleteById(g.athleteId).name)} &amp; ${esc(agentById(g.agentId).name)}`, text: g.agentSigned ? 'Waiting for the athlete' : 'Waiting for the agent' })).join('')
+            : task({ tone: 'done', title: 'Nothing waiting', text: 'Every agreement has both signatures.' })}</ul>
+        </section>
+        <section class="card" aria-labelledby="h-verify">
+          <div class="card-head"><h2 class="card-title" id="h-verify">Verification</h2><span class="card-meta">${total} athletes</span></div>
+          <div class="profile-card-body"><ul>${[...LEVELS].reverse().map((l) => {
+            const n = S.athletes.filter((a) => a.verification === l).length;
+            return `
+            <li class="standing">
+              <span class="standing-label">${esc(levelLabel(l))}</span>
+              <span class="standing-value num">${n}</span>
+              <span class="standing-rank num">${Math.round((n / total) * 100)}%</span>
+              <span class="standing-bar" aria-hidden="true"><span style="width:${Math.max(2, (n / total) * 100)}%"></span></span>
+            </li>`;
+          }).join('')}</ul></div>
+        </section>
+      </div>
+      <section class="card home-wide" aria-labelledby="h-recent">
+        <div class="card-head"><h2 class="card-title" id="h-recent">Recent payments</h2><a href="#payments" class="btn-link" data-action="go" data-route="payments">Ledger</a></div>
+        <div class="profile-card-body"><ul class="plain-list">${recent.map((t) => `
+          <li class="row-split"><span><strong>${esc(t.type)}</strong><span class="cell-sub">${esc(t.payer)} → ${esc(t.payee)} · ${formatDate(t.date)}</span></span><span class="num cell-strong">${money(t.amount)}</span></li>`).join('')}</ul></div>
+      </section>`;
+  }
+
+  /* ==========================================================================
+     SCORES, SPOTLIGHT, TRENDING, LEADERS (prospect board only)
      ========================================================================== */
   function renderScores() {
     $('#scoresList').innerHTML = SEED.results.map((r) => `
@@ -506,7 +755,7 @@
       </div>
       <div>
         <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
-        <h2 class="spotlight-name"><a href="#profile" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
+        <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
         <p class="spotlight-copy">${esc(a.summary || '')}</p>
         <dl class="spotlight-stats">
           ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
@@ -563,12 +812,11 @@
   }
 
   function renderGlance() {
-    const today = new Date();
     const cells = [
       ['Athletes', S.athletes.length],
       ['Combine verified', S.athletes.filter((a) => a.verification === 'pro').length],
       ['Without an agent', S.athletes.filter((a) => !openAgreementFor(a.id)).length],
-      ['Open trials', S.opportunities.filter((o) => new Date(o.deadline + 'T23:59:59') >= today).length]
+      ['Open trials', S.opportunities.filter(isOpen).length]
     ];
     $('#glance').innerHTML = cells.map(([k, v]) => `<div><dt>${k}</dt><dd class="num">${v}</dd></div>`).join('');
   }
@@ -623,7 +871,11 @@
     }));
   }
 
+  // Comparing is for the roles that keep shortlists (agents, scouts, clubs).
+  const canCompare = () => hasRoute('shortlists');
+
   function compareButton(id) {
+    if (!canCompare()) return '';
     const on = S.compare.includes(id);
     return `<button type="button" class="btn btn-quiet btn-sm" data-action="toggle-compare" data-id="${id}" aria-pressed="${on}">${on ? 'Comparing' : 'Compare'}</button>`;
   }
@@ -699,17 +951,30 @@
   }
 
   /* ==========================================================================
-     PROFILE
+     ATHLETE PROFILE
      ========================================================================== */
+  // What the current role can do from this profile.
   function profileActions(a) {
     const r = repStatus(a);
+    const isMe = S.role === 'athlete' && a.id === ME.athlete;
     const parts = [];
     if (r.kind === 'represented') parts.push(`<p class="player-represented">Represented by ${esc(r.agent.name)}</p>`);
     else if (r.kind === 'pending') parts.push(`<p class="player-represented">Agreement with ${esc(r.agent.name)} waiting for a signature</p>`);
-    else if (S.role === 'athlete' && a.id === ME.athlete) parts.push('<button type="button" class="btn btn-accent" data-action="nav" data-section="agents">Find an agent</button>');
+    else if (isMe) parts.push('<button type="button" class="btn btn-accent" data-action="go" data-route="agents">Find an agent</button>');
     else if (S.role === 'agent') parts.push(`<button type="button" class="btn btn-accent" data-action="start-agreement" data-athlete="${a.id}" data-agent="${ME.agent}">Offer representation</button>`);
-    const on = S.compare.includes(a.id);
-    parts.push(`<button type="button" class="btn btn-quiet" data-action="toggle-compare" data-id="${a.id}" aria-pressed="${on}">${on ? 'In comparison' : 'Add to comparison'}</button>`);
+
+    if (S.role === 'organization') {
+      S.opportunities.filter((o) => o.orgId === ME.organization).forEach((o) => {
+        const ap = applicationFor(a.id, o.id);
+        if (ap) parts.push(`<p class="player-represented">${esc(o.title)}: ${APP_STATUS[ap.status][1].toLowerCase()}</p>`);
+        else if (!eligibility(a, o).length) parts.push(`<button type="button" class="btn btn-accent" data-action="invite" data-athlete="${a.id}" data-opp="${o.id}">Invite to ${esc(o.title.toLowerCase())}</button>`);
+        else if (a.sport === o.sport) parts.push(`<p class="player-represented">Not eligible for your ${esc(o.title.toLowerCase())}: ${esc(eligibility(a, o).join(' '))}</p>`);
+      });
+    }
+    if (canCompare()) {
+      const on = S.compare.includes(a.id);
+      parts.push(`<button type="button" class="btn btn-quiet" data-action="toggle-compare" data-id="${a.id}" aria-pressed="${on}">${on ? 'In comparison' : 'Add to comparison'}</button>`);
+    }
     parts.push('<button type="button" class="btn btn-quiet" data-action="print">Print / save PDF</button>');
     return parts.join('');
   }
@@ -720,6 +985,11 @@
     const age = ageOf(a.dob);
     const academics = canSeeAcademics(a);
     const isMe = S.role === 'athlete' && a.id === ME.athlete;
+    const crumbs = isMe ? '' : `
+      <nav class="crumbs" aria-label="Breadcrumb"><ol>
+        <li>${hasRoute('board') ? '<a href="#board" data-action="go" data-route="board">Prospects</a>' : '<a href="#" data-action="back">Back</a>'}</li>
+        <li aria-current="page">${esc(a.name)}</li>
+      </ol></nav>`;
     const standings = [
       ['Height', feetIn(a.size.height_in), standing((x) => x.size.height_in, a)],
       ['Wingspan', feetIn(a.size.wingspan_in), standing((x) => x.size.wingspan_in, a)],
@@ -737,13 +1007,16 @@
         <div class="card-head"><h2 class="card-title" id="${hid}">${title}</h2></div>
         <div class="profile-card-body">${body}</div>
       </section>`;
+    const h = a.gradeHistory;
+    const change = a.grade - h[0];
+    const moved = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
 
     $('#profileBody').innerHTML = `
+      ${crumbs}
       <header class="player-header">
         <div class="player-header-main">
           <div>
-            <a href="#discovery" class="player-back" data-action="nav" data-section="discovery">← Prospect board</a>
-            <p class="player-sport">${esc(a.sport)} · ${esc(a.position)}</p>
+            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
             ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
@@ -770,7 +1043,7 @@
         </div>
       </header>
 
-      ${age < 18 ? `<p class="notice minor-notice">${esc(a.name.split(' ')[0])} is under 18. A parent or guardian must approve applications and sign any agreement. Academic records are hidden.</p>` : ''}
+      ${age < 18 ? `<p class="notice minor-notice">${esc(firstName(a))} is under 18. A parent or guardian must approve applications and sign any agreement. Academic records are hidden.</p>` : ''}
 
       <nav class="profile-tabs" aria-label="Profile sections">
         ${[['p-season', 'Season'], ['p-trend', 'Grade'], ['p-measure', 'Measurements'], ['p-tests', 'Testing'], ['p-career', 'Career'], ['p-video', 'Video'], ['p-honours', 'Honours'], ['p-school', 'Education'], ['p-news', 'News'], ['p-perms', 'Permissions']]
@@ -783,25 +1056,19 @@
             <div class="card-head"><h2 class="card-title" id="p-season">Season stats</h2></div>
             <dl class="metric-grid">${a.season.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl>
           </section>
-          ${card('p-trend', 'Grade history', (() => {
-            const h = a.gradeHistory;
-            const change = a.grade - h[0];
-            const r = ranks(a).board.rank;
-            const moved = (a.prevRank || r) - r;
-            return `
-              <div class="trend-card">
-                <div>
-                  <div class="trend-chart ${change >= 0 ? '' : 'trend-down'}">${sparkline(h, { width: 320, height: 120 }).replace('class="spark"', 'class="spark" preserveAspectRatio="none" style="width:100%;height:120px"')}</div>
-                  <div class="trend-axis" aria-hidden="true">${SEED.gradeMonths.map((m) => `<span>${m}</span>`).join('')}</div>
-                  <p class="visually-hidden">Scout grade by month: ${SEED.gradeMonths.map((m, i) => `${m} ${h[i]}`).join(', ')}.</p>
-                </div>
-                <dl class="trend-summary">
-                  <dt>6-month change</dt><dd class="${change >= 0 ? 'trend-up' : 'trend-down'}">${signed(change)}</dd>
-                  <dt>High</dt><dd>${Math.max(...h).toFixed(1)}</dd>
-                  <dt>This week</dt><dd>${moved > 0 ? `Up ${moved}` : moved < 0 ? `Down ${-moved}` : 'No change'}</dd>
-                </dl>
-              </div>`;
-          })())}
+          ${card('p-trend', 'Grade history', `
+            <div class="trend-card">
+              <div>
+                <div class="trend-chart ${change >= 0 ? '' : 'trend-down'}">${sparkline(h, { width: 320, height: 120, fill: true })}</div>
+                <div class="trend-axis" aria-hidden="true">${SEED.gradeMonths.map((m) => `<span>${m}</span>`).join('')}</div>
+                <p class="visually-hidden">Scout grade by month: ${SEED.gradeMonths.map((m, i) => `${m} ${h[i]}`).join(', ')}.</p>
+              </div>
+              <dl class="trend-summary">
+                <dt>6-month change</dt><dd class="${change >= 0 ? 'trend-up' : 'trend-down'}">${signed(change)}</dd>
+                <dt>High</dt><dd>${Math.max(...h).toFixed(1)}</dd>
+                <dt>This week</dt><dd>${moved > 0 ? `Up ${moved}` : moved < 0 ? `Down ${-moved}` : 'No change'}</dd>
+              </dl>
+            </div>`)}
           ${card('p-measure', 'Measurements', `
             <dl class="kv">
               <div><dt>Height</dt><dd>${feetIn(a.size.height_in)}</dd></div>
@@ -822,7 +1089,7 @@
               </li>`).join('')}</ul>`)}
           ${card('p-tests', 'Testing', `
             <dl class="kv">${a.tests.map((t) => `<div><dt>${esc(t.label)}</dt><dd>${esc(t.value)}</dd></div>`).join('')}</dl>
-            <p class="muted" style="font-size:13px;margin-top:8px">${esc(levelLabel(a.verification))}: ${verifyNote}</p>`)}
+            <p class="muted card-note">${esc(levelLabel(a.verification))}: ${verifyNote}</p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
               <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
@@ -837,7 +1104,7 @@
             </div>
             <ul class="clip-list">${a.video.map((v, i) => `
               <li><button type="button" class="clip" data-action="play-clip" data-index="${i}" aria-current="${i === 0}"><span class="clip-title">${esc(v.title)}</span><span class="clip-time">${esc(v.duration)}</span></button></li>`).join('')}</ul>`)}
-          ${card('p-honours', 'Honours', `<ul class="plain-list">${a.honours.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>`)}
+          ${card('p-honours', 'Honours', `<ul class="plain-list">${a.honours.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`)}
           ${card('p-school', 'Education', academics ? `
             <dl class="kv">
               <div><dt>School</dt><dd>${esc(a.academics.school)}</dd></div>
@@ -845,17 +1112,17 @@
               <div><dt>Exams</dt><dd>${esc(a.academics.exams)}</dd></div>
               <div><dt>Eligibility</dt><dd>${esc(a.academics.eligibility)}</dd></div>
             </dl>
-            <p class="muted" style="font-size:13px;margin-top:8px">${isMe ? 'Only you, the platform and an agent you’ve given manager access can see this.' : 'Visible because of your role or the athlete’s permission.'}</p>` : `
+            <p class="muted card-note">${isMe ? 'Only you, the platform and an agent you’ve given manager access can see this.' : 'Visible because of your role or the athlete’s permission.'}</p>` : `
             <p class="locked">${lockIcon}<span>Academic records are private. ${age < 18 ? 'They are hidden for athletes under 18.' : 'The athlete shares them only with their own agent (manager access or higher).'}</span></p>`)}
           ${card('p-news', 'In the news', `<ul class="plain-list">${a.news.map((n) => `<li><div class="news-source">${esc(n.source)} · ${esc(n.date)}</div><div class="news-head">${esc(n.headline)}</div></li>`).join('')}</ul>`)}
         </div>
       </div>
 
-      <section class="card profile-card" style="margin-top:16px" aria-labelledby="p-perms">
+      <section class="card profile-card home-wide" aria-labelledby="p-perms">
         <div class="card-head card-head-lg">
           <div>
             <h2 class="card-title" id="p-perms">Agent permissions</h2>
-            <p class="muted">${isMe ? 'You own your profile. Choose how much an agent can do for you; you can change this at any time.' : `Set by ${esc(a.name.split(' ')[0])}. Only the athlete can change this.`}</p>
+            <p class="muted">${isMe ? 'You own your profile. Choose how much an agent can do for you; you can change this at any time.' : `Set by ${esc(firstName(a))}. Only the athlete can change this.`}</p>
           </div>
         </div>
         <div class="profile-card-body">
@@ -889,18 +1156,24 @@
   }
 
   /* ==========================================================================
-     AGENTS & AGREEMENTS
+     AGENTS, CLIENTS, AGREEMENTS
      ========================================================================== */
   function renderAgents() {
     const me = S.role === 'athlete' ? athleteById(ME.athlete) : null;
     const myOpen = me && openAgreementFor(me.id);
+    $('#agentsLede').textContent = me
+      ? 'Agents are paid a share of what you earn — never an upfront fee. Pick one and start an agreement; it becomes active when you both sign.'
+      : 'Agents working with athletes on the exchange. Licences are checked when an agent signs up.';
+    $('#agentBanner').innerHTML = myOpen ? `<article class="card agreement-wrap"><p class="kicker">Your agreement</p>${agreementCard(myOpen)}</article>` : '';
+
     $('#agentList').innerHTML = SEED.agents.map((g, i) => {
       let action = '';
-      if (S.role === 'athlete') {
+      if (me) {
         action = myOpen
-          ? `<span class="muted" style="font-size:13px;align-self:center">${myOpen.agentId === g.id ? (myOpen.status === 'active' ? 'Your agent' : 'Agreement pending') : 'You already have an agreement'}</span>`
+          ? `<span class="muted agent-note">${myOpen.agentId === g.id ? (myOpen.status === 'active' ? 'Your agent' : 'Agreement in progress') : 'You already have an agreement'}</span>`
           : `<button type="button" class="btn btn-accent btn-sm" data-action="start-agreement" data-athlete="${me.id}" data-agent="${g.id}">Start an agreement</button>`;
       }
+      const onExchange = S.agreements.filter((x) => x.agentId === g.id && x.status === 'active').length;
       return `
         <article class="card agent" style="--i:${i}">
           <div class="agent-head">
@@ -917,10 +1190,10 @@
             <div><dt>Years</dt><dd>${g.years}</dd></div>
             <div><dt>Commission</dt><dd>${esc(g.commission)}</dd></div>
           </dl>
-          <div class="agent-body" style="padding-top:14px">
+          <div class="agent-body">
             <p class="agent-bio">${esc(g.bio)}</p>
             <ul class="agent-licences" aria-label="Credentials">${g.credentials.map((c) => `<li class="badge badge-identity">${esc(c)}</li>`).join('')}</ul>
-            <p class="agent-clients">${esc(g.clients)}</p>
+            <p class="agent-clients">${S.role === 'admin' ? `${plural(onExchange, 'active agreement')} on the exchange` : esc(g.clients)}</p>
             <div class="agent-contact" id="contact-${g.id}" hidden>
               <span>Email: <a href="mailto:${esc(g.contact.email)}">${esc(g.contact.email)}</a></span>
               <span>Phone: <a href="tel:${esc(g.contact.phone.replace(/\s/g, ''))}">${esc(g.contact.phone)}</a></span>
@@ -948,52 +1221,55 @@
     return '<span class="status status-info">Waiting for the athlete to sign</span>';
   }
 
-  function renderAgreements() {
-    const list = visibleAgreements();
-    const el = $('#agreementList');
-    if (list === null) {
-      el.innerHTML = '<div class="card empty"><h3>Private</h3><p>Agreements are visible only to the athlete, the agent and the platform. Switch to the athlete, agent or admin view to see them.</p></div>';
-      return;
-    }
-    if (!list.length) {
-      el.innerHTML = `<div class="card empty"><h3>No agreements yet</h3><p>${S.role === 'athlete' ? 'Start one from an agent’s card above.' : 'Offer representation from an athlete’s profile.'}</p></div>`;
-      return;
-    }
-    el.innerHTML = list.map((g) => {
-      const a = athleteById(g.athleteId);
-      const ag = agentById(g.agentId);
-      const canSign = g.status === 'pending' && (
-        (S.role === 'agent' && g.agentId === ME.agent && !g.agentSigned) ||
-        (S.role === 'athlete' && g.athleteId === ME.athlete && !g.athleteSigned));
-      const dealStatus = { signed: '<span class="status status-ok">Signed</span>', held: '<span class="status status-wait">In escrow</span>', review: '<span class="status status-info">In review</span>' };
-      return `
-        <article class="card">
-          <div class="agreement-head">
-            <h3 class="agreement-parties">${esc(a.name)} &amp; ${esc(ag.name)}</h3>
-            ${agreementStatusText(g)}
-          </div>
-          <div class="agreement-body">
-            <div>
-              <h3>Terms</h3>
-              <dl class="kv">
-                <div><dt>Authority</dt><dd>${esc(PERMISSION_LABELS[g.authority][0])}</dd></div>
-                <div><dt>Commission</dt><dd>${esc(g.commission)} of earnings</dd></div>
-                <div><dt>Athlete signed</dt><dd>${g.athleteSigned ? formatDate(g.athleteSigned) : '—'}${g.guardian ? ` (guardian: ${esc(g.guardian)})` : ''}</dd></div>
-                <div><dt>Agent signed</dt><dd>${g.agentSigned ? formatDate(g.agentSigned) : '—'}</dd></div>
-              </dl>
-            </div>
-            <div>
-              <h3>Deals</h3>
-              ${g.deals.length ? `<ul class="plain-list">${g.deals.map((d) => `<li><strong>${esc(d.name)}</strong> — ${esc(d.detail)} ${dealStatus[d.status] || ''}</li>`).join('')}</ul>` : '<p class="muted">No deals yet.</p>'}
-            </div>
-            <div>
-              <h3>Documents</h3>
-              <ul class="plain-list">${g.documents.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
-            </div>
-          </div>
-          ${canSign ? `<div class="agreement-foot"><button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted" style="font-size:13px">Your signature makes the agreement active.</span></div>` : ''}
-        </article>`;
-    }).join('');
+  function agreementCard(g) {
+    const a = athleteById(g.athleteId);
+    const ag = agentById(g.agentId);
+    const canSign = g.status === 'pending' && (
+      (S.role === 'agent' && g.agentId === ME.agent && !g.agentSigned) ||
+      (S.role === 'athlete' && g.athleteId === ME.athlete && !g.athleteSigned));
+    const dealStatus = { signed: '<span class="status status-ok">Signed</span>', held: '<span class="status status-wait">In escrow</span>', review: '<span class="status status-info">In review</span>' };
+    return `
+      <div class="agreement-head">
+        <h3 class="agreement-parties"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button> &amp; ${esc(ag.name)}</h3>
+        ${agreementStatusText(g)}
+      </div>
+      <div class="agreement-body">
+        <div>
+          <h4>Terms</h4>
+          <dl class="kv">
+            <div><dt>Authority</dt><dd>${esc(PERMISSION_LABELS[g.authority][0])}</dd></div>
+            <div><dt>Commission</dt><dd>${esc(g.commission)} of earnings</dd></div>
+            <div><dt>Athlete signed</dt><dd>${g.athleteSigned ? formatDate(g.athleteSigned) : '—'}${g.guardian ? ` (guardian: ${esc(g.guardian)})` : ''}</dd></div>
+            <div><dt>Agent signed</dt><dd>${g.agentSigned ? formatDate(g.agentSigned) : '—'}</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h4>Deals</h4>
+          ${g.deals.length ? `<ul class="plain-list">${g.deals.map((d) => `<li><strong>${esc(d.name)}</strong> — ${esc(d.detail)} ${dealStatus[d.status] || ''}</li>`).join('')}</ul>` : '<p class="muted">No deals yet.</p>'}
+        </div>
+        <div>
+          <h4>Documents</h4>
+          <ul class="plain-list">${g.documents.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
+        </div>
+      </div>
+      ${canSign ? `<div class="agreement-foot"><button type="button" class="btn btn-accent btn-sm" data-action="countersign" data-id="${g.id}">Review and sign</button><span class="muted">Your signature makes the agreement active.</span></div>` : ''}`;
+  }
+
+  // Pending first: those are the ones somebody needs to act on.
+  const pendingFirst = (list) => [...list].sort((x, y) => (x.status === y.status ? 0 : x.status === 'pending' ? -1 : 1));
+
+  function renderAgreementList(el, list, emptyHtml) {
+    el.innerHTML = list.length ? pendingFirst(list).map((g) => `<article class="card agreement-wrap">${agreementCard(g)}</article>`).join('') : emptyHtml;
+  }
+
+  function renderClients() {
+    renderAgreementList($('#clientList'), S.agreements.filter((g) => g.agentId === ME.agent), `
+      <div class="card empty"><h3>No clients yet</h3><p>Find an athlete without an agent and offer representation from their profile.</p>
+      <button type="button" class="btn btn-secondary btn-sm" data-action="find-unsigned">Find unsigned athletes</button></div>`);
+  }
+
+  function renderAgreementsPage() {
+    renderAgreementList($('#agreementList'), S.agreements, '<div class="card empty"><h3>No agreements yet</h3><p>Agreements show up here once an athlete or agent starts one.</p></div>');
   }
 
   /* ---------- Agreement flow ---------- */
@@ -1001,10 +1277,7 @@
   const availableAthletes = () => S.athletes.filter((a) => !openAgreementFor(a.id));
 
   function openAgreement({ athleteId, agentId }, opener) {
-    if (S.role !== 'athlete' && S.role !== 'agent') {
-      showToast('Only an athlete or an agent can start an agreement.');
-      return;
-    }
+    if (S.role !== 'athlete' && S.role !== 'agent') return;
     stepper = { mode: 'new', authority: 'representative' };
     const athleteSel = $('#repAthlete');
     const agentSel = $('#repAgent');
@@ -1027,7 +1300,6 @@
     athleteSel.onchange = renderPartySummary;
     agentSel.onchange = renderPartySummary;
     $$('input[name="repAuthority"]').forEach((r) => { r.checked = r.value === 'representative'; });
-    $('#repTitle').textContent = 'New agreement';
     renderPartySummary();
     goToStep(1, false);
     openModal($('#repModal'), opener);
@@ -1156,31 +1428,39 @@
     });
     closeModal();
     refresh();
-    showToast(`Signed. Waiting for ${party === 'athlete' ? g.name : a.name} to sign — switch to the ${party === 'athlete' ? 'agent' : 'athlete'} view to do that.`, 'success');
+    showToast(`Signed and sent. It’s now on ${party === 'athlete' ? `${g.name}’s` : `${a.name}’s`} home page to sign.`, 'success');
   }
 
   /* ==========================================================================
-     WATCHLISTS & COMPARE
+     SHORTLISTS & COMPARE
      ========================================================================== */
-  function renderWatchlists() {
-    $('#watchlists').innerHTML = S.watchlists.map((w, i) => {
-      const names = w.athleteIds.map(athleteById).filter(Boolean);
-      const mine = w.owner === myName();
-      return `
-        <article class="card watchlist" style="--i:${i}">
-          <div class="watchlist-body">
-            <p class="kicker">${esc(w.owner)} · updated ${formatDate(w.updated)}</p>
-            <h2 class="watchlist-title">${esc(w.title)}</h2>
-            ${w.description ? `<p class="watchlist-desc">${esc(w.description)}</p>` : ''}
-            <ul class="watchlist-names">${names.map((a) => `<li><button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span>${esc(a.position)}</span></li>`).join('')}</ul>
-            ${w.note ? `<p class="watchlist-note">“${esc(w.note)}”</p>` : ''}
-          </div>
-          <div class="watchlist-foot card-actions">
-            <button type="button" class="btn btn-secondary btn-sm" data-action="load-list" data-id="${w.id}">Compare these</button>
-            ${mine && w.custom ? `<button type="button" class="btn btn-quiet btn-sm" data-action="delete-list" data-id="${w.id}">Delete</button>` : ''}
-          </div>
-        </article>`;
-    }).join('');
+  function watchlistCard(w, i, mine) {
+    const names = w.athleteIds.map(athleteById).filter(Boolean);
+    return `
+      <article class="card watchlist" style="--i:${i}">
+        <div class="watchlist-body">
+          <p class="kicker">${mine ? (w.shared ? 'Shared' : 'Private') : esc(w.owner)} · updated ${formatDate(w.updated)}</p>
+          <h3 class="watchlist-title">${esc(w.title)}</h3>
+          ${w.description ? `<p class="watchlist-desc">${esc(w.description)}</p>` : ''}
+          <ul class="watchlist-names">${names.map((a) => `<li><button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span>${esc(a.position)}</span></li>`).join('')}</ul>
+          ${w.note ? `<p class="watchlist-note">“${esc(w.note)}”</p>` : ''}
+        </div>
+        <div class="watchlist-foot card-actions">
+          <button type="button" class="btn btn-secondary btn-sm" data-action="load-list" data-id="${w.id}">Compare these</button>
+          ${mine && w.custom ? `<button type="button" class="btn btn-quiet btn-sm" data-action="delete-list" data-id="${w.id}">Delete</button>` : ''}
+        </div>
+      </article>`;
+  }
+
+  function renderShortlists() {
+    const me = myName();
+    const mine = S.watchlists.filter((w) => w.owner === me);
+    const shared = S.watchlists.filter((w) => w.owner !== me && w.shared);
+    $('#myLists').innerHTML = mine.length
+      ? mine.map((w, i) => watchlistCard(w, i, true)).join('')
+      : '<div class="card empty"><h3>No shortlists yet</h3><p>Add athletes to the comparison from the prospect board, then save it here as a shortlist.</p><button type="button" class="btn btn-secondary btn-sm" data-action="go" data-route="board">Go to the board</button></div>';
+    $('#sharedTitle').hidden = !shared.length;
+    $('#sharedLists').innerHTML = shared.map((w, i) => watchlistCard(w, i, false)).join('');
   }
 
   function toggleCompare(id) {
@@ -1191,7 +1471,7 @@
   }
 
   function openCompare() {
-    switchSection('scouting', { focus: false });
+    go('shortlists', { focus: false });
     scrollToEl($('#comparePanel'));
   }
 
@@ -1204,16 +1484,15 @@
   }
 
   function saveComparisonAsWatchlist() {
-    if (S.role === 'athlete') return;
     if (S.compare.length < 2) {
       showToast('Add at least two athletes to the comparison first.');
-      openCompare();
       return;
     }
     S.watchlists.unshift({
       id: `list-${S.counters.watchlist++}`,
       custom: true,
-      title: `Shortlist ${S.watchlists.filter((w) => w.custom).length + 1}`,
+      shared: false,
+      title: `Shortlist ${S.watchlists.filter((w) => w.custom && w.owner === myName()).length + 1}`,
       owner: myName(),
       updated: todayISO(),
       description: '',
@@ -1221,8 +1500,8 @@
       note: ''
     });
     refresh();
-    switchSection('scouting');
-    showToast('Comparison saved as a watchlist.', 'success');
+    go('shortlists');
+    showToast('Comparison saved as a private shortlist.', 'success');
   }
 
   function deleteWatchlist(id) {
@@ -1237,8 +1516,8 @@
       wrap.innerHTML = `
         <div class="empty">
           <h3>Nothing to compare yet</h3>
-          <p>Add athletes from the prospect board, or open a watchlist above.</p>
-          <button type="button" class="btn btn-secondary btn-sm" data-action="nav" data-section="discovery">Go to the board</button>
+          <p>Add athletes from the prospect board, or open a shortlist above.</p>
+          <button type="button" class="btn btn-secondary btn-sm" data-action="go" data-route="board">Go to the board</button>
         </div>`;
       return;
     }
@@ -1281,7 +1560,7 @@
         </thead>
         <tbody>
           ${row('Scout grade', (a) => `<span class="${mark.grade(a)}">${a.grade.toFixed(1)}</span>`)}
-          ${row('Board rank', (a) => `${ranks(a).board.rank} of ${S.athletes.length}`)}
+          ${row('Board rank', (a) => `${ranks(a).board.rank} of ${S.athletes.length} ${movement(a)}`)}
           ${row('Position', (a) => esc(a.position))}
           ${row('Age', (a) => ageOf(a.dob))}
           ${row('Height', (a) => `<span class="${mark.height(a)}">${feetIn(a.size.height_in)}</span>`)}
@@ -1296,73 +1575,127 @@
   }
 
   /* ==========================================================================
-     TRIALS
+     TRIALS (per role)
      ========================================================================== */
-  function daysUntil(iso) {
-    return Math.ceil((new Date(iso + 'T23:59:59') - new Date()) / 86400000);
+  function oppSummary(o) {
+    const days = daysUntil(o.deadline);
+    const closed = days < 0;
+    return `
+      <div>
+        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
+        <h2 class="opp-title">${esc(o.title)}</h2>
+        <p class="opp-org">${esc(orgById(o.orgId).name)}</p>
+        <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
+      </div>
+      <dl class="kv">
+        <div><dt>Where</dt><dd>${esc(o.location)}</dd></div>
+        <div><dt>When</dt><dd>${esc(o.date)}</dd></div>
+        <div><dt>Apply by</dt><dd class="${closed ? 'deadline-past' : days <= 30 ? 'deadline-soon' : ''}">${formatDate(o.deadline)}${closed ? ' (closed)' : days <= 30 ? ` — ${plural(days, 'day')} left` : ''}</dd></div>
+        <div><dt>Ages</dt><dd>${o.age[0]}–${o.age[1]}</dd></div>
+        <div><dt>Standard</dt><dd>${esc(o.standard)}</dd></div>
+        <div><dt>Verification</dt><dd>${esc(levelLabel(o.minVerification))} or higher</dd></div>
+        <div><dt>On offer</dt><dd>${esc(o.offer)}</dd></div>
+      </dl>`;
   }
 
-  // Reasons an athlete can't apply; an empty list means eligible.
-  function eligibility(a, o) {
-    const reasons = [];
-    const age = ageOf(a.dob);
-    if (a.sport !== o.sport) reasons.push(`This listing is for ${o.sport.toLowerCase()}.`);
-    else if (o.positions.length && !o.positions.some((p) => a.position.toLowerCase().includes(p.toLowerCase()))) reasons.push(`Open to ${o.positions.join(', ').toLowerCase()} only.`);
-    if (age < o.age[0] || age > o.age[1]) reasons.push(`Ages ${o.age[0]}–${o.age[1]} only (${a.name.split(' ')[0]} is ${age}).`);
-    if (levelIndex(a.verification) < levelIndex(o.minVerification)) reasons.push(`Needs ${levelLabel(o.minVerification).toLowerCase()} (profile is ${levelLabel(a.verification).toLowerCase()}).`);
-    if (daysUntil(o.deadline) < 0) reasons.push('Applications have closed.');
-    if (S.applications.some((ap) => ap.oppId === o.id && ap.athleteId === a.id)) reasons.push('Already applied.');
-    return reasons;
+  const nameLinks = (list) => list.map((a) => `<button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>`).join(', ');
+
+  function clubTrialCard(o, i) {
+    const apps = S.applications.filter((ap) => ap.oppId === o.id);
+    const notApplied = eligibleAthletes(o).filter((a) => !applicationFor(a.id, o.id));
+    const via = { club: 'Invited by you', agent: 'Sent by their agent', athlete: '' };
+    return `
+      <article class="card opp" style="--i:${i}">
+        ${oppSummary(o)}
+        <div class="opp-side">
+          <p class="opp-places"><strong class="num">${o.places}</strong><span>places · ${o.applicants} applications in total</span></p>
+        </div>
+        <div class="opp-applicants">
+          <h3>Applications through the exchange</h3>
+          ${apps.length ? `<div class="table-wrap"><table class="data-table applicant-table">
+            <thead><tr><th scope="col">Athlete</th><th scope="col">Position</th><th scope="col" class="col-num">Age</th><th scope="col">Verification</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Decision</span></th></tr></thead>
+            <tbody>${apps.map((ap) => {
+              const a = athleteById(ap.athleteId);
+              return `
+              <tr>
+                <td><button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>${ap.note ? `<span class="cell-sub">“${esc(ap.note)}”</span>` : ''}</td>
+                <td>${esc(a.position)}</td>
+                <td class="col-num">${ageOf(a.dob)}</td>
+                <td>${verificationBadge(a)}</td>
+                <td class="cell-nowrap">${formatDate(ap.date)}${via[ap.via] ? `<span class="cell-sub">${via[ap.via]}</span>` : ''}</td>
+                <td>${appStatusMarkup(ap)}</td>
+                <td><div class="cell-actions">${ap.status === 'submitted' ? `<button type="button" class="btn btn-accent btn-sm" data-action="app-status" data-id="${ap.id}" data-status="invited">Invite</button><button type="button" class="btn btn-quiet btn-sm" data-action="app-status" data-id="${ap.id}" data-status="declined">Decline</button>` : ''}</div></td>
+              </tr>`;
+            }).join('')}</tbody></table></div>` : '<p class="muted">No applications through the exchange yet.</p>'}
+          <div class="opp-find">
+            <p>${notApplied.length ? `Meet this listing but haven’t applied: ${nameLinks(notApplied)}. Invite them from their profile.` : 'No other athletes on the board meet this listing yet.'}</p>
+            <button type="button" class="btn btn-quiet btn-sm" data-action="find-for-trial" data-sport="${esc(o.sport)}">Browse ${esc(o.sport.toLowerCase())} prospects</button>
+          </div>
+        </div>
+      </article>`;
   }
 
-  function applicantsFor() {
-    if (S.role === 'athlete') return [athleteById(ME.athlete)];
-    if (S.role === 'agent') return S.agreements.filter((g) => g.agentId === ME.agent && g.status === 'active').map((g) => athleteById(g.athleteId));
-    return [];
-  }
+  function renderTrials() {
+    const title = $('#h-trials');
+    const lede = $('#trialsLede');
+    const list = $('#oppList');
 
-  function renderOpportunities() {
-    const applicants = applicantsFor();
-    $('#oppList').innerHTML = S.opportunities.map((o, i) => {
-      const days = daysUntil(o.deadline);
-      const closed = days < 0;
-      const org = orgById(o.orgId);
-      const mineAsOrg = S.role === 'organization' && o.orgId === ME.organization;
-      const apps = S.applications.filter((ap) => ap.oppId === o.id);
-      const myApps = apps.filter((ap) => applicants.some((a) => a && a.id === ap.athleteId));
-      let action = '';
-      if (S.role === 'athlete' || S.role === 'agent') {
-        action = closed ? '<span class="muted">Closed</span>' : `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply</button>`;
+    if (S.role === 'organization') {
+      title.textContent = 'Your trials';
+      lede.textContent = 'Review applications, invite athletes, and find more on the prospect board.';
+      const mine = S.opportunities.filter((o) => o.orgId === ME.organization);
+      list.innerHTML = mine.map(clubTrialCard).join('') || '<div class="card empty"><h3>No trials listed</h3><p>Your listings will show up here.</p></div>';
+      return;
+    }
+
+    const people = applicantsFor().filter(Boolean);
+    const copy = {
+      athlete: ['Trials & scholarships', 'Listings you can apply to come first. Each is checked against your sport, age, verification and the deadline.'],
+      agent: ['Trials & scholarships', 'Apply for your clients. Each listing shows which of them qualify.'],
+      scout: ['Trials & combines', 'Where to see prospects in person, and which athletes on the board qualify for each.']
+    }[S.role] || ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges.'];
+    title.textContent = copy[0];
+    lede.textContent = copy[1];
+
+    const me = S.role === 'athlete' ? people[0] : null;
+    const sorted = [...S.opportunities].sort((x, y) => {
+      if (!me) return x.deadline.localeCompare(y.deadline);
+      return (eligibility(me, x).length ? 1 : 0) - (eligibility(me, y).length ? 1 : 0) || x.deadline.localeCompare(y.deadline);
+    });
+
+    list.innerHTML = sorted.map((o, i) => {
+      let side = '';
+      let foot = '';
+      if (me) {
+        const ap = applicationFor(me.id, o.id);
+        const reasons = eligibility(me, o, { ignoreExisting: true });
+        if (ap) side = `${appStatusMarkup(ap)}<span class="cell-sub">${ap.via === 'club' ? 'Invited' : 'Sent'} ${formatDate(ap.date)}</span>`;
+        else if (!reasons.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply</button>`;
+        if (!ap) foot = `<p class="fit ${reasons.length ? 'fit-no' : 'fit-yes'}">${reasons.length ? `Not open to you: ${esc(reasons.join(' '))}` : 'You meet this listing’s requirements.'}</p>`;
+      } else if (S.role === 'agent') {
+        const ready = people.filter((c) => eligibility(c, o).length === 0);
+        const sent = S.applications.filter((ap) => ap.oppId === o.id && people.some((c) => c.id === ap.athleteId));
+        if (ready.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply for a client</button>`;
+        foot = `<p class="fit ${ready.length ? 'fit-yes' : 'fit-no'}">${ready.length ? `Clients who qualify: ${ready.map((c) => esc(c.name)).join(', ')}.` : people.length ? 'None of your clients qualify.' : 'You don’t represent anyone yet.'}</p>
+          ${sent.length ? `<ul class="plain-list">${sent.map((ap) => `<li class="row-split"><span>${esc(athleteById(ap.athleteId).name)} · ${formatDate(ap.date)}</span>${appStatusMarkup(ap)}</li>`).join('')}</ul>` : ''}`;
+      } else {
+        const eligible = eligibleAthletes(o);
+        foot = `<p class="fit ${eligible.length ? 'fit-yes' : 'fit-no'}">${eligible.length ? `On the board and eligible: ${nameLinks(eligible)}.` : 'No athletes on the board qualify yet.'}</p>`;
       }
       return `
         <article class="card opp" style="--i:${i}">
-          <div>
-            <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
-            <h2 class="opp-title">${esc(o.title)}</h2>
-            <p class="opp-org">${esc(org.name)}</p>
-            <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
-          </div>
-          <dl class="kv">
-            <div><dt>Where</dt><dd>${esc(o.location)}</dd></div>
-            <div><dt>When</dt><dd>${esc(o.date)}</dd></div>
-            <div><dt>Apply by</dt><dd class="${closed ? 'deadline-past' : days <= 30 ? 'deadline-soon' : ''}">${formatDate(o.deadline)}${closed ? ' (closed)' : days <= 30 ? ` — ${plural(days, 'day')} left` : ''}</dd></div>
-            <div><dt>Ages</dt><dd>${o.age[0]}–${o.age[1]}</dd></div>
-            <div><dt>Standard</dt><dd>${esc(o.standard)}</dd></div>
-            <div><dt>Verification</dt><dd>${esc(levelLabel(o.minVerification))} or higher</dd></div>
-            <div><dt>On offer</dt><dd>${esc(o.offer)}</dd></div>
-          </dl>
+          ${oppSummary(o)}
           <div class="opp-side">
             <p class="opp-places"><strong class="num">${o.places}</strong><span>places · ${o.applicants} applications</span></p>
-            ${action}
+            ${side}
           </div>
-          ${myApps.length ? `<div class="opp-applicants"><h3>Your applications</h3><ul class="plain-list">${myApps.map((ap) => `<li>${esc(athleteById(ap.athleteId).name)} — sent ${formatDate(ap.date)}</li>`).join('')}</ul></div>` : ''}
-          ${mineAsOrg ? `<div class="opp-applicants"><h3>Applications through the exchange</h3>${apps.length ? `<ul class="plain-list">${apps.map((ap) => { const a = athleteById(ap.athleteId); return `<li><button type="button" class="btn-link" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button> — ${esc(a.position)}, ${ageOf(a.dob)} · ${formatDate(ap.date)}${ap.note ? ` · “${esc(ap.note)}”` : ''}</li>`; }).join('')}</ul>` : '<p class="muted">None yet. The total above includes applications sent outside the exchange.</p>'}</div>` : ''}
+          ${foot ? `<div class="opp-applicants">${foot}</div>` : ''}
         </article>`;
     }).join('');
   }
 
   function openApply(oppId, opener) {
-    const o = S.opportunities.find((x) => x.id === oppId);
+    const o = oppById(oppId);
     if (!o) return;
     const people = applicantsFor().filter(Boolean);
     if (!people.length) {
@@ -1372,7 +1705,8 @@
     $('#applyTitle').textContent = o.title;
     $('#applyOrg').textContent = `${orgById(o.orgId).name} · ${o.location} · ${o.date}`;
     const select = $('#applyAthlete');
-    select.innerHTML = people.map((a) => `<option value="${a.id}">${esc(a.name)} — ${esc(a.position)}</option>`).join('');
+    const ordered = [...people].sort((x, y) => eligibility(x, o).length - eligibility(y, o).length);
+    select.innerHTML = ordered.map((a) => `<option value="${a.id}">${esc(a.name)} — ${esc(a.position)}</option>`).join('');
     select.disabled = people.length === 1;
     $('#applyNote').value = '';
     $('#applyError').hidden = true;
@@ -1401,13 +1735,31 @@
         $('#applyError').hidden = false;
         return;
       }
-      S.applications.push({ id: `app-${S.counters.application++}`, oppId: o.id, athleteId: a.id, date: todayISO(), note: $('#applyNote').value.trim() });
+      S.applications.push({ id: `app-${String(S.counters.application++).padStart(4, '0')}`, oppId: o.id, athleteId: a.id, date: todayISO(), note: $('#applyNote').value.trim(), status: 'submitted', via: S.role });
       o.applicants += 1;
       closeModal();
       refresh();
       showToast(`Application for ${a.name} sent to ${orgById(o.orgId).name}.`, 'success');
     };
     openModal($('#applyModal'), opener);
+  }
+
+  function inviteToTrial(athleteId, oppId) {
+    const a = athleteById(athleteId);
+    const o = oppById(oppId);
+    if (!a || !o || S.role !== 'organization' || applicationFor(a.id, o.id) || eligibility(a, o).length) return;
+    S.applications.push({ id: `app-${String(S.counters.application++).padStart(4, '0')}`, oppId: o.id, athleteId: a.id, date: todayISO(), note: '', status: 'invited', via: 'club' });
+    o.applicants += 1;
+    refresh();
+    showToast(`${a.name} invited to the ${o.title.toLowerCase()}. It now shows on their home page.`, 'success');
+  }
+
+  function setApplicationStatus(id, status) {
+    const ap = S.applications.find((x) => x.id === id);
+    if (!ap || S.role !== 'organization' || !APP_STATUS[status]) return;
+    ap.status = status;
+    refresh();
+    showToast(`${athleteById(ap.athleteId).name}: ${APP_STATUS[status][1].toLowerCase()}.`, 'success');
   }
 
   /* ==========================================================================
@@ -1420,9 +1772,7 @@
     const commission = txs.filter((t) => t.type === 'Agent commission');
     const sum = (arr) => arr.reduce((s, t) => s + t.amount, 0);
 
-    $('#ledgerLede').textContent = S.role === 'scout'
-      ? 'Scouts don’t have payments on the exchange. Switch to another view to see the ledger.'
-      : `Showing payments for ${S.role === 'admin' ? 'all accounts' : myName()}. Agents are paid commission only, never an upfront fee. In a live build, money is held by a licensed escrow partner, not by the exchange.`;
+    $('#ledgerLede').textContent = `Payments for ${S.role === 'admin' ? 'all accounts' : myName()}. Agents are paid commission only, never an upfront fee. In a live build, money is held by a licensed escrow partner, not by the exchange.`;
 
     $('#ledgerTotals').innerHTML = `
       <div class="card kpi kpi-held"><dt>Held in escrow</dt><dd>${money(sum(held))}<span>${plural(held.length, 'payment')} waiting for release</span></dd></div>
@@ -1437,12 +1787,13 @@
         <td>${esc(t.payee)}</td>
         <td class="col-num">${money(t.amount)}</td>
         <td>${t.status === 'settled' ? '<span class="status status-ok">Settled</span>' : '<span class="status status-wait">In escrow</span>'}</td>
-      </tr>`).join('') : '<tr><td colspan="6"><div class="empty"><h3>No payments</h3><p>Nothing to show for this account yet.</p></div></td></tr>';
+      </tr>`).join('') : `<tr><td colspan="6"><div class="empty"><h3>No payments yet</h3><p>${S.role === 'athlete' ? 'Sponsor and contract payments will show here once you sign deals.' : 'Nothing to show for this account yet.'}</p></div></td></tr>`;
+    $('[data-action="export-csv"]').hidden = !txs.length;
   }
 
   function exportCsv() {
     const txs = visibleTransactions();
-    if (!txs.length) { showToast('There are no payments to download in this view.'); return; }
+    if (!txs.length) return;
     const cell = (v) => `"${String(v).replace(/"/g, '""')}"`;
     const rows = [['Date', 'Reference', 'Type', 'Description', 'From', 'To', 'Amount (USD)', 'Status']]
       .concat(txs.map((t) => [t.date, t.id, t.type, t.description, t.payer, t.payee, t.amount.toFixed(2), t.status === 'settled' ? 'Settled' : 'In escrow']));
@@ -1523,12 +1874,13 @@
     S = freshState();
     ME.athlete = S.actingAthleteId;
     filter = { ...DEFAULT_FILTER };
+    current = { route: null, id: null };
     syncFilters();
     renderAll();
-    switchSection('discovery');
+    go(homeRoute());
     showToast('Demo data reset.', 'success');
   }
 
   // Small public hook for the showcase page and debugging.
-  window.AAX = { viewProfile, switchSection };
+  window.AAX = { viewProfile, go };
 })();

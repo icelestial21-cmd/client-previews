@@ -526,6 +526,7 @@ window.AAX_DATA = {
       id: 'list-01',
       title: 'Caribbean guards and wings',
       owner: 'Paula Grant',
+      shared: true,
       updated: '2026-10-01',
       description: 'Guards and wings with a 6′5″+ wingspan for the Miami showcase.',
       athleteIds: ['ath-01', 'ath-05'],
@@ -535,6 +536,7 @@ window.AAX_DATA = {
       id: 'list-02',
       title: 'Unsigned footballers',
       owner: 'Harbourside FC Academy',
+      shared: false,
       updated: '2026-09-25',
       description: 'Quick wingers and tall centre-backs for the Kingston trial.',
       athleteIds: ['ath-02', 'ath-04'],
@@ -544,15 +546,28 @@ window.AAX_DATA = {
       id: 'list-03',
       title: 'Sprint and swim prospects',
       owner: 'Paula Grant',
+      shared: false,
       updated: '2026-09-18',
       description: 'Under-20 sprinters and swimmers close to senior international standards.',
       athleteIds: ['ath-03', 'ath-07'],
       note: 'Blake under 11 seconds. Henderson under 25 in the 50 free at 17.'
+    },
+    {
+      id: 'list-04',
+      title: 'Possible clients',
+      owner: 'Marcus Vance',
+      shared: false,
+      updated: '2026-10-05',
+      description: 'Unsigned athletes in my sports worth a call before the November trials.',
+      athleteIds: ['ath-01', 'ath-02'],
+      note: 'Montague is talking to agents now. Sterling fits the Harbourside trial.'
     }
   ],
 
   // Commission-only model: agents are paid a share of money the athlete earns, never an upfront fee.
   transactions: [
+    { id: 'tx-1007', date: '2026-10-06', type: 'Travel grant', description: 'Junior aquatics championships travel. Released to a parent or guardian, not the athlete.', payer: 'Harbour Swim Club Boosters', payee: 'Chloe Henderson', amount: 600, status: 'held', athleteId: 'ath-07', agentId: null, orgId: null },
+    { id: 'tx-1006', date: '2026-09-30', type: 'Combine testing fee', description: 'Wingspan, vertical and shooting tests at the Kingston combine.', payer: 'Shavar Montague', payee: 'Apex Combine, Kingston', amount: 250, status: 'settled', athleteId: 'ath-01', agentId: null, orgId: null },
     { id: 'tx-1005', date: '2026-10-04', type: 'Endorsement fee', description: 'Stride Athletic (fictional brand) shoe deal, first instalment. Released when the athlete confirms delivery.', payer: 'Stride Athletic', payee: 'Aliyah Blake', amount: 12000, status: 'held', athleteId: 'ath-03', agentId: null, orgId: null },
     { id: 'tx-1004', date: '2026-10-02', type: 'Club subscription', description: 'Annual access to scouting profiles and video.', payer: 'Harbourside FC Academy', payee: 'Apex Athlete Exchange', amount: 4800, status: 'settled', athleteId: null, agentId: null, orgId: 'org-01' },
     { id: 'tx-1003', date: '2026-09-28', type: 'Combine testing fee', description: 'Sprint timing, GPS speed test and medical check at the Kingston combine.', payer: 'Tariq Sterling', payee: 'Apex Combine, Kingston', amount: 250, status: 'settled', athleteId: 'ath-02', agentId: null, orgId: null },
@@ -580,7 +595,10 @@ window.AAX_DATA = {
     }
   ],
 
-  applications: [],
+  // status: submitted (by athlete or agent) | invited (by the club) | declined
+  applications: [
+    { id: 'app-0001', oppId: 'opp-01', athleteId: 'ath-02', date: '2026-10-03', note: 'Available now. GPS data from the Kingston combine is on my profile.', status: 'submitted', via: 'athlete' }
+  ],
 
   results: [
     { event: 'Island Schools Champs · 100 m', rows: [['Aliyah Blake', '10.98']], status: 'Final' },
