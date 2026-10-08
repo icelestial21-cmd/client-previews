@@ -17,3 +17,8 @@ identifiable face. Each WebP also carries its source URL in its metadata.
 | ath-08 | Malik Thorne (boxing) | https://www.pexels.com/photo/a-boxer-ready-to-fight-pose-5750807/ (Tima Miroshnichenko) |
 
 `ath-XX.webp` is the large version (long edge 960px); `ath-XX-sm.webp` is for cards (440px).
+
+`ath-XX-ht.webp`, `ath-XX-ht-sm.webp` and `ath-XX-ht-th.webp` are printed versions made in code from
+the colour originals above: an amplitude-modulated halftone (round dots on a 45° screen, dot area
+set by tone, per-photo tone correction so the athlete reads), two colours, lossless WebP. The
+`-th` file is a 112px square thumbnail. Each file's `.json` sidecar records exactly how it was made.

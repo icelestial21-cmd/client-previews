@@ -1,0 +1,4 @@
+{
+  "prompt": "Origin: derived in code from img/ath-01.webp (licensed Pexels stock photo; source in img/ath-01.webp metadata and img/CREDITS.md), not generated. Amplitude-modulated halftone (long edge 440px, 45-degree screen with a 4.6px cell): Rec. 709 luminance; levels stretch between the 1 and 99.5 percentiles; gamma 1.15; unsharp mask on luminance (radius long-edge/40, amount 0.7); Gaussian low-pass at 0.36 x cell; Euclidean round-dot spot function so each cell's dot area equals its ink coverage; rendered 4x supersampled and thresholded at half coverage; ink #121416 on paper #FFFFFF; lossless two-colour WebP. Stands in for a fictional athlete.",
+  "createdAt": "2026-10-08T03:37:11.879Z"
+}
