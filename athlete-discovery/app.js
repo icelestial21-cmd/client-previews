@@ -19,24 +19,27 @@
   };
   const COUNTRY_CODES = { 'Jamaica': 'JAM', 'Trinidad & Tobago': 'TTO', 'Barbados': 'BAR', 'Puerto Rico': 'PUR', 'Ghana': 'GHA' };
   // Who "you" are in each demo role. The athlete is switchable (adult or under-18).
-  const ME = { athlete: 'ath-01', agent: 'agt-01', scout: 'sct-01', organization: 'org-01', admin: null };
+  const ME = { visitor: null, athlete: 'ath-01', agent: 'agt-01', scout: 'sct-01', organization: 'org-01', admin: null };
   const DEFAULT_FILTER = { search: '', sport: 'all', position: 'all', country: 'all', status: 'all', verification: 'none', minHeight: 66 };
 
-  // Navigation per role. The first entry is the role's home page.
+  // Navigation per role. Everyone shares the site's front page ('front');
+  // each signed-in role also lands on its own page when it switches in.
   const ROLE_NAV = {
-    athlete: [['home', 'Home'], ['me', 'My profile'], ['agents', 'Agents'], ['trials', 'Trials'], ['payments', 'Payments']],
-    agent: [['home', 'Home'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['clients', 'Clients'], ['trials', 'Trials'], ['payments', 'Payments']],
-    scout: [['board', 'Prospects'], ['shortlists', 'Shortlists'], ['trials', 'Trials & combines']],
-    organization: [['trials', 'Your trials'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['payments', 'Payments']],
-    admin: [['home', 'Overview'], ['board', 'Prospects'], ['agents', 'Agents'], ['agreements', 'Agreements'], ['payments', 'Payments']]
+    visitor: [['front', 'Home'], ['board', 'Prospects'], ['trials', 'Trials'], ['agents', 'Agents']],
+    athlete: [['front', 'Home'], ['home', 'Dashboard'], ['me', 'My profile'], ['agents', 'Agents'], ['trials', 'Trials'], ['payments', 'Payments']],
+    agent: [['front', 'Home'], ['home', 'Dashboard'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['clients', 'Clients'], ['trials', 'Trials'], ['payments', 'Payments']],
+    scout: [['front', 'Home'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['trials', 'Trials & combines']],
+    organization: [['front', 'Home'], ['trials', 'Your trials'], ['board', 'Prospects'], ['shortlists', 'Shortlists'], ['payments', 'Payments']],
+    admin: [['front', 'Home'], ['home', 'Overview'], ['board', 'Prospects'], ['agents', 'Agents'], ['agreements', 'Agreements'], ['payments', 'Payments']]
   };
+  const ROLE_HOME = { visitor: 'front', athlete: 'home', agent: 'home', scout: 'board', organization: 'trials', admin: 'home' };
 
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
   function freshState() {
     return {
       version: 3,
-      role: 'athlete',
+      role: 'visitor',
       actingAthleteId: 'ath-01',
       viewMode: 'grid',
       selectedAthleteId: SEED.featuredAthleteId,
@@ -111,10 +114,15 @@
   const oppById = (id) => S.opportunities.find((o) => o.id === id);
   const byGrade = (list) => [...list].sort((a, b) => b.grade - a.grade);
   const navFor = (role = S.role) => ROLE_NAV[role];
-  const homeRoute = () => navFor()[0][0];
+  const homeRoute = () => ROLE_HOME[S.role];
   const hasRoute = (route) => navFor().some(([r]) => r === route);
 
+  // Visitors (not signed in) don't see athletes under 18 anywhere on the site.
+  const pool = () => (S.role === 'visitor' ? S.athletes.filter((a) => !isMinor(a)) : S.athletes);
+  const inPool = (id) => pool().some((a) => a.id === id);
+
   function myName() {
+    if (S.role === 'visitor') return 'Visitor';
     if (S.role === 'athlete') return athleteById(ME.athlete).name;
     if (S.role === 'agent') return agentById(ME.agent).name;
     if (S.role === 'scout') return SEED.scouts[0].name;
@@ -155,9 +163,9 @@
   function ranks(a) {
     const place = (pool) => ({ rank: byGrade(pool).findIndex((x) => x.id === a.id) + 1, of: pool.length });
     return {
-      board: place(S.athletes),
-      sport: place(S.athletes.filter((x) => x.sport === a.sport)),
-      country: place(S.athletes.filter((x) => x.country === a.country))
+      board: place(pool()),
+      sport: place(pool().filter((x) => x.sport === a.sport)),
+      country: place(pool().filter((x) => x.country === a.country))
     };
   }
 
@@ -204,7 +212,7 @@
 
   // Where an athlete stands among everyone on the board for a measurable.
   function standing(getter, a) {
-    const values = S.athletes.map(getter);
+    const values = pool().map(getter);
     const value = getter(a);
     const min = Math.min(...values);
     const max = Math.max(...values);
@@ -256,7 +264,7 @@
     return reasons;
   }
 
-  const eligibleAthletes = (o) => S.athletes.filter((a) => eligibility(a, o, { ignoreExisting: true }).length === 0);
+  const eligibleAthletes = (o) => pool().filter((a) => eligibility(a, o, { ignoreExisting: true }).length === 0);
 
   function applicantsFor() {
     if (S.role === 'athlete') return [athleteById(ME.athlete)];
@@ -271,6 +279,7 @@
     wireTheme();
     wireControls();
     wireModals();
+    wireTicker();
     trackHeaderHeight();
     renderAll();
     go(parseHash(), { push: false, focus: false });
@@ -281,11 +290,9 @@
     $('#roleSelect').value = S.role === 'athlete' ? `athlete:${ME.athlete}` : S.role;
     $$('.segmented-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === S.viewMode)));
     renderChrome();
-    renderScores();
-    renderSpotlight();
-    renderWire();
+    renderTicker();
+    renderFront();
     renderLeaders();
-    renderGlance();
     renderBoard();
     renderHome();
     renderAgents();
@@ -370,7 +377,7 @@
   function go(target, { push = true, focus = true } = {}) {
     let { route, id } = typeof target === 'string' ? { route: target, id: null } : target;
     if (route === 'me' && S.role === 'athlete') { route = 'athlete'; id = ME.athlete; }
-    if (route === 'athlete' && !athleteById(id)) route = homeRoute();
+    if (route === 'athlete' && !inPool(id)) route = homeRoute();
     if (route !== 'athlete' && !hasRoute(route)) route = homeRoute();
     if (route === 'me') { route = 'athlete'; id = ME.athlete; }
     current = { route, id: route === 'athlete' ? id : null };
@@ -383,7 +390,7 @@
 
     markNav();
     $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
-    $('#scores').hidden = route !== 'board';
+    $('#ticker').hidden = route !== 'front' && route !== 'board';
 
     const hash = hashFor(current);
     if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
@@ -478,7 +485,8 @@
       const { action, id } = el.dataset;
       switch (action) {
         case 'go': go(el.dataset.route); break;
-        case 'home': go(homeRoute()); break;
+        case 'home': go('front'); break;
+        case 'try-role': $('#roleSelect').value = el.dataset.role; $('#roleSelect').dispatchEvent(new Event('change')); break;
         case 'back': if (history.length > 1) history.back(); else go(homeRoute()); break;
         case 'view-profile': viewProfile(id); break;
         case 'find-unsigned': go('board'); applyPreset('available'); break;
@@ -735,13 +743,88 @@
   /* ==========================================================================
      SCORES, SPOTLIGHT, TRENDING, LEADERS (prospect board only)
      ========================================================================== */
-  function renderScores() {
-    $('#scoresList').innerHTML = SEED.results.map((r) => `
-      <li class="score">
-        <span class="score-event">${esc(r.event)}</span>
-        ${r.rows.map(([name, value]) => `<span class="score-row"><span>${esc(name)}</span><strong>${esc(value)}</strong></span>`).join('')}
-        <span class="score-status">${esc(r.status)}</span>
+  // Results ticker (the sports-site score strip). The list is rendered twice so the
+  // scroll can loop seamlessly; the copy is hidden from assistive tech and the tab order.
+  function renderTicker() {
+    const items = SEED.results.filter((r) => inPool(r.athleteId));
+    const day = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    const item = (r, copy) => `
+      <li class="tick"${copy ? ' aria-hidden="true"' : ''}>
+        <a href="#athlete/${r.athleteId}" data-action="view-profile" data-id="${r.athleteId}"${copy ? ' tabindex="-1"' : ''}>
+          <span class="tick-event"><span class="tick-sport">${esc(r.sport)}</span>${esc(r.event)}</span>
+          ${r.rows.map(([name, value]) => `<span class="tick-row"><span>${esc(name)}</span><strong>${esc(value)}</strong></span>`).join('')}
+          <span class="tick-status">${esc(r.status)} · ${day(r.date)}</span>
+        </a>
+      </li>`;
+    const track = $('#tickerTrack');
+    track.innerHTML = items.map((r) => item(r, false)).join('') + items.map((r) => item(r, true)).join('');
+    // Constant reading speed (~40px a second) whatever the number of results.
+    requestAnimationFrame(() => track.style.setProperty('--ticker-duration', `${Math.max(20, Math.round(track.scrollWidth / 2 / 40))}s`));
+  }
+
+  function wireTicker() {
+    const ticker = $('#ticker');
+    const btn = $('#tickerToggle');
+    const set = (paused) => {
+      ticker.classList.toggle('is-paused', paused);
+      btn.setAttribute('aria-pressed', String(paused));
+      btn.setAttribute('aria-label', paused ? 'Play the results ticker' : 'Pause the results ticker');
+    };
+    let paused = false;
+    try { paused = localStorage.getItem('aax-ticker') === 'paused'; } catch (e) { /* default: playing */ }
+    set(paused);
+    btn.addEventListener('click', () => {
+      const next = !ticker.classList.contains('is-paused');
+      set(next);
+      try { localStorage.setItem('aax-ticker', next ? 'paused' : 'playing'); } catch (e) { /* not persisted */ }
+    });
+  }
+
+  /* ==========================================================================
+     FRONT PAGE (the site's home: same for every role, minors hidden from visitors)
+     ========================================================================== */
+  function renderFront() {
+    renderSpotlight();
+    renderWire();
+    renderGlance();
+
+    const when = (d) => new Date(`1 ${d.date}`).getTime() || 0;
+    const stories = pool().flatMap((a) => a.news.map((n) => ({ ...n, a })))
+      .sort((x, y) => when(y) - when(x)).slice(0, 6);
+    $('#storyList').innerHTML = stories.map(({ a, source, date, headline }, i) => `
+      <li class="story${i === 0 ? ' story-lead' : ''}">
+        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
+        <h3 class="story-head"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h3>
+        ${i === 0 ? `<p class="story-dek">${esc(a.name)} · ${esc(a.position)} · scout grade ${a.grade.toFixed(1)}</p>` : ''}
       </li>`).join('');
+
+    $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
+      <li>
+        <span class="mini-rank num">${ranks(a).board.rank}</span>
+        <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
+        <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
+      </li>`).join('');
+
+    const closing = S.opportunities.filter(isOpen).sort((x, y) => x.deadline.localeCompare(y.deadline)).slice(0, 3);
+    $('#frontTrials').innerHTML = closing.map((o) => {
+      const days = daysUntil(o.deadline);
+      return task({ tone: 'wait', title: esc(o.title), text: `${esc(orgById(o.orgId).name)} · ${esc(o.sport)} · closes ${formatDate(o.deadline)} (${plural(days, 'day')})` });
+    }).join('') || task({ tone: 'info', title: 'No trials open right now' });
+
+    const how = [
+      ['Athletes', 'Get ranked, get seen, get represented.', 'Post your season stats and video, get verified at a combine, and sign with an agent who is paid only when you are. Under-18s need a parent or guardian to approve.', [['athlete:ath-01', 'Try it as an athlete']]],
+      ['Agents', 'Find talent before anyone else does.', 'Filter the board for unsigned athletes in your sports, send agreements for e-signature, and apply to trials for your clients.', [['agent', 'Try it as an agent']]],
+      ['Scouts & clubs', 'Search by what athletes can actually do.', 'Compare measurements and verified test results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
+    ];
+    $('#howGrid').innerHTML = how.map(([who, head, text, ctas]) => `
+      <article class="card how">
+        <p class="how-who">${who}</p>
+        <h3 class="how-head">${head}</h3>
+        <p class="how-text">${text}</p>
+        <div class="card-actions">${ctas.map(([role, label]) => (role.split(':')[0] === S.role
+          ? '<span class="muted how-current">You’re viewing as this role</span>'
+          : `<button type="button" class="btn btn-secondary btn-sm" data-action="try-role" data-role="${role}">${label}</button>`)).join('')}</div>
+      </article>`).join('');
   }
 
   function renderSpotlight() {
@@ -778,7 +861,7 @@
   }
 
   function renderWire() {
-    $('#wireList').innerHTML = SEED.risers.map((x) => {
+    $('#wireList').innerHTML = SEED.risers.filter((x) => inPool(x.athleteId)).map((x) => {
       const a = athleteById(x.athleteId);
       return `
         <li class="wire-item">
@@ -798,7 +881,7 @@
       ['Height', (a) => a.size.height_in, (a) => feetIn(a.size.height_in)]
     ];
     $('#leadersGrid').innerHTML = cats.map(([title, get, show]) => {
-      const top = [...S.athletes].sort((x, y) => get(y) - get(x)).slice(0, 3);
+      const top = [...pool()].sort((x, y) => get(y) - get(x)).slice(0, 3);
       return `
         <div class="leaders-cat">
           <h3>${title}</h3>
@@ -813,9 +896,9 @@
 
   function renderGlance() {
     const cells = [
-      ['Athletes', S.athletes.length],
-      ['Combine verified', S.athletes.filter((a) => a.verification === 'pro').length],
-      ['Without an agent', S.athletes.filter((a) => !openAgreementFor(a.id)).length],
+      ['Athletes', pool().length],
+      ['Combine verified', pool().filter((a) => a.verification === 'pro').length],
+      ['Without an agent', pool().filter((a) => !openAgreementFor(a.id)).length],
       ['Open trials', S.opportunities.filter(isOpen).length]
     ];
     $('#glance').innerHTML = cells.map(([k, v]) => `<div><dt>${k}</dt><dd class="num">${v}</dd></div>`).join('');
@@ -850,7 +933,7 @@
   }
 
   function filteredAthletes() {
-    return byGrade(S.athletes.filter((a) => {
+    return byGrade(pool().filter((a) => {
       if (filter.search) {
         const hay = `${a.name} ${a.sport} ${a.position} ${a.country} ${code(a)} ${a.city} ${a.team} ${a.school}`.toLowerCase();
         if (!filter.search.split(/\s+/).every((w) => hay.includes(w))) return false;
@@ -971,6 +1054,7 @@
         else if (a.sport === o.sport) parts.push(`<p class="player-represented">Not eligible for your ${esc(o.title.toLowerCase())}: ${esc(eligibility(a, o).join(' '))}</p>`);
       });
     }
+    if (S.role === 'visitor') parts.push('<p class="player-represented">Agents, scouts and clubs can compare and contact athletes once signed in.</p>');
     if (canCompare()) {
       const on = S.compare.includes(a.id);
       parts.push(`<button type="button" class="btn btn-quiet" data-action="toggle-compare" data-id="${a.id}" aria-pressed="${on}">${on ? 'In comparison' : 'Add to comparison'}</button>`);
@@ -1079,7 +1163,7 @@
               <div><dt>Dominant foot</dt><dd>${esc(a.size.foot)}</dd></div>
             </dl>
             <h3 class="label" style="margin:16px 0 4px">Against the board</h3>
-            <p class="muted" style="font-size:13px">Rank among all ${S.athletes.length} athletes, across sports.</p>
+            <p class="muted" style="font-size:13px">Rank among all ${pool().length} athletes, across sports.</p>
             <ul>${standings.map(([label, value, s]) => `
               <li class="standing">
                 <span class="standing-label">${label}</span>
@@ -1560,7 +1644,7 @@
         </thead>
         <tbody>
           ${row('Scout grade', (a) => `<span class="${mark.grade(a)}">${a.grade.toFixed(1)}</span>`)}
-          ${row('Board rank', (a) => `${ranks(a).board.rank} of ${S.athletes.length} ${movement(a)}`)}
+          ${row('Board rank', (a) => `${ranks(a).board.rank} of ${pool().length} ${movement(a)}`)}
           ${row('Position', (a) => esc(a.position))}
           ${row('Age', (a) => ageOf(a.dob))}
           ${row('Height', (a) => `<span class="${mark.height(a)}">${feetIn(a.size.height_in)}</span>`)}
@@ -1652,7 +1736,8 @@
     const copy = {
       athlete: ['Trials & scholarships', 'Listings you can apply to come first. Each is checked against your sport, age, verification and the deadline.'],
       agent: ['Trials & scholarships', 'Apply for your clients. Each listing shows which of them qualify.'],
-      scout: ['Trials & combines', 'Where to see prospects in person, and which athletes on the board qualify for each.']
+      scout: ['Trials & combines', 'Where to see prospects in person, and which athletes on the board qualify for each.'],
+      visitor: ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges. Athletes and agents apply once signed in.']
     }[S.role] || ['Trials & scholarships', 'Trials, combines and scholarship places posted by clubs, leagues and colleges.'];
     title.textContent = copy[0];
     lede.textContent = copy[1];
@@ -1678,6 +1763,8 @@
         if (ready.length) side = `<button type="button" class="btn btn-accent" data-action="apply" data-id="${o.id}">Apply for a client</button>`;
         foot = `<p class="fit ${ready.length ? 'fit-yes' : 'fit-no'}">${ready.length ? `Clients who qualify: ${ready.map((c) => esc(c.name)).join(', ')}.` : people.length ? 'None of your clients qualify.' : 'You don’t represent anyone yet.'}</p>
           ${sent.length ? `<ul class="plain-list">${sent.map((ap) => `<li class="row-split"><span>${esc(athleteById(ap.athleteId).name)} · ${formatDate(ap.date)}</span>${appStatusMarkup(ap)}</li>`).join('')}</ul>` : ''}`;
+      } else if (S.role === 'visitor') {
+        foot = '';
       } else {
         const eligible = eligibleAthletes(o);
         foot = `<p class="fit ${eligible.length ? 'fit-yes' : 'fit-no'}">${eligible.length ? `On the board and eligible: ${nameLinks(eligible)}.` : 'No athletes on the board qualify yet.'}</p>`;

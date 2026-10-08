@@ -31,7 +31,7 @@
 
   <header class="site-header">
     <div class="masthead">
-      <a class="wordmark" href="#home" data-action="home" aria-label="Apex Athlete Exchange, home">
+      <a class="wordmark" href="#front" data-action="home" aria-label="Apex Athlete Exchange, home">
         <span class="wordmark-mark" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 32 32"><path d="M9 24 16 7l7 17h-4.2l-1.3-3.4h-3l-1.3 3.4Z" fill="currentColor"/></svg>
         </span>
@@ -45,6 +45,7 @@
         <label class="account-role">
           <span class="account-role-label">Demo · view as</span>
           <select id="roleSelect" class="select select-dark">
+            <option value="visitor">Visitor (not signed in)</option>
             <option value="athlete:ath-01">Athlete — Shavar Montague</option>
             <option value="athlete:ath-07">Athlete — Chloe Henderson (17)</option>
             <option value="agent">Agent</option>
@@ -70,12 +71,66 @@
     </nav>
   </header>
 
-  <section class="scores" id="scores" aria-labelledby="scoresLabel" hidden>
-    <h2 class="scores-label" id="scoresLabel">Results</h2>
-    <ol class="scores-list" id="scoresList"></ol>
+  <section class="ticker" id="ticker" aria-labelledby="tickerLabel" hidden>
+    <div class="ticker-label">
+      <h2 id="tickerLabel">Latest results</h2>
+      <span>Athletes on the board</span>
+    </div>
+    <div class="ticker-viewport">
+      <ul class="ticker-track" id="tickerTrack"></ul>
+    </div>
+    <button type="button" class="ticker-toggle" id="tickerToggle" aria-pressed="false" aria-label="Pause the results ticker">
+      <svg class="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+      <svg class="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </button>
   </section>
 
   <main id="main" class="page">
+
+    <!-- FRONT PAGE (the site's home, same for everyone) -->
+    <section id="section-front" class="view" aria-labelledby="h-front">
+      <h1 class="visually-hidden" id="h-front">Apex Athlete Exchange: Caribbean prospects, ranked and verified</h1>
+      <div class="hero-grid">
+        <article class="spotlight" id="spotlight" aria-label="Featured prospect"></article>
+        <aside class="card wire" aria-labelledby="h-wire">
+          <div class="card-head">
+            <h2 class="card-title" id="h-wire">Trending</h2>
+            <span class="card-meta">This week</span>
+          </div>
+          <ol class="wire-list" id="wireList"></ol>
+          <dl class="glance" id="glance" aria-label="Board at a glance"></dl>
+        </aside>
+      </div>
+
+      <div class="front-grid">
+        <section class="card front-stories" aria-labelledby="h-stories">
+          <div class="card-head">
+            <h2 class="card-title" id="h-stories">Top stories</h2>
+            <span class="card-meta">From the athletes’ profiles</span>
+          </div>
+          <ol class="story-list" id="storyList"></ol>
+        </section>
+        <section class="card" aria-labelledby="h-top">
+          <div class="card-head">
+            <h2 class="card-title" id="h-top">Top of the board</h2>
+            <a href="#board" class="btn-link" data-action="go" data-route="board">Full board</a>
+          </div>
+          <ol class="mini-list" id="frontBoard"></ol>
+        </section>
+        <section class="card" aria-labelledby="h-closing">
+          <div class="card-head">
+            <h2 class="card-title" id="h-closing">Trials closing soon</h2>
+            <a href="#trials" class="btn-link" data-action="go" data-route="trials">All trials</a>
+          </div>
+          <ul class="task-list" id="frontTrials"></ul>
+        </section>
+      </div>
+
+      <section class="front-how" aria-labelledby="h-how">
+        <h2 class="section-title" id="h-how">How the exchange works</h2>
+        <div class="how-grid" id="howGrid"></div>
+      </section>
+    </section>
 
     <!-- HOME (role dashboard) -->
     <section id="section-home" class="view" aria-labelledby="homeTitle">
@@ -90,18 +145,6 @@
           <p class="view-lede" id="boardLede">Ranked by scout grade. Measurements, test results and representation status for every athlete.</p>
         </div>
       </header>
-
-      <div class="hero-grid">
-        <article class="spotlight" id="spotlight" aria-label="Featured prospect"></article>
-        <aside class="card wire" aria-labelledby="h-wire">
-          <div class="card-head">
-            <h2 class="card-title" id="h-wire">Trending</h2>
-            <span class="card-meta">This week</span>
-          </div>
-          <ol class="wire-list" id="wireList"></ol>
-          <dl class="glance" id="glance" aria-label="Board at a glance"></dl>
-        </aside>
-      </div>
 
       <section class="card leaders" aria-labelledby="h-leaders">
         <div class="card-head">

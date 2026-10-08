@@ -600,14 +600,15 @@ window.AAX_DATA = {
     { id: 'app-0001', oppId: 'opp-01', athleteId: 'ath-02', date: '2026-10-03', note: 'Available now. GPS data from the Kingston combine is on my profile.', status: 'submitted', via: 'athlete' }
   ],
 
+  // Recent results for athletes on the board (shown in the results ticker). Static demo data, not a live feed.
   results: [
-    { event: 'Island Schools Champs · 100 m', rows: [['Aliyah Blake', '10.98']], status: 'Final' },
-    { event: 'Western Youth Premier', rows: [['Bay City FC', '3'], ['Port Royal Rovers', '1']], status: 'FT · Sterling 2 goals' },
-    { event: 'Island Premier Basketball', rows: [['Kingston Hawks', '88'], ['St. Andrew Kings', '82']], status: 'Final · Montague 31 pts' },
-    { event: 'Kingston speed combine', rows: [['Rohan Sharma', '144.2 km/h']], status: 'Ball speed' },
-    { event: 'Caribbean Junior Aquatics · 50 free', rows: [['Chloe Henderson', '24.88']], status: 'Meet record' },
-    { event: 'National amateur boxing · 175 lb', rows: [['Malik Thorne', 'W TKO R3']], status: 'Final' },
-    { event: 'PR Development League final', rows: [['Mateo Rossi', '14 ast']], status: 'Final' }
+    { athleteId: 'ath-02', date: '2026-10-05', sport: 'Football', event: 'Western Youth Premier', rows: [['Bay City FC', '3'], ['Port Royal Rovers', '1']], status: 'FT · Sterling 2 goals' },
+    { athleteId: 'ath-03', date: '2026-10-04', sport: 'Track', event: 'Island Schools Champs · 100 m', rows: [['Aliyah Blake', '10.98']], status: 'Final · 1st' },
+    { athleteId: 'ath-07', date: '2026-10-04', sport: 'Swimming', event: 'Caribbean Junior Aquatics · 50 free', rows: [['Chloe Henderson', '24.88']], status: 'Meet record' },
+    { athleteId: 'ath-01', date: '2026-10-03', sport: 'Basketball', event: 'Island Premier Basketball', rows: [['Kingston Hawks', '88'], ['St. Andrew Kings', '82']], status: 'Final · Montague 31 pts' },
+    { athleteId: 'ath-08', date: '2026-10-03', sport: 'Boxing', event: 'National amateur boxing · 175 lb', rows: [['Malik Thorne', 'W TKO R3']], status: 'Final' },
+    { athleteId: 'ath-05', date: '2026-10-02', sport: 'Basketball', event: 'PR Development League final', rows: [['Mateo Rossi', '14 ast']], status: 'Final · MVP' },
+    { athleteId: 'ath-06', date: '2026-10-01', sport: 'Cricket', event: 'Kingston speed combine', rows: [['Rohan Sharma', '144.2 km/h']], status: 'Ball speed' }
   ],
 
   // Month labels for gradeHistory (oldest first).
