@@ -35,19 +35,21 @@
   --on-red-line: rgba(255, 255, 255, 0.86);
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.12'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 -2.4 1.16'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23d)' opacity='.32'/%3E%3Crect width='160' height='160' filter='url(%23l)' opacity='.16'/%3E%3C/svg%3E");
 
-  /* Infield greys (a touch of grass in them). The ground is a value step darker
-     than the cards, and both are dark enough for white lane lines to read:
-     white is 1.71:1 on the page, 1.51:1 on cards, 1.64:1 on inner zones and
-     1.88:1 on the strips. The header stays pale. */
-  --page: #BFC8C2;
-  --chrome: #EEF1EE;
-  --banner: #E2E7E3;
-  --strip: #B6BFB9;
-  --surface: #CDD4CF;
-  --surface-2: #C4CCC7;
+  /* Infield greys, warmed toward sun-bleached concrete. The ground is a value
+     step darker than the cards, and both are dark enough for white lane lines
+     to read: white is 1.67:1 on the page, 1.52:1 on cards, 1.64:1 on inner
+     zones and 1.90:1 on table strips. Header and nav form one pale band. */
+  --page: #C4CAC2;
+  --chrome: #F1F3EF;
+  --banner: #E6E9E3;
+  --nav: #DFE3DC;
+  --nav-line: #A3ABA3;           /* lane dividers on the pale nav */
+  --strip: #B8BEB5;
+  --surface: #CED3CB;
+  --surface-2: #C6CCC4;
   --field: #FFFFFF;
-  --field-border: #6F7772;       /* 4.6:1 against white, 3.05:1 against a card */
-  --border: #A9B3AD;
+  --field-border: #646C66;       /* 3.2:1 against the page, 3.6:1 against a card */
+  --border: #A6ADA4;
   --lane: #FFFFFF;               /* lane lines */
   --text: #1A1C1B;
   --text-2: #383D3B;
@@ -99,6 +101,8 @@
   --chrome: #1A1D1E;
   --banner: #222627;
   --strip: #222627;
+  --nav: #222627;
+  --nav-line: rgba(255, 255, 255, 0.24);
   --surface: #1B1E1F;
   --surface-2: #232728;
   --field: #131516;
@@ -132,6 +136,8 @@
     --chrome: #1A1D1E;
     --banner: #222627;
     --strip: #222627;
+    --nav: #222627;
+    --nav-line: rgba(255, 255, 255, 0.24);
     --surface: #1B1E1F;
     --surface-2: #232728;
     --field: #131516;
@@ -386,20 +392,20 @@ input[type="range"] { width: 100%; accent-color: var(--red); margin: 10px 0 0; }
 
 /* The nav is a lane strip seen from the start line: numbered lanes divided by
    paired white lines; the current page is its own red lane. */
-.site-nav { background: var(--strip); min-height: 50px; }
-.site-nav-tabs { display: flex; align-self: stretch; border-left: 3px double var(--lane); }
+.site-nav { background: var(--nav); min-height: 50px; }
+.site-nav-tabs { display: flex; align-self: stretch; border-left: 3px double var(--nav-line); }
 .nav-tab {
   display: flex; align-items: center; gap: 9px; padding: 0 18px 0 14px;
   font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   color: var(--text-2); text-decoration: none;
-  border-right: 3px double var(--lane);
+  border-right: 3px double var(--nav-line);
   transition: background-color .15s ease-out, color .15s ease-out;
 }
 .nav-lane {
   font-size: 22px; font-weight: 900; font-stretch: var(--condensed); letter-spacing: 0; line-height: 1;
   color: var(--text-3); font-variant-numeric: tabular-nums;
 }
-.nav-tab:hover { color: var(--text); background: color-mix(in srgb, var(--chrome) 55%, transparent); }
+.nav-tab:hover { color: var(--text); background: var(--chrome); }
 .nav-tab[aria-current="page"] { background: var(--grain), var(--red); color: #fff; }
 .nav-tab[aria-current="page"] .nav-lane { color: #fff; }
 .nav-tab:focus-visible { outline-offset: -4px; }
@@ -1244,14 +1250,14 @@ p, .view-lede, .agent-bio, .timeline-note { text-wrap: pretty; }
     var(--grain), var(--red);
 }
 .how + .how .how-who {
-  padding-left: 92px;
+  padding-left: 76px;
   background:
-    var(--zone) 0 50% / auto 100% no-repeat,
+    var(--zone) 0 0 / 64px 100% no-repeat,
     linear-gradient(var(--on-red-line) 0 0) 0 4px / 100% 1px no-repeat,
     linear-gradient(var(--on-red-line) 0 0) 0 calc(100% - 4px) / 100% 1px no-repeat,
     var(--grain), var(--red);
 }
-:root { --zone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='66' viewBox='0 0 76 66'%3E%3Cg fill='%23fff' fill-opacity='.92'%3E%3Cpath d='M12 22l12 11-12 11z'/%3E%3Cpath d='M32 22l12 11-12 11z'/%3E%3Crect x='58' y='8' width='3' height='50'/%3E%3C/g%3E%3C/svg%3E"); }
+:root { --zone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='66' viewBox='0 0 64 66' preserveAspectRatio='none'%3E%3Cg fill='%23fff' fill-opacity='.92'%3E%3Cpath d='M8 5h14L8 12z'/%3E%3Cpath d='M26 5h14L26 12z'/%3E%3Cpath d='M8 61h14L8 54z'/%3E%3Cpath d='M26 61h14L26 54z'/%3E%3Crect x='50' y='0' width='3' height='66'/%3E%3C/g%3E%3C/svg%3E"); }
 .how-head { font-size: 17px; font-weight: 800; line-height: 1.25; color: var(--red-ink); }
 .how-text { color: var(--text-2); font-size: 14px; flex: 1; }
 .how .card-actions { margin-top: 6px; flex-wrap: wrap; }

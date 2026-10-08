@@ -16,4 +16,4 @@ identifiable face. Each WebP also carries its source URL in its metadata.
 | ath-07 | Chloe Henderson (swimming, under 18) | https://www.pexels.com/photo/photo-of-an-athlete-swimming-underwater-8688566/ (Kindel Media) |
 | ath-08 | Malik Thorne (boxing) | https://www.pexels.com/photo/a-boxer-ready-to-fight-pose-5750807/ (Tima Miroshnichenko) |
 
-`ath-XX.webp` is the large version (long edge 960px); `ath-XX-sm.webp` is for cards (440px).
+`ath-XX.webp` is the large version (long edge 960px); `ath-XX-sm.webp` is for cards (440px); `ath-XX-th.webp` is a 96px square crop on the athlete for lists.

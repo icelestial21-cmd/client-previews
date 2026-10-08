@@ -227,11 +227,12 @@
     return `<img src="${src}-sm.webp" srcset="${src}-sm.webp ${p.sw}w, ${src}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${esc(p.pos || '50% 50%')}">`;
   }
 
-  // A small square face for lists (Trending, Top of the board). Always lazy: these sit below or beside the fold.
+  // A small square face for lists (Trending, Top of the board, dashboards): a dedicated 96px file
+  // cropped on the athlete (about 2 KB). Always lazy: these sit below or beside the fold.
   function thumb(a) {
     const p = a.photo;
     if (!p) return `<span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>`;
-    return `<img class="thumb" src="${esc(p.src)}-sm.webp" width="${p.sw}" height="${Math.round((p.sw * p.h) / p.w)}" alt="${esc(p.alt)}" loading="lazy" decoding="async" style="object-position:${esc(p.pos || '50% 50%')}">`;
+    return `<img class="thumb" src="${esc(p.src)}-th.webp" width="96" height="96" alt="${esc(p.alt)}" loading="lazy" decoding="async">`;
   }
 
   // A lane-number plate: white numeral painted on tartan red. When the athlete in a lane
