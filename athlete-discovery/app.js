@@ -33,6 +33,13 @@
     admin: [['front', 'Home'], ['home', 'Overview'], ['board', 'Prospects'], ['agents', 'Agents'], ['agreements', 'Agreements'], ['payments', 'Payments']]
   };
   const ROLE_HOME = { visitor: 'front', athlete: 'home', agent: 'home', scout: 'board', organization: 'trials', admin: 'home' };
+  const THEME_KEY = 'aax-theme-v2';
+  // Pixel widths of each photo's two sizes (small for cards, large for heroes), for srcset.
+  const PHOTO_W = {
+    'img/ath-01': [330, 720, 0.75], 'img/ath-02': [440, 960, 1.78], 'img/ath-03': [294, 641, 0.67], 'img/ath-04': [440, 960, 1.5],
+    'img/ath-05': [305, 665, 0.69], 'img/ath-06': [440, 960, 1.51], 'img/ath-07': [440, 960, 1.33], 'img/ath-08': [293, 640, 0.67]
+  };
+  const SWEEP_MS = 1500;
 
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
@@ -184,11 +191,80 @@
   }
 
   // Change since last week's board (the +/- column on federation rankings and motorsport standings).
+  const MOVE_ICON = {
+    up: '<svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1.5 9 8.5H1Z" fill="currentColor"/></svg>',
+    down: '<svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 8.5 1 1.5h8Z" fill="currentColor"/></svg>',
+    same: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+  };
   function movement(a) {
     const diff = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
-    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week"><span aria-hidden="true">▲</span>${diff}<span class="visually-hidden"> up</span></span>`;
-    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week"><span aria-hidden="true">▼</span>${-diff}<span class="visually-hidden"> down</span></span>`;
-    return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
+    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week">${MOVE_ICON.up}${diff}<span class="visually-hidden"> up</span></span>`;
+    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week">${MOVE_ICON.down}${-diff}<span class="visually-hidden"> down</span></span>`;
+    return `<span class="move move-same" title="No change since last week">${MOVE_ICON.same}<span class="visually-hidden">no change</span></span>`;
+  }
+
+  // A stock photo standing in for the athlete. Under-18 photos never show a face (see img/CREDITS.md).
+  function photo(a, { sizes = '100vw', cls = '', eager = false, decorative = false } = {}) {
+    if (!a.photo) return '';
+    const src = a.photo.src;
+    const [sw, lw, ratio] = PHOTO_W[src] || [440, 960, 1.5];
+    return `<img class="${cls}" src="${src}-sm.webp" srcset="${src}-sm.webp ${sw}w, ${src}.webp ${lw}w" sizes="${sizes}" width="${lw}" height="${Math.round(lw / ratio)}" alt="${decorative ? '' : esc(a.photo.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  }
+
+  // The band: four costume colours, once per view. Decorative.
+  const BAND = '<div class="band" aria-hidden="true"><i></i><i></i><i></i><i></i></div>';
+
+  /* ---------- The athlete's path ----------
+     Six stops from the board to a contract abroad. Every filled stop comes from
+     data the exchange already holds; nothing is filled on hope. */
+  function pathOf(a) {
+    const lvl = levelIndex(a.verification);
+    const g = openAgreementFor(a.id);
+    const agent = g && agentById(g.agentId);
+    const apps = S.applications.filter((ap) => ap.athleteId === a.id);
+    const invited = apps.find((ap) => ap.status === 'invited');
+    const applied = apps.find((ap) => ap.status === 'submitted' || ap.status === 'guardian');
+    const r = ranks(a).board;
+    const stops = [
+      { label: 'On the board', done: true, note: `Ranked #${r.rank} of ${r.of}` },
+      { label: 'ID checked', done: lvl >= levelIndex('identity'), note: lvl >= levelIndex('identity') ? 'Identity and age checked' : 'Identity not checked yet' },
+      { label: 'Measured at combine', done: lvl >= levelIndex('pro'), note: lvl >= levelIndex('pro') ? 'Measured in person' : lvl >= levelIndex('athletic') ? 'Results checked, not yet measured in person' : 'Not measured in person yet' },
+      {
+        label: 'Agent signed',
+        done: !!g && g.status === 'active',
+        note: g && g.status === 'active' ? `With ${agent.name}` : g ? `Agreement with ${agent.name} waiting for signatures` : a.status === 'Free Agent' ? 'Free agent, no agent yet' : 'Looking for an agent'
+      },
+      {
+        label: 'Trial',
+        done: !!invited,
+        note: invited ? `Invited: ${oppById(invited.oppId).title}` : applied ? `Applied: ${oppById(applied.oppId).title}` : 'No trial yet'
+      },
+      // Only filled if the record says so; the demo data has no contract abroad for anyone.
+      { label: 'Signed abroad', done: !!a.signedAbroad, note: a.signedAbroad ? String(a.signedAbroad) : 'Not yet' }
+    ];
+    const current = stops.findIndex((s) => !s.done);
+    return { stops, current, reached: stops.filter((s) => s.done).length };
+  }
+
+  const PATH_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+
+  function pathMarkup(a, { id = 'path', title = true, self = false } = {}) {
+    const { stops, current, reached } = pathOf(a);
+    const who = self ? 'Your' : `${esc(firstName(a))}’s`;
+    const now = current === -1 ? 'Every stop reached.' : `Now: ${esc(stops[current].label.toLowerCase())}. ${esc(stops[current].note)}.`;
+    return `
+      <div class="path-wrap">
+        ${title ? `<h2 class="path-title" id="${id}-title">${who} path abroad</h2>` : ''}
+        <p class="path-now" id="${id}-now"><strong class="num">${reached} of ${stops.length}</strong> stops reached. ${now}</p>
+        <ol class="path" ${title ? `aria-labelledby="${id}-title"` : `aria-label="${who} path abroad"`} aria-describedby="${id}-now">
+          ${stops.map((s, i) => `
+            <li class="path-stop ${s.done ? 'is-done' : i === current ? 'is-current' : 'is-todo'}" style="--i:${i}"${i === current ? ' aria-current="step"' : ''}>
+              <span class="path-node" aria-hidden="true">${s.done ? PATH_CHECK : ''}</span>
+              <span class="path-label">${esc(s.label)}<span class="visually-hidden">: ${s.done ? 'done' : i === current ? 'current stop' : 'not yet'}.</span></span>
+              <span class="path-note">${esc(s.note)}</span>
+            </li>`).join('')}
+        </ol>
+      </div>`;
   }
 
   // Small inline trend line (spark-chart pattern). Decorative; callers add a text equivalent.
@@ -293,6 +369,7 @@
     wireControls();
     wireModals();
     wireTicker();
+    wireFrontSearch();
     trackHeaderHeight();
     $('#navTabs').addEventListener('scroll', syncNavCue, { passive: true });
     // Esc or a click outside closes the explainer natively; put focus back where it came from.
@@ -328,11 +405,8 @@
     renderAll();
   }
 
-  function currentTheme() {
-    const set = document.documentElement.dataset.theme;
-    if (set) return set;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
+  // Dark (match night) unless the visitor picked light with the toggle; the device setting is not consulted.
+  const currentTheme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
 
   function wireTheme() {
     const btn = $('#themeToggle');
@@ -340,25 +414,42 @@
       const dark = currentTheme() === 'dark';
       btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
       btn.setAttribute('aria-pressed', String(dark));
+      $('#themeToggleText').textContent = dark ? 'Light' : 'Dark';
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#0B1030' : '#E6F0FA');
     };
     btn.addEventListener('click', () => {
       const next = currentTheme() === 'dark' ? 'light' : 'dark';
       document.documentElement.dataset.theme = next;
-      try { localStorage.setItem('aax-theme', next); } catch (e) { /* not persisted */ }
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* not persisted */ }
       sync();
     });
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
     sync();
   }
 
+  // The front page slides its hero under the header, and the profile tabs stick below it.
   function trackHeaderHeight() {
     const header = $('.site-header');
     const update = () => {
       const sticky = getComputedStyle(header).position === 'sticky';
       document.documentElement.style.setProperty('--header-h', sticky ? `${header.offsetHeight}px` : '0px');
+      document.documentElement.style.setProperty('--mast-h', `${header.offsetHeight}px`);
     };
     update();
     window.addEventListener('resize', update);
+    if (window.ResizeObserver) new ResizeObserver(update).observe(header);
+  }
+
+  // The front-page search runs the board's own search.
+  function wireFrontSearch() {
+    $('#frontSearch').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!hasRoute('board')) return;
+      filter = { ...DEFAULT_FILTER, search: $('#frontSearchInput').value.trim().toLowerCase() };
+      syncFilters();
+      renderBoard();
+      go('board');
+    });
   }
 
   /* ==========================================================================
@@ -417,8 +508,12 @@
     }
 
     markNav();
+    const changed = document.body.dataset.route !== route || route === 'athlete';
     $$('.view').forEach((v) => v.classList.toggle('is-active', v.id === `section-${route}`));
+    document.body.dataset.route = route;
     $('#ticker').hidden = route !== 'front';
+    tickerVisible(route === 'front');
+    if (changed) sweep($(`#section-${route}`));
 
     const hash = hashFor(current);
     if (location.hash !== hash) history[push ? 'pushState' : 'replaceState'](null, '', hash);
@@ -434,6 +529,18 @@
   }
 
   const viewProfile = (id) => go({ route: 'athlete', id });
+
+  // The signature move: the band sweeps across the page head (and the athlete's path fills)
+  // once when a view opens, then rests. CSS skips it entirely for reduced motion.
+  let sweepTimer = null;
+  function sweep(view) {
+    if (!view) return;
+    $$('.view.is-sweeping').forEach((v) => v.classList.remove('is-sweeping'));
+    void view.offsetWidth; // restart the animation
+    view.classList.add('is-sweeping');
+    clearTimeout(sweepTimer);
+    sweepTimer = setTimeout(() => view.classList.remove('is-sweeping'), SWEEP_MS + 900);
+  }
 
   function scrollToEl(el) {
     if (!el) return;
@@ -619,38 +726,35 @@
     if (isMinor(me)) steps.push(task({ tone: 'info', title: 'You’re under 18', text: 'Your parent or guardian approves each application and signs any agreement, from a link we send them. Visitors to the site can’t see your profile.' }));
 
     return `
-      <header class="view-head">
-        <div>
-          <h1 id="homeTitle">Welcome back, ${esc(firstName(me))}</h1>
-          <p class="view-lede">Your board position, what needs doing next, and where things stand.</p>
-        </div>
-      </header>
-      <div class="home-grid">
-        <section class="player-header home-hero" aria-label="Your board position">
-          <div class="home-hero-main">
-            <div>
-              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
-              <p class="home-hero-name">${splitName(me.name)}</p>
-              <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
-            </div>
+      <section class="player-header home-hero" aria-labelledby="homeTitle">
+        <div class="player-photo">${photo(me, { sizes: '(min-width: 861px) 50vw, 100vw', eager: true })}</div>
+        ${BAND}
+        <div class="home-hero-main">
+          <div class="player-id">
+            <h1 class="player-name" id="homeTitle"><span class="name-first">Welcome back,</span> <span class="name-last">${esc(firstName(me))}</span></h1>
+            <p class="player-sport">${esc(me.sport)} · ${esc(me.position)} · ${esc(me.team)}</p>
+            <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
+          </div>
+          <div class="home-hero-grade">
             <div class="grade-box">
-              <div class="grade-label">Scout grade</div>
-              <div class="grade-figure">${me.grade.toFixed(1)}</div>
-              <div class="grade-label">${signed(change)} in 6 months</div>
+              <div class="grade-figure num">${me.grade.toFixed(1)}</div>
+              <div class="grade-label">Scout grade · ${signed(change)} in 6 months</div>
             </div>
+            <div class="home-hero-trend">${sparkline(h, { width: 240, height: 44, fill: true })}<span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span></div>
           </div>
-          <div class="home-hero-trend">${sparkline(h, { width: 400, height: 48, fill: true })}<span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span></div>
-          <div class="home-hero-foot">
-            ${rankRow(me)}
-            <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">View my profile</button>
-          </div>
-        </section>
+        </div>
+        <div class="home-hero-path">${pathMarkup(me, { id: 'homePath', self: true })}</div>
+        <div class="home-hero-foot">
+          ${rankRow(me)}
+          <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">View my profile</button>
+        </div>
+      </section>
+      <div class="home-grid">
         <section class="card" aria-labelledby="h-next">
           <div class="card-head"><h2 class="card-title" id="h-next">Next steps</h2></div>
           <ul class="task-list">${steps.join('')}</ul>
         </section>
-      </div>
-      <div class="home-cols">
+        <div class="home-side">
         <section class="card" aria-labelledby="h-myapps">
           <div class="card-head"><h2 class="card-title" id="h-myapps">Your applications</h2><a href="#trials" class="btn-link" data-action="go" data-route="trials">All trials</a></div>
           <div class="profile-card-body">${myApps.length ? `<ul class="plain-list">${myApps.map((ap) => {
@@ -669,6 +773,7 @@
             ${toMe.length ? '' : '<p class="muted card-note">Sponsor and contract payments will show here.</p>'}
           </div>
         </section>
+        </div>
       </div>`;
   }
 
@@ -709,6 +814,7 @@
 
     return `
       <header class="view-head">
+        ${BAND.replace('class="band"', 'class="band band-head"')}
         <div>
           <h1 id="homeTitle">${esc(me.name)}</h1>
           <p class="view-lede">${esc(me.agency)} · ${esc(me.sports.join(', '))}</p>
@@ -729,7 +835,7 @@
           <div class="card-head"><h2 class="card-title" id="h-prospects">Unsigned in your sports</h2><a href="#board" class="btn-link" data-action="find-unsigned">See all</a></div>
           <ul class="mini-list">${prospects.map((a) => `
             <li>
-              <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+              <span class="thumb">${photo(a, { sizes: '44px', decorative: true })}</span>
               <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
               <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
               <button type="button" class="btn btn-quiet btn-sm mini-action" data-action="start-agreement" data-athlete="${a.id}" data-agent="${me.id}">Offer<span class="visually-hidden"> representation to ${esc(a.name)}</span></button>
@@ -746,6 +852,7 @@
     const recent = [...S.transactions].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
     return `
       <header class="view-head">
+        ${BAND.replace('class="band"', 'class="band band-head"')}
         <div>
           <h1 id="homeTitle">Overview</h1>
           <p class="view-lede">Agreements, verification and escrow across the exchange.</p>
@@ -781,37 +888,66 @@
       <section class="card home-wide" aria-labelledby="h-recent">
         <div class="card-head"><h2 class="card-title" id="h-recent">Recent payments</h2><a href="#payments" class="btn-link" data-action="go" data-route="payments">Ledger</a></div>
         <div class="profile-card-body"><ul class="plain-list">${recent.map((t) => `
-          <li class="row-split"><span><strong>${esc(t.type)}</strong><span class="cell-sub">${esc(t.payer)} → ${esc(t.payee)} · ${formatDate(t.date)}</span></span><span class="num cell-strong">${money(t.amount)}</span></li>`).join('')}</ul></div>
+          <li class="row-split"><span><strong>${esc(t.type)}</strong><span class="cell-sub">${esc(t.payer)} to ${esc(t.payee)} · ${formatDate(t.date)}</span></span><span class="num cell-strong">${money(t.amount)}</span></li>`).join('')}</ul></div>
       </section>`;
   }
 
   /* ==========================================================================
      SCORES, SPOTLIGHT, TRENDING, LEADERS (prospect board only)
      ========================================================================== */
-  // Results ticker (the sports-site score strip). The list is rendered twice so the
-  // scroll can loop seamlessly; the copy is hidden from assistive tech and the tab order.
+  // Latest results (the sports-site score strip), in a card on the hero. The list is rendered
+  // twice so the auto-scroll can loop; the copy is hidden from assistive tech and the tab order.
+  // On a desktop it scrolls up the card; on a phone it is a row of chips you can swipe.
   function renderTicker() {
     const items = SEED.results.filter((r) => inPool(r.athleteId));
     const day = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
     const item = (r, copy) => `
       <li class="tick"${copy ? ' aria-hidden="true"' : ''}>
         <a href="#athlete/${r.athleteId}" data-action="view-profile" data-id="${r.athleteId}"${copy ? ' tabindex="-1"' : ''}>
-          <span class="tick-event"><span class="tick-sport">${esc(r.sport)}</span>${esc(r.event)}</span>
-          ${r.rows.map(([name, value]) => `<span class="tick-row"><span>${esc(name)}</span><strong>${esc(value)}</strong></span>`).join('')}
+          <span class="tick-event">${esc(r.sport)} · ${esc(r.event)}</span>
+          ${r.rows.map(([name, value]) => `<span class="tick-row"><span>${esc(name)}</span><strong class="num">${esc(value)}</strong></span>`).join('')}
           <span class="tick-status">${esc(r.status)} · ${day(r.date)}</span>
         </a>
       </li>`;
-    const track = $('#tickerTrack');
-    track.innerHTML = items.map((r) => item(r, false)).join('') + items.map((r) => item(r, true)).join('');
-    // Constant reading speed (~40px a second) whatever the number of results.
-    requestAnimationFrame(() => track.style.setProperty('--ticker-duration', `${Math.max(20, Math.round(track.scrollWidth / 2 / 40))}s`));
+    $('#tickerTrack').innerHTML = items.map((r) => item(r, false)).join('') + items.map((r) => item(r, true)).join('');
+    ticker.pos = 0;
+  }
+
+  // Auto-scroll at reading pace. Pauses while hovered, focused or touched; the button pauses it
+  // for good (WCAG 2.2.2). With reduced motion it never moves and the button is hidden.
+  const ticker = { paused: false, hold: 0, pos: 0, raf: 0, last: 0, visible: false };
+  const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function tickerStep(t) {
+    const vp = $('#tickerViewport');
+    const dt = ticker.last ? Math.min(64, t - ticker.last) : 16;
+    ticker.last = t;
+    const horizontal = vp.scrollWidth > vp.clientWidth + 1;
+    const half = (horizontal ? vp.scrollWidth : vp.scrollHeight) / 2;
+    if (!ticker.paused && !ticker.hold && half > 0) {
+      ticker.pos += dt * 0.028; // about 28px a second
+      if (ticker.pos >= half) ticker.pos -= half;
+      if (horizontal) vp.scrollLeft = ticker.pos; else vp.scrollTop = ticker.pos;
+    } else {
+      ticker.pos = horizontal ? vp.scrollLeft : vp.scrollTop;
+    }
+    ticker.raf = requestAnimationFrame(tickerStep);
+  }
+
+  function tickerVisible(on) {
+    ticker.visible = on;
+    cancelAnimationFrame(ticker.raf);
+    ticker.last = 0;
+    if (on && !reduceMotion()) ticker.raf = requestAnimationFrame(tickerStep);
   }
 
   function wireTicker() {
-    const ticker = $('#ticker');
+    const box = $('#ticker');
+    const vp = $('#tickerViewport');
     const btn = $('#tickerToggle');
     const set = (paused) => {
-      ticker.classList.toggle('is-paused', paused);
+      ticker.paused = paused;
+      box.classList.toggle('is-paused', paused);
       btn.setAttribute('aria-pressed', String(paused));
       btn.setAttribute('aria-label', paused ? 'Play the results ticker' : 'Pause the results ticker');
     };
@@ -819,89 +955,120 @@
     try { paused = localStorage.getItem('aax-ticker') === 'paused'; } catch (e) { /* default: playing */ }
     set(paused);
     btn.addEventListener('click', () => {
-      const next = !ticker.classList.contains('is-paused');
+      const next = !ticker.paused;
       set(next);
       try { localStorage.setItem('aax-ticker', next ? 'paused' : 'playing'); } catch (e) { /* not persisted */ }
     });
+    // Hold still while someone is reading, pointing at or swiping the strip.
+    let release = null;
+    const hold = () => { ticker.hold = 1; clearTimeout(release); };
+    const letGo = (ms) => { clearTimeout(release); release = setTimeout(() => { ticker.hold = 0; }, ms); };
+    vp.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold(); });
+    vp.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') letGo(400); });
+    vp.addEventListener('touchstart', hold, { passive: true });
+    vp.addEventListener('touchend', () => letGo(4000), { passive: true });
+    vp.addEventListener('wheel', () => { hold(); letGo(4000); }, { passive: true });
+    box.addEventListener('focusin', hold);
+    box.addEventListener('focusout', () => letGo(400));
+    document.addEventListener('visibilitychange', () => tickerVisible(!document.hidden && document.body.dataset.route === 'front'));
   }
 
   /* ==========================================================================
      FRONT PAGE (the site's home: same for every role, minors hidden from visitors)
      ========================================================================== */
+  // The hero always shows the top-graded athlete a signed-out visitor could see.
+  const heroAthlete = () => byGrade(S.athletes.filter((a) => !isMinor(a)))[0];
+  const SHIELD = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>';
+  const ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const when = (d) => new Date(`1 ${d.date}`).getTime() || 0;
+
+  function verifiedMark(a) {
+    return `<span class="vmark vmark-${a.verification}">${a.verification === 'none' ? '' : SHIELD}${esc(levelLabel(a.verification))}</span>`;
+  }
+
   function renderFront() {
     renderSpotlight();
     renderWire();
     renderGlance();
+    const board = hasRoute('board');
+    $('#frontSearch').hidden = !board;
+    $('#frontSearchAlt').hidden = board;
+    $('#frontSearchAlt').innerHTML = board ? '' : 'Athletes see their own place on the board from their dashboard. <a href="#home" data-action="go" data-route="home">Open your dashboard</a>';
+    $('#trendBoardLink').hidden = !board;
+    $('#topBoardLink').hidden = !board;
 
-    const when = (d) => new Date(`1 ${d.date}`).getTime() || 0;
     const stories = pool().flatMap((a) => a.news.map((n) => ({ ...n, a })))
       .sort((x, y) => when(y) - when(x)).slice(0, 6);
-    $('#storyList').innerHTML = stories.map(({ a, source, date, headline }, i) => `
-      <li class="story${i === 0 ? ' story-lead' : ''}">
-        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
+    renderLead(stories[0]);
+    $('#storyList').innerHTML = stories.slice(1).map(({ a, source, date, headline }) => `
+      <li class="story">
         <h3 class="story-head"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h3>
-        ${i === 0 ? `<p class="story-dek">${esc(a.name)} · ${esc(a.position)} · scout grade ${a.grade.toFixed(1)}</p>` : ''}
+        <p class="story-meta">${esc(a.name)} · ${esc(sportShort(a.sport))} · ${esc(source)}, ${esc(date)}</p>
       </li>`).join('');
 
     $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
       <li>
         <span class="mini-rank num">${ranks(a).board.rank}</span>
-        <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
+        <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(sportShort(a.sport))} · ${esc(a.position)} · ${code(a)}</span></span>
         <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
       </li>`).join('');
 
     const closing = S.opportunities.filter(isOpen).sort((x, y) => x.deadline.localeCompare(y.deadline)).slice(0, 3);
     $('#frontTrials').innerHTML = closing.map((o) => {
       const days = daysUntil(o.deadline);
-      return task({ tone: 'wait', title: esc(o.title), text: `${esc(orgById(o.orgId).name)} · ${esc(o.sport)} · closes ${formatDate(o.deadline)} (${plural(days, 'day')})` });
-    }).join('') || task({ tone: 'info', title: 'No trials open right now' });
+      return `<li class="closing">
+        <p class="closing-days"><strong class="num">${days}</strong> ${days === 1 ? 'day' : 'days'} left</p>
+        <div><p class="closing-title">${esc(o.title)}</p><p class="closing-meta">${esc(orgById(o.orgId).name)} · ${esc(o.location)} · closes ${formatDate(o.deadline)}</p></div>
+      </li>`;
+    }).join('') || '<li class="closing"><p class="closing-title">No trials open right now</p></li>';
 
     const how = [
       ['Athletes', 'Get ranked, get seen, get represented.', 'Post your season stats and video, get verified at a combine, and sign with an agent who is paid only when you are. Under-18s need a parent or guardian to approve.', [['athlete:ath-01', 'Try it as an athlete']]],
       ['Agents', 'Find talent before anyone else does.', 'Filter the board for unsigned athletes in your sports, send agreements for e-signature, and apply to trials for your clients.', [['agent', 'Try it as an agent']]],
-      ['Scouts & clubs', 'Search by what athletes can actually do.', 'Compare measurements and verified test results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
+      ['Scouts and clubs', 'Search by what athletes can actually do.', 'Compare measurements and verified test results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
     ];
     $('#howGrid').innerHTML = how.map(([who, head, text, ctas]) => `
-      <article class="card how">
-        <p class="how-who">${who}</p>
-        <h3 class="how-head">${head}</h3>
+      <article class="how">
+        <h3 class="how-who">${who}</h3>
+        <p class="how-head">${head}</p>
         <p class="how-text">${text}</p>
         <div class="card-actions">${ctas.map(([role, label]) => (role.split(':')[0] === S.role
-          ? '<span class="muted how-current">You’re viewing as this role</span>'
-          : `<button type="button" class="btn btn-secondary btn-sm" data-action="try-role" data-role="${role}">${label}</button>`)).join('')}</div>
+          ? '<span class="how-current">You’re viewing as this role</span>'
+          : `<button type="button" class="btn btn-outline btn-sm" data-action="try-role" data-role="${role}">${label}</button>`)).join('')}</div>
       </article>`).join('');
   }
 
   function renderSpotlight() {
-    const a = athleteById(SEED.featuredAthleteId);
+    const a = heroAthlete();
     const r = ranks(a);
-    const stats = a.season.slice(0, 3).concat([{ label: 'Vertical', value: `${a.vertical_in}″` }, { label: 'Wingspan', value: feetIn(a.size.wingspan_in) }]);
+    $('#heroPhoto').innerHTML = photo(a, { sizes: '(min-width: 861px) 60vw, 100vw', eager: true });
     $('#spotlight').innerHTML = `
-      <div class="spotlight-tags">
-        <span class="badge badge-live">Featured</span>
-        ${verificationBadge(a)} ${minorBadge(a)}
-      </div>
-      <div>
-        <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
-        <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
-        <p class="spotlight-copy">${esc(a.summary || '')}</p>
-        <dl class="spotlight-stats">
-          ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
-        </dl>
-        <div class="spotlight-actions">
+      <h2 class="hero-name" id="heroName"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
+      <p class="hero-meta">${esc(a.sport)} · ${esc(a.position)} · ${esc(a.city)}, ${esc(a.country)} ${verifiedMark(a)}</p>
+      <div class="hero-score">
+        <p class="hero-grade">
+          <span class="grade-num num">${a.grade.toFixed(1)}</span>
+          <span class="grade-cap"><button type="button" class="grade-help" data-action="explain" data-topic="grade">Scout grade</button> · #${r.board.rank} of ${r.board.of} on the board</span>
+        </p>
+        <div class="hero-actions">
           <button type="button" class="btn btn-accent" data-action="view-profile" data-id="${a.id}">Open profile</button>
-          ${statusMarkup(a)}
+          ${hasRoute('board') ? '<a href="#board" class="btn btn-outline" data-action="go" data-route="board">See the board</a>' : '<a href="#home" class="btn btn-outline" data-action="go" data-route="home">Your dashboard</a>'}
         </div>
-      </div>
-      <div class="spotlight-side">
-        <div class="jersey" aria-hidden="true">
-          <span class="jersey-number">${a.jersey !== '—' ? esc(a.jersey) : esc(initials(a.name))}</span>
-          <span class="jersey-name">${esc(a.name.split(' ').pop())}</span>
-        </div>
-        <div class="grade-box">
-          <div class="grade-figure">${a.grade.toFixed(1)}</div>
-          <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
-        </div>
+      </div>`;
+  }
+
+  // The lead story: the newest headline on the board, with that athlete's path so far.
+  function renderLead(story) {
+    const el = $('#leadStory');
+    if (!story) { el.innerHTML = ''; return; }
+    const { a, source, date, headline } = story;
+    el.innerHTML = `
+      <figure class="lead-photo">${photo(a, { sizes: '(min-width: 861px) 40vw, 100vw' })}</figure>
+      <div class="lead-body">
+        <h2 class="lead-head" id="h-lead"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h2>
+        <p class="lead-meta">${esc(source)}, ${esc(date)} · ${esc(a.name)}, ${esc(sportShort(a.sport).toLowerCase())}</p>
+        <p class="lead-dek">${esc(a.summary || '')}</p>
+        ${pathMarkup(a, { id: 'leadPath' })}
       </div>`;
   }
 
@@ -909,11 +1076,13 @@
     $('#wireList').innerHTML = SEED.risers.filter((x) => inPool(x.athleteId)).map((x) => {
       const a = athleteById(x.athleteId);
       return `
-        <li class="wire-item">
-          <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
-          <button type="button" class="wire-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
-          <span class="wire-delta">${esc(x.delta)}</span>
-          <span class="wire-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</span>
+        <li class="trend">
+          <div class="trend-photo">${photo(a, { sizes: '300px', decorative: true })}</div>
+          <div class="trend-body">
+            <h3 class="trend-name"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
+            <p class="trend-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</p>
+            <p class="trend-value num">${esc(x.delta)}</p>
+          </div>
         </li>`;
     }).join('');
   }
@@ -1053,6 +1222,7 @@
 
     grid.innerHTML = list.length ? list.map((a, i) => `
       <article class="card prospect" style="--i:${i}">
+        <div class="prospect-photo">${photo(a, { sizes: '300px', decorative: true })}</div>
         <div class="prospect-head">
           <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
           <div>
@@ -1140,11 +1310,12 @@
     $('#profileBody').innerHTML = `
       ${crumbs}
       <header class="player-header">
+        <div class="player-photo">${photo(a, { sizes: '(min-width: 861px) 50vw, 100vw', eager: true })}</div>
+        ${BAND}
         <div class="player-header-main">
-          <div>
-            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
-            ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
+          <div class="player-id">
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
+            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}${a.jersey !== '—' ? ` · <span class="num">No. ${esc(a.jersey)}</span>` : ''}</p>
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
           </div>
           <dl class="bio-list">
@@ -1157,8 +1328,8 @@
           </dl>
           <div class="player-side">
             <div class="grade-box">
+              <div class="grade-figure num">${a.grade.toFixed(1)}</div>
               <button type="button" class="grade-help grade-label" data-action="explain" data-topic="grade">Scout grade</button>
-              <div class="grade-figure">${a.grade.toFixed(1)}</div>
             </div>
             <div class="player-actions">${profileActions(a)}</div>
           </div>
@@ -1167,6 +1338,10 @@
           ${rankRow(a)}
         </div>
       </header>
+
+      <section class="card path-card" aria-labelledby="profilePath-title">
+        ${pathMarkup(a, { id: 'profilePath', self: isMe })}
+      </section>
 
       ${age < 18 ? `<p class="notice minor-notice">${esc(firstName(a))} is under 18. A parent or guardian must approve applications and sign any agreement. Academic records are hidden.</p>` : ''}
 
@@ -1218,7 +1393,7 @@
             <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the levels mean</button></p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
-              <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
+              <li><div class="timeline-team">${esc(c.team)}</div><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
         </div>
         <div class="profile-col">
           ${card('p-video', 'Video', `
@@ -1795,9 +1970,9 @@
     const closed = days < 0;
     return `
       <div>
-        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <h2 class="opp-title">${esc(o.title)}</h2>
         <p class="opp-org">${esc(orgById(o.orgId).name)}</p>
+        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
       </div>
       <dl class="kv">
