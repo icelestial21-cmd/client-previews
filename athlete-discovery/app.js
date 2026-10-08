@@ -164,8 +164,29 @@
   };
   const appStatusMarkup = (ap) => `<span class="status ${APP_STATUS[ap.status][0]}">${APP_STATUS[ap.status][1]}</span>`;
 
-  const verificationBadge = (a) => `<span class="badge badge-${a.verification}">${esc(levelLabel(a.verification))}</span>`;
+  // Verification is printed as an ink stamp in the words of the check that was done;
+  // the level's name rides along for screen readers and matches the filters.
+  const STAMP_WORDS = { pro: 'Measured at combine', athletic: 'Results checked', identity: 'ID checked', none: 'unofficial' };
+  const levelStamp = (id) => `<span class="stamp stamp-${id}" title="${esc(levelLabel(id))}">${esc(STAMP_WORDS[id] || levelLabel(id))}<span class="visually-hidden"> (${esc(levelLabel(id).toLowerCase())})</span></span>`;
+  const verificationBadge = (a) => levelStamp(a.verification);
   const minorBadge = (a) => (isMinor(a) ? '<span class="badge badge-minor">Under 18</span>' : '');
+
+  // Athlete photo: printed in halftone, warming to colour on hover or focus (CSS).
+  // Only the first-viewport photo loads eagerly.
+  function athletePhoto(a, { sizes = '(max-width: 640px) 100vw, 320px', eager = false, cls = '' } = {}) {
+    const p = a.photo;
+    if (!p) return '';
+    const smW = Math.round((p.w * 440) / Math.max(p.w, p.h));
+    return `<figure class="halftone ${cls}"><img src="${esc(p.src)}-sm.webp" srcset="${esc(p.src)}-sm.webp ${smW}w, ${esc(p.src)}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${esc(p.pos || '50% 50%')}"></figure>`;
+  }
+
+  // The user's own mark: a ballpoint circle round an entry they are comparing.
+  // freshMark is the entry just circled, so only that one draws itself in.
+  let freshMark = null;
+  function penCircle(id) {
+    if (!S.compare.includes(id)) return '';
+    return `<svg class="pen${id === freshMark ? ' pen-new' : ''}" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path pathLength="1" d="M50 8C40 1 16 2 8 13C1 23 7 39 25 43C43 47 61 37 59 23C58 12 45 5 29 7"/></svg><span class="visually-hidden"> (circled: in your comparison)</span>`;
+  }
 
   // Ranked by scout grade within three pools (recruiting-site national / position / state convention).
   function ranks(a) {
@@ -488,6 +509,9 @@
       go(homeRoute(), { focus: false });
     });
 
+    // Front-page search: the board, with the query already applied.
+    $('#frontSearch').addEventListener('submit', (e) => { e.preventDefault(); searchBoard($('#frontSearchInput').value); });
+
     $('#searchInput').addEventListener('input', (e) => { filter.search = e.target.value.trim().toLowerCase(); renderBoard(); });
     $$('#sportTabs .sport-tab').forEach((t) => t.addEventListener('click', () => { filter.sport = t.dataset.sport; syncFilters(); renderBoard(); }));
     [['#filterPosition', 'position'], ['#filterCountry', 'country'], ['#filterStatus', 'status'], ['#filterVerification', 'verification']].forEach(([sel, key]) => {
@@ -544,6 +568,7 @@
         case 'step': goToStep(parseInt(el.dataset.to, 10)); break;
         case 'sign': sign(); break;
         case 'reset-filters': applyPreset('reset'); break;
+        case 'front-search': $('#frontSearchInput').value = el.dataset.q; searchBoard(el.dataset.q); break;
         case 'dismiss-toast': dismissToast(el.closest('.toast')); break;
         case 'reset-demo': openModal($('#confirmModal'), el); break;
         case 'confirm-reset': resetDemo(); break;
@@ -829,6 +854,10 @@
      FRONT PAGE (the site's home: same for every role, minors hidden from visitors)
      ========================================================================== */
   function renderFront() {
+    const canSearch = hasRoute('board');
+    $('#frontSearch').hidden = !canSearch;
+    $('#frontSearchAlt').hidden = canSearch || !hasRoute('home');
+    $('#frontSearchCount').textContent = `${plural(pool().length, 'athlete')}, ranked by scout grade.`;
     renderSpotlight();
     renderWire();
     renderGlance();
@@ -845,7 +874,7 @@
 
     $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
       <li>
-        <span class="mini-rank num">${ranks(a).board.rank}</span>
+        <span class="mini-rank num">${ranks(a).board.rank}${penCircle(a.id)}</span>
         <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
         <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
       </li>`).join('');
@@ -889,16 +918,14 @@
           ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
         </dl>
         <div class="spotlight-actions">
-          <button type="button" class="btn btn-accent" data-action="view-profile" data-id="${a.id}">Open profile</button>
+          <button type="button" class="btn btn-secondary" data-action="view-profile" data-id="${a.id}">Open profile</button>
           ${statusMarkup(a)}
         </div>
       </div>
       <div class="spotlight-side">
-        <div class="jersey" aria-hidden="true">
-          <span class="jersey-number">${a.jersey !== '—' ? esc(a.jersey) : esc(initials(a.name))}</span>
-          <span class="jersey-name">${esc(a.name.split(' ').pop())}</span>
-        </div>
-        <div class="grade-box">
+        ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 300px', eager: true, cls: 'spotlight-photo' })}
+        ${a.jersey !== '—' ? `<p class="spotlight-number num" aria-label="Shirt number ${esc(a.jersey)}">No. ${esc(a.jersey)}</p>` : ''}
+        <div class="grade-box grade-stamp">
           <div class="grade-figure">${a.grade.toFixed(1)}</div>
           <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
         </div>
@@ -957,6 +984,14 @@
     $('#filterHeight').value = filter.minHeight;
     $('#filterHeightVal').textContent = feetIn(filter.minHeight);
     $$('#sportTabs .sport-tab').forEach((t) => t.setAttribute('aria-pressed', String(t.dataset.sport === filter.sport)));
+  }
+
+  function searchBoard(query) {
+    if (!hasRoute('board')) return;
+    filter = { ...DEFAULT_FILTER, search: String(query || '').trim().toLowerCase() };
+    syncFilters();
+    go('board');
+    renderBoard();
   }
 
   function applyPreset(name) {
@@ -1031,7 +1066,7 @@
         const key = a.season[0];
         return `
           <tr>
-            <td class="col-num"><span class="board-rank">${r.board.rank}</span></td>
+            <td class="col-num"><span class="board-rank">${r.board.rank}${penCircle(a.id)}</span></td>
             <td>${movement(a)}</td>
             <td>
               <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
@@ -1052,9 +1087,10 @@
     }
 
     grid.innerHTML = list.length ? list.map((a, i) => `
-      <article class="card prospect" style="--i:${i}">
+      <article class="card prospect${S.compare.includes(a.id) ? ' is-circled' : ''}" style="--i:${i}">
+        ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 320px', cls: 'prospect-photo' })}
         <div class="prospect-head">
-          <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
+          <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}${penCircle(a.id)}</span>${movement(a)}</div>
           <div>
             <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
             <p class="prospect-pos">${esc(a.position)} · ${esc(a.sport)}</p>
@@ -1141,7 +1177,8 @@
       ${crumbs}
       <header class="player-header">
         <div class="player-header-main">
-          <div>
+          ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 200px', eager: true, cls: 'player-photo' })}
+          <div class="player-id">
             <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
             ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
@@ -1158,7 +1195,7 @@
           <div class="player-side">
             <div class="grade-box">
               <button type="button" class="grade-help grade-label" data-action="explain" data-topic="grade">Scout grade</button>
-              <div class="grade-figure">${a.grade.toFixed(1)}</div>
+              <div class="grade-figure">${a.grade.toFixed(1)}${penCircle(a.id)}</div>
             </div>
             <div class="player-actions">${profileActions(a)}</div>
           </div>
@@ -1584,8 +1621,8 @@
       : needsGuardian(g) ? `We’ve sent ${g.guardian} a link at ${g.guardianContact}. The agreement starts when they sign.`
       : `It’s on ${ag.name}’s dashboard to sign. The agreement starts when they do.`;
     $('#doneBody').innerHTML = `
-      <svg class="done-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
-      <h3>${g.status === 'active' ? 'Agreement active' : 'Signed'}</h3>
+      <p class="stamp stamp-big stamp-press" aria-hidden="true">${g.status === 'active' ? 'Active' : 'Signed'}<span>${esc(formatDate(todayISO()))}</span></p>
+      <h3 class="visually-hidden">${g.status === 'active' ? 'Agreement active' : 'Signed'}</h3>
       <p>${esc(next)}</p>
       <dl class="terms-summary">${termsSummary()}</dl>`;
     goToStep(5);
@@ -1679,8 +1716,13 @@
   function toggleCompare(id) {
     const i = S.compare.indexOf(id);
     if (i > -1) S.compare.splice(i, 1);
-    else S.compare.push(id);
+    else { S.compare.push(id); freshMark = id; }
+    // refresh() re-renders the button; keep keyboard focus on its replacement.
+    const focused = document.activeElement && document.activeElement.dataset && document.activeElement.dataset.action === 'toggle-compare' && document.activeElement.closest('.view') ? document.activeElement : null;
+    const where = focused && (focused.closest('#prospectGrid') ? '#prospectGrid' : focused.closest('#prospectTableBody') ? '#prospectTableBody' : focused.closest('#profileBody') ? '#profileBody' : null);
     refresh();
+    freshMark = null;
+    if (where) { const again = $(`${where} [data-action="toggle-compare"][data-id="${id}"]`); if (again) again.focus(); }
   }
 
   function openCompare() {
@@ -2080,7 +2122,7 @@
 
   function ladder() {
     return `<ol class="ladder">${[...SEED.verificationLevels].reverse().map((l) => `
-      <li><span class="badge badge-${l.id}">${esc(l.label)}</span><span>${esc(l.means)}</span></li>`).join('')}</ol>`;
+      <li>${levelStamp(l.id)}<span><strong>${esc(l.label)}.</strong> ${esc(l.means)}</span></li>`).join('')}</ol>`;
   }
 
   function explain(topic, opener) {

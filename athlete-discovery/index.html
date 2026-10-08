@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apex Athlete Exchange — Scouting &amp; Representation (Demo)</title>
   <meta name="description" content="Demo of a scouting and representation platform for Caribbean athletes, agents, scouts and clubs. All data is fictional.">
-  <meta name="theme-color" content="#0B1724">
+  <meta name="theme-color" content="#E4E7E9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15191E" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Apex Athlete Exchange — scouting and representation (demo)">
   <meta property="og:description" content="Prospect board, athlete profiles, agent agreements, trials and payments. A product demo with fictional data.">
@@ -14,12 +15,12 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B1724'/%3E%3Cpath d='M9 24 16 7l7 17h-4.2l-1.3-3.4h-3l-1.3 3.4Z' fill='%23FF6A2B'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23C4161C'/%3E%3Cpath d='M9 24 16 7l7 17h-4.2l-1.3-3.4h-3l-1.3 3.4Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,400..900&display=swap" rel="stylesheet">
   <!-- Bump ?v= on styles.css, data.js and app.js whenever they change, so browsers never mix a new page with old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=20261008-2">
+  <link rel="stylesheet" href="styles.css?v=20261008-lite1">
   <script>
     // Apply a saved theme before first paint so there's no flash.
     try { var t = localStorage.getItem('aax-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
@@ -28,7 +29,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <p class="demo-banner">Demo build. Every athlete, agent, club, school, brand, result and payment on this page is fictional.</p>
+  <p class="demo-banner"><strong>Demo build.</strong> Every athlete, agent, club, school, brand, result and payment on this page is fictional.</p>
 
   <header class="site-header">
     <div class="masthead">
@@ -45,7 +46,7 @@
         </button>
         <label class="account-role">
           <span class="account-role-label">Demo · view as</span>
-          <select id="roleSelect" class="select select-dark">
+          <select id="roleSelect" class="select select-role">
             <option value="visitor">Visitor (signed out)</option>
             <option value="athlete:ath-01">Athlete: Shavar</option>
             <option value="athlete:ath-07">Athlete: Chloe (17)</option>
@@ -65,8 +66,8 @@
     <nav class="site-nav" aria-label="Sections">
       <div class="site-nav-tabs" id="navTabs"><!-- built per role in app.js --></div>
       <div class="site-nav-actions" id="navActions">
-        <button type="button" class="btn btn-ghost-dark" data-action="open-compare" id="compareBtn">
-          Compare <span class="count-chip num" id="compareCount">0</span>
+        <button type="button" class="btn btn-quiet btn-sm" data-action="open-compare" id="compareBtn">
+          Compare <span class="count-chip count-pen num" id="compareCount">0</span>
         </button>
       </div>
     </nav>
@@ -91,8 +92,23 @@
     <!-- FRONT PAGE (the site's home, same for everyone) -->
     <section id="section-front" class="view" aria-labelledby="h-front">
       <header class="front-intro">
-        <h1 id="h-front">Caribbean prospects, ranked and verified</h1>
-        <p class="view-lede">Apex Athlete Exchange connects young Caribbean athletes with scouts, clubs, colleges and agents, with every figure showing how it was checked.</p>
+        <div class="front-head">
+          <h1 id="h-front">Caribbean prospects, ranked and verified</h1>
+          <p class="view-lede">Apex Athlete Exchange connects young Caribbean athletes with scouts, clubs, colleges and agents, with every figure showing how it was checked.</p>
+        </div>
+        <form class="front-search" id="frontSearch" role="search" aria-label="Search the prospect board">
+          <label class="front-search-label" for="frontSearchInput">Search the prospect board</label>
+          <div class="front-search-row">
+            <input type="search" id="frontSearchInput" class="search-input" placeholder="Name, sport, school or country" autocomplete="off" enterkeyhint="search">
+            <button type="submit" class="btn btn-accent">Search</button>
+          </div>
+          <p class="front-search-try"><span id="frontSearchCount">Ranked by scout grade.</span> Try <button type="button" class="btn-link" data-action="front-search" data-q="Jamaica">Jamaica</button>, <button type="button" class="btn-link" data-action="front-search" data-q="sprint">sprint</button> or <button type="button" class="btn-link" data-action="front-search" data-q="basketball">basketball</button>.</p>
+        </form>
+        <div class="front-search front-search-alt" id="frontSearchAlt" hidden>
+          <h2 class="front-search-label">Where you stand</h2>
+          <p class="front-search-note">Your board position, the trials you can apply for and anything waiting on you are on your dashboard.</p>
+          <a href="#home" class="btn btn-accent" data-action="go" data-route="home">Open your dashboard</a>
+        </div>
         <ul class="promises">
           <li>
             <svg class="promise-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
@@ -168,7 +184,7 @@
         </div>
       </header>
 
-      <div class="card filters" role="search">
+      <div class="card filters" role="search" aria-label="Filter the prospect board">
         <div class="search">
           <label class="visually-hidden" for="searchInput">Search prospects</label>
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -608,11 +624,11 @@
     </div>
     <div class="footer-bottom">
       <p>All people, organisations and figures are fictional. Changes you make are saved in this browser only.</p>
-      <button type="button" class="btn-link-light" data-action="reset-demo">Reset demo data</button>
+      <button type="button" class="btn-link" data-action="reset-demo">Reset demo data</button>
     </div>
   </footer>
 
-  <script src="data.js?v=20261008-2"></script>
-  <script src="app.js?v=20261008-2"></script>
+  <script src="data.js?v=20261008-lite1"></script>
+  <script src="app.js?v=20261008-lite1"></script>
 </body>
 </html>
