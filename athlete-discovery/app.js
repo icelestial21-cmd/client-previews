@@ -72,6 +72,8 @@
   let filter = { ...DEFAULT_FILTER };
   let stepper = null;
   let current = { route: null, id: null };
+  let lastLanes = { grid: [], table: [] }; // board rank shown in each lane at the last render
+  let justCompared = null;                 // draws the lane lines on the card just added
 
   /* ==========================================================================
      HELPERS
@@ -206,6 +208,22 @@
       <polyline class="spark-line" points="${pts.join(' ')}"/>
       ${dot && !fill ? `<circle class="spark-dot" cx="${last[0]}" cy="${last[1]}" r="2.5"/>` : ''}
     </svg>`;
+  }
+
+  // Athlete photo: the small file for cards, the large one for wide or dense screens.
+  // Only the first-viewport photo loads eagerly; everything else waits until it is near.
+  function photo(a, { sizes = '(max-width: 640px) 100vw, 440px', eager = false } = {}) {
+    const p = a.photo;
+    if (!p) return '';
+    const src = esc(p.src);
+    return `<img src="${src}-sm.webp" srcset="${src}-sm.webp ${p.sw}w, ${src}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${esc(p.pos || '50% 50%')}">`;
+  }
+
+  // A lane-number plate: white numeral painted on tartan red. When the athlete in a lane
+  // changes (filters, search), the old number slides out and the new one in.
+  function rankPlate(rank, { size = 'md', prev, i = 0, hidden = false } = {}) {
+    const swap = prev !== undefined && prev !== rank;
+    return `<span class="rank-plate rank-plate-${size}${swap ? ' is-swapping' : ''}" style="--i:${i}"${hidden ? ' aria-hidden="true"' : ''}>${swap ? `<span class="rank-prev" aria-hidden="true">${prev}</span>` : ''}<span class="rank-num">${rank}</span></span>`;
   }
 
   function splitName(name) {
@@ -462,7 +480,7 @@
 
   function renderChrome() {
     const nav = navFor();
-    $('#navTabs').innerHTML = nav.map(([route, label]) => `<a href="#${route}" class="nav-tab" data-action="go" data-route="${route}">${esc(label)}</a>`).join('');
+    $('#navTabs').innerHTML = nav.map(([route, label], i) => `<a href="#${route}" class="nav-tab" data-action="go" data-route="${route}"><span class="nav-lane" aria-hidden="true">${i + 1}</span>${esc(label)}</a>`).join('');
     $('#footerLinks').innerHTML = nav.map(([route, label]) => `<li><a href="#${route}" data-action="go" data-route="${route}">${esc(label)}</a></li>`).join('');
     $('#compareBtn').hidden = !hasRoute('shortlists');
     const fig = headerFigure();
@@ -488,6 +506,14 @@
       go(homeRoute(), { focus: false });
     });
 
+    // Front-page search: runs the query on the prospect board.
+    $('#frontSearch').addEventListener('submit', (e) => {
+      e.preventDefault();
+      filter = { ...DEFAULT_FILTER, search: $('#frontSearchInput').value.trim().toLowerCase() };
+      syncFilters();
+      go('board');
+      renderBoard();
+    });
     $('#searchInput').addEventListener('input', (e) => { filter.search = e.target.value.trim().toLowerCase(); renderBoard(); });
     $$('#sportTabs .sport-tab').forEach((t) => t.addEventListener('click', () => { filter.sport = t.dataset.sport; syncFilters(); renderBoard(); }));
     [['#filterPosition', 'position'], ['#filterCountry', 'country'], ['#filterStatus', 'status'], ['#filterVerification', 'verification']].forEach(([sel, key]) => {
@@ -518,6 +544,7 @@
         case 'back': if (history.length > 1) history.back(); else go(homeRoute()); break;
         case 'view-profile': viewProfile(id); break;
         case 'find-unsigned': go('board'); applyPreset('available'); break;
+        case 'board-sport':
         case 'find-for-trial': go('board'); filter = { ...DEFAULT_FILTER, sport: el.dataset.sport }; syncFilters(); renderBoard(); break;
         case 'toggle-compare': toggleCompare(id); break;
         case 'open-compare': openCompare(); break;
@@ -628,9 +655,10 @@
       <div class="home-grid">
         <section class="player-header home-hero" aria-label="Your board position">
           <div class="home-hero-main">
-            <div>
-              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
+            <p class="lane-numeral" aria-hidden="true">${ranks(me).board.rank}</p>
+            <div class="home-hero-who">
               <p class="home-hero-name">${splitName(me.name)}</p>
+              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
               <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
             </div>
             <div class="grade-box">
@@ -829,6 +857,8 @@
      FRONT PAGE (the site's home: same for every role, minors hidden from visitors)
      ========================================================================== */
   function renderFront() {
+    // Searching the board is for roles that have one; athletes reach their own lane instead.
+    $('#frontSearch').hidden = !hasRoute('board');
     renderSpotlight();
     renderWire();
     renderGlance();
@@ -845,7 +875,7 @@
 
     $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
       <li>
-        <span class="mini-rank num">${ranks(a).board.rank}</span>
+        ${rankPlate(ranks(a).board.rank, { size: 'sm' })}
         <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · ${code(a)}</span></span>
         <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)} ${movement(a)}</span>
       </li>`).join('');
@@ -863,8 +893,8 @@
     ];
     $('#howGrid').innerHTML = how.map(([who, head, text, ctas]) => `
       <article class="card how">
-        <p class="how-who">${who}</p>
-        <h3 class="how-head">${head}</h3>
+        <h3 class="how-who">${who}</h3>
+        <p class="how-head">${head}</p>
         <p class="how-text">${text}</p>
         <div class="card-actions">${ctas.map(([role, label]) => (role.split(':')[0] === S.role
           ? '<span class="muted how-current">You’re viewing as this role</span>'
@@ -877,13 +907,24 @@
     const r = ranks(a);
     const stats = a.season.slice(0, 3).concat([{ label: 'Vertical', value: `${a.vertical_in}″` }, { label: 'Wingspan', value: feetIn(a.size.wingspan_in) }]);
     $('#spotlight').innerHTML = `
-      <div class="spotlight-tags">
-        <span class="badge badge-live">Featured</span>
-        ${verificationBadge(a)} ${minorBadge(a)}
-      </div>
-      <div>
-        <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
-        <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
+      <div class="spotlight-photo">${photo(a, { eager: true, sizes: '(max-width: 640px) 100vw, (max-width: 1080px) 36vw, 330px' })}</div>
+      <div class="spotlight-lane">
+        <div class="spotlight-tags">
+          <span class="badge badge-live">Featured</span>
+          ${verificationBadge(a)} ${minorBadge(a)}
+        </div>
+        <div class="spotlight-top">
+          <p class="lane-numeral" aria-hidden="true">${r.board.rank}</p>
+          <div class="spotlight-who">
+            <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
+            <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
+          </div>
+          <div class="grade-box">
+            <div class="grade-figure">${a.grade.toFixed(1)}</div>
+            <button type="button" class="grade-help grade-label" data-action="explain" data-topic="grade">Scout grade</button>
+            <div class="grade-label">#${r.board.rank} of ${r.board.of} on the board</div>
+          </div>
+        </div>
         <p class="spotlight-copy">${esc(a.summary || '')}</p>
         <dl class="spotlight-stats">
           ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
@@ -891,16 +932,6 @@
         <div class="spotlight-actions">
           <button type="button" class="btn btn-accent" data-action="view-profile" data-id="${a.id}">Open profile</button>
           ${statusMarkup(a)}
-        </div>
-      </div>
-      <div class="spotlight-side">
-        <div class="jersey" aria-hidden="true">
-          <span class="jersey-number">${a.jersey !== '—' ? esc(a.jersey) : esc(initials(a.name))}</span>
-          <span class="jersey-name">${esc(a.name.split(' ').pop())}</span>
-        </div>
-        <div class="grade-box">
-          <div class="grade-figure">${a.grade.toFixed(1)}</div>
-          <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
         </div>
       </div>`;
   }
@@ -1025,13 +1056,19 @@
     grid.hidden = table;
     tableWrap.hidden = !table;
 
+    // Each position in the list is a lane; remember who was in it so the plates can swap.
+    const mode = table ? 'table' : 'grid';
+    const prevLanes = lastLanes[mode];
+    lastLanes[mode] = list.map((a) => ranks(a).board.rank);
+    const laneClass = (a) => `${S.compare.includes(a.id) ? ' is-comparing' : ''}${justCompared === a.id ? ' lane-new' : ''}`;
+
     if (table) {
-      $('#prospectTableBody').innerHTML = list.length ? list.map((a) => {
+      $('#prospectTableBody').innerHTML = list.length ? list.map((a, i) => {
         const r = ranks(a);
         const key = a.season[0];
         return `
-          <tr>
-            <td class="col-num"><span class="board-rank">${r.board.rank}</span></td>
+          <tr class="board-row${laneClass(a)}">
+            <td class="col-num">${rankPlate(r.board.rank, { size: 'sm', prev: prevLanes[i], i })}</td>
             <td>${movement(a)}</td>
             <td>
               <button type="button" class="board-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
@@ -1052,9 +1089,13 @@
     }
 
     grid.innerHTML = list.length ? list.map((a, i) => `
-      <article class="card prospect" style="--i:${i}">
+      <article class="card prospect${laneClass(a)}">
+        <div class="prospect-photo">
+          ${photo(a)}
+          ${rankPlate(ranks(a).board.rank, { prev: prevLanes[i], i, hidden: true })}
+          <span class="prospect-move">${movement(a)}</span>
+        </div>
         <div class="prospect-head">
-          <div class="prospect-rank-col"><span class="prospect-rank num" title="Board rank">${ranks(a).board.rank}</span>${movement(a)}</div>
           <div>
             <h3 class="prospect-name"><button type="button" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button></h3>
             <p class="prospect-pos">${esc(a.position)} · ${esc(a.sport)}</p>
@@ -1139,12 +1180,16 @@
 
     $('#profileBody').innerHTML = `
       ${crumbs}
-      <header class="player-header">
+      <header class="player-header player-header-photo">
+        <div class="player-photo">${photo(a, { eager: true, sizes: '(max-width: 640px) 100vw, 300px' })}</div>
         <div class="player-header-main">
-          <div>
-            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
+          <div class="player-who">
+            <p class="lane-numeral" aria-hidden="true">${ranks(a).board.rank}</p>
+            <div>
             ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
+            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
+            </div>
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
           </div>
           <dl class="bio-list">
@@ -1677,10 +1722,19 @@
   }
 
   function toggleCompare(id) {
+    // Re-rendering replaces the button; put keyboard focus back on its replacement.
+    const was = document.activeElement;
+    const view = was && was.matches('[data-action="toggle-compare"]') ? was.closest('.view') : null;
     const i = S.compare.indexOf(id);
     if (i > -1) S.compare.splice(i, 1);
-    else S.compare.push(id);
+    else { S.compare.push(id); justCompared = id; }
     refresh();
+    justCompared = null;
+    if (view) {
+      const again = view.querySelector(`[data-action="toggle-compare"][data-id="${id}"]`);
+      if (again) again.focus({ preventScroll: true });
+      else if (view.id === 'section-shortlists') $('#comparePanel').focus({ preventScroll: true });
+    }
   }
 
   function openCompare() {
@@ -1795,9 +1849,8 @@
     const closed = days < 0;
     return `
       <div>
-        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <h2 class="opp-title">${esc(o.title)}</h2>
-        <p class="opp-org">${esc(orgById(o.orgId).name)}</p>
+        <p class="opp-org">${esc(orgById(o.orgId).name)} <span class="opp-type">${esc(o.sport)} · ${esc(o.type)}</span></p>
         <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
       </div>
       <dl class="kv">
