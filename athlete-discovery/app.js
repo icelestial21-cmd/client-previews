@@ -499,6 +499,7 @@
     $('#navTabs').innerHTML = nav.map(([route, label], i) => `<a href="#${route}" class="nav-tab" data-action="go" data-route="${route}"><span class="nav-lane" aria-hidden="true">${i + 1}</span>${esc(label)}</a>`).join('');
     $('#footerLinks').innerHTML = nav.map(([route, label]) => `<li><a href="#${route}" data-action="go" data-route="${route}">${esc(label)}</a></li>`).join('');
     $('#compareBtn').hidden = !hasRoute('shortlists');
+    $('#navActions').hidden = $('#compareBtn').hidden;
     const fig = headerFigure();
     $('.account-balance').hidden = !fig;
     if (fig) {
