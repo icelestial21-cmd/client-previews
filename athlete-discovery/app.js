@@ -171,13 +171,33 @@
   const verificationBadge = (a) => levelStamp(a.verification);
   const minorBadge = (a) => (isMinor(a) ? '<span class="badge badge-minor">Under 18</span>' : '');
 
-  // Athlete photo: printed in halftone, warming to colour on hover or focus (CSS).
+  // Athlete photo, printed: a real AM halftone raster (img/ath-0N-ht*.webp, two-colour).
+  // The colour original sits behind it with no src until the visitor hovers or tabs
+  // into the entry (see warmPhotos), so it costs nothing until it is wanted.
   // Only the first-viewport photo loads eagerly.
   function athletePhoto(a, { sizes = '(max-width: 640px) 100vw, 320px', eager = false, cls = '' } = {}) {
     const p = a.photo;
     if (!p) return '';
     const smW = Math.round((p.w * 440) / Math.max(p.w, p.h));
-    return `<figure class="halftone ${cls}"><img src="${esc(p.src)}-sm.webp" srcset="${esc(p.src)}-sm.webp ${smW}w, ${esc(p.src)}.webp ${p.w}w" sizes="${sizes}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${esc(p.pos || '50% 50%')}"></figure>`;
+    const src = esc(p.src);
+    const common = `sizes="${sizes}" width="${p.w}" height="${p.h}" decoding="async" style="object-position:${esc(p.pos || '50% 50%')}"`;
+    return `<figure class="halftone ${cls}"><img class="ph-print" src="${src}-ht-sm.webp" srcset="${src}-ht-sm.webp ${smW}w, ${src}-ht.webp ${p.w}w" ${common} alt="${esc(p.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}><img class="ph-colour" data-src="${src}-sm.webp" data-srcset="${src}-sm.webp ${smW}w, ${src}.webp ${p.w}w" ${common} alt="" aria-hidden="true"></figure>`;
+  }
+
+  // Small printed thumbnail for lists (a square crop around the athlete).
+  const athleteThumb = (a) => (a.photo ? `<img class="thumb" src="${esc(a.photo.src)}-ht-th.webp" width="112" height="112" alt="${esc(a.photo.alt)}" loading="lazy" decoding="async">` : '');
+
+  // Load the colour originals for an entry the first time it is hovered or keyboard-focused.
+  function warmPhotos(e) {
+    const host = e.target.closest && e.target.closest('.prospect, .spotlight, .player-header');
+    if (!host) return;
+    if (e.type === 'focusin' && !e.target.matches(':focus-visible')) return;
+    host.querySelectorAll('img.ph-colour[data-src]').forEach((img) => {
+      img.srcset = img.dataset.srcset;
+      img.src = img.dataset.src;
+      delete img.dataset.src;
+      delete img.dataset.srcset;
+    });
   }
 
   // The user's own mark: a ballpoint circle round an entry they are comparing.
@@ -204,11 +224,15 @@
     return `<p class="rank-line"><span>#${r.board.rank} of ${r.board.of} on the board</span><span>#${r.sport.rank} of ${r.sport.of} in ${esc(sport)}</span><span>#${r.country.rank} of ${r.country.of} from ${esc(a.country)}</span></p>`;
   }
 
+  // Drawn arrows in the same 24px, 2-unit-stroke style as the site's other icons.
+  const ARROW_UP = '<svg class="move-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  const ARROW_DOWN = '<svg class="move-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7"/></svg>';
+
   // Change since last week's board (the +/- column on federation rankings and motorsport standings).
   function movement(a) {
     const diff = (a.prevRank || ranks(a).board.rank) - ranks(a).board.rank;
-    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week"><span aria-hidden="true">▲</span>${diff}<span class="visually-hidden"> up</span></span>`;
-    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week"><span aria-hidden="true">▼</span>${-diff}<span class="visually-hidden"> down</span></span>`;
+    if (diff > 0) return `<span class="move move-up" title="Up ${diff} since last week">${ARROW_UP}${diff}<span class="visually-hidden"> up</span></span>`;
+    if (diff < 0) return `<span class="move move-down" title="Down ${-diff} since last week">${ARROW_DOWN}${-diff}<span class="visually-hidden"> down</span></span>`;
     return '<span class="move move-same" title="No change since last week"><span aria-hidden="true">–</span><span class="visually-hidden">no change</span></span>';
   }
 
@@ -316,6 +340,8 @@
     wireTicker();
     trackHeaderHeight();
     $('#navTabs').addEventListener('scroll', syncNavCue, { passive: true });
+    document.addEventListener('pointerover', warmPhotos, { passive: true });
+    document.addEventListener('focusin', warmPhotos);
     // Esc or a click outside closes the explainer natively; put focus back where it came from.
     $('#explain').addEventListener('toggle', (e) => { if (e.newState === 'closed' && explainOpener && document.contains(explainOpener)) explainOpener.focus(); });
     window.addEventListener('resize', syncNavCue);
@@ -341,6 +367,16 @@
     renderLedger();
     if (current.route === 'athlete') renderProfile(current.id);
     $('#compareCount').textContent = S.compare.length;
+    oneSpotRed();
+  }
+
+  // One spot red per view: the first visible red action stays the primary;
+  // any later one in the same view is printed in ink instead.
+  function oneSpotRed() {
+    $$('main .view').forEach((v) => {
+      $$('.btn-accent', v).filter((b) => !b.closest('[hidden]')).slice(1)
+        .forEach((b) => b.classList.replace('btn-accent', 'btn-secondary'));
+    });
   }
 
   // Persist, then re-render everything that depends on representation, payments or applications.
@@ -654,8 +690,8 @@
         <section class="player-header home-hero" aria-label="Your board position">
           <div class="home-hero-main">
             <div>
-              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
               <p class="home-hero-name">${splitName(me.name)}</p>
+              <p class="player-sport">${esc(me.sport)} · ${esc(me.position)}</p>
               <div class="player-badges">${verificationBadge(me)} ${minorBadge(me)}</div>
             </div>
             <div class="grade-box">
@@ -667,7 +703,7 @@
           <div class="home-hero-trend">${sparkline(h, { width: 400, height: 48, fill: true })}<span class="visually-hidden">Grade went from ${h[0]} in ${SEED.gradeMonths[0]} to ${me.grade} now.</span></div>
           <div class="home-hero-foot">
             ${rankRow(me)}
-            <button type="button" class="btn btn-accent btn-sm" data-action="go" data-route="me">View my profile</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-action="go" data-route="me">View my profile</button>
           </div>
         </section>
         <section class="card" aria-labelledby="h-next">
@@ -754,7 +790,7 @@
           <div class="card-head"><h2 class="card-title" id="h-prospects">Unsigned in your sports</h2><a href="#board" class="btn-link" data-action="find-unsigned">See all</a></div>
           <ul class="mini-list">${prospects.map((a) => `
             <li>
-              <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+              ${athleteThumb(a)}
               <span class="mini-main"><button type="button" class="leader-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button><span class="cell-sub">${esc(a.sport)} · ${esc(a.position)} · age ${ageOf(a.dob)}</span></span>
               <span class="mini-grade num" title="Scout grade">${a.grade.toFixed(1)}</span>
               <button type="button" class="btn btn-quiet btn-sm mini-action" data-action="start-agreement" data-athlete="${a.id}" data-agent="${me.id}">Offer<span class="visually-hidden"> representation to ${esc(a.name)}</span></button>
@@ -867,9 +903,9 @@
       .sort((x, y) => when(y) - when(x)).slice(0, 6);
     $('#storyList').innerHTML = stories.map(({ a, source, date, headline }, i) => `
       <li class="story${i === 0 ? ' story-lead' : ''}">
-        <p class="story-meta"><span class="story-sport">${esc(a.sport)}</span> ${esc(source)} · ${esc(date)}</p>
         <h3 class="story-head"><button type="button" class="link-inherit" data-action="view-profile" data-id="${a.id}">${esc(headline)}</button></h3>
         ${i === 0 ? `<p class="story-dek">${esc(a.name)} · ${esc(a.position)} · scout grade ${a.grade.toFixed(1)}</p>` : ''}
+        <p class="story-meta">${esc(a.sport)} · ${esc(source)} · ${esc(date)}</p>
       </li>`).join('');
 
     $('#frontBoard').innerHTML = byGrade(pool()).slice(0, 5).map((a) => `
@@ -890,9 +926,8 @@
       ['Agents', 'Find talent before anyone else does.', 'Filter the board for unsigned athletes in your sports, send agreements for e-signature, and apply to trials for your clients.', [['agent', 'Try it as an agent']]],
       ['Scouts & clubs', 'Search by what athletes can actually do.', 'Compare measurements and verified test results side by side, keep shortlists, list trials and invite the athletes who qualify.', [['scout', 'Try it as a scout'], ['organization', 'Try it as a club']]]
     ];
-    $('#howGrid').innerHTML = how.map(([who, head, text, ctas]) => `
+    $('#howGrid').innerHTML = how.map(([, head, text, ctas]) => `
       <article class="card how">
-        <p class="how-who">${who}</p>
         <h3 class="how-head">${head}</h3>
         <p class="how-text">${text}</p>
         <div class="card-actions">${ctas.map(([role, label]) => (role.split(':')[0] === S.role
@@ -906,13 +941,13 @@
     const r = ranks(a);
     const stats = a.season.slice(0, 3).concat([{ label: 'Vertical', value: `${a.vertical_in}″` }, { label: 'Wingspan', value: feetIn(a.size.wingspan_in) }]);
     $('#spotlight').innerHTML = `
-      <div class="spotlight-tags">
-        <span class="badge badge-live">Featured</span>
-        ${verificationBadge(a)} ${minorBadge(a)}
-      </div>
-      <div>
-        <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
+      <div class="spotlight-main">
         <h2 class="spotlight-name"><a href="#athlete/${a.id}" data-action="view-profile" data-id="${a.id}">${splitName(a.name)}</a></h2>
+        <p class="spotlight-sport">${esc(a.sport)} · ${esc(a.position)}</p>
+        <div class="spotlight-tags">
+          <span class="badge badge-live">Featured</span>
+          ${verificationBadge(a)} ${minorBadge(a)}
+        </div>
         <p class="spotlight-copy">${esc(a.summary || '')}</p>
         <dl class="spotlight-stats">
           ${stats.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
@@ -924,10 +959,12 @@
       </div>
       <div class="spotlight-side">
         ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 300px', eager: true, cls: 'spotlight-photo' })}
-        ${a.jersey !== '—' ? `<p class="spotlight-number num" aria-label="Shirt number ${esc(a.jersey)}">No. ${esc(a.jersey)}</p>` : ''}
-        <div class="grade-box grade-stamp">
-          <div class="grade-figure">${a.grade.toFixed(1)}</div>
-          <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
+        <div class="spotlight-under">
+          <div class="grade-box grade-stamp">
+            <div class="grade-figure">${a.grade.toFixed(1)}</div>
+            <div class="grade-label">Scout grade · #${r.board.rank} of ${r.board.of}</div>
+          </div>
+          ${a.jersey !== '—' ? `<p class="spotlight-number num" aria-label="Shirt number ${esc(a.jersey)}">No. ${esc(a.jersey)}</p>` : ''}
         </div>
       </div>`;
   }
@@ -937,7 +974,7 @@
       const a = athleteById(x.athleteId);
       return `
         <li class="wire-item">
-          <span class="avatar" aria-hidden="true">${esc(initials(a.name))}</span>
+          ${athleteThumb(a)}
           <button type="button" class="wire-name" data-action="view-profile" data-id="${a.id}">${esc(a.name)}</button>
           <span class="wire-delta">${esc(x.delta)}</span>
           <span class="wire-note">${esc(sportShort(a.sport))} · ${esc(x.note)}</span>
@@ -1179,9 +1216,8 @@
         <div class="player-header-main">
           ${athletePhoto(a, { sizes: '(max-width: 640px) calc(100vw - 32px), 200px', eager: true, cls: 'player-photo' })}
           <div class="player-id">
-            <p class="player-sport">${isMe ? 'Your profile · ' : ''}${esc(a.sport)} · ${esc(a.position)}</p>
-            ${a.jersey !== '—' ? `<p class="player-number num" aria-label="Shirt number ${esc(a.jersey)}">#${esc(a.jersey)}</p>` : ''}
             <h1 class="player-name" id="profileName">${splitName(a.name)}</h1>
+            <p class="player-sport">${esc(a.sport)} · ${esc(a.position)}${a.jersey !== '—' ? ` · <span class="num">No. ${esc(a.jersey)}</span>` : ''}${isMe ? ' · your profile' : ''}</p>
             <div class="player-badges">${verificationBadge(a)} ${minorBadge(a)}</div>
           </div>
           <dl class="bio-list">
@@ -1240,9 +1276,8 @@
               <div><dt>Dominant hand</dt><dd>${esc(a.size.hand)}</dd></div>
               <div><dt>Dominant foot</dt><dd>${esc(a.size.foot)}</dd></div>
             </dl>
-            <h3 class="label standing-title">Against other ${esc(sportName)} athletes</h3>
-            ${sportPeers < 2 ? `<p class="muted card-note">${esc(firstName(a))} is the only ${esc(sportName)} athlete on the board so far, so there is no one to compare with yet.</p>` : `
-            <p class="muted card-note">Rank among the ${sportPeers} ${esc(sportName)} athletes on the board.</p>
+            ${sportPeers < 2 ? `<p class="muted card-note standing-intro">${esc(firstName(a))} is the only ${esc(sportName)} athlete on the board so far, so there is no one to compare with yet.</p>` : `
+            <p class="muted card-note standing-intro">Rank among the ${sportPeers} ${esc(sportName)} athletes on the board.</p>
             <ul>${standings.map(([label, value, s]) => `
               <li class="standing">
                 <span class="standing-label">${label}</span>
@@ -1255,7 +1290,7 @@
             <p class="card-note">${verificationBadge(a)} ${esc(levelMeans(a.verification))} <button type="button" class="btn-link" data-action="explain" data-topic="verification">What the levels mean</button></p>`)}
           ${card('p-career', 'Career', `
             <ol class="timeline">${a.career.map((c) => `
-              <li><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><div class="timeline-team">${esc(c.team)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
+              <li><div class="timeline-team">${esc(c.team)}</div><div class="timeline-when">${esc(c.season)} · ${esc(c.league)}</div><p class="timeline-note">${esc(c.note)}</p></li>`).join('')}</ol>`)}
         </div>
         <div class="profile-col">
           ${card('p-video', 'Video', `
@@ -1307,6 +1342,7 @@
         showToast(`Agent permission set to ${PERMISSION_LABELS[input.value][0].toLowerCase()}.`, 'success');
       }));
     }
+    oneSpotRed();
   }
 
   function selectClip(i) {
@@ -1337,13 +1373,12 @@
       if (me) {
         action = myOpen
           ? `<span class="muted agent-note">${myOpen.agentId === g.id ? (myOpen.status === 'active' ? 'Your agent' : 'Agreement in progress') : 'You already have an agreement'}</span>`
-          : `<button type="button" class="btn btn-accent btn-sm" data-action="start-agreement" data-athlete="${me.id}" data-agent="${g.id}">Start an agreement</button>`;
+          : `<button type="button" class="btn btn-secondary btn-sm" data-action="start-agreement" data-athlete="${me.id}" data-agent="${g.id}">Start an agreement</button>`;
       }
       const onExchange = S.agreements.filter((x) => x.agentId === g.id && x.status === 'active').length;
       return `
         <article class="card agent" style="--i:${i}">
           <div class="agent-head">
-            <span class="avatar" aria-hidden="true">${esc(initials(g.name))}</span>
             <div>
               <h2 class="agent-name">${esc(g.name)}</h2>
               <p class="agent-firm">${esc(g.agency)}</p>
@@ -1837,9 +1872,9 @@
     const closed = days < 0;
     return `
       <div>
-        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <h2 class="opp-title">${esc(o.title)}</h2>
         <p class="opp-org">${esc(orgById(o.orgId).name)}</p>
+        <p class="opp-type">${esc(o.sport)} · ${esc(o.type)}</p>
         <div class="opp-tags">${o.tags.map((t) => `<span class="badge badge-identity">${esc(t)}</span>`).join('')}</div>
       </div>
       <dl class="kv">
@@ -1879,7 +1914,7 @@
                 <td>${verificationBadge(a)}</td>
                 <td class="cell-nowrap">${formatDate(ap.date)}${via[ap.via] ? `<span class="cell-sub">${via[ap.via]}</span>` : ''}</td>
                 <td>${appStatusMarkup(ap)}</td>
-                <td><div class="cell-actions">${ap.status === 'submitted' ? `<button type="button" class="btn btn-accent btn-sm" data-action="app-status" data-id="${ap.id}" data-status="invited">Invite</button><button type="button" class="btn btn-quiet btn-sm" data-action="app-status" data-id="${ap.id}" data-status="declined">Decline</button>` : ''}</div></td>
+                <td><div class="cell-actions">${ap.status === 'submitted' ? `<button type="button" class="btn btn-secondary btn-sm" data-action="app-status" data-id="${ap.id}" data-status="invited">Invite</button><button type="button" class="btn btn-quiet btn-sm" data-action="app-status" data-id="${ap.id}" data-status="declined">Decline</button>` : ''}</div></td>
               </tr>`;
             }).join('')}</tbody></table></div>` : '<p class="muted">No applications through the exchange yet.</p>'}
           <div class="opp-find">

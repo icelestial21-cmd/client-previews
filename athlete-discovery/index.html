@@ -6,7 +6,7 @@
   <title>Apex Athlete Exchange — Scouting &amp; Representation (Demo)</title>
   <meta name="description" content="Demo of a scouting and representation platform for Caribbean athletes, agents, scouts and clubs. All data is fictional.">
   <meta name="theme-color" content="#E4E7E9" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#15191E" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Apex Athlete Exchange — scouting and representation (demo)">
   <meta property="og:description" content="Prospect board, athlete profiles, agent agreements, trials and payments. A product demo with fictional data.">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,400..900&display=swap" rel="stylesheet">
   <!-- Bump ?v= on styles.css, data.js and app.js whenever they change, so browsers never mix a new page with old cached files. -->
-  <link rel="stylesheet" href="styles.css?v=20261008-lite3">
+  <link rel="stylesheet" href="styles.css?v=20261008-lite4">
   <script>
     // Apply a saved theme before first paint so there's no flash.
     try { var t = localStorage.getItem('aax-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
@@ -99,7 +99,7 @@
         <form class="front-search" id="frontSearch" role="search" aria-label="Search the prospect board">
           <label class="front-search-label" for="frontSearchInput">Search the prospect board</label>
           <div class="front-search-row">
-            <input type="search" id="frontSearchInput" class="search-input" placeholder="Name, sport, school or country" autocomplete="off" enterkeyhint="search">
+            <input type="search" id="frontSearchInput" class="search-input" placeholder="Name, sport or country" autocomplete="off" enterkeyhint="search">
             <button type="submit" class="btn btn-accent">Search</button>
           </div>
           <p class="front-search-try"><span id="frontSearchCount">Ranked by scout grade.</span> Try <button type="button" class="btn-link" data-action="front-search" data-q="Jamaica">Jamaica</button>, <button type="button" class="btn-link" data-action="front-search" data-q="sprint">sprint</button> or <button type="button" class="btn-link" data-action="front-search" data-q="basketball">basketball</button>.</p>
@@ -628,7 +628,7 @@
     </div>
   </footer>
 
-  <script src="data.js?v=20261008-lite3"></script>
-  <script src="app.js?v=20261008-lite3"></script>
+  <script src="data.js?v=20261008-lite4"></script>
+  <script src="app.js?v=20261008-lite4"></script>
 </body>
 </html>
