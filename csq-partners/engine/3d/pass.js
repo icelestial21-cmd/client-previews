@@ -19,7 +19,7 @@ function faceTexture(opts) {
   g.fillStyle = ink;
   g.font = "600 30px Inter, sans-serif"; g.letterSpacing = "6px";
   g.fillText((opts.kicker || "ARRIVAL PASS").toUpperCase(), 64, 92);
-  g.font = "500 64px 'Cormorant Garamond', Georgia, serif"; g.letterSpacing = "0px";
+  g.font = "500 64px 'Bodoni Moda', Georgia, serif"; g.letterSpacing = "0px";
   g.fillText(opts.title, 64, 190);
   g.fillStyle = sub; g.font = "400 26px Inter, sans-serif";
   g.fillText(opts.subtitle, 64, 236);

@@ -6,79 +6,116 @@
 <title>Concierge | {name}</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../engine/engine.css">
 <link rel="stylesheet" href="theme.css">
 <script src="config.js"></script>
 </head>
 <body>
+<div class="announce"><span>Now booking event-day service for the season.</span> <a href="index.html#events">See the calendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
 <header class="nav">
-  <a class="logo" href="index.html"><span class="logo-mark" data-site="short">XX</span><span data-site="name">Partner</span></a>
-  <nav class="nav-links"><a href="index.html" aria-current="page">Home</a><a href="index.html#services">Services</a><a href="index.html#packages">Experiences</a><a href="index.html#events">Events</a><a href="request.html">Request</a></nav>
-  <a class="btn sm" href="request.html">Request</a>
-  <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
-  <div class="nav-drawer"><a href="index.html" aria-current="page">Home</a><a href="index.html#services">Services</a><a href="index.html#packages">Experiences</a><a href="index.html#events">Events</a><a href="request.html">Request</a><a class="btn" href="request.html">Request</a></div>
+  <div class="nav-in"><a class="logo" href="index.html"><span class="logo-mark" data-site="short">XX</span><span class="logo-name" data-site="name">Partner</span></a><nav class="nav-links"><a href="index.html#services">Services</a><a href="index.html#experiences">Experiences</a><a href="index.html#events">Events</a><a href="index.html#faq">FAQ</a><a href="request.html">Request</a></nav><a class="nav-act" href="request.html">Request arrival</a><button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button><div class="nav-drawer"><a href="index.html#services">Services</a><a href="index.html#experiences">Experiences</a><a href="index.html#events">Events</a><a href="index.html#faq">FAQ</a><a href="request.html">Request</a><a class="btn" href="request.html">Request arrival</a></div></div>
 </header>
 <main>
 
-<section class="hero-con">
-  <div class="wrap hero-grid">
-    <div class="reveal">
-      <span class="eyebrow">Arrival, VIP &amp; event-day concierge</span>
-      <h1 class="h-xl" style="margin-top:20px">Arrive like you <em>belong</em> here.</h1>
-      <p class="lead" style="margin-top:22px">Meet and greet, fast-track, private transfers and event-day service across the Caribbean. One request, one host, every detail handled.</p>
-      <div class="btn-row" style="margin-top:32px"><a class="btn" href="request.html">Request your arrival<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" data-href="whatsapp">WhatsApp our host</a></div>
+<section class="opening">
+  <div class="beams" aria-hidden="true"></div>
+  <div class="stage pass" id="pass"><div class="fallback"></div></div>
+  <div class="shell open-copy">
+    <span class="badge-glass">Arrival · VIP · Event day</span>
+    <h1 class="serif display">Arrive like you<br><em>belong</em> here.</h1>
+    <p class="body-l">Meet and greet, fast-track, private transfers and event-day service across the Caribbean. One request, one host, every detail handled.</p>
+    <form class="shell-form" data-demo action="request.html"><label class="sr" for="wa">WhatsApp number</label><input id="wa" placeholder="Your WhatsApp number" required><button class="btn-w" type="submit">Request</button><p class="form-done" hidden>Preview only: your host would message you here.</p></form>
+  </div>
+  <div class="shell proof"><span>Serving</span><b>KIN</b><b>MBJ</b><b>BGI</b><b>POS</b><b>NAS</b><span class="muted-s">airport codes shown as a sample</span></div>
+</section>
+
+<section class="chapter" id="services">
+  <div class="shell">
+    <h2 class="serif chap">One host.<br><em>Every</em> detail.</h2>
+    <p class="lead-c">From the aircraft door to your seat at the game, a single host coordinates your arrival, your car and your plans.</p>
+    <div class="mosaic two">
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Guest · 4 party</span><span class="mini-row"><i></i>Gate 7 · on time</span><span class="mini-row"><i></i>Host waiting</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/crown-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Airport meet &amp; greet.</b> Met at the aircraft door or gate, escorted through arrivals with your bags.</p><span class="rim" aria-hidden="true"></span></div>
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Fast-track lane</span><span class="mini-row"><i></i>Immigration · 6 min</span><span class="mini-row"><i></i>Customs cleared</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/key-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>VIP fast-track.</b> Priority immigration and customs wherever the airport offers it.</p><span class="rim" aria-hidden="true"></span></div>
+      <div class="case full"><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Black SUV · plate shown</span><span class="mini-row"><i></i>Driver assigned</span><span class="mini-row"><i></i>ETA to villa · 38 min</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/location-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Private transfers.</b> Chauffeured cars and SUVs tracked to your flight, so nobody waits.</p><span class="rim" aria-hidden="true"></span></div>
     </div>
-    <div class="pass-wrap"><div class="stage" id="pass" style="height:100%"><div class="fallback"></div></div></div>
+    <div class="mosaic three">
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Pickup 17:30</span><span class="mini-row"><i></i>Gate C drop-off</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/star-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Event-day chauffeur.</b> Door-to-seat transport on match and event days.</p><span class="rim" aria-hidden="true"></span></div>
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Welcome set</span><span class="mini-row"><i></i>Early check-in</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/gift-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Villa &amp; hotel arrival.</b> Stocked fridge, early check-in and a welcome waiting.</p><span class="rim" aria-hidden="true"></span></div>
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Dinner · 8 PM</span><span class="mini-row"><i></i>Table for 4</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/glass-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Personal assistance.</b> Tables, tickets and reservations, handled by your host.</p><span class="rim" aria-hidden="true"></span></div>
+    </div>
   </div>
 </section>
 
-<section class="section" id="services">
-  <div class="wrap"><div class="head"><div><span class="eyebrow">Services</span><h2 class="h-lg" style="margin-top:16px">Our service menu</h2></div><a class="btn ghost" href="request.html">Make a request<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div class="svc-list"><div class="svc reveal"><span class="num">01</span><h3>Airport meet &amp; greet</h3><p class="muted">Met at the aircraft door or gate, escorted through arrivals.</p></div><div class="svc reveal"><span class="num">02</span><h3>VIP fast-track</h3><p class="muted">Priority immigration and customs where available.</p></div><div class="svc reveal"><span class="num">03</span><h3>Private transfers</h3><p class="muted">Chauffeured cars and SUVs, tracked to your flight.</p></div><div class="svc reveal"><span class="num">04</span><h3>Event-day chauffeur</h3><p class="muted">Door-to-seat transport for match and event days.</p></div><div class="svc reveal"><span class="num">05</span><h3>Villa &amp; hotel arrival</h3><p class="muted">Stocked fridge, early check-in and a welcome on arrival.</p></div><div class="svc reveal"><span class="num">06</span><h3>Personal assistance</h3><p class="muted">Reservations, tables, tickets and anything else.</p></div></div></div>
+<section class="metrics">
+  <div class="shell metric-row">
+    <div><span class="gold-num">1 hr</span><span class="m-label">to confirm your request</span></div>
+    <div><span class="gold-num">1</span><span class="m-label">host from landing to leaving</span></div>
+    <div><span class="gold-num">24/7</span><span class="m-label">WhatsApp line while you stay</span></div>
+  </div>
+  <p class="shell m-note">Sample figures. Each concierge partner sets its own.</p>
 </section>
 
-<section class="section tight">
-  <div class="wrap"><div class="how reveal"><div><span class="num">I</span><h4>Request</h4><p class="muted">Tell us your flight, party and what you need.</p></div><div><span class="num">II</span><h4>Confirm</h4><p class="muted">Your host confirms on WhatsApp within the hour.</p></div><div><span class="num">III</span><h4>Arrive</h4><p class="muted">Walk off the plane and straight into your plans.</p></div></div></div>
-</section>
-
-<section class="section" id="packages" data-tier="2">
-  <div class="wrap"><div class="head"><div><span class="eyebrow">Experiences</span><h2 class="h-lg" style="margin-top:16px">Curated packages</h2></div></div><div class="grid-3"><div class="pkg card reveal" data-tilt><span class="eyebrow">Essentials</span><h3 class="h-md" style="margin-top:12px">Arrival Essentials</h3><ul class="ticks"><li>Meet &amp; greet</li><li>Private transfer</li><li>Welcome amenities</li></ul><div class="pkg-foot"><span class="meta">Price set by partner</span><a class="btn sm ghost" href="request.html">Request</a></div></div><div class="pkg card reveal featured" data-tilt><span class="eyebrow">Signature</span><h3 class="h-md" style="margin-top:12px">Matchday VIP</h3><ul class="ticks"><li>Fast-track arrival</li><li>Event-day chauffeur</li><li>VIP seating assistance</li><li>Dinner reservation</li></ul><div class="pkg-foot"><span class="meta">Price set by partner</span><a class="btn sm" href="request.html">Request</a></div></div><div class="pkg card reveal" data-tilt><span class="eyebrow">Bespoke</span><h3 class="h-md" style="margin-top:12px">Island Signature</h3><ul class="ticks"><li>Everything in Matchday VIP</li><li>Villa arrival</li><li>Dedicated host for your stay</li></ul><div class="pkg-foot"><span class="meta">Price set by partner</span><a class="btn sm ghost" href="request.html">Request</a></div></div></div></div>
-</section>
-
-<section class="section" id="events" data-tier="2">
-  <div class="wrap"><div class="head"><div><span class="eyebrow">From Caribbean Sports Quest</span><h2 class="h-lg" style="margin-top:16px">Event calendar</h2><p class="lead">Upcoming events from CSQ. Our services also appear on CSQ event pages under “Arrive in style”.</p></div><span class="api-status">CSQ events feed · live</span></div><div class="ev-list"><div class="ev reveal"><div class="ev-d"><b>06</b><span>Dec</span></div><div class="ev-t"><span class="meta">Football · sample event from CSQ</span><h4>Sample cup final, Kingston</h4></div><a class="btn sm ghost" href="request.html">Arrive in style</a></div><div class="ev reveal"><div class="ev-d"><b>14</b><span>Jan</span></div><div class="ev-t"><span class="meta">Cricket · sample event from CSQ</span><h4>Sample T20 series, Bridgetown</h4></div><a class="btn sm ghost" href="request.html">Arrive in style</a></div><div class="ev reveal"><div class="ev-d"><b>22</b><span>Feb</span></div><div class="ev-t"><span class="meta">Athletics · sample event from CSQ</span><h4>Sample track championships</h4></div><a class="btn sm ghost" href="request.html">Arrive in style</a></div><div class="ev reveal"><div class="ev-d"><b>08</b><span>Mar</span></div><div class="ev-t"><span class="meta">Golf · sample event from CSQ</span><h4>Sample invitational, Montego Bay</h4></div><a class="btn sm ghost" href="request.html">Arrive in style</a></div></div></div>
-</section>
-
-<section class="section" data-tier="3">
-  <div class="wrap grid-2" style="align-items:center">
-    <div class="reveal"><span class="eyebrow">Book online</span><h2 class="h-lg" style="margin-top:16px">Pick a date. Secure it with a deposit.</h2><p class="lead" style="margin-top:16px">Live availability, online deposits and a client portal for every booking, plus group and corporate requests.</p>
-      <div class="btn-row" style="margin-top:24px"><a class="btn" href="request.html">Book &amp; pay deposit<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="request.html">Group &amp; corporate</a></div></div>
-    <div class="cal card reveal" data-tilt><div class="cal-top"><b>December 2026</b><span class="meta">Select a date</span></div><div class="cal-dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div class="cal-grid"><button type="button" class="day off" disabled></button><button type="button" class="day off" disabled></button><button type="button" class="day " >1</button><button type="button" class="day " >2</button><button type="button" class="day " >3</button><button type="button" class="day " >4</button><button type="button" class="day busy" disabled>5</button><button type="button" class="day busy" disabled>6</button><button type="button" class="day " >7</button><button type="button" class="day " >8</button><button type="button" class="day " >9</button><button type="button" class="day " >10</button><button type="button" class="day " >11</button><button type="button" class="day sel" >12</button><button type="button" class="day busy" disabled>13</button><button type="button" class="day " >14</button><button type="button" class="day " >15</button><button type="button" class="day " >16</button><button type="button" class="day " >17</button><button type="button" class="day " >18</button><button type="button" class="day busy" disabled>19</button><button type="button" class="day busy" disabled>20</button><button type="button" class="day " >21</button><button type="button" class="day " >22</button><button type="button" class="day " >23</button><button type="button" class="day " >24</button><button type="button" class="day " >25</button><button type="button" class="day " >26</button><button type="button" class="day busy" disabled>27</button><button type="button" class="day " >28</button><button type="button" class="day " >29</button><button type="button" class="day " >30</button><button type="button" class="day " >31</button><button type="button" class="day off" disabled></button><button type="button" class="day off" disabled></button></div><div class="cal-foot"><span class="meta">Dec 12 · Meet &amp; greet + transfer</span><b>Deposit 30%</b></div></div>
+<section class="chapter" id="experiences" data-tier="2">
+  <div class="shell">
+    <h2 class="serif chap">Curated, <em>never</em> generic.</h2>
+    <p class="lead-c">Three ways to arrive, each shaped around your trip. Prices are set by the concierge.</p>
+    <div class="mosaic two">
+      <div class="case full liquid-case"><div class="stage" id="liquid"></div><div class="lc-copy"><span class="badge-glass">Signature</span><h3 class="serif">Matchday VIP</h3><p>Fast-track arrival, event-day chauffeur, VIP seating help and a dinner reservation after the final whistle.</p><a class="btn-w" href="request.html">Request Matchday VIP</a></div><span class="rim" aria-hidden="true"></span></div>
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Meet &amp; greet</span><span class="mini-row"><i></i>Private transfer</span><span class="mini-row"><i></i>Welcome amenities</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/tea-cup-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Arrival Essentials.</b> Meet &amp; greet, private transfer and welcome amenities.</p><span class="rim" aria-hidden="true"></span></div>
+      <div class="case "><div class="case-art"><div class="mini"><div class="glow"></div><div class="plane back"></div><div class="plane front"><span class="mini-row"><i></i>Dedicated host</span><span class="mini-row"><i></i>Villa arrival</span><span class="mini-row"><i></i>Daily plans</span></div><img class="mini-ico" src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/crown-dynamic-premium.png" alt="" loading="lazy" width="160" height="160" onerror="this.remove()"></div></div><p class="case-cap"><b>Island Signature.</b> Everything in Matchday VIP, plus villa arrival and a host for your whole stay.</p><span class="rim" aria-hidden="true"></span></div>
+    </div>
   </div>
 </section>
 
-<section class="section tight">
-  <div class="wrap"><div class="csq-strip card reveal"><span class="csq-dot" style="width:44px;height:44px;font-size:13px">CSQ</span><div><span class="api-status">CSQ Travel API · connected</span><h3 class="h-sm" style="margin-top:6px">Featured on Caribbean Sports Quest</h3><p class="muted" style="margin:4px 0 0">Our arrival and event-day services show on CSQ event pages with a “Book with <span data-site="name"></span>” button.</p></div></div></div>
+<section class="chapter tight" id="events" data-tier="2">
+  <div class="shell split">
+    <div><h2 class="serif h64">Event <em>calendar</em></h2><p class="lead-l">Upcoming events from Caribbean Sports Quest. Our services also appear on CSQ event pages under “Arrive in style”.</p><span class="api-status">CSQ events feed · live</span></div>
+    <div class="ev-list"><div class="ev"><div class="ev-d"><b>06</b><span>Dec</span></div><div><span class="ev-k">Football · sample event from CSQ</span><h4>Sample cup final, Kingston</h4></div><a class="pill-o" href="request.html">Arrive in style</a></div><div class="ev"><div class="ev-d"><b>14</b><span>Jan</span></div><div><span class="ev-k">Cricket · sample event from CSQ</span><h4>Sample T20 series, Bridgetown</h4></div><a class="pill-o" href="request.html">Arrive in style</a></div><div class="ev"><div class="ev-d"><b>22</b><span>Feb</span></div><div><span class="ev-k">Athletics · sample event from CSQ</span><h4>Sample track championships</h4></div><a class="pill-o" href="request.html">Arrive in style</a></div><div class="ev"><div class="ev-d"><b>08</b><span>Mar</span></div><div><span class="ev-k">Golf · sample event from CSQ</span><h4>Sample invitational, Montego Bay</h4></div><a class="pill-o" href="request.html">Arrive in style</a></div></div>
+  </div>
+</section>
+
+<section class="chapter tight" data-tier="3">
+  <div class="shell split">
+    <div><h2 class="serif h64">Pick a date.<br><em>Secure</em> it.</h2><p class="lead-l">Live availability, a 30% deposit online and a client portal for every booking — plus group and corporate requests.</p><div class="btn-pair"><a class="btn-w" href="request.html">Book &amp; pay deposit</a><a class="pill-o" href="request.html">Group &amp; corporate</a></div></div>
+    <div class="case cal-case"><div class="cal"><div class="cal-top"><b class="serif">December 2026</b><span>Select a date</span></div><div class="cal-dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div class="cal-grid"><button type="button" class="day off" disabled></button><button type="button" class="day off" disabled></button><button type="button" class="day " >1</button><button type="button" class="day " >2</button><button type="button" class="day " >3</button><button type="button" class="day " >4</button><button type="button" class="day busy" disabled>5</button><button type="button" class="day busy" disabled>6</button><button type="button" class="day " >7</button><button type="button" class="day " >8</button><button type="button" class="day " >9</button><button type="button" class="day " >10</button><button type="button" class="day " >11</button><button type="button" class="day sel" >12</button><button type="button" class="day busy" disabled>13</button><button type="button" class="day " >14</button><button type="button" class="day " >15</button><button type="button" class="day " >16</button><button type="button" class="day " >17</button><button type="button" class="day " >18</button><button type="button" class="day busy" disabled>19</button><button type="button" class="day busy" disabled>20</button><button type="button" class="day " >21</button><button type="button" class="day " >22</button><button type="button" class="day " >23</button><button type="button" class="day " >24</button><button type="button" class="day " >25</button><button type="button" class="day " >26</button><button type="button" class="day busy" disabled>27</button><button type="button" class="day " >28</button><button type="button" class="day " >29</button><button type="button" class="day " >30</button><button type="button" class="day " >31</button><button type="button" class="day off" disabled></button><button type="button" class="day off" disabled></button></div><div class="cal-foot"><span>Dec 12 · Meet &amp; greet + transfer</span><b>Deposit 30%</b></div></div><span class="rim" aria-hidden="true"></span></div>
+  </div>
+</section>
+
+<section class="chapter tight" id="faq">
+  <div class="shell split">
+    <div><h2 class="serif h64">Good <em>questions</em></h2><p class="lead-l">Something else? Message your host on <a data-href="whatsapp" class="copper">WhatsApp</a>.</p></div>
+    <div class="faq"><details class="q"><summary>Which airports do you cover?<span aria-hidden="true">⌄</span></summary><p>Sample answer: Kingston, Montego Bay and Bridgetown, with other islands on request.</p></details><details class="q"><summary>How far ahead should I book?<span aria-hidden="true">⌄</span></summary><p>Sample answer: 48 hours is ideal; same-day requests are handled when a host is free.</p></details><details class="q"><summary>Can you meet us at the aircraft door?<span aria-hidden="true">⌄</span></summary><p>Sample answer: where the airport allows it, yes. Otherwise your host meets you at the gate or arrivals.</p></details><details class="q"><summary>Do you handle groups and teams?<span aria-hidden="true">⌄</span></summary><p>Sample answer: yes, from families to full squads, with one host coordinating everyone.</p></details></div>
+  </div>
+</section>
+
+<section class="horizon">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="shell hz-in">
+    <h2 class="serif h64">Your host is <em>one message</em> away.</h2>
+    <p class="lead-c">Send your flight and we'll confirm within the hour.</p>
+    <form class="pill-form" data-demo><label class="sr" for="wa2">WhatsApp number</label><input id="wa2" placeholder="Your WhatsApp number" required><button class="pill-w" type="submit">Request arrival</button><p class="form-done" hidden>Preview only.</p></form>
+  </div>
 </section>
 </main>
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <a class="logo" href="index.html"><span class="logo-mark" data-site="short">XX</span><span data-site="name">Partner</span></a>
-        <p class="muted" style="margin-top:16px;max-width:34ch" data-site="tagline"></p>
-        <ul style="margin-top:12px"><li><a data-href="whatsapp" data-site="contact.whatsapp"></a></li><li><a data-href="email" data-site="contact.email"></a></li><li class="muted" data-site="contact.location"></li></ul>
-      </div>
-      <div><h4>Services</h4><ul><li><a href='index.html#services'>Meet &amp; greet</a></li><li><a href='index.html#services'>Transfers</a></li><li><a href='index.html#packages'>Experiences</a></li></ul></div><div><h4>Plan</h4><ul><li><a href='request.html'>Request</a></li><li><a href='index.html#events'>Event calendar</a></li></ul></div><div><h4>House</h4><ul><li><a href='#'>About</a></li><li><a href='#'>Terms</a></li></ul></div>
+<footer class="carbon">
+  <div class="shell">
+    <div class="carbon-grid">
+      <a class="logo" href="index.html"><span class="logo-mark" data-site="short">A</span><span class="logo-name" data-site="name">Partner</span></a>
+      <div><h5>Services</h5><a href="index.html#services">Meet &amp; greet</a><a href="index.html#services">VIP fast-track</a><a href="index.html#services">Private transfers</a><a href="index.html#services">Event-day chauffeur</a></div>
+      <div><h5>Experiences</h5><a href="index.html#experiences">Arrival Essentials</a><a href="index.html#experiences">Matchday VIP</a><a href="index.html#experiences">Island Signature</a></div>
+      <div><h5>Plan</h5><a href="request.html">Request arrival</a><a href="index.html#events">Event calendar</a><a href="index.html#faq">FAQ</a></div>
+      <div><h5>House</h5><a data-href="whatsapp">WhatsApp</a><a data-href="email">Email</a><a href="#">Instagram</a><a href="#">Terms</a></div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 <span data-site="name"></span>. All rights reserved.</span>
-      <span class="csq-badge"><span class="csq-dot">CSQ</span>Connected to <b>Caribbean Sports Quest</b> · Travel API</span>
-      <span>Website by iCelestial</span>
-    </div>
+    <div class="carbon-util"><span>© 2026 <span data-site="name"></span></span><span class="csq-badge"><span class="csq-dot">CSQ</span>Featured on <b>Caribbean Sports Quest</b> · Travel API</span><span>Website by iCelestial</span></div>
+    <p class="disclose">Sample brand, services and figures shown for this template preview. Service availability, fast-track access and pricing are set and confirmed by the concierge provider for each airport and request. Caribbean Sports Quest displays approved listings and links to the provider; it does not take bookings or payments.</p>
   </div>
 </footer>
 <script src="../engine/engine.js"></script>
-<script type="module">import { mountPass } from "../engine/3d/pass.js"; const S = window.SITE || {}; mountPass(document.getElementById("pass"), { kicker: "Arrival pass", title: "Welcome, Guest", subtitle: (S.name || "") + " · Concierge", rows: [["Flight", "BA 2263"], ["Arrives", "14:05"], ["Host", "Assigned"], ["Car", "Black SUV"], ["Terminal", "Arrivals"], ["Party", "4 guests"]], backKicker: "VIP access", backTitle: "Event Day", backSubtitle: "Door-to-seat service", backRows: [["Pickup", "17:30"], ["Seats", "Lower bowl"], ["Driver", "Assigned"]] });</script>
+<script type="module">import { mountPass } from "../engine/3d/pass.js";
+import { mountLiquid } from "../engine/threeui/mount.js";
+const S = window.SITE || {};
+mountPass(document.getElementById("pass"), { kicker: "Arrival pass", title: "Welcome, Guest", subtitle: (S.name || "") + " · Concierge", rows: [["Flight", "BA 2263"], ["Arrives", "14:05"], ["Host", "Assigned"], ["Car", "Black SUV"], ["Terminal", "Arrivals"], ["Party", "4 guests"]], backKicker: "VIP access", backTitle: "Event Day", backSubtitle: "Door-to-seat service", backRows: [["Pickup", "17:30"], ["Seats", "Lower bowl"], ["Driver", "Assigned"]] });
+const lq = document.getElementById("liquid"); if (lq) mountLiquid(lq, { tint: [0.95, 0.78, 0.48], bg: [0.016, 0.016, 0.022], speed: 0.6, camera: 6.2 });</script>
 </body>
 </html>

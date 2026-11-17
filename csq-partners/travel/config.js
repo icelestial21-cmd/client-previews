@@ -12,9 +12,12 @@ window.SITE = {
   contact: { whatsapp: "+1 876 555 0101", email: "bookings@example.com", location: "Montego Bay, Jamaica" },
 
   colors: {
-    bg: "#04161c", surface: "#08222a", "surface-2": "#0c2c35", line: "rgba(255,255,255,0.1)",
-    text: "#f2f7f6", muted: "rgba(242,247,246,0.64)",
-    accent: "#2dd4bf", "accent-ink": "#032024", "accent-2": "#fb7185", globe: "#0a3a46"
+    bg: "#000000", surface: "#141414", "surface-2": "#1e1e1e", line: "#272727",
+    text: "#f8f8f8", muted: "#808080",
+    accent: "#8fd3e8",            // used only inside scenes: globe atmosphere and flight routes
+    "accent-ink": "#0f0f0f",
+    "accent-2": "#ffb37a",        // city markers and sunset light
+    globe: "#0b1626"
   },
-  fonts: { display: "'Fraunces', Georgia, serif" }
+  fonts: {}
 };

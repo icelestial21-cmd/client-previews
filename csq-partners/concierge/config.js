@@ -12,9 +12,11 @@ window.SITE = {
   contact: { whatsapp: "+1 876 555 0102", email: "host@example.com", location: "Kingston · Montego Bay · Bridgetown" },
 
   colors: {
-    bg: "#0b0a09", surface: "#131210", "surface-2": "#1b1916", line: "rgba(233,216,180,0.14)",
-    text: "#f3ece0", muted: "rgba(243,236,224,0.6)",
-    accent: "#c9a96e", "accent-ink": "#141008", "accent-2": "#e9d8b4"
+    bg: "#040406", surface: "#121317", "surface-2": "#0b0c0e", line: "#1c1d22",
+    text: "#ffffff", muted: "#acafb9",
+    accent: "#ae9357",            // brushed gold: material highlights, numbers, the 3D passes
+    "accent-ink": "#040406",
+    "accent-2": "#fff0cc"         // champagne highlight
   },
-  fonts: { display: "'Cormorant Garamond', Georgia, serif" }
+  fonts: {}
 };
