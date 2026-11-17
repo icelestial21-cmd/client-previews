@@ -15,9 +15,9 @@ window.SITE = {
   contact: { whatsapp: "+1 876 555 0100", email: "newsroom@example.com", location: "Kingston, Jamaica" },
 
   colors: {
-    bg: "#ffffff", surface: "#f1f1ef", "surface-2": "#e9e9e7", line: "#e9e9e9",
-    text: "#131313", muted: "#636363",
-    accent: "#e5301b",            // action colour: rules, links, authors, subscribe
+    bg: "#0c0d0f", surface: "#16181c", "surface-2": "#1f2227", line: "#272a30",
+    text: "#f3f3f1", muted: "#8e9198",
+    accent: "#ff4a32",            // action colour: rules, links, authors, subscribe
     "accent-ink": "#ffffff",
     "accent-2": "#c6ff00"         // highlight colour: markers, rank tiles, social circles
   },

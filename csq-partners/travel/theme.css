@@ -147,3 +147,29 @@ section[data-tier] > .tier-flag, div[data-tier] > .tier-flag { top: 24px; right:
   .explore { font-size: 18px; height: 64px; }
   .hero-cap { bottom: 120px; }
 }
+
+/* ---- Photo hero & placeholder photography (package-selling layout) ---- */
+.photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo { position: relative; min-height: min(900px, 100svh); display: flex; align-items: flex-end; overflow: hidden; background: #141414; }
+.hero-photo.short { min-height: 620px; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: slowzoom 24s ease-out both; }
+@keyframes slowzoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.35) 65%, #000 100%); }
+.hero-copy { position: relative; z-index: 2; padding-bottom: 96px; text-align: center; width: 100%; }
+.hero-h { margin-top: 22px; background: linear-gradient(180deg, #fff 45%, rgba(255,255,255,0.6)); -webkit-background-clip: text; background-clip: text; }
+.hero-sub { font-size: 24px; line-height: 1.35; color: rgba(248,248,248,0.82); max-width: 620px; margin: 22px auto 0; }
+.hero-act { display: flex; gap: 22px; justify-content: center; align-items: center; margin-top: 40px; flex-wrap: wrap; }
+.ghost-l { display: inline-flex; align-items: center; gap: 8px; color: #f8f8f8; font-size: 16px; }
+.ghost-l svg { width: 14px; height: 14px; }
+.ghost-l:hover { text-decoration: underline; }
+.scene { background: #141414; }
+.scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #000 0%, transparent 18%, transparent 75%, rgba(0,0,0,0.5)); pointer-events: none; }
+.scene .cap-glass { z-index: 2; }
+.deal-img { background: #1e1e1e; }
+.deal-img .photo { transition: transform 1s var(--ease); }
+.deal:hover .deal-img .photo { transform: scale(1.05); }
+.photo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.photo-pair figure { margin: 0; border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; position: relative; background: #141414; }
+.photo-pair figcaption { position: absolute; left: 14px; bottom: 14px; font-family: var(--mono-d); font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.86); background: rgba(0,0,0,0.45); padding: 6px 10px; border-radius: 20px; backdrop-filter: blur(20px); }
+@media (max-width: 680px) { .hero-sub { font-size: 19px; } .hero-copy { padding-bottom: 120px; } .photo-pair { grid-template-columns: 1fr; } }
