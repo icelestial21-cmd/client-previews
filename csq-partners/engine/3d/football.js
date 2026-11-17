@@ -13,7 +13,7 @@ export function mountFootball(el) {
     var accent2 = cssColor("--accent-2", "#ff3d3d");
 
     // Ball: icosphere faces coloured by distance to the 12 icosahedron vertices → pentagon panels
-    var geo = new THREE.IcosahedronGeometry(1, 3); if (geo.index) geo = geo.toNonIndexed();
+    var geo = new THREE.IcosahedronGeometry(1, ctx.lite ? 2 : 3); if (geo.index) geo = geo.toNonIndexed();
     var ico = new THREE.IcosahedronGeometry(1, 0);
     var pos = ico.getAttribute("position"), centres = [];
     for (var i = 0; i < pos.count; i++) {
@@ -49,7 +49,7 @@ export function mountFootball(el) {
     scene.add(sat2);
 
     // Stadium light specks
-    var n = 260, sp = new Float32Array(n * 3);
+    var n = ctx.lite ? 110 : 260, sp = new Float32Array(n * 3);
     for (var s = 0; s < n; s++) {
       var th = Math.random() * Math.PI * 2, rr = 2.6 + Math.random() * 3.5;
       sp[s * 3] = Math.cos(th) * rr; sp[s * 3 + 1] = (Math.random() - 0.5) * 4; sp[s * 3 + 2] = Math.sin(th) * rr - 2;

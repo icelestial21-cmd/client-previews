@@ -49,7 +49,7 @@ export function mountPass(el, opts) {
     camera.position.set(0, 0, 7);
     var gold = cssColor("--accent", "#c9a96e");
     var W = 3.2, H = 2.0, D = 0.06;
-    var geo = new THREE.ExtrudeGeometry(rounded(W, H, 0.16), { depth: D, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: 6, curveSegments: 24 });
+    var geo = new THREE.ExtrudeGeometry(rounded(W, H, 0.16), { depth: D, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.025, bevelSegments: ctx.lite ? 3 : 6, curveSegments: ctx.lite ? 10 : 24 });
     geo.center();
 
     function card(material, face, z) {
@@ -73,7 +73,7 @@ export function mountPass(el, opts) {
     scene.add(rig);
 
     // Gold dust
-    var n = 220, arr = new Float32Array(n * 3);
+    var n = ctx.lite ? 90 : 220, arr = new Float32Array(n * 3);
     for (var i = 0; i < n; i++) { arr[i * 3] = (Math.random() - 0.5) * 9; arr[i * 3 + 1] = (Math.random() - 0.5) * 6; arr[i * 3 + 2] = (Math.random() - 0.5) * 4 - 1; }
     var pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(arr, 3));
     var dust = new THREE.Points(pg, new THREE.PointsMaterial({ color: gold, size: 0.03, transparent: true, opacity: 0.7 }));

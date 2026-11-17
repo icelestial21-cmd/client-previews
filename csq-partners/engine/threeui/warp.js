@@ -433,6 +433,7 @@ function createWarpFieldRenderer(canvas, getOptions) {
   const startOptions = getOptions();
   const variant = WARP_FIELD_VARIANTS.includes(startOptions.variant) ? startOptions.variant : WARP_FIELD_DEFAULTS.variant;
   if (startOptions.palette) STREAK_SETTINGS[variant].palette = startOptions.palette;
+  if (window.__csqLite) STREAK_SETTINGS[variant].count = Math.round(STREAK_SETTINGS[variant].count * 0.45);
   if (startOptions.tiles) TILE_COLORS = startOptions.tiles;
   const bg = startOptions.background != null ? startOptions.background : BACKGROUND[variant];
   const scene = new THREE.Scene();
@@ -441,7 +442,7 @@ function createWarpFieldRenderer(canvas, getOptions) {
   const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 2e3);
   camera.position.z = 0;
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.__csqLite ? 1 : 2));
   const group = new THREE.Group();
   scene.add(group);
   const layers = [createStreakLayer(group, STREAK_SETTINGS[variant], startOptions.streakOpacity)];

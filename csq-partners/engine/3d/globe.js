@@ -24,11 +24,11 @@ export function mountGlobe(el, opts) {
     scene.add(globe);
 
     // Ocean sphere
-    var ocean = new THREE.Mesh(new THREE.SphereGeometry(R, 64, 64), new THREE.MeshStandardMaterial({ color: cssColor("--globe", "#0b3b4a"), roughness: 0.85, metalness: 0.1 }));
+    var ocean = new THREE.Mesh(new THREE.SphereGeometry(R, ctx.lite ? 40 : 64, ctx.lite ? 40 : 64), new THREE.MeshStandardMaterial({ color: cssColor("--globe", "#0b3b4a"), roughness: 0.85, metalness: 0.1 }));
     globe.add(ocean);
 
     // Dot field over the sphere (Fibonacci), denser near the Americas to hint at land
-    var N = 5200, dots = [], golden = Math.PI * (3 - Math.sqrt(5));
+    var N = ctx.lite ? 2600 : 5200, dots = [], golden = Math.PI * (3 - Math.sqrt(5));
     for (var i = 0; i < N; i++) {
       var y = 1 - (i / (N - 1)) * 2, rr = Math.sqrt(1 - y * y), th = golden * i;
       var v = new THREE.Vector3(Math.cos(th) * rr, y, Math.sin(th) * rr);

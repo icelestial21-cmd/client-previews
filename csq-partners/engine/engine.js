@@ -7,6 +7,24 @@
   var root = document.documentElement;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // 0. Performance tier: weaker GPUs, low memory/cores, small screens or data-saver get "lite" 3D
+  window.__csqLite = (function () {
+    try {
+      if (/[?&]lite=1/.test(location.search)) return true;
+      if (/[?&]lite=0/.test(location.search)) return false;
+      var n = navigator, conn = n.connection || {};
+      if (conn.saveData) return true;
+      if ((n.hardwareConcurrency || 8) <= 4 || (n.deviceMemory || 8) <= 4) return true;
+      if (window.matchMedia("(max-width: 720px)").matches) return true;
+      var g = document.createElement("canvas").getContext("webgl");
+      if (!g) return true;
+      var e = g.getExtension("WEBGL_debug_renderer_info");
+      var r = e ? String(g.getParameter(e.UNMASKED_RENDERER_WEBGL)) : "";
+      return /Radeon\(TM\) R\d|Radeon R\d|HD Graphics [2-6]\d{2}|Intel\(R\) HD|Mali-[GT][0-7]\d|Adreno \(TM\) [3-5]|PowerVR|SwiftShader|llvmpipe/i.test(r);
+    } catch (err) { return true; }
+  })();
+  root.classList.toggle("lite", window.__csqLite);
+
   // 1. Brand tokens from config → CSS variables
   var c = S.colors || {};
   Object.keys(c).forEach(function (k) { root.style.setProperty("--" + k, c[k]); });

@@ -11,9 +11,10 @@ export function stage(el, setup) {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+    renderer = new THREE.WebGLRenderer({ antialias: !window.__csqLite, alpha: true, powerPreference: "high-performance" });
   } catch (e) { return null; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.__csqLite ? 1 : 2));
+  var lite = !!window.__csqLite;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   el.appendChild(renderer.domElement);
@@ -24,7 +25,7 @@ export function stage(el, setup) {
     pointer.x = e.clientX / window.innerWidth * 2 - 1;
     pointer.y = -(e.clientY / window.innerHeight * 2 - 1);
   }, { passive: true });
-  var api = setup({ THREE: THREE, scene: scene, camera: camera, renderer: renderer, pointer: pointer, el: el });
+  var api = setup({ lite: lite, THREE: THREE, scene: scene, camera: camera, renderer: renderer, pointer: pointer, el: el });
   function size() {
     var w = el.clientWidth || 1, h = el.clientHeight || 1;
     renderer.setSize(w, h, false);
@@ -34,11 +35,14 @@ export function stage(el, setup) {
   size();
   new ResizeObserver(size).observe(el);
   var clock = new THREE.Clock(), running = false, raf = 0;
-  function frame() {
+  var last = 0;
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    if (lite && now - last < 33) return;
+    last = now;
     var t = clock.getElapsedTime();
     if (api && api.update) api.update(t, pointer);
     renderer.render(scene, camera);
-    raf = requestAnimationFrame(frame);
   }
   el.classList.add("ready");
   if (reduce) { if (api && api.update) api.update(1.2, pointer); renderer.render(scene, camera); return api; }

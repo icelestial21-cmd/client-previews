@@ -4,9 +4,10 @@ import { VELOX_FRAGMENT_SHADER, VELOX_VERTEX_SHADER } from "./liquidShaders.js";
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function loop(host, renderOnce) {
-  let frame = 0, visible = true;
-  const tick = (t) => { renderOnce(t); frame = visible && !document.hidden ? requestAnimationFrame(tick) : 0; };
+function loop(host, renderOnce, fpsCap) {
+  let frame = 0, visible = true, last = 0;
+  const minGap = fpsCap ? 1000 / fpsCap : 0;
+  const tick = (t) => { if (t - last >= minGap) { last = t; renderOnce(t); } frame = visible && !document.hidden ? requestAnimationFrame(tick) : 0; };
   if (reduce) { renderOnce(performance.now()); return; }
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
@@ -30,7 +31,7 @@ export function mountWarp(host, opts = {}) {
   const size = () => { const b = host.getBoundingClientRect(); r.resize(b.width, b.height); };
   new ResizeObserver(size).observe(host); size();
   host.classList.add("ready");
-  loop(host, () => r.render());
+  loop(host, () => r.render(), window.__csqLite ? 30 : 0);
 }
 
 function compile(gl, type, src) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
@@ -56,7 +57,7 @@ export function mountLiquid(host, opts = {}) {
   const u = { tint: U("u_tint"), bg: U("u_bg"), res: U("u_res"), time: U("u_time"), mouse: U("u_mouse"), morph: U("u_morph"), ns: U("u_noise_scale"), ma: U("u_mouse_amount"), metal: U("u_metal"), cam: U("u_camera") };
   let tx = 0, ty = 0, mx = 0, my = 0; const t0 = performance.now();
   window.addEventListener("pointermove", e => { tx = e.clientX / innerWidth * 2 - 1; ty = -(e.clientY / innerHeight * 2 - 1); }, { passive: true });
-  const size = () => { const b = host.getBoundingClientRect(), pr = Math.min(devicePixelRatio || 1, 1.5); canvas.width = Math.max(1, Math.round(b.width * pr)); canvas.height = Math.max(1, Math.round(b.height * pr)); gl.viewport(0, 0, canvas.width, canvas.height); };
+  const size = () => { const b = host.getBoundingClientRect(), pr = window.__csqLite ? 0.4 : Math.min(devicePixelRatio || 1, 1) * 0.7; canvas.width = Math.max(1, Math.round(b.width * pr)); canvas.height = Math.max(1, Math.round(b.height * pr)); gl.viewport(0, 0, canvas.width, canvas.height); };
   new ResizeObserver(size).observe(host); size();
   host.classList.add("ready");
   loop(host, (now) => {
@@ -64,7 +65,7 @@ export function mountLiquid(host, opts = {}) {
     gl.uniform2f(u.res, canvas.width, canvas.height); gl.uniform1f(u.time, (now - t0) * 0.001 * o.speed); gl.uniform2f(u.mouse, mx, my);
     gl.uniform1f(u.morph, o.morph); gl.uniform1f(u.ns, o.noiseScale); gl.uniform1f(u.ma, o.mouseAmount); gl.uniform1f(u.metal, o.metal); gl.uniform1f(u.cam, o.camera); gl.uniform3fv(u.tint, o.tint || [1, 1, 1]); gl.uniform3fv(u.bg, o.bg || [0.02, 0.02, 0.025]);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  });
+  }, window.__csqLite ? 24 : 45);
 }
 
 export function mountLandscape(host, variant = "sunset") {
