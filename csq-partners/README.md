@@ -10,7 +10,7 @@ Repeatable website templates for the CSQ Partner Programmes (Media API, Travel A
 
 ## Make a new partner site
 
-1. Copy the template folder (for example `media/` to `partner-name/`). Keep `_engine/` alongside it.
+1. Copy the template folder (for example `media/` to `partner-name/`). Keep `engine/` alongside it.
 2. Edit `config.js`: name, logo letters, tagline, contact details, colours, display font and `tier` (1, 2 or 3).
 3. Replace the sample stories, deals, services and events with the partner's own content.
 4. Set `preview: false` to remove the package switcher, preview badge and feedback button.
@@ -23,9 +23,9 @@ Any element with `data-tier="2"` or `data-tier="3"` only shows on that package o
 ## Structure
 
 ```
-_engine/engine.css    shared layout, components, forms, tier switcher
-_engine/engine.js     config → colours/text/links, tier gating, filters, multi-step forms, countdowns, tilt
-_engine/3d/           Three.js scenes (core helper, football, globe, pass); Three.js is vendored in _engine/vendor
+engine/engine.css    shared layout, components, forms, tier switcher
+engine/engine.js     config → colours/text/links, tier gating, filters, multi-step forms, countdowns, tilt
+engine/3d/           Three.js scenes (core helper, football, globe, pass); Three.js is vendored in engine/vendor
 <template>/config.js  the only file that changes per partner
 <template>/theme.css  the template's look (type, layout, details)
 ```
