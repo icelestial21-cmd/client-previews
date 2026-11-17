@@ -1,0 +1,9 @@
+:root{--bg:#f2f0ea;--bg-2:#e8e5dc;--card:#e1ddd2;--ink:#121212;--muted:#66635c;--accent:#d4ff3a;--accent-ink:#121212;--dark:#121212;--dark-ink:#f2f0ea;--display:"Archivo Black",Impact,sans-serif;--body:"Space Grotesk",system-ui,sans-serif;--r:14px;--btn-r:999px}
+
+.h1{font-size:clamp(44px,6.2vw,90px)}
+.hero .display .em{background:var(--accent);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.studio{background:repeating-linear-gradient(0deg,transparent 0 39px,rgba(0,0,0,.05) 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,rgba(0,0,0,.05) 39px 40px),var(--card)}
+.pimg{border:1.5px solid var(--ink)}
+.btn{box-shadow:4px 4px 0 var(--ink)}.btn:hover{box-shadow:6px 6px 0 var(--ink)}
+.btn.accent{border-color:var(--ink)}
+.step3{border:1.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}

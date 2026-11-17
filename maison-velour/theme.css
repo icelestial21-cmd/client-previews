@@ -1,0 +1,13 @@
+:root{--bg:#f6eeea;--bg-2:#efe2dc;--card:#ead8d2;--ink:#2a1218;--muted:#7a6166;--accent:#c9a36a;--accent-ink:#2a1218;--dark:#2a1218;--dark-ink:#f6eeea;--display:"Italiana",Georgia,serif;--body:"Jost",system-ui,sans-serif;--r:4px;--btn-r:2px;--display-case:none;--display-track:.01em;--display-weight:400}
+
+.hero .display .em{font-style:italic;color:var(--accent)}
+.display{line-height:1.02}
+.studio{background:radial-gradient(70% 60% at 50% 40%,#fbf5f2 0%,#ead8d2 70%,#dfc4bc 100%)}
+.btn{letter-spacing:.14em;text-transform:uppercase;font-size:13px;font-weight:500;height:50px}
+.eyebrow{letter-spacing:.3em}
+.marquee{background:var(--dark);color:var(--accent)}
+.marquee div{font-size:28px}
+.step3::before{-webkit-text-stroke:0;color:var(--accent);font-family:var(--display)}
+.logo i{border-radius:50%;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--display)}
+.pimg,.studio,.coll,.step3,.band,.news{border-radius:var(--r)}
+.chip,.size,.pat,.upload,.inp,.toolbar select,.views button{border-radius:2px}
