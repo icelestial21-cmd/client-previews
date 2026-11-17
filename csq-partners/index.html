@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSQ Partner Website Templates | iCelestial</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Barlow+Condensed:ital,wght@1,800&family=Fraunces:opsz,wght@9..144,600&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_engine/engine.css">
+<style>
+  :root { --bg: #07080b; --surface: #0f1116; --accent: #00a3e0; --accent-2: #ffd100; }
+  .hub-hero { padding: 120px 0 60px; }
+  .hub-hero h1 { font-size: clamp(42px, 6vw, 84px); font-weight: 800; letter-spacing: -0.04em; max-width: 14ch; }
+  .tpls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .tpl { display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: var(--surface); transition: transform 0.4s var(--ease), border-color 0.3s; }
+  .tpl:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.3); }
+  .tpl-top { padding: 28px; min-height: 230px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .tpl-top .big { font-size: 46px; line-height: 0.95; }
+  .t-media .tpl-top { background: radial-gradient(70% 90% at 90% 0%, rgba(198,255,0,0.35), transparent 60%), #0a0b0d; }
+  .t-media .big { font-family: "Barlow Condensed"; font-style: italic; font-weight: 800; text-transform: uppercase; color: #c6ff00; }
+  .t-travel .tpl-top { background: radial-gradient(70% 90% at 90% 0%, rgba(45,212,191,0.4), transparent 60%), radial-gradient(60% 60% at 0% 100%, rgba(251,113,133,0.3), transparent 60%), #04161c; }
+  .t-travel .big { font-family: "Fraunces"; font-weight: 600; color: #f2f7f6; }
+  .t-con .tpl-top { background: radial-gradient(70% 90% at 90% 0%, rgba(201,169,110,0.4), transparent 60%), #0b0a09; }
+  .t-con .big { font-family: "Cormorant Garamond"; font-weight: 500; color: #e9d8b4; font-size: 52px; }
+  .tpl-body { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .tiers { list-style: none; padding: 0; margin: 0; }
+  .tiers li { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); font-size: 14.5px; }
+  .tiers li b { font-weight: 600; }
+  .tiers li span { color: var(--muted); }
+  .tpl .btn { margin-top: auto; width: 100%; }
+  .tag3d { position: absolute; top: 20px; right: 20px; font-family: var(--mono); font-size: 11px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,0.1); color: #fff; }
+  .steps4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: s; }
+  .steps4 > div { background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 22px; }
+  .steps4 b { font-family: var(--mono); color: var(--accent); font-size: 13px; }
+  .steps4 h3 { font-size: 18px; margin: 10px 0 6px; }
+  .steps4 p { color: var(--muted); font-size: 14.5px; margin: 0; }
+  pre { background: #0b0d12; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; overflow: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; color: #cbd5e1; }
+  @media (max-width: 1080px) { .tpls { grid-template-columns: 1fr; } .steps4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 680px) { .steps4 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+<section class="hub-hero"><div class="wrap">
+  <span class="csq-badge"><span class="csq-dot">CSQ</span><b>CSQ Partner Programmes</b> · website templates by iCelestial</span>
+  <h1 style="margin-top:28px">Three partner sites. One engine.</h1>
+  <p class="lead" style="margin-top:22px">Repeatable website templates for CSQ media partners, travel agents and concierge providers. Each one already has its CSQ API connection built in. Open a template and use the package switcher at the bottom to see what Tier 1, 2 and 3 include.</p>
+</div></section>
+
+<section class="section" style="padding-top:20px"><div class="wrap tpls">
+  <a class="tpl t-media" href="media/index.html">
+    <div class="tpl-top"><span class="tag3d">3D match ball</span><span class="chip neutral" style="width:fit-content">Media partners · Media API</span><span class="big">Touchline Times</span></div>
+    <div class="tpl-body"><p class="muted" style="margin:0">News sites whose stories flow into the CSQ Weekly Pulse.</p>
+      <ul class="tiers"><li><b>Kickoff</b><span>JMD 35,000</span></li><li><b>Prime Time</b><span>JMD 55,000</span></li><li><b>Championship</b><span>JMD 80,000</span></li></ul>
+      <span class="btn">Open media template</span></div>
+  </a>
+  <a class="tpl t-travel" href="travel/index.html">
+    <div class="tpl-top"><span class="tag3d">3D flight globe</span><span class="chip neutral" style="width:fit-content">Travel agents · Travel API</span><span class="big">Horizon Isles Travel</span></div>
+    <div class="tpl-body"><p class="muted" style="margin:0">Agency sites for flights, vacations, groups and sports trips.</p>
+      <ul class="tiers"><li><b>Boarding Pass</b><span>JMD 35,000</span></li><li><b>Business Class</b><span>JMD 55,000</span></li><li><b>First Class</b><span>JMD 80,000</span></li></ul>
+      <span class="btn">Open travel template</span></div>
+  </a>
+  <a class="tpl t-con" href="concierge/index.html">
+    <div class="tpl-top"><span class="tag3d">3D arrival pass</span><span class="chip neutral" style="width:fit-content">Concierge · Travel API</span><span class="big">Arrivée Concierge</span></div>
+    <div class="tpl-body"><p class="muted" style="margin:0">Premium arrival, VIP and event-day service sites.</p>
+      <ul class="tiers"><li><b>Welcome</b><span>JMD 35,000</span></li><li><b>Signature</b><span>JMD 55,000</span></li><li><b>VIP Concierge</b><span>JMD 80,000</span></li></ul>
+      <span class="btn">Open concierge template</span></div>
+  </a>
+</div></section>
+
+<section class="section" style="padding-top:20px"><div class="wrap">
+  <span class="eyebrow">Repeatable by design</span>
+  <h2 class="h-lg" style="margin:14px 0 36px">A new partner site in four steps</h2>
+  <div class="steps4">
+    <div><b>01</b><h3>Copy the folder</h3><p>Duplicate media, travel or concierge for the new partner.</p></div>
+    <div><b>02</b><h3>Edit config.js</h3><p>Name, logo letters, colours, fonts, contact details and package tier.</p></div>
+    <div><b>03</b><h3>Swap the content</h3><p>Replace sample stories, deals or services with the partner's own.</p></div>
+    <div><b>04</b><h3>Connect the API key</h3><p>CSQ issues the partner's key in Admin → Data Partners; we connect it and send a test.</p></div>
+  </div>
+  <pre style="margin-top:28px">// media/config.js: the only file that changes per partner
+window.SITE = {
+  template: "media",
+  tier: 2,                        // 1 Kickoff · 2 Prime Time · 3 Championship
+  name: "Partner Name",  short: "PN",
+  contact: { whatsapp: "+1 876 …", email: "…" },
+  colors: { bg: "#0a0b0d", accent: "#c6ff00", "accent-2": "#ff4d3d" },
+  preview: false                  // hides the package switcher on the live site
+};</pre>
+  <p class="muted" style="margin-top:18px;font-size:14px">All brands, stories, deals, events and prices shown in the templates are samples. Live airline search (GDS), payment gateways, domains and hosting are separate, as set out in the CSQ Partner Programmes proposal.</p>
+</div></section>
+</main>
+<footer class="footer" style="padding-bottom:40px"><div class="wrap footer-bottom" style="margin-top:0;border:0;padding-top:0"><span>CSQ Partner Programmes · website templates</span><span>Built by iCelestial</span></div></footer>
+</body>
+</html>
