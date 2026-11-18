@@ -1,0 +1,19 @@
+/* Volt & Vale Motors theme. Reference lock: Lightship (Refero): chalky cream canvas, regular-weight grotesk, deep teal stages, vermilion as a rare accent. */
+
+:root{--bg:#f6f3ec;--surface:#ffffff;--surface2:#ebe6db;--ink:#101413;--muted:#5d6461;--line:rgba(16,20,19,.12);
+--accent:#fa5c40;--accent-ink:#fff;--accent2:#29525e;--radius:16px;--radius-lg:28px;
+--font-d:'Outfit',system-ui,sans-serif;--font-b:'Outfit',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:500;--d-track:-.035em;--d-lh:.98;--thumb-bg:linear-gradient(180deg,#fff,#ebe6db)}
+.hero{background:linear-gradient(180deg,#f6f3ec 0%,#e8efe9 100%)}
+.stage{background:radial-gradient(80% 70% at 50% 65%,#ffffff 0%,#dfe8e3 70%)}
+.sec.dark{background:#29525e}
+.calc-out{background:#29525e}
+.savings{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.savings .card{padding:20px}
+.savings b{font-family:var(--font-d);font-size:clamp(28px,3vw,40px);font-weight:600;letter-spacing:-.03em}
+.track{display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:t}
+.track div{border-top:3px solid rgba(255,255,255,.25);padding:18px 14px 0 0;display:grid;gap:6px}
+.track div.on{border-color:#fa5c40}
+.track b{font-weight:600}
+.track span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.track{grid-template-columns:1fr}.track div{padding:14px 0}}

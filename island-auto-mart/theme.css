@@ -1,0 +1,16 @@
+/* Island Auto Mart theme. Reference lock: teenage engineering (Refero): pale grey paper, black technical type, signal orange only for signals; spec-sheet labels. */
+
+:root{--bg:#f2f3f1;--surface:#ffffff;--surface2:#e6e7e4;--ink:#000;--muted:#55575a;--line:rgba(0,0,0,.14);
+--accent:#ff5000;--accent-ink:#fff;--accent2:#0f0e12;--radius:6px;--radius-lg:10px;
+--font-d:'Space Grotesk',system-ui,sans-serif;--font-b:'Space Grotesk',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:700;--d-track:-.045em;--d-lh:.9;--h1:clamp(52px,8.4vw,128px);--thumb-bg:#e9eae7}
+.btn{border-radius:6px}
+.hero .h1 em{font-style:normal;color:var(--accent)}
+.stage{background:repeating-linear-gradient(0deg,transparent 0 39px,rgba(0,0,0,.06) 39px 40px),repeating-linear-gradient(90deg,transparent 0 39px,rgba(0,0,0,.06) 39px 40px),#e9eae7;border:1px solid var(--line)}
+.stage-tag{color:#000}
+.card{border-radius:10px;background:#fff}
+.vcard{border-radius:10px;background:#fff}
+.vprice b{color:#000}
+.budget{background:#0f0e12;color:#fff;border-radius:10px;padding:clamp(22px,3vw,34px);display:grid;gap:18px}
+.budget .rng-top output{font-size:34px}
+.cta-band{border-radius:10px}
