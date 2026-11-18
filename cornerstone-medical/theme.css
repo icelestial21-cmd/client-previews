@@ -1,0 +1,16 @@
+/* Cornerstone Medical Centre theme. Reference lock: Ease Health (Refero): warm cream, forest-green serif headlines, leaf-green blocks and dusty blue stages, humane and calm. */
+
+:root{--bg:#fffefc;--surface:#f3f8f1;--surface2:#e1f4df;--ink:#0f3e17;--muted:#4f6a53;--line:rgba(15,62,23,.13);
+--accent:#0f3e17;--accent-ink:#fffefc;--accent2:#0f3e17;--radius:16px;--radius-lg:26px;
+--font-d:'Fraunces',Georgia,serif;--font-b:'DM Sans',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:500;--d-track:-.02em;--d-lh:1.02;--h1:clamp(46px,6.6vw,96px)}
+.eyebrow::before{background:#7cc488}
+.hero{background:linear-gradient(180deg,#fffefc 0%,#f3f8f1 100%)}
+.stage{background:radial-gradient(70% 70% at 50% 50%,#e1f4df 0%,#cfe2e7 100%)}
+.sec.leaf{background:#e1f4df}
+.sec.dusty{background:#dbe8ec}
+.card{background:#fff}
+.calc-out{background:#0f3e17}
+.cta-band{background:#b1dbb8;color:#0f3e17}
+.cta-band .btn{background:#0f3e17;color:#fffefc}
+.h1 em,.h2 em{font-style:italic;font-weight:600}

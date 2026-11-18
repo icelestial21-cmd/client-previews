@@ -134,7 +134,7 @@
       $$("[data-eg]", box).forEach(function (g) { var on = $(".opt.on", g); if (!on) return; mult *= +(on.dataset.mult || 1); add += +(on.dataset.add || 0); });
       $$("[data-ex].on", box).forEach(function (x) { add += +x.dataset.add; });
       var mid = n * E.base.rate * mult + add, lo = mid * (1 - (E.spread || 0.12)), hi = mid * (1 + (E.spread || 0.12));
-      $("[data-o=size]", box).textContent = n.toLocaleString() + " " + E.base.unit;
+      $("[data-o=size]", box).textContent = n.toLocaleString() + " " + (n === 1 && E.base.unit1 ? E.base.unit1 : E.base.unit);
       $("[data-o=range]", box).textContent = money(lo) + " – " + money(hi);
       var w = $("[data-o=weeks]", box); if (w) w.textContent = Math.max(2, Math.round(n / (E.base.pace || 120) * mult)) + "–" + Math.max(3, Math.round(n / (E.base.pace || 120) * mult * 1.3)) + " weeks";
       var d = $("[data-o=dep]", box); if (d) d.textContent = money(mid * (E.deposit || 0.3));

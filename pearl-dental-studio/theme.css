@@ -1,0 +1,17 @@
+/* Pearl Dental Studio theme. Reference lock: Radial (Refero): buttercream, powder blue and apricot, light neo-grotesk, concentric ripple artwork, broad rounded shells. */
+
+:root{--bg:#fefbed;--surface:#f6efd9;--surface2:#efe4c6;--ink:#3b3127;--muted:#7a6c5c;--line:rgba(98,85,67,.16);
+--accent:#625543;--accent-ink:#fefbed;--accent2:#625543;--radius:22px;--radius-lg:36px;
+--font-d:'Jost',system-ui,sans-serif;--font-b:'Jost',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:400;--d-track:-.03em;--d-lh:1.02;--h1:clamp(48px,7vw,104px)}
+.eyebrow::before{background:#f2b27a}
+.hero{background:radial-gradient(60% 70% at 78% 50%,#c8d9f5 0%,rgba(200,217,245,0) 70%)}
+.stage{background:repeating-radial-gradient(circle at 50% 55%,rgba(255,255,255,.0) 0 26px,rgba(255,255,255,.45) 27px 28px),radial-gradient(circle at 50% 55%,#dbe6f8 0%,#c8d9f5 60%,#ddc8e2 100%);border-radius:48px}
+.sec.blue{background:#c8d9f5}
+.sec.peach{background:#f9e2bd}
+.card{background:rgba(255,255,255,.55);border-color:rgba(98,85,67,.1)}
+.calc-out{background:#625543}
+.calc-out .btn{background:#f9e2bd;color:#3b3127}
+.cta-band{background:#c8d9f5;color:#3b3127}
+.cta-band .btn{background:#625543;color:#fefbed}
+.ripple{position:absolute;width:520px;height:520px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(242,178,122,.35) 0 2px,transparent 3px 22px);right:-160px;top:-160px;pointer-events:none;opacity:.6}

@@ -1,0 +1,16 @@
+/* Meridian Private Practice theme. Reference lock: Biograph (Refero): private-hospitality feel, white and pale grey with charcoal chapters, regular geometric grotesk, one rare serif quote, information blue. */
+
+:root{--bg:#ffffff;--surface:#f4f5f7;--surface2:#e8eaee;--ink:#27272c;--muted:#686a73;--line:rgba(39,39,44,.1);
+--accent:#161719;--accent-ink:#fff;--accent2:#161719;--radius:14px;--radius-lg:22px;
+--font-d:'Manrope',system-ui,sans-serif;--font-b:'Manrope',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:500;--d-track:-.035em;--d-lh:1.02;--h1:clamp(46px,6.6vw,96px)}
+.eyebrow::before{background:#0095ff}
+.hero{background:linear-gradient(180deg,#fff 0%,#f4f5f7 100%)}
+.stage{background:radial-gradient(70% 70% at 50% 50%,#ffffff 0%,#eef1f5 70%);border:1px solid var(--line)}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,3.6vw,52px);line-height:1.15;letter-spacing:-.01em;margin:0;max-width:22ch}
+.blue{color:#0095ff}
+.slot.on{background:#0095ff;border-color:#0095ff;color:#fff}
+.btn:hover{box-shadow:0 10px 30px -12px rgba(0,149,255,.6)}
+.plan.hot .btn{background:#0095ff;color:#fff}
+.cta-band{background:#161719;color:#fff}
+.cta-band .btn{background:#0095ff;color:#fff}
