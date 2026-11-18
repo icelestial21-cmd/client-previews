@@ -1,0 +1,13 @@
+/* Groundwork Civil theme. Reference lock: Agility Robotics + T1 Energy (Refero): warm stone canvas, charcoal regular grotesk, small mono equipment labels, broad stages. MMS brand blue as the single accent. Structure: MMS Construction. */
+
+:root{--bg:#f0eeeb;--surface:#e7e4df;--surface2:#dcd8d1;--ink:#292827;--muted:#66625c;--line:rgba(41,40,39,.14);
+--accent:#0072ce;--accent-ink:#fff;--accent2:#292827;--radius:8px;--radius-lg:14px;
+--font-d:'DM Sans',system-ui,sans-serif;--font-b:'DM Sans',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:500;--d-track:-.035em;--d-lh:1;--h1:clamp(48px,7vw,104px)}
+.hero{background:linear-gradient(180deg,#f0eeeb,#e7e4df)}
+.stage{background:linear-gradient(180deg,#f7f5f1 0%,#e2ddd4 100%);border:1px solid var(--line)}
+.card{background:#f7f5f1}
+.sec.dark{background:#292827}
+.label-row{display:flex;gap:18px;flex-wrap:wrap;font:500 11px var(--font-m);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cta-band{background:#292827;color:#f0eeeb}
+.cta-band .btn{background:#0072ce;color:#fff}

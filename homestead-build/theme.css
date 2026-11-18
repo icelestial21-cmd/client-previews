@@ -1,0 +1,21 @@
+/* Homestead Build & Renovate theme. Reference lock: Eindhoven Design District (Refero): black grotesk as architecture, white space, electric blue, bubblegum pink and signal red used like civic posters. Structure: MMS Construction. */
+
+:root{--bg:#ffffff;--surface:#f4f4f4;--surface2:#e9e9e9;--ink:#000;--muted:#4d4d4d;--line:rgba(0,0,0,.14);
+--accent:#0f26ed;--accent-ink:#fff;--accent2:#000;--radius:0px;--radius-lg:0px;
+--font-d:'Archivo Black',system-ui,sans-serif;--font-b:'DM Sans',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:400;--d-track:-.04em;--d-lh:.9;--h1:clamp(54px,8.4vw,130px);--h2:clamp(38px,5vw,74px)}
+.btn{border-radius:0}
+.hero{background:#fff}
+.stage{background:#ffc2eb}
+.sec.pink{background:#ffc2eb}
+.sec.blue{background:#0f26ed;color:#fff;--ink:#fff;--muted:rgba(255,255,255,.75);--line:rgba(255,255,255,.25);--surface:rgba(255,255,255,.08)}
+.card{border:2px solid #000;background:#fff}
+.sec.blue .card{background:#0f26ed;border-color:#fff}
+.calc,.stepper,.vcard{border:2px solid #000}
+.calc-out{background:#000}
+.cta-band{background:#ff0000}
+.cta-band .btn{background:#fff;color:#000}
+.logo-mark{border-radius:0}
+.seg{border-radius:0}.seg button{border-radius:0}
+.chip{border-radius:0}
+.eyebrow::before{border-radius:0;background:#ff0000}

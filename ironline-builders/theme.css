@@ -1,0 +1,15 @@
+/* Ironline Builders theme. Reference lock: SpaceX (Refero): black ground, narrow industrial capitals, cool white text, almost no colour. Hazard amber carried over from MMS Construction as the single signal. Structure: MMS Construction. */
+
+:root{--bg:#0b0d12;--surface:#141821;--surface2:#1d2330;--ink:#f0f0fa;--muted:#9ba4b5;--line:rgba(240,240,250,.12);
+--accent:#ffb800;--accent-ink:#0b0d12;--accent2:#000;--radius:4px;--radius-lg:6px;
+--font-d:'Barlow Condensed',system-ui,sans-serif;--font-b:'Barlow',system-ui,sans-serif;--font-m:'JetBrains Mono',monospace;
+--d-weight:700;--d-case:uppercase;--d-track:.01em;--d-lh:.92;--h1:clamp(56px,8.6vw,132px);--h2:clamp(40px,5.2vw,78px)}
+.btn{border-radius:2px;text-transform:uppercase;letter-spacing:.08em;font-size:14px}
+.btn.ghost{color:#fff}
+.hero{background:radial-gradient(60% 70% at 72% 55%,#1d2330 0%,#0b0d12 70%)}
+@media (min-width:901px){.stage{height:min(76vh,720px)}}
+.hazard{height:10px;background:repeating-linear-gradient(135deg,#ffb800 0 18px,#0b0d12 18px 36px)}
+.calc-out{background:#000;border-left:1px solid var(--line)}
+.sec.light{background:#f0f0fa;color:#0b0d12;--ink:#0b0d12;--muted:#4b5262;--line:rgba(0,0,0,.12);--surface:#fff;--surface2:#e3e5ec}
+.cta-band{border-radius:4px}
+.seg button.on{background:#ffb800;color:#000}

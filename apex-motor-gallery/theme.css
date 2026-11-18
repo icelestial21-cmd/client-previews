@@ -8,7 +8,7 @@
 .btn.ghost{color:#fff}
 .hero{background:radial-gradient(70% 60% at 70% 55%,#26262a 0%,#0a0a0b 70%)}
 @media (min-width:901px){.hero .wrap{grid-template-columns:.9fr 1.1fr}}
-.stage{height:min(74vh,700px)}
+@media (min-width:901px){.stage{height:min(74vh,700px)}}
 .sec.light{background:#f4f4f1;color:#0a0a0b;--ink:#0a0a0b;--muted:#5c5c60;--line:rgba(0,0,0,.12);--surface:#fff;--surface2:#ececea}
 .calc-out{background:#000}
 .card{background:transparent}
