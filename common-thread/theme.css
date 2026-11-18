@@ -1,0 +1,12 @@
+:root{--bg:#fafaf8;--bg-2:#f0f0ec;--card:#ebebe5;--surface:#ffffff;--ink:#0b0b0b;--muted:#6b6b66;--accent:#2b4bff;--accent-ink:#ffffff;--dark:#0b0b0b;--dark-ink:#fafaf8;--display:"Syne",system-ui,sans-serif;--body:"DM Sans",system-ui,sans-serif;--r:8px;--btn-r:8px;--display-case:none;--display-track:-.035em;--display-weight:700;--sale:#e0412b}
+
+.hero .display .em{color:var(--accent)}
+.studio{background:var(--card)}
+.studio-badge::before{background:var(--accent)}
+.marquee{background:var(--ink);color:var(--bg)}
+.marquee div{font-size:22px}
+.pimg{border-radius:var(--r)}
+.step3::before{-webkit-text-stroke:0;color:var(--accent)}
+.nav .logo i{background:var(--ink);color:var(--bg);border-radius:50%}
+.news{background:var(--accent);color:#fff}
+.news .btn{background:var(--ink);border-color:var(--ink)}

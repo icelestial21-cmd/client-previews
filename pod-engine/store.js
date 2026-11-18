@@ -192,8 +192,24 @@
     if (q) { var c = load(), k = +q.dataset.q; c[k].qty += +q.dataset.d; if (c[k].qty <= 0) c.splice(k, 1); save(c); }
     if (e.target.closest("[data-cart-open]")) { e.preventDefault(); document.body.classList.add("cart-open"); }
     if (e.target.closest("[data-cart-close]")) document.body.classList.remove("cart-open");
+    var lk = e.target.closest("[data-look]");
+    if (lk) {
+      var c0 = load(), off = parseFloat(lk.dataset.off || "0");
+      lk.dataset.look.split(",").forEach(function (id) { var lp = byId(id); if (!lp) return; c0.push({ id: lp.id, name: lp.name, price: Math.round(lp.price * (1 - off) * 100) / 100, qty: 1, thumb: mockup(design(lp), S.kind, 160).toDataURL("image/png"), opts: [lp.colors[0].name, "Size " + (S.lookSize || "M"), "The look"].join(" · ") }); });
+      save(c0); document.body.classList.add("cart-open");
+    }
     if (e.target.closest("[data-checkout]")) { e.preventDefault(); var m = document.querySelector(".checkout-note"); if (m) m.classList.add("on"); }
   });
+  var WKEY = "pod-wish-" + (S.short || "store"), wish = [];
+  try { wish = JSON.parse(localStorage.getItem(WKEY) || "[]"); } catch (e) {}
+  function paintWish() { document.querySelectorAll("[data-wish]").forEach(function (b) { b.classList.toggle("on", wish.indexOf(b.dataset.wish) >= 0); }); var wc = document.querySelector("[data-wish-count]"); if (wc) { wc.textContent = wish.length; wc.classList.toggle("on", wish.length > 0); } }
+  document.addEventListener("click", function (e) {
+    var w = e.target.closest("[data-wish]"); if (!w) return;
+    e.preventDefault(); e.stopPropagation();
+    var i = wish.indexOf(w.dataset.wish); if (i >= 0) wish.splice(i, 1); else wish.push(w.dataset.wish);
+    try { localStorage.setItem(WKEY, JSON.stringify(wish)); } catch (er) {}
+    paintWish();
+  }, true);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") document.body.classList.remove("cart-open"); });
 
   // ---------- nav ----------
@@ -212,9 +228,9 @@
   // ---------- product cards ----------
   function card(p) {
     var d = design(p);
-    return '<a class="pcard" href="product.html?id=' + p.id + '" data-col="' + p.collection + '" data-price="' + p.price + '">' +
-      '<div class="pimg" style="--cb:' + (p.cardBg || "var(--card)") + '"><canvas data-mock="' + p.id + '" width="520" height="520" aria-label="' + p.name + ' mockup" role="img"></canvas>' + (p.tag ? '<span class="ptag">' + p.tag + '</span>' : "") + '<span class="pquick">Customise</span></div>' +
-      '<div class="pinfo"><div><b>' + p.name + '</b><span>' + (p.sub || "") + '</span></div><b class="pprice">' + money(p.price) + '</b></div>' +
+    return '<a class="pcard" href="product.html?id=' + p.id + '" data-col="' + p.collection + '" data-price="' + p.price + '"' + (p.compareAt ? ' data-sale="1"' : '') + '>' +
+      '<div class="pimg" style="--cb:' + (p.cardBg || "var(--card)") + '"><canvas data-mock="' + p.id + '" width="520" height="520" aria-label="' + p.name + ' mockup" role="img"></canvas>' + (p.tag ? '<span class="ptag' + (p.compareAt ? ' sale' : '') + '">' + p.tag + '</span>' : "") + (S.mode === "retail" ? '<button type="button" class="wish" aria-label="Save ' + p.name + '" data-wish="' + p.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></button>' : '') + '<span class="pquick">' + (S.quickLabel || "Customise") + '</span></div>' +
+      '<div class="pinfo"><div><b>' + p.name + '</b><span>' + (p.sub || "") + '</span></div><b class="pprice">' + (p.compareAt ? '<s>' + money(p.compareAt) + '</s> ' : '') + money(p.price) + '</b></div>' +
       '<div class="pswatch">' + p.colors.slice(0, 5).map(function (c) { return '<i style="background:' + c.hex + '" title="' + c.name + '"></i>'; }).join("") + '</div></a>';
   }
   function drawMocks(scope) {
@@ -227,6 +243,7 @@
     var list = products.slice();
     var lim = parseInt(g.dataset.limit || "0", 10);
     if (g.dataset.grid === "featured") list = list.filter(function (p) { return p.featured; });
+    if (g.dataset.grid === "rest") list = list.filter(function (p) { return !p.featured; });
     if (lim) list = list.slice(0, lim);
     g.innerHTML = list.map(card).join("");
   });
@@ -238,11 +255,11 @@
       var f = (fbar.querySelector(".chip.on") || {}).dataset || {}, col = f.f || "all";
       var sort = (document.querySelector("[data-sort]") || {}).value || "featured";
       var cards = Array.prototype.slice.call(grid.children);
-      cards.forEach(function (cd) { cd.style.display = col === "all" || cd.dataset.col === col ? "" : "none"; });
+      cards.forEach(function (cd) { cd.style.display = col === "all" || cd.dataset.col === col || (col === "sale" && cd.dataset.sale) ? "" : "none"; });
       cards.sort(function (a, b) { return sort === "low" ? a.dataset.price - b.dataset.price : sort === "high" ? b.dataset.price - a.dataset.price : 0; });
       if (sort !== "featured") cards.forEach(function (cd) { grid.appendChild(cd); });
       var n = cards.filter(function (cd) { return cd.style.display !== "none"; }).length;
-      var cnt = document.querySelector("[data-count]"); if (cnt) cnt.textContent = n + (n === 1 ? " design" : " designs");
+      var cnt = document.querySelector("[data-count]"); if (cnt) cnt.textContent = n + (S.mode === "retail" ? (n === 1 ? " product" : " products") : (n === 1 ? " design" : " designs"));
     };
     fbar.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (!b) return; fbar.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("on", x === b); }); apply(); });
     var so = document.querySelector("[data-sort]"); if (so) so.addEventListener("change", apply);
@@ -279,13 +296,16 @@
     var studio = document.querySelector("[data-studio='product']");
     document.title = p.name + " | " + S.name;
     var setText = function (sel, v) { document.querySelectorAll(sel).forEach(function (e) { e.textContent = v; }); };
-    setText("[data-p-name]", p.name); setText("[data-p-sub]", p.sub || ""); setText("[data-p-desc]", p.desc || "");
+    setText("[data-p-name]", p.name);
+    setText("[data-p-compare]", p.compareAt ? money(p.compareAt) : "");
+    var stk = document.querySelector("[data-stock]");
+    if (stk && p.stock != null) { stk.textContent = p.stock <= 5 ? "Only " + p.stock + " left. Order soon." : "In stock, ready to ship"; stk.classList.toggle("low", p.stock <= 5); } setText("[data-p-sub]", p.sub || ""); setText("[data-p-desc]", p.desc || "");
     var price = function () { return p.price + (art ? (S.artFee || 0) : 0) + (st.text && st.text !== (p.text || "") ? (S.textFee || 0) : 0); };
     var refresh = function () {
       setText("[data-p-price]", money(price()));
       studio.podPush(st); studio.podFallback(st);
       var sum = document.querySelector("[data-summary]");
-      if (sum) sum.textContent = [pickName("[data-colors]"), PATTERN_NAMES[st.pattern], size ? "Size " + size : null, art ? "Your artwork" : null, st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ");
+      if (sum) sum.textContent = [pickName("[data-colors]"), S.mode === "retail" ? null : PATTERN_NAMES[st.pattern], size ? "Size " + size : null, art ? "Your artwork" : null, S.mode !== "retail" && st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ");
     };
     var pickName = function (sel) { var b = form.querySelector(sel + " .on"); return b ? b.getAttribute("aria-label") : ""; };
     // colours
@@ -294,14 +314,17 @@
     cbox.addEventListener("click", function (e) { var b = e.target.closest(".sw"); if (!b) return; cbox.querySelectorAll(".sw").forEach(function (x) { x.classList.toggle("on", x === b); }); st.base = b.dataset.hex; if (b.dataset.tc) { st.textColor = b.dataset.tc; syncInk(); } setText("[data-color-name]", b.getAttribute("aria-label")); refresh(); });
     setText("[data-color-name]", p.colors[0].name);
     // patterns / prints
+    var syncInk = function () {};
     var pbox = form.querySelector("[data-patterns]");
     var pats = p.patterns || S.patterns || ["solid"];
+    if (pbox) {
     if (pats.indexOf(st.pattern) < 0) pats.unshift(st.pattern);
     pbox.innerHTML = pats.map(function (k) {
       var cv = mockup(design(p, { pattern: k, text: "", base: p.colors[0].hex }), "silk", 96);
       return '<button type="button" class="pat' + (k === st.pattern ? " on" : "") + '" data-pat="' + k + '"><img src="' + cv.toDataURL() + '" alt=""><span>' + PATTERN_NAMES[k] + '</span></button>';
     }).join("");
     pbox.addEventListener("click", function (e) { var b = e.target.closest(".pat"); if (!b) return; pbox.querySelectorAll(".pat").forEach(function (x) { x.classList.toggle("on", x === b); }); st.pattern = b.dataset.pat; refresh(); });
+    }
     // accent colour for prints
     var abox = form.querySelector("[data-accents]");
     if (abox) {
@@ -310,6 +333,7 @@
     }
     // artwork upload (stays in the browser)
     var up = form.querySelector("[data-upload]"), upn = form.querySelector("[data-upload-name]"), clr = form.querySelector("[data-upload-clear]");
+    if (up) {
     up.addEventListener("change", function () {
       var f = up.files && up.files[0]; if (!f) return;
       if (!/^image\//.test(f.type)) { upn.textContent = "Please choose an image (PNG, JPG or SVG)"; return; }
@@ -318,10 +342,11 @@
       im.src = url;
     });
     clr.addEventListener("click", function () { art = null; st.art = null; up.value = ""; upn.textContent = "PNG, JPG or SVG · transparent PNG prints best"; clr.hidden = true; refresh(); });
+    }
     // text
-    var ti = form.querySelector("[data-text]"), ink = form.querySelector("[data-ink]");
-    ti.value = st.text; ti.addEventListener("input", function () { st.text = ti.value.slice(0, 40); refresh(); });
-    var syncInk = function () { if (!ink) return; ink.querySelectorAll(".sw").forEach(function (x) { x.classList.toggle("on", x.dataset.hex === st.textColor); }); };
+    var ti = form.querySelector("input[data-text]"), ink = form.querySelector("[data-ink]");
+    if (ti) { ti.value = st.text; ti.addEventListener("input", function () { st.text = ti.value.slice(0, 40); refresh(); }); }
+    syncInk = function () { if (!ink) return; ink.querySelectorAll(".sw").forEach(function (x) { x.classList.toggle("on", x.dataset.hex === st.textColor); }); };
     if (ink) {
       ink.innerHTML = (S.inks || ["#111111", "#ffffff"]).map(function (h) { return '<button type="button" class="sw sm" style="--c:' + h + '" aria-label="Text colour ' + h + '" data-hex="' + h + '"></button>'; }).join("");
       ink.addEventListener("click", function (e) { var b = e.target.closest(".sw"); if (!b) return; st.textColor = b.dataset.hex; syncInk(); refresh(); });
@@ -341,7 +366,7 @@
       if (!size) { sbox.classList.add("need"); sbox.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
       var thumb = mockup(Object.assign({}, st), S.kind, 160).toDataURL("image/png");
       var c = load();
-      c.push({ id: p.id, name: p.name, price: price(), qty: 1, thumb: thumb, opts: [pickName("[data-colors]"), PATTERN_NAMES[st.pattern], size, art ? "Custom art" : null, st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ") });
+      c.push({ id: p.id, name: p.name, price: price(), qty: 1, thumb: thumb, opts: [pickName("[data-colors]"), S.mode === "retail" ? null : PATTERN_NAMES[st.pattern], size, art ? "Custom art" : null, S.mode !== "retail" && st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ") });
       save(c); document.body.classList.add("cart-open");
     });
     refresh();
@@ -350,7 +375,7 @@
     if (rel) rel.innerHTML = products.filter(function (x) { return x.id !== p.id; }).slice(0, 4).map(card).join("");
   }
 
-  drawMocks();
+  drawMocks(); paintWish();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawMocks(); });
   renderCart();
 
@@ -362,7 +387,7 @@
   // ---------- preview chrome ----------
   var badge = document.createElement("span");
   badge.className = "preview-tag";
-  badge.innerHTML = "<b>Shopify template preview</b> · sample brand · iCelestial";
+  badge.innerHTML = "<b>" + (S.badge || "Shopify template preview") + "</b> · sample brand · iCelestial";
   document.body.appendChild(badge);
   var fb = document.createElement("a");
   fb.className = "feedback"; fb.target = "_blank"; fb.rel = "noopener";

@@ -1,0 +1,11 @@
+:root{--bg:#fbf6ea;--bg-2:#f4ecd9;--card:#f6e7bd;--surface:#ffffff;--ink:#14207a;--muted:#5a6190;--accent:#ffcf3a;--accent-ink:#14207a;--dark:#1b2ccf;--dark-ink:#fbf6ea;--display:"Outfit",system-ui,sans-serif;--body:"DM Sans",system-ui,sans-serif;--r:20px;--btn-r:999px;--display-case:uppercase;--display-track:-.02em;--display-weight:800;--sale:#e0412b}
+
+.h1{font-size:clamp(46px,7vw,108px)}
+.hero .display .em{color:var(--dark);-webkit-text-stroke:0}
+.studio{background:radial-gradient(70% 60% at 50% 35%,#fff7da 0%,#ffe48a 55%,#ffcf3a 100%)}
+.marquee{background:var(--dark);color:var(--accent)}
+.studio-badge{background:var(--dark)}
+.nav .logo i{background:var(--dark);color:var(--accent);font-size:11px}
+.look-hero{background:var(--dark)}
+.news{background:var(--dark);color:var(--dark-ink)}
+.news .btn{background:var(--accent);color:var(--ink);border-color:var(--accent)}
