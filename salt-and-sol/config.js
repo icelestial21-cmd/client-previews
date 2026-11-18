@@ -223,5 +223,7 @@ window.STORE = {
  "quickLabel": "Quick view",
  "badge": "Shopify store template preview",
  "artFee": 0,
- "textFee": 0
+ "textFee": 0,
+ "emptyArt": "../pod-engine/peeps/cheers.svg",
+ "emptyText": "Your bag is empty. The sun is waiting."
 };

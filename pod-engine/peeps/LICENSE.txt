@@ -1,0 +1,2 @@
+Open Peeps illustrations by Pablo Stanley (openpeeps.com), released under CC0.
+Rendered from the @opeepsfun/open-peeps npm package (MIT, Emre Cakir).

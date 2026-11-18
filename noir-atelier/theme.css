@@ -26,3 +26,12 @@
 .sw{box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .sw.on{box-shadow:0 0 0 2px var(--accent)}
 .free::after{background:linear-gradient(90deg,var(--accent) calc(var(--p,0)*100%),var(--bg-2) 0)}
+
+:root{--label-font:"JetBrains Mono",ui-monospace,monospace}
+body{font-weight:300}
+.eyebrow{font-size:11px;letter-spacing:.24em}
+.ptag,.chip,.crumbs{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pimg{border:1px solid var(--line)}
+.pinfo b{font-weight:400}
+.cust h1{font-weight:400}
+.hero .ctas{align-items:center}

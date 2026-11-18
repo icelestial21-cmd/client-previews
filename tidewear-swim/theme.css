@@ -1,6 +1,6 @@
 :root{--bg:#f7f1e8;--bg-2:#efe6d8;--card:#e7f0ee;--ink:#0e2a2f;--muted:#5d6e70;--accent:#ff7a59;--accent-ink:#ffffff;--dark:#0e3a40;--dark-ink:#f7f1e8;--display:"Fraunces",Georgia,serif;--body:"Manrope",system-ui,sans-serif;--r:22px;--btn-r:999px;--display-case:none;--display-track:-.02em;--display-weight:600}
 
-.h1{font-size:clamp(46px,6.4vw,92px)}
+.h1{font-size:clamp(44px,5.6vw,80px)}
 .hero .display .em{font-style:italic;color:var(--accent)}
 .studio{background:radial-gradient(70% 60% at 50% 35%,#ffffff 0%,#e7f0ee 60%,#d3e7e3 100%)}
 .studio::after{content:"";position:absolute;inset:auto -10% -40% -10%;height:60%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,122,89,.18),transparent 70%);z-index:-1}
@@ -8,3 +8,10 @@
 .marquee div{font-style:italic}
 .step3::before{-webkit-text-stroke:0;color:var(--accent);font-style:italic}
 .coll{border-radius:28px}
+
+:root{--lumen:linear-gradient(90deg,#e94f3d 0%,#ff7a59 45%,#ffb36b 100%);--lumen-glow:rgba(255,122,89,.4)}
+.display{font-variation-settings:"opsz" 144;font-weight:700}
+#how .wrap{background:var(--card);border-radius:36px;padding:clamp(30px,5vw,64px)}
+#how .step3{background:var(--bg);border:0}
+.pimg{border-radius:28px}
+.values div{border-top:0;background:var(--surface);border-radius:24px;padding:24px}

@@ -222,5 +222,7 @@ window.STORE = {
  "badge": "Shopify store template preview",
  "artFee": 0,
  "textFee": 0,
- "caps": false
+ "caps": false,
+ "emptyText": "Your bag is empty. Discover the collection.",
+ "emptyCta": "Discover"
 };

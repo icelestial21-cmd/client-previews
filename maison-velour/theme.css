@@ -11,3 +11,12 @@
 .logo i{border-radius:50%;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--display)}
 .pimg,.studio,.coll,.step3,.band,.news{border-radius:var(--r)}
 .chip,.size,.pat,.upload,.inp,.toolbar select,.views button{border-radius:2px}
+
+:root{--lumen:linear-gradient(90deg,#6e4f24 0%,#b48a4f 45%,#e3c88f 100%);--lumen-glow:rgba(180,138,79,.35);--lumen-ink:#2a1218}
+.sec+.sec .wrap{border-top:1px solid var(--line);padding-top:clamp(50px,7vw,90px)}
+.sec{padding:clamp(50px,7vw,90px) 0}
+.grid{counter-reset:plate}
+.pcard{counter-increment:plate}
+.pinfo b::before{content:"Pl. " counter(plate, decimal-leading-zero) "  ";font-family:var(--body);font-size:11px;letter-spacing:.2em;color:var(--accent);display:block;margin-bottom:4px}
+.pimg{border:1px solid var(--line)}
+.btn.lumen{letter-spacing:.16em}

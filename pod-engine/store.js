@@ -178,7 +178,7 @@
     var c = load(), n = cartCount(c);
     document.querySelectorAll("[data-cart-count]").forEach(function (el) { el.textContent = n; el.classList.toggle("on", n > 0); });
     var list = document.querySelector("[data-cart-list]"); if (!list) return;
-    if (!c.length) { list.innerHTML = '<p class="cart-empty">Your bag is empty. Design something you love.</p>'; }
+    if (!c.length) { list.innerHTML = '<div class="cart-empty">' + (S.emptyArt ? '<img src="' + S.emptyArt + '" alt="" loading="lazy">' : '') + '<p>' + (S.emptyText || "Your bag is empty. Design something you love.") + '</p><a class="btn ghost" href="shop.html">' + (S.emptyCta || "Start shopping") + '</a></div>'; }
     else list.innerHTML = c.map(function (i, k) {
       return '<div class="cart-item"><img src="' + i.thumb + '" alt=""><div><b>' + i.name + '</b><span>' + i.opts + '</span><div class="qty"><button type="button" data-q="' + k + '" data-d="-1" aria-label="Fewer">−</button><span>' + i.qty + '</span><button type="button" data-q="' + k + '" data-d="1" aria-label="More">+</button></div></div><b class="cart-price">' + money(i.price * i.qty) + '</b></div>';
     }).join("");
@@ -206,7 +206,7 @@
   document.addEventListener("click", function (e) {
     var w = e.target.closest("[data-wish]"); if (!w) return;
     e.preventDefault(); e.stopPropagation();
-    var i = wish.indexOf(w.dataset.wish); if (i >= 0) wish.splice(i, 1); else wish.push(w.dataset.wish);
+    var i = wish.indexOf(w.dataset.wish); if (i >= 0) wish.splice(i, 1); else { wish.push(w.dataset.wish); w.classList.remove("pop"); void w.offsetWidth; w.classList.add("pop"); }
     try { localStorage.setItem(WKEY, JSON.stringify(wish)); } catch (er) {}
     paintWish();
   }, true);
@@ -230,7 +230,7 @@
     var d = design(p);
     return '<a class="pcard" href="product.html?id=' + p.id + '" data-col="' + p.collection + '" data-price="' + p.price + '"' + (p.compareAt ? ' data-sale="1"' : '') + '>' +
       '<div class="pimg" style="--cb:' + (p.cardBg || "var(--card)") + '"><canvas data-mock="' + p.id + '" width="520" height="520" aria-label="' + p.name + ' mockup" role="img"></canvas>' + (p.tag ? '<span class="ptag' + (p.compareAt ? ' sale' : '') + '">' + p.tag + '</span>' : "") + (S.mode === "retail" ? '<button type="button" class="wish" aria-label="Save ' + p.name + '" data-wish="' + p.id + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></button>' : '') + '<span class="pquick">' + (S.quickLabel || "Customise") + '</span></div>' +
-      '<div class="pinfo"><div><b>' + p.name + '</b><span>' + (p.sub || "") + '</span></div><b class="pprice">' + (p.compareAt ? '<s>' + money(p.compareAt) + '</s> ' : '') + money(p.price) + '</b></div>' +
+      '<div class="pinfo"><div><b>' + p.name + '</b><span>' + (p.sub || "") + '</span></div><b class="pprice">' + (p.compareAt ? '<span class="now">' + money(p.price) + '</span> <s>' + money(p.compareAt) + '</s><em class="off">' + Math.round((1 - p.price / p.compareAt) * 100) + '% off</em>' : money(p.price)) + '</b></div>' +
       '<div class="pswatch">' + p.colors.slice(0, 5).map(function (c) { return '<i style="background:' + c.hex + '" title="' + c.name + '"></i>'; }).join("") + '</div></a>';
   }
   function drawMocks(scope) {
@@ -366,9 +366,32 @@
       if (!size) { sbox.classList.add("need"); sbox.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
       var thumb = mockup(Object.assign({}, st), S.kind, 160).toDataURL("image/png");
       var c = load();
-      c.push({ id: p.id, name: p.name, price: price(), qty: 1, thumb: thumb, opts: [pickName("[data-colors]"), S.mode === "retail" ? null : PATTERN_NAMES[st.pattern], size, art ? "Custom art" : null, S.mode !== "retail" && st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ") });
-      save(c); document.body.classList.add("cart-open");
+      var qn = parseInt((form.querySelector("[data-qty-val]") || {}).textContent || "1", 10) || 1;
+      c.push({ id: p.id, name: p.name, price: price(), qty: qn, thumb: thumb, opts: [pickName("[data-colors]"), S.mode === "retail" ? null : PATTERN_NAMES[st.pattern], size, art ? "Custom art" : null, S.mode !== "retail" && st.text ? '"' + st.text + '"' : null].filter(Boolean).join(" · ") });
+      save(c);
+      var sb = form.querySelector("button[type=submit]"), old = sb.innerHTML;
+      sb.classList.add("added"); sb.innerHTML = "Added to bag \u2713";
+      setTimeout(function () { sb.classList.remove("added"); sb.innerHTML = old; }, 1600);
+      setTimeout(function () { document.body.classList.add("cart-open"); }, 450);
     });
+    var qv = form.querySelector("[data-qty-val]");
+    form.querySelectorAll("[data-qty]").forEach(function (b) { b.addEventListener("click", function () { qv.textContent = Math.max(1, Math.min(9, (+qv.textContent || 1) + +b.dataset.qty)); }); });
+    var stick = document.querySelector(".sticky-buy"), mainBtn = form.querySelector("button[type=submit]");
+    if (stick && mainBtn) {
+      stick.querySelector("[data-sticky-name]").textContent = p.name;
+      var chk = function () { stick.classList.toggle("on", mainBtn.getBoundingClientRect().bottom < 0); };
+      window.addEventListener("scroll", chk, { passive: true }); chk();
+      stick.querySelector("button").addEventListener("click", function () { mainBtn.click(); });
+    }
+    var RKEY = "pod-recent-" + (S.short || "store"), recent = [];
+    try { recent = JSON.parse(localStorage.getItem(RKEY) || "[]"); } catch (e) {}
+    var rgrid = document.querySelector("[data-recent]");
+    if (rgrid) {
+      var rl = recent.filter(function (x) { return x !== p.id; }).map(byId).filter(Boolean).slice(0, 4);
+      if (rl.length) { rgrid.innerHTML = rl.map(card).join(""); rgrid.closest("section").hidden = false; }
+    }
+    recent = [p.id].concat(recent.filter(function (x) { return x !== p.id; })).slice(0, 8);
+    try { localStorage.setItem(RKEY, JSON.stringify(recent)); } catch (e) {}
     refresh();
     // related
     var rel = document.querySelector("[data-related]");
@@ -378,6 +401,18 @@
   drawMocks(); paintWish();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { drawMocks(); });
   renderCart();
+
+  // ---------- ThreeUI liquid metal CTA: the page drives the iframe's hover/press ----------
+  document.querySelectorAll(".lm-cta").forEach(function (a) {
+    var f = a.querySelector("iframe"); if (!f) return;
+    var call = function (fn, v) { try { var w = f.contentWindow; if (w && w[fn]) w[fn](v); } catch (e) {} };
+    a.addEventListener("pointerenter", function () { call("__hover", true); });
+    a.addEventListener("pointerleave", function () { call("__hover", false); call("__press", false); });
+    a.addEventListener("pointerdown", function () { call("__press", true); });
+    a.addEventListener("pointerup", function () { call("__press", false); });
+    a.addEventListener("focus", function () { call("__hover", true); });
+    a.addEventListener("blur", function () { call("__hover", false); });
+  });
 
   // ---------- newsletter + FAQ demo ----------
   document.querySelectorAll("form[data-demo]").forEach(function (f) {

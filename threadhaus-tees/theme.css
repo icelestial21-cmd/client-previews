@@ -7,3 +7,14 @@
 .btn{box-shadow:4px 4px 0 var(--ink)}.btn:hover{box-shadow:6px 6px 0 var(--ink)}
 .btn.accent{border-color:var(--ink)}
 .step3{border:1.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+
+:root{--label-font:"JetBrains Mono",ui-monospace,monospace;--lumen:linear-gradient(90deg,#121212 0%,#2b2f12 45%,#7c9a00 78%,#d4ff3a 100%);--lumen-glow:rgba(160,200,0,.35);--sale:#ff5a36}
+.eyebrow{font-size:11.5px;letter-spacing:.08em}
+.ptag,.pquick{font-size:11px;letter-spacing:.04em}
+.pprice{font-family:var(--label-font);font-weight:500;font-size:14.5px}
+.feat-sec{background:var(--ink);color:var(--bg);padding-top:clamp(56px,7vw,90px)!important;margin-bottom:clamp(40px,6vw,80px)}
+.feat-sec .eyebrow,.feat-sec .pinfo span{color:#9a978f}
+.feat-sec .link{color:var(--accent)}
+.feat-sec .pimg{border-color:#2a2a2a}
+.feat-sec .pswatch i{border-color:#333}
+.btn.lumen{color:#fff;font-weight:600;box-shadow:4px 4px 0 var(--ink),0 6px 26px var(--lumen-glow)}

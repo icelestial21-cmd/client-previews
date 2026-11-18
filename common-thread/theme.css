@@ -10,3 +10,14 @@
 .nav .logo i{background:var(--ink);color:var(--bg);border-radius:50%}
 .news{background:var(--accent);color:#fff}
 .news .btn{background:var(--ink);border-color:var(--ink)}
+
+:root{--lumen:linear-gradient(90deg,#0b1a7a 0%,#2b4bff 55%,#7d93ff 100%);--lumen-glow:rgba(43,75,255,.35)}
+.announce{background:#faedbc;color:#0b0b0b}.announce b{color:#0b0b0b}
+.eyebrow,.ptag,.chip,.crumbs,.pinfo span{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pimg{border-radius:0;background:#f2f2f0}.pimg::before{background:#f2f2f0!important}
+.cat,.look-hero,.news,.studio{border-radius:0}
+.foot{background:var(--bg);color:var(--ink);border-top:1px solid var(--line)}
+.foot p,.foot li,.foot li a,.foot-bot{color:var(--muted)}
+.foot .pay span{border-color:var(--line)}
+.foot-word{-webkit-text-stroke:0;color:var(--ink);font-size:clamp(64px,13.4vw,200px);letter-spacing:-.05em}
+.foot-bot{border-color:var(--line)}

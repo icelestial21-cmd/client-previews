@@ -266,5 +266,7 @@ window.STORE = {
    "desc": "One colour, the perfect cut. Add your initials if you like."
   }
  ],
- "caps": false
+ "caps": false,
+ "emptyArt": "../pod-engine/peeps/cheers.svg",
+ "emptyText": "Your bag is empty. Your summer print is waiting."
 };

@@ -260,5 +260,7 @@ window.STORE = {
    "desc": "A short robe that fades from blush to rose."
   }
  ],
- "caps": false
+ "caps": false,
+ "emptyText": "Your bag is empty. Discover the collection.",
+ "emptyCta": "Discover"
 };

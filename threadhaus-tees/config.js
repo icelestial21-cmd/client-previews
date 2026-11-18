@@ -285,5 +285,8 @@ window.STORE = {
    ],
    "desc": "Your team, your crew, your family reunion. One tee or fifty, each printed to order."
   }
- ]
+ ],
+ "emptyArt": "../pod-engine/peeps/hoodie.svg",
+ "emptyText": "Your bag is empty. Time to print your statement.",
+ "emptyCta": "Open the studio"
 };
