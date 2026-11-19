@@ -10,9 +10,10 @@ window.SITE = {
   colors: {
     bg: "#0a0b09", surface: "#151612", "surface-2": "#1f201b", line: "#2b2c26",
     text: "#f5f4ee", muted: "#9a9b92",
-    accent: "#ffd200",            // announcement yellow: rules, links, subscribe
+    accent: "#2ee06a",            // globe atmosphere + routes (brand green, lit)
     "accent-ink": "#0a0b09",
-    "accent-2": "#1f9e46"         // brand green: markers, rank tiles
+    "accent-2": "#ffd200",        // globe city markers
+    globe: "#0b1f3a"              // globe ocean: Sport Globe blue
   },
   fonts: {}
 };
