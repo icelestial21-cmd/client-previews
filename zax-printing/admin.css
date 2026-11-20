@@ -273,4 +273,5 @@ ol.steps { margin: 0; padding: 0; }
 .side .menu { overflow-y: auto; }
 @media (min-width: 821px) { .back { display: none; } }
 @media (max-width: 1000px) { .two, .cgrid { grid-template-columns: 1fr; } .composer { position: static; } }
+@media (max-width: 1000px) { #od-body > div:last-child { order: -1; } }
 @media (max-width: 820px) { .dr footer { flex-wrap: wrap; } .dr footer [data-close] { display: none; } .dr footer .btn { flex: 1; } .composer { scroll-margin-top: 70px; } .search { min-width: 0; width: 100%; } .r2, .money { grid-template-columns: 1fr; } .kv div { grid-template-columns: 110px minmax(0, 1fr); } .tabbar button { position: relative; } .tabbar .bdg { position: absolute; top: 2px; left: 54%; margin: 0; min-width: 18px; height: 18px; font-size: 10px; line-height: 18px; padding: 0 5px; } .oc { grid-template-columns: 40px minmax(0, 1fr); } .oc .rt { grid-column: 2; justify-items: start; grid-auto-flow: column; gap: 8px; } .av { width: 40px; height: 40px; } }
