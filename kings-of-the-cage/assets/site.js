@@ -61,6 +61,21 @@
     o.observe(el);
   });
 
+  // Announcement bar set from the admin page preview (this device only)
+  try {
+    var siteCfg = JSON.parse(localStorage.getItem("koc-site") || "null"), bar = document.querySelector(".announce");
+    if (siteCfg && siteCfg.ann && bar) {
+      var a = siteCfg.ann, w = bar.querySelector(".wrap");
+      if (!a.show) bar.style.display = "none";
+      else if (w) {
+        var e = function (t) { var x = document.createElement("span"); x.textContent = t || ""; return x.innerHTML; };
+        w.innerHTML = "<span><b>" + e(a.title) + "</b>" + (a.detail ? '<span class="hide-s"> · ' + e(a.detail) + "</span>" : "") + (a.when ? " · " + e(a.when) : "") + "</span>" +
+          '<span class="count"' + (a.date ? ' data-countdown="' + e(a.date) + 'T00:00:00-05:00"' : "") + ">" + (a.date ? "" : "Date TBA") + "</span>" +
+          (a.link ? '<a href="' + e(a.href) + '" class="hide-s">' + e(a.link) + "</a>" : "");
+      }
+    }
+  } catch (err) {}
+
   // New York II countdown (Saturday 21 November 2026, Brooklyn)
   var cd = document.querySelectorAll("[data-countdown]");
   if (cd.length) {
@@ -113,6 +128,20 @@
   document.querySelectorAll("form[data-demo]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
+      // Preview only: keep a copy on this device so it shows up in the admin page preview
+      try {
+        var data = {}; Array.prototype.forEach.call(f.elements, function (el) {
+          var k = el.name || el.id; if (!k || el.type === "button" || el.type === "submit") return;
+          if ((el.type === "radio" || el.type === "checkbox") && !el.checked) return;
+          data[k] = data[k] && el.type === "checkbox" ? data[k] + ", " + el.value : el.value;
+        });
+        var type = data.team ? "team" : data.sname || data.sco ? "sponsor" : data.hname ? "host" : "";
+        if (type) {
+          var box = JSON.parse(localStorage.getItem("koc-inbox") || "[]");
+          box.push({ id: "w" + Date.now().toString(36), type: type, date: new Date().toISOString(), f: data });
+          localStorage.setItem("koc-inbox", JSON.stringify(box.slice(-50)));
+        }
+      } catch (err) {}
       var name = f.querySelector("[data-echo]");
       var done = f.querySelector(".done");
       f.querySelectorAll(".step,.steps,.form-body,.form-nav").forEach(function (x) { x.style.display = "none"; });

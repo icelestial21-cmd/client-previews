@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin page preview | Kings of the Cage</title><meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Preview of the Kings of the Cage admin page: team registrations, sponsor enquiries, messages, editions, gallery, community events and the announcement bar.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Kings of the Cage admin page preview"><meta property="og:description" content="Team registrations, sponsor enquiries, editions and the announcement bar in one private page.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1710788901525-c481abf1487c?w=1200&h=630&q=75&auto=format&fit=crop"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Cpath d='M14 44 L12 22 L23 32 L32 16 L41 32 L52 22 L50 44 Z' fill='%23e3b23c'/%3E%3Crect x='14' y='46' width='36' height='5' rx='2' fill='%23e3b23c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css?v=1">
+</head><body>
+<div class="demo"><span><b>Admin page preview.</b> Try anything.<span class="long"> Entries marked "Sample" are examples. Registrations and enquiries you send from the website on this device show up here too.</span> Changes stay on this device only.</span><a href="index.html">Back to the website</a></div>
+<div class="app">
+<aside class="side">
+  <a class="brand" href="index.html"><img src="assets/koc-logo-light.png" alt="Kings of the Cage"><small>Admin<br>page</small></a>
+  <nav class="menu" aria-label="Admin sections" id="menu"></nav>
+  <div class="side-foot"><button class="btn light sm" id="reset" type="button">Start the demo over</button></div>
+</aside>
+<div class="main">
+  <div class="top"><h1 id="ttl">Today</h1><span class="saved" id="saved"><i></i>All changes saved</span><button class="btn sm vs" id="export" type="button"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></svg>Export CSV</button><a class="btn light sm vs" href="index.html" target="_blank" rel="noopener">View website</a></div>
+
+  <section class="view" id="v-today">
+    <h2 class="hello" id="hello">Welcome back</h2><p class="sub" id="today-sub"></p>
+    <div class="stats" id="stats"></div>
+    <div class="next" id="next"></div>
+    <div class="two">
+      <div><h2 class="sec-t">Needs a reply <a class="lnk" data-go="teams">All teams</a></h2><div class="list" id="t-queue"></div></div>
+      <div><h2 class="sec-t">Budget lines <a class="lnk" data-go="sponsors">Sponsors</a></h2><div class="list" id="t-lines"></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-teams" hidden>
+    <h2 class="hello">Team registrations</h2><p class="sub">Every team that registers on the Kings of the Cage Jamaica page lands here. Open a team to check the roster, update its status and message the captain on WhatsApp.</p>
+    <div class="obar"><div class="fchips" id="tchips"></div><input class="search" id="tq" type="search" placeholder="Search team, captain or parish" aria-label="Search teams"></div>
+    <div class="list" id="tlist"></div>
+  </section>
+
+  <section class="view" id="v-sponsors" hidden>
+    <h2 class="hello">Sponsor enquiries</h2><p class="sub">Brands tick the budget lines they want to own. Track each conversation, and when a deal is signed the lines it covers show as claimed.</p>
+    <div class="obar"><div class="fchips" id="schips"></div></div>
+    <div class="list" id="slist"></div>
+    <h2 class="sec-t">Budget lines board</h2>
+    <div class="lines" id="sboard"></div>
+  </section>
+
+  <section class="view" id="v-inbox" hidden>
+    <h2 class="hello">Messages</h2><p class="sub">Hosts, venues, community groups and press from the "Bring Kings of the Cage to your city" form.</p>
+    <div class="obar"><div class="fchips" id="mchips"></div></div>
+    <div class="list" id="mlist"></div>
+  </section>
+
+  <section class="view" id="v-site" hidden>
+    <h2 class="hello">Website</h2><p class="sub">The parts of the website you update yourself. Your website changes when you save.</p>
+    <div class="quick" id="quick"></div>
+  </section>
+
+  <section class="view" id="v-editions" hidden>
+    <h2 class="hello">Editions &amp; results</h2><p class="sub">Every edition on The Story page uses the same layout. Add the next one when it's announced, then fill in the winner and numbers after Finals Night.</p>
+    <div style="margin-bottom:14px"><button class="btn sm" id="add-ed" type="button">+ Add an edition</button></div>
+    <div class="eds" id="eds"></div>
+  </section>
+
+  <section class="view" id="v-gallery" hidden>
+    <h2 class="hello">Gallery</h2><p class="sub">Photos for each edition. Pick an edition, then add photos straight from your phone or computer. The first photo is the cover.</p>
+    <div class="tabs" id="gtabs" role="tablist"></div>
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Add photos"><span class="di"><svg viewBox="0 0 24 24"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><b id="drop-t">Add photos</b><span>Tap to choose photos, or drag them here. You can pick several at once.</span><input type="file" id="file" accept="image/*" multiple></div>
+    <div class="pgrid" id="pgrid"></div>
+  </section>
+
+  <section class="view" id="v-community" hidden>
+    <h2 class="hello">Community events</h2><p class="sub">Queens of the Cage, the 5Ks, the Christmas party and everything else on the Community page. Use the switch to take an event off the website without deleting it.</p>
+    <button class="btn sm" id="add-ev" type="button">+ Add an event</button>
+    <div class="svl" id="evl"></div>
+  </section>
+
+  <section class="view" id="v-announce" hidden>
+    <h2 class="hello">Announcement bar</h2><p class="sub">The gold bar at the top of every page. Point it at the next event and the countdown updates by itself.</p>
+    <div class="ann-prev" id="ann-prev"></div>
+    <div class="two-f">
+      <div>
+        <div class="f"><label class="swl"><span class="sw"><input type="checkbox" id="a-show"><span></span></span>Show the bar on my website</label></div>
+        <div class="f"><label for="a-title">Event name</label><input id="a-title" maxlength="40"></div>
+        <div class="f"><label for="a-detail">Venue or detail</label><span class="hint">Hidden on phones to keep the bar on one line.</span><input id="a-detail" maxlength="60"></div>
+        <div class="r2"><div class="f"><label for="a-date">Event date</label><input type="date" id="a-date"></div><div class="f"><label for="a-when">Date as shown</label><input id="a-when" maxlength="24" placeholder="e.g. Sat 21 Nov"></div></div>
+        <div class="r2"><div class="f"><label for="a-link">Link text</label><input id="a-link" maxlength="24"></div><div class="f"><label for="a-href">Link goes to</label><select id="a-href"><option value="jamaica.html#register">Register a team</option><option value="jamaica.html#sponsor">Sponsor the day</option><option value="jamaica.html">Jamaica page</option><option value="story.html">The Story</option><option value="community.html">Community</option></select></div></div>
+      </div>
+      <div class="card"><b>How the countdown works</b><p class="note" style="margin:6px 0 0">Before the event it shows the days to go, then "Tomorrow" and "Today". After the event it reads "Played · results soon" until you point the bar at the next one.</p><div style="margin-top:14px;display:grid;gap:8px"><button class="btn light sm" type="button" data-preset="jam">Use Kings of the Cage Jamaica</button><button class="btn light sm" type="button" data-preset="ny">Use New York II (21 Nov)</button></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-help" hidden>
+    <h2 class="hello">Help</h2><p class="sub">How the admin page fits into a Kings of the Cage season.</p>
+    <ol class="steps">
+      <li><div><b>Point the announcement bar at the next event</b><span>Set the name, venue and date under Announcement bar. The countdown runs on every page.</span></div></li>
+      <li><div><b>Teams register</b><span>Registrations arrive in Teams as "New". Check the roster, then mark the team Confirmed and send the captain the confirmation on WhatsApp.</span></div></li>
+      <li><div><b>Fees in, spots filled</b><span>Switch on "Fee paid" when the fee arrives. When the field is full, new teams go to the waitlist.</span></div></li>
+      <li><div><b>Sponsors come on board</b><span>Move each enquiry from New to In talks, Proposal sent and Signed. Signed lines show as claimed on the budget board.</span></div></li>
+      <li><div><b>After Finals Night</b><span>Add the winner and numbers under Editions &amp; results, upload the photos to the Gallery, and point the bar at the next one.</span></div></li>
+    </ol>
+    <div class="card" style="margin-top:16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="flex:1;min-width:220px"><b>Still stuck?</b><br><span style="color:var(--mut)">iCelestial is one message away, Monday to Friday 9am to 5pm and Saturday 10am to 3pm.</span></div><a class="btn" href="https://wa.me/18764876913?text=Hi%20iCelestial%2C%20I%20need%20help%20with%20the%20Kings%20of%20the%20Cage%20admin%20page." target="_blank" rel="noopener">WhatsApp iCelestial</a></div>
+  </section>
+</div>
+</div>
+<nav class="tabbar" aria-label="Admin sections" id="tabbar"></nav>
+
+<div class="dr-bg" id="dr" hidden><div class="dr" role="dialog" aria-modal="true" aria-labelledby="dr-t">
+  <header><h3 id="dr-t"></h3><span id="dr-pill"></span><button class="btn light sm x" data-close type="button">Close</button></header>
+  <div class="dr-body" id="dr-body"></div>
+  <footer id="dr-foot"></footer>
+</div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/admin.js?v=1"></script>
+</body></html>
