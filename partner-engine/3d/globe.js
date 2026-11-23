@@ -14,6 +14,7 @@ function ll(lat, lon, r) {
 
 export function mountGlobe(el, opts) {
   opts = opts || {};
+  if (opts.cities) Object.assign(CITIES, opts.cities);
   var routes = opts.routes || [["New York", "Kingston"], ["Toronto", "Montego Bay"], ["Miami", "Kingston"], ["London", "Bridgetown"], ["Fort Lauderdale", "Port of Spain"], ["Kingston", "Nassau"], ["Miami", "Bridgetown"]];
   return stage(el, function (ctx) {
     var scene = ctx.scene, camera = ctx.camera;
