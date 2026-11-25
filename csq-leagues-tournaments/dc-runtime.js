@@ -49,9 +49,12 @@ class DCLogic {
     var root = document.getElementById('app');
     var comp = new Component({});
     comp.__r = function () {
+      var ae = document.activeElement, fid = ae && ae.id, sel = null;
+      try { sel = ae && ae.selectionStart; } catch (e) {}
       var frag = document.createDocumentFragment();
       kids(tpl, comp.renderVals(), frag);
       root.replaceChildren(frag);
+      if (fid) { var n = document.getElementById(fid); if (n) { n.focus(); try { if (sel != null) n.setSelectionRange(sel, sel); } catch (e) {} } }
     };
     comp.__r();
   };
