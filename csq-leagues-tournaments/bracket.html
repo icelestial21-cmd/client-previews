@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Domino League · Knockout bracket | CSQ preview</title>
+<meta name="description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/bracket.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Caribbean Sports Quest">
+<meta property="og:title" content="Christmas Domino League · Knockout bracket | CSQ preview">
+<meta property="og:description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta property="og:url" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/bracket.html">
+<meta property="og:image" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="2nd Annual Christmas Domino League poster">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Christmas Domino League · Knockout bracket | CSQ preview">
+<meta name="twitter:description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta name="twitter:image" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0e3546}
+a{text-decoration:none;color:#14485D}
+.disp{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+.pips{background-image:radial-gradient(rgba(255,255,255,.07) 2px,transparent 2.6px);background-size:22px 22px}
+.spin{transform-box:view-box;transform-origin:400px 400px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.spin.dragging{transition:none}
+.spin .lbl{transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.spin.dragging .lbl{transition:none}
+.slot circle{transition:transform .15s ease;transform-box:fill-box;transform-origin:center}
+.slot:hover circle{transform:scale(1.15)}
+.hub{animation:hub 2.4s ease-in-out infinite}
+@keyframes hub{0%,100%{stroke-width:3}50%{stroke-width:7}}
+button{transition:transform .15s ease,background-color .15s ease}
+:focus-visible{outline:3px solid #FCAE40;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
+</head>
+<body>
+<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="option-a.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
+<div id="app"></div>
+<template id="tpl">
+
+<div style="background:#0e3546;font-family:Inter,sans-serif;min-height:100vh">
+<sc-if value="{{chrome}}" hint-placeholder-val="{{true}}">
+<header style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
+  <div style="max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;color:#ffffff"><span style="width:40px;height:40px;border-radius:10px;background:#1d5a72;border:1px solid #3a7590;display:flex;align-items:center;justify-content:center;font:400 16px 'Bebas Neue',sans-serif;color:#FCAE40">CSQ</span><span style="font:400 24px 'Bebas Neue',sans-serif;letter-spacing:.03em">CARIBBEAN SPORTS QUEST</span></a>
+    <nav aria-label="Main" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;font:500 15px Inter,sans-serif">
+      <a href="#" style="padding:8px 12px;color:#ffffff">Calendar</a><a href="#" style="padding:8px 12px;color:#ffffff">Tickets</a><a href="#" style="padding:8px 12px;color:#ffffff">Travel</a><a href="#" style="padding:8px 12px;color:#ffffff">Merchandise</a>
+      <a href="index.html" style="padding:8px 12px;color:#FCAE40;background:rgba(204,31,25,.2);border-radius:10px">Leagues &amp; Tournaments</a>
+      <a href="#" style="padding:8px 12px;color:#ffffff">More ▾</a>
+      <span style="width:1px;height:28px;background:#3a7590;margin:0 8px"></span>
+      <button aria-label="Cart" style="width:42px;height:42px;border-radius:10px;border:0;background:#ffffff;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14485D" stroke-width="2" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11h11l2-8H6.2"/></svg></button>
+      <a href="#" style="margin-left:8px;min-height:44px;display:inline-flex;align-items:center;padding:0 18px;border-radius:999px;background:#CC1F19;color:#ffffff;font-weight:700">Login / Sign Up</a>
+    </nav>
+  </div>
+</header>
+<div style="background:#F7F8F8;border-bottom:1px solid #DAE3E6;font-family:Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:10px 24px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:#4C6874">Home</a> <span style="color:#4C6874">›</span> <a href="index.html" style="color:#4C6874">Leagues &amp; Tournaments</a> <span style="color:#4C6874">›</span> <a href="option-a.html" style="color:#4C6874">Christmas Domino League</a> <span style="color:#4C6874">›</span> <span style="color:#14485D;font-weight:500">Knockout bracket</span></div></div>
+</sc-if>
+<section class="pips" style="background-color:#0e3546;color:#ffffff">
+  <div style="max-width:1320px;margin:0 auto;padding:28px 24px 8px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
+    <div>
+      <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:#FCAE40">CHRISTMAS DOMINO LEAGUE · KNOCKOUTS</div>
+      <h1 class="disp" style="margin:6px 0 0;font-size:clamp(44px,8vw,72px);line-height:.9">{{divName}} bracket</h1>
+      <p style="margin:8px 0 0;font-size:16px;color:#dbe7ec;max-width:620px">Round of 32 to the final, all at Mystix Sports Club, Dec 21–23. Drag the wheel to spin it, then tap a slot to follow its path to the trophy.</p>
+    </div>
+    <div role="group" aria-label="Division" style="display:flex;background:#1d5a72;border-radius:10px;padding:4px;gap:4px">
+      <sc-for list="{{divTabs}}" as="d" hint-placeholder-count="2">
+        <sc-if value="{{d.on}}" hint-placeholder-val="{{false}}"><button onClick="{{d.pick}}" aria-pressed="true" style="min-height:42px;padding:0 16px;border:0;border-radius:8px;background:#FCAE40;color:#0e3546;font:700 14px Inter,sans-serif;cursor:pointer">{{d.label}}</button></sc-if>
+        <sc-if value="{{d.off}}" hint-placeholder-val="{{true}}"><button onClick="{{d.pick}}" aria-pressed="false" style="min-height:42px;padding:0 16px;border:0;border-radius:8px;background:transparent;color:#ffffff;font:500 14px Inter,sans-serif;cursor:pointer">{{d.label}}</button></sc-if>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;padding:8px 24px 40px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:center">
+    <div style="flex:1 1 560px;max-width:760px;min-width:0;position:relative">
+      <svg id="wheel" viewBox="0 0 800 800" role="img" aria-label="Circular knockout bracket, Round of 32 to the final" onPointerDown="{{down}}" onPointerMove="{{move}}" onPointerUp="{{up}}" onPointerCancel="{{up}}" style="display:block;width:100%;height:auto;touch-action:none;cursor:grab;user-select:none">
+        <circle cx="400" cy="400" r="392" fill="#14485D" stroke="#25607a" stroke-width="2"></circle>
+        <circle cx="400" cy="400" r="330" fill="none" stroke="#1d5a72" stroke-width="1" stroke-dasharray="2 6"></circle>
+                <g id="spin" class="spin" style="transform:rotate({{rot}}deg)">
+          <sc-for list="{{segs}}" as="g" hint-placeholder-count="60">
+            <path d="{{g.d}}" fill="none" stroke="{{g.c}}" stroke-width="{{g.w}}" stroke-linecap="round"></path>
+          </sc-for>
+          <sc-for list="{{dots}}" as="o" hint-placeholder-count="30">
+            <circle cx="{{o.x}}" cy="{{o.y}}" r="{{o.r}}" fill="{{o.c}}"></circle>
+          </sc-for>
+          <sc-for list="{{slots}}" as="s" hint-placeholder-count="32">
+            <g class="slot" onClick="{{s.pick}}" style="cursor:pointer">
+              <circle cx="{{s.x}}" cy="{{s.y}}" r="22" fill="{{s.fill}}" stroke="{{s.stroke}}" stroke-width="3"></circle>
+              <text class="lbl" x="{{s.x}}" y="{{s.y}}" text-anchor="middle" dominant-baseline="central" fill="{{s.ink}}" style="font:700 13px Inter,sans-serif;transform:rotate({{neg}}deg)">{{s.label}}</text>
+            </g>
+          </sc-for>
+        </g>
+        <g onClick="{{pickFinal}}" style="cursor:pointer">
+          <circle class="hub" cx="400" cy="400" r="70" fill="#0e3546" stroke="#FCAE40" stroke-width="3"></circle>
+          <path d="M383 372h34v14a17 17 0 0 1-34 0zM383 376h-9a9 9 0 0 0 9 12M417 376h9a9 9 0 0 1-9 12M400 403v10M389 418h22" fill="none" stroke="#FCAE40" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>
+          <text x="400" y="432" text-anchor="middle" fill="#ffffff" style="font:400 14px 'Bebas Neue',sans-serif;letter-spacing:.06em">FINAL</text><text x="400" y="448" text-anchor="middle" fill="#b9cfd8" style="font:600 10px Inter,sans-serif;letter-spacing:.08em">DEC 23</text>
+        </g>
+      </svg>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px">
+        <button onClick="{{rotL}}" aria-label="Rotate left" style="min-width:48px;min-height:44px;border-radius:999px;border:1px solid #3a7590;background:#14485D;color:#ffffff;font:700 18px Inter,sans-serif;cursor:pointer">↺</button>
+        <button onClick="{{reset}}" style="min-height:44px;padding:0 18px;border-radius:999px;border:1px solid #3a7590;background:#14485D;color:#ffffff;font:600 14px Inter,sans-serif;cursor:pointer">Reset</button>
+        <button onClick="{{rotR}}" aria-label="Rotate right" style="min-width:48px;min-height:44px;border-radius:999px;border:1px solid #3a7590;background:#14485D;color:#ffffff;font:700 18px Inter,sans-serif;cursor:pointer">↻</button>
+        <button onClick="{{spinIt}}" style="min-height:44px;padding:0 18px;border-radius:999px;border:0;background:#CC1F19;color:#ffffff;font:700 14px Inter,sans-serif;cursor:pointer">Spin the wheel</button>
+      </div>
+    </div>
+
+    <aside style="flex:1 1 300px;max-width:400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+      <div style="background:#ffffff;color:#14485D;border-radius:18px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.25)">
+        <div style="font:700 12px Inter,sans-serif;letter-spacing:.1em;color:#CC1F19">{{info.kicker}}</div>
+        <div class="disp" style="font-size:36px;line-height:1;margin-top:4px">{{info.title}}</div>
+        <p style="margin:8px 0 0;font-size:14px;line-height:1.5;color:#4C6874">{{info.body}}</p>
+        <sc-if value="{{info.hasPath}}" hint-placeholder-val="{{false}}">
+          <ol style="margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{info.path}}" as="r" hint-placeholder-count="5">
+              <li style="display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:10px;background:#F7F8F8;font-size:13px"><strong>{{r.stage}}</strong><span style="color:#4C6874">{{r.when}}</span></li>
+            </sc-for>
+          </ol>
+        </sc-if>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+        <sc-for list="{{legend}}" as="l" hint-placeholder-count="4">
+          <div style="background:#14485D;border:1px solid #25607a;border-radius:12px;padding:10px 12px"><div class="disp" style="font-size:20px;color:{{l.c}}">{{l.name}}</div><div style="font-size:12px;color:#b9cfd8">{{l.when}}</div></div>
+        </sc-for>
+      </div>
+      <p style="margin:0;font-size:12px;color:#b9cfd8">Slots fill with player names after the Second Round (Dec 14–17).</p>
+    </aside>
+  </div>
+</section>
+
+<sc-if value="{{chrome}}" hint-placeholder-val="{{true}}">
+<footer style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
+  <div style="max-width:1320px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px">
+    <div><div style="font:400 22px 'Bebas Neue',sans-serif;letter-spacing:.03em">CARIBBEAN SPORTS QUEST</div><div style="font-size:14px;color:#dbe7ec;margin-top:6px">Your Caribbean Sports Home</div></div>
+    <div><div style="font:400 18px 'Bebas Neue',sans-serif;color:#FCAE40;letter-spacing:.04em">Follow us</div><div style="font-size:14px;color:#dbe7ec;margin-top:8px;line-height:1.9">Instagram<br>TikTok</div></div>
+    <div><div style="font:400 18px 'Bebas Neue',sans-serif;color:#FCAE40;letter-spacing:.04em">Contact</div><div style="font-size:14px;color:#dbe7ec;margin-top:8px;line-height:1.9">support@caribbeansportsquest.com<br>Sell with CSQ: become a partner shop</div></div>
+  </div>
+</footer>
+</sc-if>
+</div>
+</template>
+<a class="fab" href="https://wa.me/18764876913?text=Hi%20iCelestial%2C%20feedback%20on%20the%20CSQ%20Leagues%20%26%20Tournaments%20demo%3A%20" target="_blank" rel="noopener" aria-label="Send feedback on WhatsApp" style="position:fixed;right:20px;bottom:20px;z-index:50;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;border-radius:999px;background:#25D366;color:#073b20;font:700 14px Inter,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.25)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg><span>Feedback</span></a>
+<script src="dc-runtime.js"></script><script>if(new URLSearchParams(location.search).get("embed")==="1"){{document.documentElement.classList.add("embed")}}</script><style>.embed .pvbar,.embed .fab{display:none!important}</style>
+<script>
+
+var SIZE = 32; /* set to 64 when the draw grows to a Round of 64 */
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    var d = 'men'; try { if (new URLSearchParams(location.search).get('div') === 'women') d = 'women'; } catch (e) {}
+    var em = !!this.props.embed; try { if (new URLSearchParams(location.search).get('embed') === '1') em = true; } catch (e) {}
+    this.embed = em; this.state = { rot: 0, sel: null, div: d };
+    this.drag = null; this.live = 0;
+  }
+  setRot(r) {
+    this.live = r;
+    try {
+      var g = document.getElementById('spin'); if (g) g.style.transform = 'rotate(' + r + 'deg)';
+      document.querySelectorAll('#spin .lbl').forEach(function (t) { t.style.transform = 'rotate(' + (-r) + 'deg)'; });
+    } catch (e) {}
+  }
+  renderVals() {
+    var self = this, s = this.state, N = SIZE, L = Math.round(Math.log2(N)), W = s.div === 'women';
+    var C = 400, R = [330], inner = 64;
+    for (var k = 1; k < L; k++) R.push(268 - (k - 1) * (268 - 112) / Math.max(1, L - 2));
+    R.push(inner + 8);
+    var pt = function (r, a) { var t = a * Math.PI / 180; return [(C + r * Math.sin(t)).toFixed(1), (C - r * Math.cos(t)).toFixed(1)]; };
+    var ang = [[]]; for (var i = 0; i < N; i++) ang[0].push((i + 0.5) * 360 / N);
+    for (var l = 1; l <= L; l++) { ang[l] = []; for (var j = 0; j < N >> l; j++) ang[l].push((ang[l - 1][2 * j] + ang[l - 1][2 * j + 1]) / 2); }
+    var on = function (l, j) { return s.sel !== null && s.sel !== 'final' && j === (s.sel >> l); };
+    var allOn = s.sel === 'final';
+    var HI = '#FCAE40', LO = '#4f8aa3';
+    var segs = [], dots = [];
+    var arc = function (r, a1, a2) { var p1 = pt(r, a1), p2 = pt(r, a2); var sw = a2 > a1 ? 1 : 0; return 'M' + p1[0] + ' ' + p1[1] + ' A' + r + ' ' + r + ' 0 0 ' + sw + ' ' + p2[0] + ' ' + p2[1]; };
+    for (var l2 = 1; l2 <= L; l2++) {
+      for (var j2 = 0; j2 < N >> l2; j2++) {
+        var pa = ang[l2][j2];
+        [2 * j2, 2 * j2 + 1].forEach(function (c) {
+          var ca = ang[l2 - 1][c], hot = allOn || on(l2 - 1, c);
+          var rFrom = l2 === 1 ? R[0] - 24 : R[l2 - 1], rTo = l2 === L ? inner : R[l2];
+          var p1 = pt(rFrom, ca), p2 = pt(l2 === L ? R[l2] : rTo, ca);
+          if (l2 < L) {
+            segs.push({ d: 'M' + p1[0] + ' ' + p1[1] + ' L' + p2[0] + ' ' + p2[1] + ' ' + arc(rTo, ca, pa).replace('M', 'M'), c: hot ? HI : LO, w: hot ? 5 : 2.5 });
+          } else {
+            var q = pt(inner, ca); segs.push({ d: 'M' + p1[0] + ' ' + p1[1] + ' L' + q[0] + ' ' + q[1], c: hot ? HI : LO, w: hot ? 5 : 2.5 });
+          }
+        });
+        if (l2 < L) { var dp = pt(R[l2], pa); var dh = allOn || on(l2, j2); dots.push({ x: dp[0], y: dp[1], r: dh ? 6 : 4, c: dh ? HI : '#9cc3d2' }); }
+      }
+    }
+    var slots = ang[0].map(function (a, i) {
+      var p = pt(R[0], a), hot = allOn || s.sel === i;
+      return { x: p[0], y: p[1], label: (W ? 'W' : 'M') + (i + 1), fill: hot ? HI : '#ffffff', stroke: hot ? '#ffffff' : '#FCAE40', ink: '#0e3546',
+        pick: function () { self.setState({ sel: i, rot: self.live }); } };
+    });
+    var stages = [['Round of 32', 'Mon Dec 21'], ['Round of 16', 'Tue Dec 22'], ['Quarterfinal', 'Tue Dec 22'], ['Semifinal', 'Wed Dec 23'], ['Final', 'Wed Dec 23']];
+    if (N === 64) stages.unshift(['Round of 64', 'Date to be announced']);
+    var info;
+    if (s.sel === null) info = { kicker: 'HOW IT WORKS', title: 'Tap a slot', body: 'Each slot is a ' + (W ? 'women’s' : 'men’s') + ' qualifier from the Second Round. Tap one to light up its path to the final, or tap the trophy.', hasPath: false, path: [] };
+    else if (s.sel === 'final') info = { kicker: 'WED DEC 23 · MYSTIX SPORTS CLUB', title: (W ? 'Women’s' : 'Men’s') + ' final', body: 'Semifinals, final and closing ceremony, all on the last night.', hasPath: false, path: [] };
+    else { var opp = s.sel % 2 ? s.sel : s.sel + 2; info = { kicker: 'SLOT ' + (W ? 'W' : 'M') + (s.sel + 1) + ' · ' + (W ? 'WOMEN’S' : 'MEN’S') + ' DRAW', title: 'Qualifier ' + (s.sel + 1), body: 'Plays slot ' + (W ? 'W' : 'M') + opp + ' in the opening knockout round. Name fills in after the Second Round.', hasPath: true, path: stages.map(function (x) { return { stage: x[0], when: x[1] }; }) }; }
+    return {
+      chrome: !this.embed, divName: W ? 'Women’s' : 'Men’s', rot: s.rot, neg: -s.rot, segs: segs, dots: dots, slots: slots, info: info,
+      divTabs: [['men', 'Men’s'], ['women', 'Women’s']].map(function (d) { return { label: d[1], on: s.div === d[0], off: s.div !== d[0], pick: function () { self.setState({ div: d[0], sel: null, rot: self.live }); } }; }),
+      legend: [{ name: 'Round of 32', when: 'Mon Dec 21', c: '#ffffff' }, { name: 'R16 & Quarters', when: 'Tue Dec 22', c: '#ffffff' }, { name: 'Semifinals', when: 'Wed Dec 23', c: '#FCAE40' }, { name: 'Final', when: 'Wed Dec 23 · Closing', c: '#FCAE40' }],
+      pickFinal: function () { self.setState({ sel: 'final', rot: self.live }); },
+      rotL: function () { self.live = self.live - 45; self.setState({ rot: self.live }); },
+      rotR: function () { self.live = self.live + 45; self.setState({ rot: self.live }); },
+      reset: function () { self.live = 0; self.setState({ rot: 0, sel: null }); },
+      spinIt: function () { var t = Math.floor(Math.random() * N); self.live = self.live + 720 - ((ang[0][t] + self.live) % 360); self.setState({ rot: self.live, sel: t }); },
+      down: function (e) { var b = e.currentTarget.getBoundingClientRect(); var cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+        self.drag = { cx: cx, cy: cy, a0: Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI, r0: self.live, moved: false };
+        try { var g = document.getElementById('spin'); if (g) g.classList.add('dragging'); } catch (x) {} },
+      move: function (e) { var d = self.drag; if (!d) return; var a = Math.atan2(e.clientY - d.cy, e.clientX - d.cx) * 180 / Math.PI; var delta = a - d.a0;
+        if (Math.abs(delta) > 2 && !d.moved) { d.moved = true; try { e.currentTarget.setPointerCapture(e.pointerId); } catch (x) {} }
+        if (d.moved) self.setRot(d.r0 + delta); },
+      up: function () { var d = self.drag; self.drag = null; try { var g = document.getElementById('spin'); if (g) g.classList.remove('dragging'); } catch (x) {} if (d && d.moved) self.setState({ rot: self.live }); }
+    };
+  }
+}
+
+
+mountDC(Component);
+</script>
+</body>
+</html>
