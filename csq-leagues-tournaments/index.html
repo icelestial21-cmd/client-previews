@@ -39,7 +39,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
 <style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
 </head>
 <body>
-<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="standings.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Standings</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="option-a.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
+<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Listing</a><a href="league.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">League page</a><a href="standings.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Standings</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="league.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
 <div id="app"></div>
 <template id="tpl">
 
@@ -88,7 +88,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
 <section style="max-width:1320px;margin:0 auto;padding:40px 24px 64px">
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px">
     <sc-if value="{{showDomino}}" hint-placeholder-val="{{true}}">
-      <a class="lift" href="option-a.html" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
+      <a class="lift" href="league.html" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
         <div style="height:190px;overflow:hidden;position:relative;background:#14485D">
           <img src="poster.jpg" alt="Christmas Domino League poster" style="display:block;width:100%;margin-top:0">
           <span style="position:absolute;top:12px;left:12px;background:#FCAE40;color:#14485D;font:700 11px Inter,sans-serif;letter-spacing:.08em;padding:5px 9px;border-radius:6px">UPCOMING</span>
@@ -103,11 +103,11 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
           <div class="disp" style="font-size:32px;line-height:1">2nd Annual Christmas Domino League · Men’s</div>
           <div style="font-size:14px;color:#4C6874">Nov 30 – Dec 23, 2026 · 14 teams · 14 match nights</div>
           <div style="font-size:14px;color:#4C6874">Men’s League · up to 9 players per team · cash prize</div>
-          <div style="font-size:14px;color:#4C6874">Next: Caribbean Classic vs Route 27 · Mon Nov 30, 8:00 PM</div>
+          <div style="font-size:14px;color:#4C6874">Next: Caribbean Classic vs Route 27 · Mon Nov 30, 7:45 PM</div>
           <span style="margin-top:4px;font-weight:700;color:#CC1F19">View league →</span>
         </div>
       </a>
-      <a class="lift" href="option-a.html?div=women" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
+      <a class="lift" href="league.html?div=women" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
         <div style="height:190px;overflow:hidden;position:relative;background:#14485D">
           <img src="poster.jpg" alt="Christmas Domino League poster" style="display:block;width:100%;margin-top:0">
           <span style="position:absolute;top:12px;left:12px;background:#FCAE40;color:#14485D;font:700 11px Inter,sans-serif;letter-spacing:.08em;padding:5px 9px;border-radius:6px">UPCOMING</span>

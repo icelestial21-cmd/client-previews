@@ -37,7 +37,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
 <style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
 </head>
 <body>
-<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="standings.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Standings</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="option-a.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
+<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="league.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">League page</a><a href="standings.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Standings</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="league.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
 <div id="app"></div>
 <template id="tpl">
 
@@ -55,13 +55,13 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
     </nav>
   </div>
 </header>
-<div style="background:#F7F8F8;border-bottom:1px solid #DAE3E6;font-family:Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:10px 24px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:#4C6874">Home</a> <span style="color:#4C6874">›</span> <a href="index.html" style="color:#4C6874">Leagues &amp; Tournaments</a> <span style="color:#4C6874">›</span> <a href="option-a.html" style="color:#4C6874">Christmas Domino League</a> <span style="color:#4C6874">›</span> <span style="color:#14485D;font-weight:500">Standings</span></div></div>
+<div style="background:#F7F8F8;border-bottom:1px solid #DAE3E6;font-family:Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:10px 24px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:#4C6874">Home</a> <span style="color:#4C6874">›</span> <a href="index.html" style="color:#4C6874">Leagues &amp; Tournaments</a> <span style="color:#4C6874">›</span> <a href="league.html" style="color:#4C6874">Christmas Domino League</a> <span style="color:#4C6874">›</span> <span style="color:#14485D;font-weight:500">Standings</span></div></div>
 <section class="pips" style="background-color:#14485D;color:#ffffff">
   <div style="max-width:1320px;margin:0 auto;padding:32px 24px 28px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
     <div>
       <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:#FCAE40">2ND ANNUAL CHRISTMAS DOMINO LEAGUE</div>
       <h1 class="disp" style="margin:6px 0 0;font-size:clamp(52px,9vw,80px);line-height:.9">{{divName}} standings</h1>
-      <p style="margin:10px 0 0;font-size:17px;color:#dbe7ec;max-width:640px">Points add up automatically after every result: win {{sc.w}}, draw {{sc.d}}, loss {{sc.l}}. The table decides who goes straight into the bracket and who plays for the last seats.</p>
+      <p style="margin:10px 0 0;font-size:17px;color:#dbe7ec;max-width:640px">Every set is first to {{sc.setTo}} points. A win earns {{sc.w}} standings points and a loss {{sc.l}}; level players are split by points difference. The table decides who goes straight into the bracket and who plays for the last seats.</p>
     </div>
     <div role="group" aria-label="Division" style="display:flex;background:#1d5a72;border-radius:10px;padding:4px;gap:4px">
       <sc-for list="{{divTabs}}" as="d" hint-placeholder-count="2">
@@ -83,15 +83,15 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
       <span style="font-size:13px;color:#4C6874">{{played}} results recorded</span>
     </div>
     <div style="overflow-x:auto;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px">
-      <div style="min-width:720px">
-        <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 44px 44px 44px 44px 64px;gap:8px;padding:12px 16px;font:700 12px Inter,sans-serif;letter-spacing:.06em;color:#4C6874;border-bottom:1px solid #DAE3E6"><span>POS</span><span>PLAYER</span><span>TEAM</span><span style="text-align:center">P</span><span style="text-align:center">W</span><span style="text-align:center">D</span><span style="text-align:center">L</span><span style="text-align:right">PTS</span></div>
+      <div style="min-width:780px">
+        <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 40px 40px 40px 52px 52px 56px 64px;gap:8px;padding:12px 16px;font:700 12px Inter,sans-serif;letter-spacing:.06em;color:#4C6874;border-bottom:1px solid #DAE3E6"><span>POS</span><span>PLAYER</span><span>TEAM</span><span style="text-align:center">P</span><span style="text-align:center">W</span><span style="text-align:center">L</span><span style="text-align:center" title="Game points won">PF</span><span style="text-align:center" title="Game points against">PA</span><span style="text-align:center">+/−</span><span style="text-align:right">PTS</span></div>
         <sc-for list="{{rows}}" as="r" hint-placeholder-count="20">
           <sc-if value="{{r.cut}}" hint-placeholder-val="{{false}}"><div style="padding:6px 16px;background:#F7F8F8;border-bottom:1px solid #DAE3E6;font:700 11px Inter,sans-serif;letter-spacing:.1em;color:{{r.cutColor}}">{{r.cutLabel}}</div></sc-if>
-          <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 44px 44px 44px 44px 64px;gap:8px;padding:10px 16px;border-bottom:1px solid #E8ECED;align-items:center;font-size:14px;box-shadow:inset 4px 0 0 {{r.zc}}">
+          <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 40px 40px 40px 52px 52px 56px 64px;gap:8px;padding:10px 16px;border-bottom:1px solid #E8ECED;align-items:center;font-size:14px;box-shadow:inset 4px 0 0 {{r.zc}}">
             <span class="disp" style="font-size:22px">{{r.pos}}</span>
             <span><strong>{{r.name}}</strong> <span style="color:#CC1F19">{{r.nickLine}}</span></span>
             <span style="color:#4C6874">{{r.team}}</span>
-            <span style="text-align:center">{{r.p}}</span><span style="text-align:center">{{r.w}}</span><span style="text-align:center">{{r.d}}</span><span style="text-align:center">{{r.l}}</span>
+            <span style="text-align:center">{{r.p}}</span><span style="text-align:center">{{r.w}}</span><span style="text-align:center">{{r.l}}</span><span style="text-align:center">{{r.pf}}</span><span style="text-align:center">{{r.pa}}</span><span style="text-align:center;color:{{r.dc}};font-weight:600">{{r.diff}}</span>
             <span class="disp" style="text-align:right;font-size:24px">{{r.pts}}</span>
           </div>
         </sc-for>
@@ -106,16 +106,17 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
   <aside style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:16px">
     <div style="background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:20px">
       <h2 class="disp" style="margin:0;font-size:28px">Record a result</h2>
-      <p style="margin:4px 0 12px;font-size:13px;color:#4C6874">Demo of the scorekeeper’s screen. Points update instantly.</p>
+      <p style="margin:4px 0 12px;font-size:13px;color:#4C6874">Demo of the scorekeeper’s screen. Enter the set score (first to {{sc.setTo}}); the table updates instantly.</p>
       <label style="display:block;font:600 12px Inter,sans-serif;color:#4C6874;margin-bottom:4px" for="ra">Player A</label>
       <select id="ra" style="width:100%;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:14px Inter,sans-serif;color:#14485D;background:#F7F8F8"><sc-for list="{{opts}}" as="o" hint-placeholder-count="10"><option value="{{o.id}}">{{o.label}}</option></sc-for></select>
       <label style="display:block;font:600 12px Inter,sans-serif;color:#4C6874;margin:10px 0 4px" for="rb">Player B</label>
       <select id="rb" style="width:100%;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:14px Inter,sans-serif;color:#14485D;background:#F7F8F8"><sc-for list="{{optsB}}" as="o" hint-placeholder-count="10"><option value="{{o.id}}">{{o.label}}</option></sc-for></select>
-      <div role="group" aria-label="Result" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:12px">
-        <button onClick="{{recA}}" style="min-height:44px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 13px Inter,sans-serif;cursor:pointer">A wins</button>
-        <button onClick="{{recD}}" style="min-height:44px;border-radius:10px;border:1px solid #14485D;background:#ffffff;color:#14485D;font:700 13px Inter,sans-serif;cursor:pointer">Draw</button>
-        <button onClick="{{recB}}" style="min-height:44px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 13px Inter,sans-serif;cursor:pointer">B wins</button>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px">
+        <label style="font:600 12px Inter,sans-serif;color:#4C6874">A’s points<input id="sa" type="number" min="0" max="{{sc.setTo}}" value="{{sc.setTo}}" style="display:block;width:100%;box-sizing:border-box;margin-top:4px;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:600 16px Inter,sans-serif;color:#14485D"></label>
+        <label style="font:600 12px Inter,sans-serif;color:#4C6874">B’s points<input id="sb" type="number" min="0" max="{{sc.setTo}}" value="0" style="display:block;width:100%;box-sizing:border-box;margin-top:4px;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:600 16px Inter,sans-serif;color:#14485D"></label>
       </div>
+      <button onClick="{{rec}}" style="width:100%;margin-top:10px;min-height:46px;border-radius:999px;border:0;background:#14485D;color:#ffffff;font:700 14px Inter,sans-serif;cursor:pointer">Save result</button>
+      <p style="margin:8px 0 0;font-size:12px;color:#4C6874">Red card, walk-off or forfeit: the remaining points go to the opponent, so enter {{sc.setTo}} for them. <button onClick="{{rulesRed}}" style="border:0;background:none;padding:0;color:#CC1F19;font:600 12px Inter,sans-serif;text-decoration:underline;cursor:pointer">Rule</button></p>
       <sc-if value="{{msg}}" hint-placeholder-val="{{false}}"><p style="margin:10px 0 0;font-size:13px;color:#CC1F19">{{msg}}</p></sc-if>
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
         <button onClick="{{simulate}}" style="flex:1 1 140px;min-height:42px;border-radius:999px;border:0;background:#FCAE40;color:#0e3546;font:700 13px Inter,sans-serif;cursor:pointer">Fill demo results</button>
@@ -125,6 +126,14 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
         <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#4C6874;margin:16px 0 4px">LATEST RESULTS</div>
         <sc-for list="{{recent}}" as="x" hint-placeholder-count="5"><div style="font-size:13px;padding:6px 0;border-bottom:1px solid #E8ECED">{{x}}</div></sc-for>
       </sc-if>
+    </div>
+
+    <div style="background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 class="disp" style="margin:0;font-size:28px">Scoring rules</h2><button onClick="{{rules.openAll}}" style="min-height:40px;padding:0 14px;border-radius:999px;border:0;background:#14485D;color:#ffffff;font:700 13px Inter,sans-serif;cursor:pointer">All rules</button></div>
+      <p style="margin:4px 0 8px;font-size:13px;color:#4C6874">From the official rules. These settings drive the table.</p>
+      <sc-for list="{{scoreRules}}" as="sr" hint-placeholder-count="5">
+        <button onClick="{{sr.pick}}" style="width:100%;display:flex;justify-content:space-between;gap:10px;align-items:center;text-align:left;padding:10px 0;border:0;border-bottom:1px solid #E8ECED;background:none;cursor:pointer;font:inherit;color:#14485D"><span style="font-size:14px">{{sr.label}}</span><strong class="disp" style="font-size:20px;color:#CC1F19;white-space:nowrap">{{sr.value}} ›</strong></button>
+      </sc-for>
     </div>
 
     <div style="background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:20px">
@@ -177,7 +186,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
       <div style="background:#14485D;border:2px solid #3a7590;border-radius:16px;padding:16px">
         <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">1 · STANDINGS</div>
         <div class="disp" style="font-size:26px;line-height:1.05;margin-top:4px">First &amp; Second Round</div>
-        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">Every result adds points: W {{sc.w}} · D {{sc.d}} · L {{sc.l}}. Nov 30 – Dec 17.</p>
+        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">Sets to {{sc.setTo}}. Win {{sc.w}} · Loss {{sc.l}}, split by points difference. Nov 30 – Dec 17.</p>
       </div>
       <svg viewBox="0 0 60 120" aria-hidden="true" style="width:60px;height:120px"><path d="M4 30 C30 30 30 20 54 20" stroke="#1f9d6b" stroke-width="3" fill="none"></path><path d="M4 90 C30 90 30 100 54 100" stroke="#FCAE40" stroke-width="3" fill="none"></path><path d="M48 14l7 6-7 6M48 94l7 6-7 6" stroke-width="3" fill="none" stroke="#ffffff"></path></svg>
       <div style="display:flex;flex-direction:column;gap:12px">
@@ -211,6 +220,39 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
     </div>
   </div>
 </section>
+
+<sc-if value="{{rules.open}}" hint-placeholder-val="{{false}}">
+  <div onClick="{{rules.close}}" style="position:fixed;inset:0;z-index:200;background:rgba(7,28,37,.75);display:flex;align-items:center;justify-content:center;padding:16px;font-family:Inter,sans-serif">
+    <div role="dialog" aria-modal="true" aria-labelledby="rulesTitle" onClick="{{rules.stop}}" style="width:min(880px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);color:#14485D">
+      <div class="pips" style="flex:0 0 auto;background-color:#14485D;color:#ffffff;padding:18px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between">
+        <div><div style="font:700 11px Inter,sans-serif;letter-spacing:.12em;color:#FCAE40">CHRISTMAS DOMINO LEAGUE</div><h2 id="rulesTitle" class="disp" style="margin:2px 0 0;font-size:34px;line-height:1">Official rules &amp; regulations</h2></div>
+        <button onClick="{{rules.close}}" aria-label="Close rules" style="flex:0 0 44px;height:44px;border-radius:999px;border:2px solid #ffffff;background:transparent;color:#ffffff;font:700 18px Inter,sans-serif;cursor:pointer">✕</button>
+      </div>
+      <div role="group" aria-label="Rule sections" style="flex:0 0 auto;display:flex;gap:6px;padding:10px 16px;border-bottom:1px solid #DAE3E6;overflow-x:auto;background:#F7F8F8">
+        <sc-for list="{{rules.tabs}}" as="t" hint-placeholder-count="7">
+          <sc-if value="{{t.on}}" hint-placeholder-val="{{false}}"><button onClick="{{t.pick}}" style="flex:0 0 auto;min-height:38px;padding:0 14px;border-radius:999px;border:0;background:#14485D;color:#ffffff;font:600 13px Inter,sans-serif;cursor:pointer">{{t.label}}</button></sc-if>
+          <sc-if value="{{t.off}}" hint-placeholder-val="{{true}}"><button onClick="{{t.pick}}" style="flex:0 0 auto;min-height:38px;padding:0 14px;border-radius:999px;border:1px solid #DAE3E6;background:#ffffff;color:#14485D;font:500 13px Inter,sans-serif;cursor:pointer">{{t.label}}</button></sc-if>
+        </sc-for>
+      </div>
+      <div style="overflow-y:auto;padding:8px 20px 24px">
+        <sc-for list="{{rules.sections}}" as="sec" hint-placeholder-count="3">
+          <h3 id="rule-{{sec.id}}" class="disp" style="margin:20px 0 8px;font-size:26px;scroll-margin-top:8px">{{sec.title}}</h3>
+          <sc-for list="{{sec.items}}" as="it" hint-placeholder-count="4">
+            <div id="rule-{{it.id}}" style="display:flex;gap:12px;padding:12px;margin-bottom:6px;border:1px solid {{it.bd}};background:{{it.bg}};border-radius:12px;scroll-margin-top:12px">
+              <span class="disp" style="flex:0 0 30px;height:30px;border-radius:8px;background:#E8ECED;display:flex;align-items:center;justify-content:center;font-size:16px">{{it.no}}</span>
+              <div style="min-width:0;font-size:14px;line-height:1.55">
+                <sc-if value="{{it.hasTag}}" hint-placeholder-val="{{false}}"><span style="display:inline-block;margin-bottom:4px;background:#14485D;color:#FCAE40;font:700 10px Inter,sans-serif;letter-spacing:.08em;padding:3px 7px;border-radius:5px">{{it.tag}}</span><br></sc-if>
+                {{it.text}}
+                <sc-if value="{{it.hasList}}" hint-placeholder-val="{{false}}"><ul style="margin:6px 0 0;padding-left:18px"><sc-for list="{{it.list}}" as="li" hint-placeholder-count="3"><li>{{li}}</li></sc-for></ul></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </sc-for>
+        <p style="margin:16px 0 0;font:700 14px Inter,sans-serif;color:#CC1F19">The referee’s decision is final.</p>
+      </div>
+    </div>
+  </div>
+</sc-if>
 
 <footer style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
   <div style="max-width:1320px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px">
@@ -280,50 +322,121 @@ function csqPlayers() {
   return all;
 }
 
-var SCORING = { w: 3, d: 1, l: 0 }; /* change here once the JDCA confirms its scoring */
+/* Official competition rules (from the JDCA, Nov 2026). Rules tagged 'scoring' feed the standings settings in RULESET. */
+var RULESET = { win: 3, loss: 0, setTo: 15, derby: 2, derbyMax: 3, latePenalty: 1, playSeconds: 20, start: '7:45 PM', latest: '8:00 PM', grace: 15 };
+var RULES = [
+  { id: 'format', title: 'Match format', items: [
+    { id: 'f0', text: 'All matches will be played at a venue to be announced. Dominoes will be provided, and all matches will be live-streamed.' },
+    { id: 'f1', text: 'The competition will be played in a knockout format until the Final.' },
+    { id: 'f2', text: 'The first player to reach 15 points will be declared winner of the set.', tag: 'scoring' },
+    { id: 'f3', text: 'Matches will begin at 7:45 p.m. There will be a fifteen (15)-minute grace period. Therefore, all matches MUST begin by 8:00 p.m. SHARP.', tag: 'schedule' },
+    { id: 'f4', text: 'Each team registers nine (9) male and four (4) female players. The defending men’s champion will start at the Second Round.' },
+    { id: 'f5', text: 'The team list submitted upon registration is FINAL.' },
+    { id: 'f6', text: 'Double six MUST be posed to start every game.' } ] },
+  { id: 'comp', title: 'Competition format', items: [
+    { id: 'c1', text: 'The top eight (8) players from the knockout rounds will advance to the Quarter-Finals.', tag: 'bracket' },
+    { id: 'c2', text: 'The winners of the Quarter-Finals will advance to the Semi-Finals.', tag: 'bracket' },
+    { id: 'c3', text: 'The winners of the Semi-Finals will contest the Final.', tag: 'bracket' } ] },
+  { id: 'dress', title: 'Dress code', items: [
+    { id: 'd1', text: 'All players MUST be decently attired when attending matches.' },
+    { id: 'd2', text: 'The following will NOT be permitted in the playing area:', list: ['Vests and marinas', 'Shorts and short tights', 'Mini-skirts', 'Sleeveless clothing', 'Belly-skin tops', 'Spaghetti straps', 'Distressed jeans', 'Slippers'] },
+    { id: 'd3', text: 'Crocs are permitted, provided they have the back strap secured and are worn with socks. Female players are permitted to wear slippers.' },
+    { id: 'd4', text: 'The exposure of undergarments (panties, boxers or briefs) will NOT be tolerated.' },
+    { id: 'd5', text: 'BELTS MUST BE WORN.' } ] },
+  { id: 'conduct', title: 'Conduct & behaviour', items: [
+    { id: 'b1', text: 'Exemplary behaviour is expected at all times from everyone participating in the Christmas Domino League.' },
+    { id: 'b2', text: 'The following conduct is strictly prohibited:', list: ['Boisterous or disruptive behaviour', 'Indecent or offensive language', 'Physical assault and/or verbal abuse of any official, supporter, team member or non-playing member of a participating team', 'Smoking in or around the playing area'] } ] },
+  { id: 'play', title: 'Game play', items: [
+    { id: 'g1', text: 'Each player must draw TWO SETS of hands before looking at the dominoes.' },
+    { id: 'g2', text: 'If a domino is exposed while drawing, the opponent has the right to request a reshuffle. Players are not permitted to shuffle in a manner that disadvantages their opponents.' },
+    { id: 'g3', text: 'If a player draws more than seven (7) dominoes in one hand, the opponent MUST be allowed to remove the additional domino(es) and place them in the other hand.' },
+    { id: 'g4', text: 'If a player draws more than seven (7) dominoes and looks at the hand, the game will automatically be awarded to the opponent.', tag: 'scoring' },
+    { id: 'g5', text: 'Double six MUST be posed AFTER all four (4) hands have received the required seven (7) dominoes.' },
+    { id: 'g6', text: 'Players are NOT allowed to converse with any individual while a game is in progress.', list: ['First offence: verbal warning', 'Second offence: yellow card', 'Third offence: red card'], tag: 'cards' },
+    { id: 'g7', text: 'Players are NOT allowed to look at both hands simultaneously.', list: ['First offence: verbal warning', 'Second offence: yellow card', 'Third offence: red card'], tag: 'cards' },
+    { id: 'g8', text: 'A knock is NOT a pass. If a player has no legitimate play, he or she MUST clearly say “PASS”.' },
+    { id: 'g9', text: 'Players are NOT allowed to read or ask Cards Around when passing. They should simply say “PASS” and allow the game to continue.', list: ['First offence: verbal warning', 'Second offence: the game will be awarded to the opponent'], tag: 'scoring' },
+    { id: 'g10', text: 'Time-wasting will NOT be permitted. Each player has twenty (20) seconds to play a domino. If a player fails to play in time, the referee MUST be called and will count the player down to three (3); if the player has still not played, a yellow card is issued. Two (2) yellow cards in the same match result in a red card: the player must leave the ring and may not play for the rest of the set.', tag: 'cards' },
+    { id: 'g11', text: 'A ONE-AWAY is awarded ONLY when a player takes an unnecessary pass (says “PASS” despite having a legitimate play). Once a player says “PASS” while having a legitimate play, the game will be awarded to the opponent.', tag: 'scoring' },
+    { id: 'g12', text: 'Blocked games: when no further legitimate plays can be made and unplayed dominoes remain, the dots on all unplayed dominoes are counted. After the last legitimate play the player MUST immediately expose the remaining dominoes (announcing “BLOCKED” is optional), and ALL hands MUST be exposed. The player with the lowest individual total wins the game. If the lowest scores on each side are tied, it is declared a “DERBY”: the following game is the Derby game, worth two (2) game points to the winner; a double/triple Derby earns a maximum of three (3) game points.', tag: 'scoring' },
+    { id: 'g13', text: 'If a player plays from the wrong hand, the game will be awarded to the opponent.', tag: 'scoring' },
+    { id: 'g14', text: 'A player MUST allow the opponent to concede the game before pulling it up. The opponent MUST be allowed to see how the game was lost and acknowledge the loss. Players are encouraged to concede when they recognise they have lost. If a player declares their hands and dictates the game but the opponent refuses to concede, the referee MUST be called.' },
+    { id: 'g15', text: 'Celebrations and physical contact: no player may touch another player while celebrating. Dominoes is a no-contact sport. Dominoes must not come into contact with anyone, and players may not strike the table so that all the dominoes are knocked off.' },
+    { id: 'g16', text: 'A change of dominoes may ONLY be requested if there is a visible mark noticeable enough to give an opponent an unfair advantage.' },
+    { id: 'g17', text: 'Cheating is strictly prohibited. Any player caught cheating or found guilty of cheating will be expelled from the playing arena.' },
+    { id: 'g18', text: 'Players are allowed a MAXIMUM of TWO (2) bathroom breaks per set. If a player fails to return within five (5) minutes, one (1) point will be awarded to the opponent.', tag: 'scoring' },
+    { id: 'g19', text: 'If a player receives a red card and is asked to leave the ring, the remaining points in the set will be awarded to the opponent.', tag: 'scoring' },
+    { id: 'g20', text: 'If a player has not won a game in the set and chooses not to complete it, the remaining points will be awarded to the opponent.', tag: 'scoring' } ] },
+  { id: 'after', title: 'After winning your set', items: [
+    { id: 'a1', text: 'A player MUST exit the ring once he or she has completed their game, allowing the remaining tables to complete their match.' },
+    { id: 'a2', text: 'In a Derby game, when a player needs one (1) point to win, the game is played for that one point.', tag: 'scoring' } ] },
+  { id: 'misc', title: 'Miscellaneous', items: [
+    { id: 'm1', text: 'Every player MUST present a valid government-issued ID for verification before being allowed to participate. A player without an ID must present a photograph signed by a Justice of the Peace (JP).' },
+    { id: 'm2', text: 'All matches will be live-streamed.' },
+    { id: 'm3', text: 'THE REFEREE’S DECISION IS FINAL.' } ] }
+];
+var TAGS = { scoring: 'Affects scoring', schedule: 'Match times', bracket: 'Bracket', cards: 'Cards & penalties' };
+function rulesVals(self) {
+  var s = self.state, focus = s.ruleFocus || '', sec = s.ruleSec || 'format';
+  var go = function (id) { setTimeout(function () { try { var el = document.getElementById('rule-' + id); if (el) el.scrollIntoView({ block: id.length > 3 ? 'start' : 'center', behavior: 'smooth' }); } catch (e) {} }, 60); };
+  var n = 0;
+  return {
+    open: !!s.rulesOpen,
+    openAll: function () { self.setState({ rulesOpen: true, ruleFocus: '', ruleSec: 'format' }); },
+    close: function () { self.setState({ rulesOpen: false, ruleFocus: '' }); },
+    stop: function (e) { if (e && e.stopPropagation) e.stopPropagation(); },
+    tabs: RULES.map(function (r) { return { label: r.title, on: sec === r.id, off: sec !== r.id, pick: function () { self.setState({ ruleSec: r.id }); go(r.id + '-sec'); } }; }),
+    sections: RULES.map(function (r) { return { id: r.id + '-sec', title: r.title, items: r.items.map(function (it) { n++; var f = focus === it.id;
+      return { id: it.id, no: n, text: it.text, list: it.list || [], hasList: !!(it.list && it.list.length), tag: it.tag ? TAGS[it.tag] : '', hasTag: !!it.tag, bg: f ? '#FFF4E0' : '#ffffff', bd: f ? '#FCAE40' : '#E8ECED' }; }) }; }),
+    openRule: function (id, secId) { return function () { self.setState({ rulesOpen: true, ruleFocus: id, ruleSec: secId }); go(id); }; }
+  };
+}
+
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    var res = []; try { res = JSON.parse(localStorage.getItem('csq_results') || '[]'); } catch (e) {}
+    var res = []; try { res = JSON.parse(localStorage.getItem('csq_results_v2') || '[]'); } catch (e) {}
     var d = 'men'; try { if (new URLSearchParams(location.search).get('div') === 'women') d = 'women'; } catch (e) {}
     this.state = { div: d, res: res, seats: 32, wc: 4, all: false, msg: '' };
     this.players = csqPlayers();
   }
-  save(res) { try { localStorage.setItem('csq_results', JSON.stringify(res)); } catch (e) {} this.setState({ res: res, msg: '' }); }
+  save(res) { try { localStorage.setItem('csq_results_v2', JSON.stringify(res)); } catch (e) {} this.setState({ res: res, msg: '' }); }
   renderVals() {
-    var self = this, s = this.state, W = s.div === 'women';
+    var self = this, s = this.state, W = s.div === 'women', R = RULESET, SET = R.setTo;
     var ps = this.players.filter(function (p) { return p.div === s.div; });
-    var byId = {}; ps.forEach(function (p) { byId[p.id] = { p: p, P: 0, W: 0, D: 0, L: 0 }; });
+    var byId = {}; ps.forEach(function (p) { byId[p.id] = { p: p, P: 0, W: 0, L: 0, PF: 0, PA: 0 }; });
     var mine = s.res.filter(function (r) { return byId[r.a] && byId[r.b]; });
-    mine.forEach(function (r) { var A = byId[r.a], B = byId[r.b]; A.P++; B.P++;
-      if (r.r === 'A') { A.W++; B.L++; } else if (r.r === 'B') { B.W++; A.L++; } else { A.D++; B.D++; } });
-    var tbl = Object.keys(byId).map(function (k) { var x = byId[k]; x.pts = x.W * SCORING.w + x.D * SCORING.d + x.L * SCORING.l; return x; });
-    tbl.sort(function (a, b) { return b.pts - a.pts || b.W - a.W || a.L - b.L || a.p.name.localeCompare(b.p.name); });
+    mine.forEach(function (r) { var A = byId[r.a], B = byId[r.b]; A.P++; B.P++; A.PF += r.sa; A.PA += r.sb; B.PF += r.sb; B.PA += r.sa;
+      if (r.sa > r.sb) { A.W++; B.L++; } else { B.W++; A.L++; } });
+    var tbl = Object.keys(byId).map(function (k) { var x = byId[k]; x.pts = x.W * R.win + x.L * R.loss; x.diff = x.PF - x.PA; return x; });
+    tbl.sort(function (a, b) { return b.pts - a.pts || b.diff - a.diff || b.PF - a.PF || a.p.name.localeCompare(b.p.name); });
     var n = tbl.length, seats = s.seats, wc = Math.min(s.wc, seats), direct = Math.min(seats - wc, n), pool = Math.max(0, Math.min(wc * 2, n - direct));
     var poFrom = direct + 1, poTo = direct + pool;
     var zone = function (i) { return i < direct ? '#1f9d6b' : i < poTo ? '#FCAE40' : '#c9d4d8'; };
     var limit = s.all ? n : Math.min(n, poTo + 6);
     var rows = tbl.slice(0, limit).map(function (x, i) {
       var cut = (i === direct && pool > 0) || (i === poTo && i > 0);
-      return { pos: i + 1, name: x.p.name, nickLine: x.p.nickLine, team: x.p.team, p: x.P, w: x.W, d: x.D, l: x.L, pts: x.pts, zc: zone(i),
+      return { pos: i + 1, name: x.p.name, nickLine: x.p.nickLine, team: x.p.team, p: x.P, w: x.W, l: x.L, pf: x.PF, pa: x.PA, diff: (x.diff > 0 ? '+' : '') + x.diff, dc: x.diff > 0 ? '#1f7a55' : x.diff < 0 ? '#CC1F19' : '#4C6874', pts: x.pts, zc: zone(i),
         cut: cut, cutLabel: i === direct && pool > 0 ? 'SEAT PLAYOFF · PLACES ' + poFrom + '–' + poTo : 'OUT OF THE BRACKET', cutColor: i === direct && pool > 0 ? '#b26b00' : '#4C6874' };
     });
     var pairs = []; for (var k = 0; k < Math.floor(pool / 2); k++) { var A = tbl[direct + k], B = tbl[poTo - 1 - k];
       pairs.push({ n: k + 1, seat: direct + k + 1, a: A.p.name, at: A.p.team + ' · ' + A.pts + ' pts', ap: direct + k + 1, b: B.p.name, bt: B.p.team + ' · ' + B.pts + ' pts', bp: poTo - k }); }
     var opts = tbl.map(function (x) { return { id: x.p.id, label: x.p.name + (x.p.nick ? ' “' + x.p.nick + '”' : '') + ' · ' + x.p.team }; }).sort(function (a, b) { return a.label.localeCompare(b.label); });
-    var rec = function (r) { return function () { var a = '', b = ''; try { a = document.getElementById('ra').value; b = document.getElementById('rb').value; } catch (e) {}
+    var rec = function () { var a = '', b = '', sa = 0, sb = 0; try { a = document.getElementById('ra').value; b = document.getElementById('rb').value; sa = parseInt(document.getElementById('sa').value, 10); sb = parseInt(document.getElementById('sb').value, 10); } catch (e) {}
       if (!a || !b || a === b) { self.setState({ msg: 'Pick two different players.' }); return; }
-      self.save(s.res.concat([{ a: a, b: b, r: r, t: Date.now() }])); }; };
+      if (isNaN(sa) || isNaN(sb) || Math.max(sa, sb) !== SET || Math.min(sa, sb) < 0 || sa === sb) { self.setState({ msg: 'One player must reach exactly ' + SET + ' and the other must have fewer.' }); return; }
+      self.save(s.res.concat([{ a: a, b: b, sa: sa, sb: sb, t: Date.now() }])); };
     var nm = function (id) { var x = byId[id]; return x ? x.p.name : '?'; };
-    var recent = mine.slice(-6).reverse().map(function (r) { return r.r === 'D' ? nm(r.a) + ' drew with ' + nm(r.b) : (r.r === 'A' ? nm(r.a) + ' beat ' + nm(r.b) : nm(r.b) + ' beat ' + nm(r.a)); });
+    var recent = mine.slice(-6).reverse().map(function (r) { return r.sa > r.sb ? nm(r.a) + ' beat ' + nm(r.b) + ' ' + r.sa + '–' + r.sb : nm(r.b) + ' beat ' + nm(r.a) + ' ' + r.sb + '–' + r.sa; });
     return {
-      divName: W ? 'Women’s' : 'Men’s', sc: SCORING, rows: rows, total: n, played: mine.length, canMore: !s.all && limit < n, canLess: s.all,
+      divName: W ? 'Women’s' : 'Men’s', sc: { w: R.win, l: R.loss, setTo: SET }, rules: rulesVals(this), rulesRed: rulesVals(this).openRule('g19', 'play'),
+      scoreRules: [['Set is won by the first to', SET + ' pts', 'f2', 'format'], ['Derby game winner earns', R.derby + ' pts (max ' + R.derbyMax + ')', 'g12', 'play'], ['Bathroom break over 5 minutes', '+' + R.latePenalty + ' to opponent', 'g18', 'play'], ['Red card or unfinished set', 'Rest to opponent', 'g19', 'play'], ['Standings: win / loss', R.win + ' / ' + R.loss, 'f2', 'format']].map(function (x) { return { label: x[0], value: x[1], pick: rulesVals(self).openRule(x[2], x[3]) }; }), rows: rows, total: n, played: mine.length, canMore: !s.all && limit < n, canLess: s.all,
       more: function () { self.setState({ all: true }); }, less: function () { self.setState({ all: false }); },
       z: { seats: seats, wc: wc, direct: direct, pool: pool, poFrom: poFrom, poTo: poTo }, pairs: pairs, opts: opts, optsB: opts.slice(1).concat(opts.slice(0, 1)),
-      recA: rec('A'), recD: rec('D'), recB: rec('B'), msg: s.msg, recent: recent, hasRecent: recent.length > 0,
+      rec: rec, msg: s.msg, recent: recent, hasRecent: recent.length > 0,
       simulate: function () { var add = []; var ids = ps.map(function (p) { return p.id; });
         for (var round = 0; round < 4; round++) { var sh = ids.slice().sort(function () { return Math.random() - 0.5; });
-          for (var i = 0; i + 1 < sh.length; i += 2) { var x = Math.random(); add.push({ a: sh[i], b: sh[i + 1], r: x < 0.45 ? 'A' : x < 0.55 ? 'D' : 'B', t: Date.now() }); } }
+          for (var i = 0; i + 1 < sh.length; i += 2) { var lo = Math.floor(Math.random() * SET); add.push(Math.random() < 0.5 ? { a: sh[i], b: sh[i + 1], sa: SET, sb: lo, t: Date.now() } : { a: sh[i], b: sh[i + 1], sa: lo, sb: SET, t: Date.now() }); } }
         self.save(s.res.concat(add)); },
       clear: function () { self.save(s.res.filter(function (r) { return !byId[r.a]; })); },
       divTabs: [['men', 'Men’s'], ['women', 'Women’s']].map(function (d) { return { label: d[1], on: s.div === d[0], off: s.div !== d[0], pick: function () { self.setState({ div: d[0], all: false, msg: '' }); } }; }),
