@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Domino League · Standings | CSQ preview</title>
+<meta name="description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/standings.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Caribbean Sports Quest">
+<meta property="og:title" content="Christmas Domino League · Standings | CSQ preview">
+<meta property="og:description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta property="og:url" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/standings.html">
+<meta property="og:image" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="2nd Annual Christmas Domino League poster">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Christmas Domino League · Standings | CSQ preview">
+<meta name="twitter:description" content="Preview of the Caribbean Sports Quest Leagues & Tournaments page with the 2nd Annual Christmas Domino League, Nov 30 to Dec 10, 2026. Three styling options to compare.">
+<meta name="twitter:image" content="https://icelestial21-cmd.github.io/client-previews/csq-leagues-tournaments/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F7F8F8}
+a{text-decoration:none;color:#14485D}
+.disp{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+/* Polish pass. Lift and pips match the other pages. */
+button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,color .15s ease}
+:focus-visible{outline:3px solid #FCAE40;outline-offset:2px}
+.lift:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,72,93,.14)}
+.pips{background-image:radial-gradient(rgba(255,255,255,.09) 2px,transparent 2.6px);background-size:22px 22px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
+</head>
+<body>
+<div class="pvbar" style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="standings.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Standings</a><a href="bracket.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Bracket</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a><a href="option-a.html?stage=knockouts" style="padding:6px 12px;border-radius:999px;border:1px solid #FCAE40;color:#FCAE40">Pop-up preview</a></nav></div></div>
+<div id="app"></div>
+<template id="tpl">
+
+<div style="background:#F7F8F8;color:#14485D;font-family:Inter,sans-serif;min-height:100vh">
+<header style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
+  <div style="max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;color:#ffffff"><span style="width:40px;height:40px;border-radius:10px;background:#1d5a72;border:1px solid #3a7590;display:flex;align-items:center;justify-content:center;font:400 16px 'Bebas Neue',sans-serif;color:#FCAE40">CSQ</span><span style="font:400 24px 'Bebas Neue',sans-serif;letter-spacing:.03em">CARIBBEAN SPORTS QUEST</span></a>
+    <nav aria-label="Main" style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;font:500 15px Inter,sans-serif">
+      <a href="#" style="padding:8px 12px;color:#ffffff">Calendar</a><a href="#" style="padding:8px 12px;color:#ffffff">Tickets</a><a href="#" style="padding:8px 12px;color:#ffffff">Travel</a><a href="#" style="padding:8px 12px;color:#ffffff">Merchandise</a>
+      <a href="index.html" style="padding:8px 12px;color:#FCAE40;background:rgba(204,31,25,.2);border-radius:10px">Leagues &amp; Tournaments</a>
+      <a href="#" style="padding:8px 12px;color:#ffffff">More ▾</a>
+      <span style="width:1px;height:28px;background:#3a7590;margin:0 8px"></span>
+      <button aria-label="Cart" style="width:42px;height:42px;border-radius:10px;border:0;background:#ffffff;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#14485D" stroke-width="2" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11h11l2-8H6.2"/></svg></button>
+      <a href="#" style="margin-left:8px;min-height:44px;display:inline-flex;align-items:center;padding:0 18px;border-radius:999px;background:#CC1F19;color:#ffffff;font-weight:700">Login / Sign Up</a>
+    </nav>
+  </div>
+</header>
+<div style="background:#F7F8F8;border-bottom:1px solid #DAE3E6;font-family:Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:10px 24px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:#4C6874">Home</a> <span style="color:#4C6874">›</span> <a href="index.html" style="color:#4C6874">Leagues &amp; Tournaments</a> <span style="color:#4C6874">›</span> <a href="option-a.html" style="color:#4C6874">Christmas Domino League</a> <span style="color:#4C6874">›</span> <span style="color:#14485D;font-weight:500">Standings</span></div></div>
+<section class="pips" style="background-color:#14485D;color:#ffffff">
+  <div style="max-width:1320px;margin:0 auto;padding:32px 24px 28px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
+    <div>
+      <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:#FCAE40">2ND ANNUAL CHRISTMAS DOMINO LEAGUE</div>
+      <h1 class="disp" style="margin:6px 0 0;font-size:clamp(52px,9vw,80px);line-height:.9">{{divName}} standings</h1>
+      <p style="margin:10px 0 0;font-size:17px;color:#dbe7ec;max-width:640px">Points add up automatically after every result: win {{sc.w}}, draw {{sc.d}}, loss {{sc.l}}. The table decides who goes straight into the bracket and who plays for the last seats.</p>
+    </div>
+    <div role="group" aria-label="Division" style="display:flex;background:#1d5a72;border-radius:10px;padding:4px;gap:4px">
+      <sc-for list="{{divTabs}}" as="d" hint-placeholder-count="2">
+        <sc-if value="{{d.on}}" hint-placeholder-val="{{false}}"><button onClick="{{d.pick}}" aria-pressed="true" style="min-height:42px;padding:0 16px;border:0;border-radius:8px;background:#FCAE40;color:#0e3546;font:700 14px Inter,sans-serif;cursor:pointer">{{d.label}}</button></sc-if>
+        <sc-if value="{{d.off}}" hint-placeholder-val="{{true}}"><button onClick="{{d.pick}}" aria-pressed="false" style="min-height:42px;padding:0 16px;border:0;border-radius:8px;background:transparent;color:#ffffff;font:500 14px Inter,sans-serif;cursor:pointer">{{d.label}}</button></sc-if>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:24px 24px 0;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">
+  <div style="flex:3 1 640px;min-width:0">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;font:600 12px Inter,sans-serif">
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#ffffff;border:1px solid #DAE3E6;border-radius:999px;padding:6px 10px"><i style="width:10px;height:10px;border-radius:3px;background:#1f9d6b"></i>Straight to bracket · 1–{{z.direct}}</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#ffffff;border:1px solid #DAE3E6;border-radius:999px;padding:6px 10px"><i style="width:10px;height:10px;border-radius:3px;background:#FCAE40"></i>Seat playoff · {{z.poFrom}}–{{z.poTo}}</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#ffffff;border:1px solid #DAE3E6;border-radius:999px;padding:6px 10px"><i style="width:10px;height:10px;border-radius:3px;background:#c9d4d8"></i>Out</span>
+      </div>
+      <span style="font-size:13px;color:#4C6874">{{played}} results recorded</span>
+    </div>
+    <div style="overflow-x:auto;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px">
+      <div style="min-width:720px">
+        <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 44px 44px 44px 44px 64px;gap:8px;padding:12px 16px;font:700 12px Inter,sans-serif;letter-spacing:.06em;color:#4C6874;border-bottom:1px solid #DAE3E6"><span>POS</span><span>PLAYER</span><span>TEAM</span><span style="text-align:center">P</span><span style="text-align:center">W</span><span style="text-align:center">D</span><span style="text-align:center">L</span><span style="text-align:right">PTS</span></div>
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="20">
+          <sc-if value="{{r.cut}}" hint-placeholder-val="{{false}}"><div style="padding:6px 16px;background:#F7F8F8;border-bottom:1px solid #DAE3E6;font:700 11px Inter,sans-serif;letter-spacing:.1em;color:{{r.cutColor}}">{{r.cutLabel}}</div></sc-if>
+          <div style="display:grid;grid-template-columns:56px minmax(0,1.6fr) minmax(0,1.2fr) 44px 44px 44px 44px 64px;gap:8px;padding:10px 16px;border-bottom:1px solid #E8ECED;align-items:center;font-size:14px;box-shadow:inset 4px 0 0 {{r.zc}}">
+            <span class="disp" style="font-size:22px">{{r.pos}}</span>
+            <span><strong>{{r.name}}</strong> <span style="color:#CC1F19">{{r.nickLine}}</span></span>
+            <span style="color:#4C6874">{{r.team}}</span>
+            <span style="text-align:center">{{r.p}}</span><span style="text-align:center">{{r.w}}</span><span style="text-align:center">{{r.d}}</span><span style="text-align:center">{{r.l}}</span>
+            <span class="disp" style="text-align:right;font-size:24px">{{r.pts}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;margin:12px 0 0">
+      <sc-if value="{{canMore}}" hint-placeholder-val="{{true}}"><button onClick="{{more}}" style="min-height:44px;padding:0 20px;border-radius:999px;border:1px solid #14485D;background:#ffffff;color:#14485D;font:700 14px Inter,sans-serif;cursor:pointer">Show all {{total}} players</button></sc-if>
+      <sc-if value="{{canLess}}" hint-placeholder-val="{{false}}"><button onClick="{{less}}" style="min-height:44px;padding:0 20px;border-radius:999px;border:1px solid #14485D;background:#ffffff;color:#14485D;font:700 14px Inter,sans-serif;cursor:pointer">Show fewer</button></sc-if>
+    </div>
+  </div>
+
+  <aside style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:16px">
+    <div style="background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:20px">
+      <h2 class="disp" style="margin:0;font-size:28px">Record a result</h2>
+      <p style="margin:4px 0 12px;font-size:13px;color:#4C6874">Demo of the scorekeeper’s screen. Points update instantly.</p>
+      <label style="display:block;font:600 12px Inter,sans-serif;color:#4C6874;margin-bottom:4px" for="ra">Player A</label>
+      <select id="ra" style="width:100%;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:14px Inter,sans-serif;color:#14485D;background:#F7F8F8"><sc-for list="{{opts}}" as="o" hint-placeholder-count="10"><option value="{{o.id}}">{{o.label}}</option></sc-for></select>
+      <label style="display:block;font:600 12px Inter,sans-serif;color:#4C6874;margin:10px 0 4px" for="rb">Player B</label>
+      <select id="rb" style="width:100%;min-height:44px;border:1px solid #DAE3E6;border-radius:10px;padding:0 10px;font:14px Inter,sans-serif;color:#14485D;background:#F7F8F8"><sc-for list="{{optsB}}" as="o" hint-placeholder-count="10"><option value="{{o.id}}">{{o.label}}</option></sc-for></select>
+      <div role="group" aria-label="Result" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:12px">
+        <button onClick="{{recA}}" style="min-height:44px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 13px Inter,sans-serif;cursor:pointer">A wins</button>
+        <button onClick="{{recD}}" style="min-height:44px;border-radius:10px;border:1px solid #14485D;background:#ffffff;color:#14485D;font:700 13px Inter,sans-serif;cursor:pointer">Draw</button>
+        <button onClick="{{recB}}" style="min-height:44px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 13px Inter,sans-serif;cursor:pointer">B wins</button>
+      </div>
+      <sc-if value="{{msg}}" hint-placeholder-val="{{false}}"><p style="margin:10px 0 0;font-size:13px;color:#CC1F19">{{msg}}</p></sc-if>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button onClick="{{simulate}}" style="flex:1 1 140px;min-height:42px;border-radius:999px;border:0;background:#FCAE40;color:#0e3546;font:700 13px Inter,sans-serif;cursor:pointer">Fill demo results</button>
+        <button onClick="{{clear}}" style="flex:1 1 100px;min-height:42px;border-radius:999px;border:1px solid #DAE3E6;background:#ffffff;color:#4C6874;font:600 13px Inter,sans-serif;cursor:pointer">Clear all</button>
+      </div>
+      <sc-if value="{{hasRecent}}" hint-placeholder-val="{{false}}">
+        <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#4C6874;margin:16px 0 4px">LATEST RESULTS</div>
+        <sc-for list="{{recent}}" as="x" hint-placeholder-count="5"><div style="font-size:13px;padding:6px 0;border-bottom:1px solid #E8ECED">{{x}}</div></sc-for>
+      </sc-if>
+    </div>
+
+    <div style="background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:20px">
+      <h2 class="disp" style="margin:0;font-size:28px">Bracket settings</h2>
+      <p style="margin:4px 0 10px;font-size:13px;color:#4C6874">Seats in the knockout bracket, and how many go to the seat playoff.</p>
+      <div style="font:600 12px Inter,sans-serif;color:#4C6874;margin-bottom:6px">Bracket size</div>
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <sc-for list="{{seatOpts}}" as="o" hint-placeholder-count="2">
+          <sc-if value="{{o.on}}" hint-placeholder-val="{{false}}"><button onClick="{{o.pick}}" aria-pressed="true" style="flex:1;min-height:42px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 14px Inter,sans-serif;cursor:pointer">{{o.label}}</button></sc-if>
+          <sc-if value="{{o.off}}" hint-placeholder-val="{{true}}"><button onClick="{{o.pick}}" aria-pressed="false" style="flex:1;min-height:42px;border-radius:10px;border:1px solid #DAE3E6;background:#ffffff;color:#14485D;font:600 14px Inter,sans-serif;cursor:pointer">{{o.label}}</button></sc-if>
+        </sc-for>
+      </div>
+      <div style="font:600 12px Inter,sans-serif;color:#4C6874;margin-bottom:6px">Seats decided by playoff</div>
+      <div style="display:flex;gap:6px">
+        <sc-for list="{{wcOpts}}" as="o" hint-placeholder-count="4">
+          <sc-if value="{{o.on}}" hint-placeholder-val="{{false}}"><button onClick="{{o.pick}}" aria-pressed="true" style="flex:1;min-height:42px;border-radius:10px;border:0;background:#14485D;color:#ffffff;font:700 14px Inter,sans-serif;cursor:pointer">{{o.label}}</button></sc-if>
+          <sc-if value="{{o.off}}" hint-placeholder-val="{{true}}"><button onClick="{{o.pick}}" aria-pressed="false" style="flex:1;min-height:42px;border-radius:10px;border:1px solid #DAE3E6;background:#ffffff;color:#14485D;font:600 14px Inter,sans-serif;cursor:pointer">{{o.label}}</button></sc-if>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:40px 24px 0">
+  <h2 class="disp" style="margin:0;font-size:44px">Seat playoff</h2>
+  <p style="margin:4px 0 16px;font-size:15px;color:#4C6874">{{z.seats}} seats in the bracket. Places 1–{{z.direct}} go straight in. Places {{z.poFrom}}–{{z.poTo}} play off for the last {{z.wc}}: best against worst.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:12px">
+    <sc-for list="{{pairs}}" as="m" hint-placeholder-count="4">
+      <div class="lift" style="background:#ffffff;border:2px solid #FCAE40;border-radius:16px;padding:16px">
+        <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#CC1F19">PLAYOFF {{m.n}} · WINNER TAKES SEAT {{m.seat}}</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+          <span class="disp" style="flex:0 0 36px;height:36px;border-radius:10px;background:#14485D;color:#FCAE40;display:flex;align-items:center;justify-content:center;font-size:18px">{{m.ap}}</span>
+          <span style="flex:1;min-width:0"><strong>{{m.a}}</strong><br><span style="font-size:12px;color:#4C6874">{{m.at}}</span></span>
+        </div>
+        <div style="text-align:center;font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#4C6874;margin:6px 0">VS</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="disp" style="flex:0 0 36px;height:36px;border-radius:10px;background:#E8ECED;color:#14485D;display:flex;align-items:center;justify-content:center;font-size:18px">{{m.bp}}</span>
+          <span style="flex:1;min-width:0"><strong>{{m.b}}</strong><br><span style="font-size:12px;color:#4C6874">{{m.bt}}</span></span>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section style="max-width:1320px;margin:0 auto;padding:40px 24px 64px">
+  <h2 class="disp" style="margin:0;font-size:44px">How it all connects</h2>
+  <p style="margin:4px 0 18px;font-size:15px;color:#4C6874">Standings feed the seat playoff and the bracket. The bracket decides first, second and third.</p>
+  <div style="background:#0e3546;border-radius:20px;padding:24px;color:#ffffff;overflow-x:auto">
+    <div style="min-width:900px;display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr 60px 1fr;align-items:center;gap:0">
+      <div style="background:#14485D;border:2px solid #3a7590;border-radius:16px;padding:16px">
+        <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">1 · STANDINGS</div>
+        <div class="disp" style="font-size:26px;line-height:1.05;margin-top:4px">First &amp; Second Round</div>
+        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">Every result adds points: W {{sc.w}} · D {{sc.d}} · L {{sc.l}}. Nov 30 – Dec 17.</p>
+      </div>
+      <svg viewBox="0 0 60 120" aria-hidden="true" style="width:60px;height:120px"><path d="M4 30 C30 30 30 20 54 20" stroke="#1f9d6b" stroke-width="3" fill="none"></path><path d="M4 90 C30 90 30 100 54 100" stroke="#FCAE40" stroke-width="3" fill="none"></path><path d="M48 14l7 6-7 6M48 94l7 6-7 6" stroke-width="3" fill="none" stroke="#ffffff"></path></svg>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:#123f52;border:2px solid #1f9d6b;border-radius:14px;padding:12px">
+          <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#7fe0b6">PLACES 1–{{z.direct}}</div>
+          <div style="font-size:14px;margin-top:2px">Straight into the bracket</div>
+        </div>
+        <div style="background:#123f52;border:2px solid #FCAE40;border-radius:14px;padding:12px">
+          <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">2 · SEAT PLAYOFF · PLACES {{z.poFrom}}–{{z.poTo}}</div>
+          <div style="font-size:14px;margin-top:2px">{{z.pool}} players, {{z.wc}} matches, {{z.wc}} winners take the last seats</div>
+        </div>
+      </div>
+      <svg viewBox="0 0 60 120" aria-hidden="true" style="width:60px;height:120px"><path d="M4 30 C30 30 30 60 54 60" stroke="#1f9d6b" stroke-width="3" fill="none"></path><path d="M4 90 C30 90 30 60 54 60" stroke="#FCAE40" stroke-width="3" fill="none"></path><path d="M48 54l7 6-7 6" stroke-width="3" fill="none" stroke="#ffffff"></path></svg>
+      <div style="background:#14485D;border:2px solid #FCAE40;border-radius:16px;padding:16px">
+        <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">3 · KNOCKOUT BRACKET</div>
+        <div class="disp" style="font-size:26px;line-height:1.05;margin-top:4px">Round of {{z.seats}} → Semifinals</div>
+        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">{{z.direct}} direct + {{z.wc}} playoff winners = {{z.seats}} seats. Mystix Sports Club, Dec 21–23.</p>
+        <a href="bracket.html" style="display:inline-block;margin-top:8px;font:700 13px Inter,sans-serif;color:#FCAE40;text-decoration:underline">Open the bracket →</a>
+      </div>
+      <svg viewBox="0 0 60 120" aria-hidden="true" style="width:60px;height:120px"><path d="M4 60 C30 60 30 25 54 25" stroke="#FCAE40" stroke-width="3" fill="none"></path><path d="M4 60 C30 60 30 95 54 95" stroke="#9cc3d2" stroke-width="3" fill="none"></path><path d="M48 19l7 6-7 6M48 89l7 6-7 6" stroke-width="3" fill="none" stroke="#ffffff"></path></svg>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:#123f52;border:2px solid #FCAE40;border-radius:14px;padding:12px">
+          <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">FINAL · SEMIFINAL WINNERS</div>
+          <div style="font-size:14px;margin-top:2px">1st and 2nd place</div>
+        </div>
+        <div style="background:#123f52;border:2px solid #9cc3d2;border-radius:14px;padding:12px">
+          <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#cfe3ea">THIRD-PLACE MATCH · SEMIFINAL LOSERS</div>
+          <div style="font-size:14px;margin-top:2px">The two beaten semifinalists play for 3rd</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
+  <div style="max-width:1320px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px">
+    <div><div style="font:400 22px 'Bebas Neue',sans-serif;letter-spacing:.03em">CARIBBEAN SPORTS QUEST</div><div style="font-size:14px;color:#dbe7ec;margin-top:6px">Your Caribbean Sports Home</div></div>
+    <div><div style="font:400 18px 'Bebas Neue',sans-serif;color:#FCAE40;letter-spacing:.04em">Follow us</div><div style="font-size:14px;color:#dbe7ec;margin-top:8px;line-height:1.9">Instagram<br>TikTok</div></div>
+    <div><div style="font:400 18px 'Bebas Neue',sans-serif;color:#FCAE40;letter-spacing:.04em">Contact</div><div style="font-size:14px;color:#dbe7ec;margin-top:8px;line-height:1.9">support@caribbeansportsquest.com<br>Sell with CSQ: become a partner shop</div></div>
+  </div>
+</footer>
+</div>
+</template>
+<a class="fab" href="https://wa.me/18764876913?text=Hi%20iCelestial%2C%20feedback%20on%20the%20CSQ%20Leagues%20%26%20Tournaments%20demo%3A%20" target="_blank" rel="noopener" aria-label="Send feedback on WhatsApp" style="position:fixed;right:20px;bottom:20px;z-index:50;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;border-radius:999px;background:#25D366;color:#073b20;font:700 14px Inter,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.25)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12z"/></svg><span>Feedback</span></a>
+<script src="dc-runtime.js"></script>
+<script>
+
+const F=[
+{d:'MON',dt:'NOV 30',a:'Caribbean Classic',b:'Route 27',v:'Portmore Lane',ad:'Portmore'},
+{d:'WED',dt:'DEC 2',a:'One Blood',b:'Highlight Strikers',v:'Route 66 Lounge',ad:'3 Cheniston Drive, Westmore Gardens, Spanish Town'},
+{d:'THU',dt:'DEC 3',a:'Unity Strikers',b:'Correctional Services',v:'Unity Ground',ad:'Gregory Park'},
+{d:'MON',dt:'DEC 7',a:'Right Stuff',b:'Mystix',v:'My Friends Place',ad:'Backroad'},
+{d:'TUE',dt:'DEC 8',a:'Soursapp',b:'Masterpiece',v:'Soursapp HQ',ad:'Redhills Boulevard'},
+{d:'WED',dt:'DEC 9',a:'Naggo Head',b:'Land Raiders',v:'Naggo Head Bus Park',ad:'Naggo Head'},
+{d:'THU',dt:'DEC 10',a:'Feluchie',b:'Waterhouse',v:'Feluchie HQ',ad:'Old Harbour'}];
+const F2=[
+{d:'MON',dt:'DEC 14',stage:'Second Round',detail:'8 tables',v:'Waterhouse Ground',ad:'Penn Avenue, Kingston 11'},
+{d:'TUE',dt:'DEC 15',stage:'Second Round',detail:'8 tables',v:'Unity Ground',ad:'Gregory Park, Portmore'},
+{d:'WED',dt:'DEC 16',stage:'Second Round',detail:'8 tables',v:'One Blood Ground',ad:'Route 66 Lounge, 3 Cheniston Drive, Westmore Gardens, Spanish Town'},
+{d:'THU',dt:'DEC 17',stage:'Second Round',detail:'8 tables',v:'Caribbean Classic Ground',ad:'Portmore Lane, Portmore, St Catherine'},
+{d:'MON',dt:'DEC 21',stage:'Round of 32',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'TUE',dt:'DEC 22',stage:'Round of 16 & Quarterfinals',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'WED',dt:'DEC 23',stage:'Semifinals, Final & Closing Ceremony',detail:'Men and women',v:'Mystix Sports Club',ad:''}];
+const T=[
+{n:'Caribbean Classic',m:['Sparrow','Illusion','Sir Pryce','Bobo','Kash Money','Wonderboy','Tyson','Stitchie','World Boss'],w:['Platinum','Dean','Pinky','Meng']},
+{n:'Route 27',m:['Paul Brown','Calvin Rowe','Norman Clarke','Oniel Clarke','Kemar Edwards','Stamma','Kemar Evans','Jermaine Hall','One Plumber Boss'],w:['Shanielle Gayle','Twinstar']},
+{n:'One Blood',m:['Fabian','Shabba','Rubbish','Cow','Aljay','Genius','Chronicle','Jukie','Hot Oil'],w:['Sanstorm','Lisa White','Kidd','Ren']},
+{n:'Highlight Strikers',m:['Usoma Campbell','Philip Beech','Kemar Walker','Nick Mitchell','Bouky','Prento','War Zone','Cleveland Beech','Hughmar Gordon'],w:['Delia Campbell','Tamara Lewis']},
+{n:'Unity Strikers',m:['Marvin Dawkins “Brukkie”','Ravoy Creary “Zozo”','Mark Fagan “Cojack”','Richard Harrow “Rico”','Christopher Morgan “Chris”','Newton Morgan “Mellio”','Steven Rose “Ben 10”','Kevin Richard “Mongrel”','Colin Jackson “Little Teach”'],w:['Nicholette Bennett “Nikki”','Corniela Brown “Krissy”','Kerry-Ann Bascoe “Benz”','Anecia Anderson “Rudy”']},
+{n:'Correctional Services',m:['Ashman','Lara','Brian Richards','Thomas Reid','Leonard Small','Randy Miller','Carlington Suarez','Barrington Bailey','Kwami Brown'],w:['Kerry-Ann Bennett']},
+{n:'Right Stuff',m:['Mayland Williams “Tippy”','Vincent Braham “Little”','Richard Francis “Soldgie”','Mark Smith “Peadove”','Romando Allison “Leather Belt”','Noel Murray “Dragon Lee”','Kevon Fletcher “Will”','Niel Watson','Devon Wilson'],w:['Yanique Bernard “Famous”','Rosemarie Henry “Aunty Rosie”','Nishalee Thomas “Nish”']},
+{n:'Mystix',m:['Likkle Man','Gman','Gavin','Teddy','Dignie','Chee Trix','Next Generation','Lawyerdon','Plastic'],w:['Natalie','Maxine','Olive']},
+{n:'Soursapp',m:['Super Mario','2 Two','Jermaine','Santa','Beefy','Carmicheal','Champ','Balla','Jerms'],w:['Anna','Battie','Big Machine','Sharna']},
+{n:'Masterpiece',m:['Ezekiah Teryl','Winston Anderson','Patrick Newman','Delroy Chung','Garfield Dixon','Rupert Blackwood','Dennis Brown','Damion Stedman','Kirkland Nelson'],w:['Cynthia Campbell','Lydia Hall']},
+{n:'Naggo Head',m:['Shaka','General','Patcha','Guspy','Shorty','Maestro','Engineer','Munroe','Sir Love'],w:['Chin Chin Must Rich','Tammy','Samantha','Browning']},
+{n:'Land Raiders',m:['Rumbar','Chanderpaul','Skoolboy','Ratty','Caribbean Best','Ian Container','Leo','Fastcar','Andrew Light (overseas)'],w:['Sheena “Murdera”','Annmarie (defending champion)','Kadian','Sister Melissa']},
+{n:'Feluchie',m:['Conroy','Miranda','Superman','Carvett','Jerry Starr','J.R','Biggs','Abdul','Silver Fox'],w:[]},
+{n:'Waterhouse',m:['Byra','Hico','Banga','Ras Greg','Sebert','Jumpy','Karey','Donavan','Xavier'],w:['Merna','Candy','Yanika']}];
+function csqFollow() { try { var f = JSON.parse(localStorage.getItem('csq_follow') || 'null'); if (f && f.teams && f.players) return f; } catch (e) {} return { teams: [], players: [] }; }
+function csqSaveFollow(f) { try { localStorage.setItem('csq_follow', JSON.stringify(f)); } catch (e) {} }
+function csqToggle(kind, id) { var f = csqFollow(); var a = f[kind]; var i = a.indexOf(id); if (i < 0) a.push(id); else a.splice(i, 1); csqSaveFollow(f); return f; }
+function csqIni(n) { return n.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase(); }
+function csqPlayers() {
+  var all = [];
+  T.forEach(function (t, ti) {
+    var fx = F.find(function (f) { return f.a === t.n || f.b === t.n; });
+    var opp = fx ? (fx.a === t.n ? fx.b : fx.a) : '';
+    [['m', 'men'], ['w', 'women']].forEach(function (pair) {
+      t[pair[0]].forEach(function (raw, i) {
+        var note = '', nm = raw, nick = '';
+        var mN = nm.match(/\(([^)]+)\)\s*$/); if (mN) { note = mN[1].charAt(0).toUpperCase() + mN[1].slice(1); nm = nm.replace(mN[0], '').trim(); }
+        var mK = nm.match(/“([^”]+)”/); if (mK) { nick = mK[1]; nm = nm.replace(mK[0], '').trim(); }
+        all.push({ id: ti + '-' + pair[1] + '-' + i, name: nm, nick: nick, nickLine: nick ? '“' + nick + '”' : '', note: note, hasNote: !!note, ini: csqIni(nm),
+          team: t.n, ti: ti, div: pair[1], divShort: pair[1] === 'women' ? 'WOMEN’S' : 'MEN’S', divName: pair[1] === 'women' ? 'Women’s League' : 'Men’s League',
+          band: pair[1] === 'women' ? '#CC1F19' : '#14485D', fx: fx, opp: opp, fxShort: fx ? fx.d + ' ' + fx.dt + ' vs ' + opp : '', fxDate: fx ? fx.d + ' ' + fx.dt : '',
+          squad: t.m.length + ' men · ' + t.w.length + ' women' });
+      });
+    });
+  });
+  return all;
+}
+
+var SCORING = { w: 3, d: 1, l: 0 }; /* change here once the JDCA confirms its scoring */
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    var res = []; try { res = JSON.parse(localStorage.getItem('csq_results') || '[]'); } catch (e) {}
+    var d = 'men'; try { if (new URLSearchParams(location.search).get('div') === 'women') d = 'women'; } catch (e) {}
+    this.state = { div: d, res: res, seats: 32, wc: 4, all: false, msg: '' };
+    this.players = csqPlayers();
+  }
+  save(res) { try { localStorage.setItem('csq_results', JSON.stringify(res)); } catch (e) {} this.setState({ res: res, msg: '' }); }
+  renderVals() {
+    var self = this, s = this.state, W = s.div === 'women';
+    var ps = this.players.filter(function (p) { return p.div === s.div; });
+    var byId = {}; ps.forEach(function (p) { byId[p.id] = { p: p, P: 0, W: 0, D: 0, L: 0 }; });
+    var mine = s.res.filter(function (r) { return byId[r.a] && byId[r.b]; });
+    mine.forEach(function (r) { var A = byId[r.a], B = byId[r.b]; A.P++; B.P++;
+      if (r.r === 'A') { A.W++; B.L++; } else if (r.r === 'B') { B.W++; A.L++; } else { A.D++; B.D++; } });
+    var tbl = Object.keys(byId).map(function (k) { var x = byId[k]; x.pts = x.W * SCORING.w + x.D * SCORING.d + x.L * SCORING.l; return x; });
+    tbl.sort(function (a, b) { return b.pts - a.pts || b.W - a.W || a.L - b.L || a.p.name.localeCompare(b.p.name); });
+    var n = tbl.length, seats = s.seats, wc = Math.min(s.wc, seats), direct = Math.min(seats - wc, n), pool = Math.max(0, Math.min(wc * 2, n - direct));
+    var poFrom = direct + 1, poTo = direct + pool;
+    var zone = function (i) { return i < direct ? '#1f9d6b' : i < poTo ? '#FCAE40' : '#c9d4d8'; };
+    var limit = s.all ? n : Math.min(n, poTo + 6);
+    var rows = tbl.slice(0, limit).map(function (x, i) {
+      var cut = (i === direct && pool > 0) || (i === poTo && i > 0);
+      return { pos: i + 1, name: x.p.name, nickLine: x.p.nickLine, team: x.p.team, p: x.P, w: x.W, d: x.D, l: x.L, pts: x.pts, zc: zone(i),
+        cut: cut, cutLabel: i === direct && pool > 0 ? 'SEAT PLAYOFF · PLACES ' + poFrom + '–' + poTo : 'OUT OF THE BRACKET', cutColor: i === direct && pool > 0 ? '#b26b00' : '#4C6874' };
+    });
+    var pairs = []; for (var k = 0; k < Math.floor(pool / 2); k++) { var A = tbl[direct + k], B = tbl[poTo - 1 - k];
+      pairs.push({ n: k + 1, seat: direct + k + 1, a: A.p.name, at: A.p.team + ' · ' + A.pts + ' pts', ap: direct + k + 1, b: B.p.name, bt: B.p.team + ' · ' + B.pts + ' pts', bp: poTo - k }); }
+    var opts = tbl.map(function (x) { return { id: x.p.id, label: x.p.name + (x.p.nick ? ' “' + x.p.nick + '”' : '') + ' · ' + x.p.team }; }).sort(function (a, b) { return a.label.localeCompare(b.label); });
+    var rec = function (r) { return function () { var a = '', b = ''; try { a = document.getElementById('ra').value; b = document.getElementById('rb').value; } catch (e) {}
+      if (!a || !b || a === b) { self.setState({ msg: 'Pick two different players.' }); return; }
+      self.save(s.res.concat([{ a: a, b: b, r: r, t: Date.now() }])); }; };
+    var nm = function (id) { var x = byId[id]; return x ? x.p.name : '?'; };
+    var recent = mine.slice(-6).reverse().map(function (r) { return r.r === 'D' ? nm(r.a) + ' drew with ' + nm(r.b) : (r.r === 'A' ? nm(r.a) + ' beat ' + nm(r.b) : nm(r.b) + ' beat ' + nm(r.a)); });
+    return {
+      divName: W ? 'Women’s' : 'Men’s', sc: SCORING, rows: rows, total: n, played: mine.length, canMore: !s.all && limit < n, canLess: s.all,
+      more: function () { self.setState({ all: true }); }, less: function () { self.setState({ all: false }); },
+      z: { seats: seats, wc: wc, direct: direct, pool: pool, poFrom: poFrom, poTo: poTo }, pairs: pairs, opts: opts, optsB: opts.slice(1).concat(opts.slice(0, 1)),
+      recA: rec('A'), recD: rec('D'), recB: rec('B'), msg: s.msg, recent: recent, hasRecent: recent.length > 0,
+      simulate: function () { var add = []; var ids = ps.map(function (p) { return p.id; });
+        for (var round = 0; round < 4; round++) { var sh = ids.slice().sort(function () { return Math.random() - 0.5; });
+          for (var i = 0; i + 1 < sh.length; i += 2) { var x = Math.random(); add.push({ a: sh[i], b: sh[i + 1], r: x < 0.45 ? 'A' : x < 0.55 ? 'D' : 'B', t: Date.now() }); } }
+        self.save(s.res.concat(add)); },
+      clear: function () { self.save(s.res.filter(function (r) { return !byId[r.a]; })); },
+      divTabs: [['men', 'Men’s'], ['women', 'Women’s']].map(function (d) { return { label: d[1], on: s.div === d[0], off: s.div !== d[0], pick: function () { self.setState({ div: d[0], all: false, msg: '' }); } }; }),
+      seatOpts: [32, 64].map(function (v) { return { label: 'Round of ' + v, on: s.seats === v, off: s.seats !== v, pick: function () { self.setState({ seats: v }); } }; }),
+      wcOpts: [2, 4, 8].map(function (v) { return { label: v + ' seats', on: s.wc === v, off: s.wc !== v, pick: function () { self.setState({ wc: v }); } }; })
+    };
+  }
+}
+
+
+mountDC(Component);
+</script>
+</body>
+</html>
