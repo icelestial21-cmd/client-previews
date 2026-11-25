@@ -27,11 +27,19 @@
 body{margin:0;background:#F7F8F8}
 a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
 .disp{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+/* Polish pass. Follow pop adapted from Uiverse like_effect by KSAplay (MIT). */
+button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,color .15s ease}
+:focus-visible{outline:3px solid #FCAE40;outline-offset:2px}
+.lift:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,72,93,.14)}
+.pips{background-image:radial-gradient(rgba(255,255,255,.09) 2px,transparent 2.6px);background-size:22px 22px}
+.pop{animation:likepop .42s ease}
+@keyframes likepop{0%{transform:scale(.6)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
 </head>
 <body>
-<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="players.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Players</a></nav></div></div>
+<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Players</a></nav></div></div>
 <div id="app"></div>
 <template id="tpl">
 
@@ -51,7 +59,7 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
 </header>
 <div style="background:#F7F8F8;border-bottom:1px solid #DAE3E6;font-family:Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:10px 24px;font-size:13px;display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:#4C6874">Home</a> <span style="color:#4C6874">›</span> <a href="index.html" style="color:#4C6874">Leagues &amp; Tournaments</a> <span style="color:#4C6874">›</span> <a href="option-a.html" style="color:#4C6874">Christmas Domino League</a> <span style="color:#4C6874">›</span> <span style="color:#14485D;font-weight:500">Players</span></div></div>
 <sc-if value="{{board}}" hint-placeholder-val="{{true}}">
-<section style="background:#14485D;color:#ffffff">
+<section class="pips" style="background-color:#14485D;color:#ffffff">
   <div style="max-width:1320px;margin:0 auto;padding:36px 24px 30px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
     <div>
       <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:#FCAE40">2ND ANNUAL CHRISTMAS DOMINO LEAGUE</div>
@@ -106,10 +114,11 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
   <sc-if value="{{cards}}" hint-placeholder-val="{{true}}">
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:14px;padding-bottom:64px">
       <sc-for list="{{shown}}" as="p" hint-placeholder-count="12">
-        <button onClick="{{p.open}}" style="text-align:left;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:0;overflow:hidden;cursor:pointer;font:inherit;color:#14485D;display:flex;flex-direction:column">
-          <div style="height:96px;background:{{p.band}};position:relative">
+        <button class="lift" onClick="{{p.open}}" style="text-align:left;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;padding:0;overflow:hidden;cursor:pointer;font:inherit;color:#14485D;display:flex;flex-direction:column">
+          <div class="pips" style="height:96px;background-color:{{p.band}};position:relative">
             <span style="position:absolute;left:16px;bottom:-26px;width:64px;height:64px;border-radius:50%;background:#ffffff;border:3px solid #ffffff;box-shadow:0 2px 8px rgba(20,72,93,.2);display:flex;align-items:center;justify-content:center"><span class="disp" style="width:58px;height:58px;border-radius:50%;background:#E8ECED;display:flex;align-items:center;justify-content:center;font-size:26px;color:#14485D">{{p.ini}}</span></span>
             <span style="position:absolute;right:12px;top:12px;background:rgba(255,255,255,.92);color:#14485D;font:700 11px Inter,sans-serif;letter-spacing:.06em;padding:4px 8px;border-radius:6px">{{p.divShort}}</span>
+            <sc-if value="{{p.followed}}" hint-placeholder-val="{{false}}"><span style="position:absolute;left:12px;top:12px;background:#FCAE40;color:#0e3546;font:700 11px Inter,sans-serif;letter-spacing:.04em;padding:4px 8px;border-radius:6px">★ FOLLOWING</span></sc-if>
           </div>
           <div style="padding:34px 16px 16px;display:flex;flex-direction:column;gap:4px">
             <span class="disp" style="font-size:26px;line-height:1">{{p.name}}</span>
@@ -142,7 +151,7 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
   <button onClick="{{back}}" style="min-height:44px;padding:0 4px;border:0;background:none;color:#14485D;font:600 14px Inter,sans-serif;cursor:pointer">← All players</button>
 </section>
 <section style="max-width:1320px;margin:0 auto;padding:8px 24px 0">
-  <div style="background:#14485D;color:#ffffff;border-radius:20px;overflow:hidden">
+  <div class="pips" style="background-color:#14485D;color:#ffffff;border-radius:20px;overflow:hidden">
     <div style="height:10px;background:linear-gradient(90deg,#FCAE40 0 25%,#CC1F19 25% 50%,#ffffff 50% 75%,#1d5a72 75%)"></div>
     <div style="padding:28px;display:flex;flex-wrap:wrap;gap:28px;align-items:center">
       <div style="flex:0 0 auto;width:150px;height:150px;border-radius:24px;background:#1d5a72;border:2px solid #3a7590;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
@@ -152,11 +161,15 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
       <div style="flex:1 1 320px;min-width:0">
         <div style="display:flex;flex-wrap:wrap;gap:8px;font:700 12px Inter,sans-serif;letter-spacing:.06em">
           <span style="background:#FCAE40;color:#0e3546;padding:5px 10px;border-radius:6px">{{pl.divName}}</span>
-          <span style="border:1px solid #3a7590;padding:4px 10px;border-radius:6px">{{pl.team}}</span>
+          <a href="teams.html?t={{pl.ti}}" style="border:1px solid #3a7590;padding:4px 10px;border-radius:6px;color:#ffffff">{{pl.team}} →</a>
           <sc-if value="{{pl.hasNote}}" hint-placeholder-val="{{false}}"><span style="background:#CC1F19;padding:5px 10px;border-radius:6px">{{pl.note}}</span></sc-if>
         </div>
         <h1 class="disp" style="margin:12px 0 0;font-size:clamp(48px,8vw,72px);line-height:.92">{{pl.name}}</h1>
         <p style="margin:6px 0 0;font-size:20px;color:#FCAE40;font-weight:600;min-height:4px">{{pl.nickLine}}</p>
+        <div style="margin-top:14px">
+          <sc-if value="{{pl.followed}}" hint-placeholder-val="{{false}}"><button class="follow {{pl.popCls}}" onClick="{{pl.toggle}}" aria-pressed="true" style="min-height:48px;padding:0 22px;border-radius:999px;border:2px solid #FCAE40;background:#FCAE40;color:#0e3546;font:700 15px Inter,sans-serif;cursor:pointer">★ Following</button></sc-if>
+          <sc-if value="{{pl.notFollowed}}" hint-placeholder-val="{{true}}"><button class="follow" onClick="{{pl.toggle}}" aria-pressed="false" style="min-height:48px;padding:0 22px;border-radius:999px;border:2px solid #ffffff;background:transparent;color:#ffffff;font:700 15px Inter,sans-serif;cursor:pointer">☆ Follow player</button></sc-if>
+        </div>
       </div>
       <dl style="flex:1 1 300px;min-width:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px">
         <div><dt style="font-size:12px;color:#b9cfd8;letter-spacing:.06em">TEAM</dt><dd style="margin:2px 0 0;font-weight:600">{{pl.team}}</dd></div>
@@ -247,43 +260,50 @@ const T=[
 {n:'Land Raiders',m:['Rumbar','Chanderpaul','Skoolboy','Ratty','Caribbean Best','Ian Container','Leo','Fastcar','Andrew Light (overseas)'],w:['Sheena “Murdera”','Annmarie (defending champion)','Kadian','Sister Melissa']},
 {n:'Feluchie',m:['Conroy','Miranda','Superman','Carvett','Jerry Starr','J.R','Biggs','Abdul','Silver Fox'],w:[]},
 {n:'Waterhouse',m:[],w:[]}];
+function csqFollow() { try { var f = JSON.parse(localStorage.getItem('csq_follow') || 'null'); if (f && f.teams && f.players) return f; } catch (e) {} return { teams: [], players: [] }; }
+function csqSaveFollow(f) { try { localStorage.setItem('csq_follow', JSON.stringify(f)); } catch (e) {} }
+function csqToggle(kind, id) { var f = csqFollow(); var a = f[kind]; var i = a.indexOf(id); if (i < 0) a.push(id); else a.splice(i, 1); csqSaveFollow(f); return f; }
+function csqIni(n) { return n.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase(); }
+function csqPlayers() {
+  var all = [];
+  T.forEach(function (t, ti) {
+    var fx = F.find(function (f) { return f.a === t.n || f.b === t.n; });
+    var opp = fx ? (fx.a === t.n ? fx.b : fx.a) : '';
+    [['m', 'men'], ['w', 'women']].forEach(function (pair) {
+      t[pair[0]].forEach(function (raw, i) {
+        var note = '', nm = raw, nick = '';
+        var mN = nm.match(/\(([^)]+)\)\s*$/); if (mN) { note = mN[1].charAt(0).toUpperCase() + mN[1].slice(1); nm = nm.replace(mN[0], '').trim(); }
+        var mK = nm.match(/“([^”]+)”/); if (mK) { nick = mK[1]; nm = nm.replace(mK[0], '').trim(); }
+        all.push({ id: ti + '-' + pair[1] + '-' + i, name: nm, nick: nick, nickLine: nick ? '“' + nick + '”' : '', note: note, hasNote: !!note, ini: csqIni(nm),
+          team: t.n, ti: ti, div: pair[1], divShort: pair[1] === 'women' ? 'WOMEN’S' : 'MEN’S', divName: pair[1] === 'women' ? 'Women’s League' : 'Men’s League',
+          band: pair[1] === 'women' ? '#CC1F19' : '#14485D', fx: fx, opp: opp, fxShort: fx ? fx.d + ' ' + fx.dt + ' vs ' + opp : '', fxDate: fx ? fx.d + ' ' + fx.dt : '',
+          squad: t.m.length + ' men · ' + t.w.length + ' women' });
+      });
+    });
+  });
+  return all;
+}
+
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    var st = { q: '', div: 'all', team: 'all', layout: 'cards', pid: null };
+    var st = { q: '', div: 'all', team: 'all', layout: 'cards', pid: null, fol: csqFollow() };
     try { var u = new URLSearchParams(location.search); if (u.get('p')) st.pid = u.get('p'); if (u.get('team')) st.team = u.get('team'); if (u.get('div')) st.div = u.get('div'); } catch (e) {}
     this.state = st;
-    var all = [];
-    T.forEach(function (t, ti) {
-      var fx = F.find(function (f) { return f.a === t.n || f.b === t.n; });
-      var opp = fx ? (fx.a === t.n ? fx.b : fx.a) : '';
-      [['m', 'men'], ['w', 'women']].forEach(function (pair) {
-        t[pair[0]].forEach(function (raw, i) {
-          var note = ''; var nm = raw; var nick = '';
-          var mN = nm.match(/\(([^)]+)\)\s*$/); if (mN) { note = mN[1].charAt(0).toUpperCase() + mN[1].slice(1); nm = nm.replace(mN[0], '').trim(); }
-          var mK = nm.match(/“([^”]+)”/); if (mK) { nick = mK[1]; nm = nm.replace(mK[0], '').trim(); }
-          var ini = nm.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 2).toUpperCase();
-          all.push({ id: ti + '-' + pair[1] + '-' + i, name: nm, nick: nick, nickLine: nick ? '“' + nick + '”' : '', note: note, hasNote: !!note, ini: ini,
-            team: t.n, ti: ti, div: pair[1], divShort: pair[1] === 'women' ? 'WOMEN’S' : 'MEN’S', divName: pair[1] === 'women' ? 'Women’s League' : 'Men’s League',
-            band: pair[1] === 'women' ? '#CC1F19' : '#14485D', fx: fx, opp: opp, fxShort: fx ? fx.d + ' ' + fx.dt + ' vs ' + opp : '', fxDate: fx ? fx.d + ' ' + fx.dt : '',
-            squad: t.m.length + ' men · ' + t.w.length + ' women' });
-        });
-      });
-    });
-    this.all = all;
+    this.all = csqPlayers();
   }
   renderVals() {
     var self = this, s = this.state;
     var open = function (id) { return function () { self.setState({ pid: id }); try { window.scrollTo(0, 0); } catch (e) {} }; };
     var q = s.q.trim().toLowerCase();
     var list = this.all.filter(function (p) {
-      if (s.div !== 'all' && p.div !== s.div) return false;
+      if (s.div === 'following') { if (s.fol.players.indexOf(p.id) < 0) return false; } else if (s.div !== 'all' && p.div !== s.div) return false;
       if (s.team !== 'all' && p.team !== s.team) return false;
       if (q && (p.name + ' ' + p.nick + ' ' + p.team).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
-    var shown = list.map(function (p, i) { return Object.assign({}, p, { no: i + 1, open: open(p.id) }); });
-    var divTabs = [['all', 'All'], ['men', 'Men’s'], ['women', 'Women’s']].map(function (d) { return { label: d[1], on: s.div === d[0], off: s.div !== d[0], pick: function () { self.setState({ div: d[0] }); } }; });
+    var shown = list.map(function (p, i) { return Object.assign({}, p, { no: i + 1, open: open(p.id), followed: s.fol.players.indexOf(p.id) >= 0 }); });
+    var divTabs = [['all', 'All'], ['men', 'Men’s'], ['women', 'Women’s'], ['following', '★ Following (' + s.fol.players.length + ')']].map(function (d) { return { label: d[1], on: s.div === d[0], off: s.div !== d[0], pick: function () { self.setState({ div: d[0] }); } }; });
     var teamChips = [{ n: 'all', label: 'All teams' }].concat(T.filter(function (t) { return t.m.length + t.w.length; }).map(function (t) { return { n: t.n, label: t.n }; }))
       .map(function (c) { return { label: c.label, on: s.team === c.n, off: s.team !== c.n, pick: function () { self.setState({ team: c.n }); } }; });
     var layouts = [['cards', 'Cards'], ['table', 'Big board']].map(function (l) { return { label: l[1], on: s.layout === l[0], off: s.layout !== l[0], pick: function () { self.setState({ layout: l[0] }); } }; });
@@ -298,7 +318,8 @@ class Component extends DCLogic {
     };
     if (pl) {
       var W = pl.div === 'women';
-      vals.pl = Object.assign({}, pl, { fx: pl.fx || {}, road: F2.map(function (k) { return Object.assign({}, k, { detail: k.detail === 'Men and women' ? (W ? 'Women’s draw' : 'Men’s draw') : k.detail }); }) });
+      var on = s.fol.players.indexOf(pl.id) >= 0;
+      vals.pl = Object.assign({}, pl, { followed: on, notFollowed: !on, toggle: function () { self.setState({ fol: csqToggle('players', pl.id), pop: pl.id }); }, popCls: s.pop === pl.id ? 'pop' : '', fx: pl.fx || {}, road: F2.map(function (k) { return Object.assign({}, k, { detail: k.detail === 'Men and women' ? (W ? 'Women’s draw' : 'Men’s draw') : k.detail }); }) });
       vals.mates = this.all.filter(function (p) { return p.team === pl.team && p.div === pl.div && p.id !== pl.id; }).map(function (p) { return Object.assign({}, p, { open: open(p.id) }); });
     }
     return vals;

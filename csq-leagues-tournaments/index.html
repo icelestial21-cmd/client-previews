@@ -27,11 +27,19 @@
 body{margin:0;background:#F7F8F8}
 a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
 .disp{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+/* Polish pass. Follow pop adapted from Uiverse like_effect by KSAplay (MIT). */
+button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,color .15s ease}
+:focus-visible{outline:3px solid #FCAE40;outline-offset:2px}
+.lift:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,72,93,.14)}
+.pips{background-image:radial-gradient(rgba(255,255,255,.09) 2px,transparent 2.6px);background-size:22px 22px}
+.pop{animation:likepop .42s ease}
+@keyframes likepop{0%{transform:scale(.6)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
 </head>
 <body>
-<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a></nav></div></div>
+<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option C</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a></nav></div></div>
 <div id="app"></div>
 <template id="tpl">
 
@@ -80,7 +88,7 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
 <section style="max-width:1320px;margin:0 auto;padding:40px 24px 64px">
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px">
     <sc-if value="{{showDomino}}" hint-placeholder-val="{{true}}">
-      <a href="option-a.html" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
+      <a class="lift" href="option-a.html" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
         <div style="height:190px;overflow:hidden;position:relative;background:#14485D">
           <img src="poster.jpg" alt="Christmas Domino League poster" style="display:block;width:100%;margin-top:0">
           <span style="position:absolute;top:12px;left:12px;background:#FCAE40;color:#14485D;font:700 11px Inter,sans-serif;letter-spacing:.08em;padding:5px 9px;border-radius:6px">UPCOMING</span>
@@ -99,7 +107,7 @@ a{text-decoration:none;color:#14485D}a:hover{opacity:.9}
           <span style="margin-top:4px;font-weight:700;color:#CC1F19">View league →</span>
         </div>
       </a>
-      <a href="option-a.html?div=women" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
+      <a class="lift" href="option-a.html?div=women" style="display:flex;flex-direction:column;background:#ffffff;border:1px solid #DAE3E6;border-radius:16px;overflow:hidden;color:#14485D;box-shadow:0 1px 2px rgba(20,72,93,.06)">
         <div style="height:190px;overflow:hidden;position:relative;background:#14485D">
           <img src="poster.jpg" alt="Christmas Domino League poster" style="display:block;width:100%;margin-top:0">
           <span style="position:absolute;top:12px;left:12px;background:#FCAE40;color:#14485D;font:700 11px Inter,sans-serif;letter-spacing:.08em;padding:5px 9px;border-radius:6px">UPCOMING</span>

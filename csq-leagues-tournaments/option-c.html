@@ -27,11 +27,19 @@
 body{margin:0;background:#ffffff}
 a{color:#14485D}a:hover{color:#000000}
 .disp{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.02em}
+/* Polish pass. Follow pop adapted from Uiverse like_effect by KSAplay (MIT). */
+button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,color .15s ease}
+:focus-visible{outline:3px solid #FCAE40;outline-offset:2px}
+.lift:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,72,93,.14)}
+.pips{background-image:radial-gradient(rgba(255,255,255,.09) 2px,transparent 2.6px);background-size:22px 22px}
+.pop{animation:likepop .42s ease}
+@keyframes likepop{0%{transform:scale(.6)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <style>*{box-sizing:border-box} button{font-family:inherit} a{text-decoration:none} @media (max-width:760px){nav[aria-label="Main"] > a:not(:last-child), nav[aria-label="Main"] > span{display:none} .fab span{display:none} .fab{padding:0 14px !important}}</style>
 </head>
 <body>
-<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Option C</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a></nav></div></div>
+<div style="background:#0b2a37;color:#ffffff;font:500 13px Inter,sans-serif"><div style="max-width:1320px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between"><span><strong style="background:#CC1F19;padding:3px 8px;border-radius:6px;margin-right:8px">PREVIEW</strong>CSQ Leagues &amp; Tournaments demo by iCelestial</span><nav aria-label="Demo pages" style="display:flex;flex-wrap:wrap;gap:4px"><a href="index.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Listing</a><a href="option-a.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option A</a><a href="option-b.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Option B</a><a href="option-c.html" style="padding:6px 12px;border-radius:999px;background:#FCAE40;color:#0e3546;font-weight:700">Option C</a><a href="teams.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Teams</a><a href="players.html" style="padding:6px 12px;border-radius:999px;color:#ffffff">Players</a></nav></div></div>
 <div id="app"></div>
 <template id="tpl">
 
@@ -154,7 +162,7 @@ a{color:#14485D}a:hover{color:#000000}
 
   <section id="teams" style="max-width:1320px;margin:0 auto;padding:48px 24px 72px">
     <h2 class="disp" style="margin:0 0 4px;font-size:36px">{{divShort}} teams</h2>
-    <p style="margin:0 0 16px;font-size:15px;color:#4C6874">Choose a team to view its roster. <a href="players.html" style="font-weight:700;color:#CC1F19;text-decoration:underline">Browse all players →</a></p>
+    <p style="margin:0 0 16px;font-size:15px;color:#4C6874">Choose a team to view its roster. <a href="players.html" style="font-weight:700;color:#CC1F19;text-decoration:underline">Browse all players →</a> · <a href="teams.html" style="font-weight:700;color:#CC1F19;text-decoration:underline">All teams →</a></p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0;border-top:2px solid #14485D">
       <sc-for list="{{teams}}" as="t" hint-placeholder-count="14">
         <sc-if value="{{t.active}}" hint-placeholder-val="{{false}}">
@@ -174,6 +182,7 @@ a{color:#14485D}a:hover{color:#000000}
     <div style="margin-top:28px;border:1px solid #DAE3E6;border-radius:8px;padding:24px">
       <div style="display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline">
         <div class="disp" style="font-size:44px;line-height:1">{{sel.n}}</div>
+        <a href="teams.html?t={{sel.i}}" style="display:inline-flex;align-items:center;min-height:44px;font:700 14px Inter,sans-serif;color:#CC1F19;text-decoration:underline">Team schedule &amp; follow →</a>
         <div style="font-size:14px;color:#4C6874">{{sel.vs}}</div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:32px;margin-top:16px">
@@ -247,7 +256,7 @@ class Component extends DCLogic {
     const fx = F.find((f) => f.a === t.n || f.b === t.n);
     const vs = fx ? fx.d.charAt(0) + fx.d.slice(1).toLowerCase() + ' ' + fx.dt + ' vs ' + (fx.a === t.n ? fx.b : fx.a) + ' at ' + fx.v : '';
     return { knock: knockD, divs: divs, divName: divName, divShort: divShort, rubric: this.props.rubric ?? '#CC1F19', fixtures: F, teams: teams,
-      sel: { n: t.n, vs: vs, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length , list: t[key], lc: t[key].length, label: W ? 'WOMEN’S SQUAD' : 'MEN’S SQUAD', none: !t[key].length, noneMsg: W ? 'No women players listed yet' : 'Roster to be confirmed' } };
+      sel: { i: s, n: t.n, vs: vs, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length , list: t[key], lc: t[key].length, label: W ? 'WOMEN’S SQUAD' : 'MEN’S SQUAD', none: !t[key].length, noneMsg: W ? 'No women players listed yet' : 'Roster to be confirmed' } };
   }
 }
 
