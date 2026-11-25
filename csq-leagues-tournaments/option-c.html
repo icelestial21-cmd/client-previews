@@ -68,9 +68,10 @@ a{color:#14485D}a:hover{color:#000000}
     <div style="flex:1 1 560px;min-width:0">
       <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:{{rubric}}">DOMINO · LEAGUE · UPCOMING</div>
       <h1 class="disp" style="margin:10px 0 0;font-size:clamp(48px,10vw,84px);line-height:.92">2nd Annual Christmas Domino League</h1>
-      <p style="margin:16px 0 0;font-size:19px;line-height:1.55;color:#2c5566;max-width:620px">Fourteen teams meet over seven match nights, from Monday, November 30 to Thursday, December 10. Every match starts at 8:00 PM sharp.</p>
+      <p style="margin:16px 0 0;font-size:19px;line-height:1.55;color:#2c5566;max-width:620px">A thank-you to the players who carried the JDCA League. Fourteen teams play a first round of team matches from November 30 to December 10, then the knockout rounds lead to the final and closing ceremony on Wednesday, December 23.</p>
 
-      <h2 id="fixtures" class="disp" style="margin:40px 0 12px;font-size:36px">Schedule</h2>
+      <h2 id="fixtures" class="disp" style="margin:40px 0 12px;font-size:36px">First round</h2>
+      <p style="margin:-4px 0 12px;font-size:14px;color:#4C6874">Team matches. Every match starts at 8:00 PM sharp.</p>
       <div style="overflow-x:auto;border-top:2px solid #14485D">
         <div style="min-width:640px">
           <div style="display:grid;grid-template-columns:110px minmax(0,1.4fr) minmax(0,1fr) 70px;gap:12px;padding:10px 4px;font:600 12px Inter,sans-serif;letter-spacing:.06em;color:#4C6874;border-bottom:1px solid #DAE3E6">
@@ -82,6 +83,21 @@ a{color:#14485D}a:hover{color:#000000}
               <span><strong>{{f.a}}</strong> <span style="color:#4C6874">vs</span> <strong>{{f.b}}</strong></span>
               <span>{{f.v}}<br><span style="font-size:13px;color:#4C6874">{{f.ad}}</span></span>
               <span>8:00 PM</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <h2 class="disp" style="margin:40px 0 4px;font-size:36px">Knockout rounds</h2>
+      <p style="margin:0 0 12px;font-size:14px;color:#4C6874">Second round on 8 tables, then the men’s and women’s knockouts at Mystix Sports Club.</p>
+      <div style="overflow-x:auto;border-top:2px solid #14485D">
+        <div style="min-width:600px">
+          <div style="display:grid;grid-template-columns:110px minmax(0,1.2fr) minmax(0,1.2fr);gap:12px;padding:10px 4px;font:600 12px Inter,sans-serif;letter-spacing:.06em;color:#4C6874;border-bottom:1px solid #DAE3E6"><span>DATE</span><span>ROUND</span><span>VENUE</span></div>
+          <sc-for list="{{knock}}" as="k" hint-placeholder-count="7">
+            <div style="display:grid;grid-template-columns:110px minmax(0,1.2fr) minmax(0,1.2fr);gap:12px;padding:14px 4px;border-bottom:1px solid #DAE3E6;align-items:center;font-size:15px">
+              <span style="font-weight:600">{{k.d}} {{k.dt}}</span>
+              <span><strong>{{k.stage}}</strong><br><span style="font-size:13px;color:#4C6874">{{k.detail}}</span></span>
+              <span>{{k.v}}<br><span style="font-size:13px;color:#4C6874">{{k.ad}}</span></span>
             </div>
           </sc-for>
         </div>
@@ -100,9 +116,28 @@ a{color:#14485D}a:hover{color:#000000}
           <span style="color:#4C6874">Start</span><span style="font-weight:600">8:00 PM sharp</span>
           <span style="color:#4C6874">Grace period</span><span style="font-weight:600">15 minutes</span>
           <span style="color:#4C6874">Dress code</span><span style="font-weight:600">Must be adhered to</span>
+          <span style="color:#4C6874">Eligibility</span><span style="font-weight:600">JDCA League teams only</span>
+          <span style="color:#4C6874">Squads</span><span style="font-weight:600">Up to 9 men and 4 women</span>
         </div>
       </div>
     </aside>
+  </section>
+
+  <section id="about" style="max-width:1320px;margin:0 auto;padding:48px 24px 0">
+    <div style="border-top:2px solid #14485D;padding-top:20px;display:flex;flex-wrap:wrap;gap:40px">
+      <div style="flex:1 1 520px;min-width:0">
+        <div style="font:700 12px Inter,sans-serif;letter-spacing:.12em;color:{{rubric}}">ABOUT</div>
+        <h2 class="disp" style="margin:6px 0 12px;font-size:44px;line-height:1">A thank-you to the JDCA League’s players</h2>
+        <p style="margin:0 0 12px;font-size:17px;line-height:1.65;color:#2c5566">The Christmas Domino League was established as a gesture of appreciation to recognise and reward the players who participated in, and showed their commitment and support to, the JDCA League.</p>
+        <p style="margin:0 0 12px;font-size:17px;line-height:1.65;color:#2c5566">It is our way of saying thank you to the players who stayed dedicated throughout the league season, and a chance to compete for an attractive cash prize during the festive season, making Christmas even more rewarding.</p>
+        <p style="margin:0 0 12px;font-size:17px;line-height:1.65;color:#2c5566">The Christmas Domino League is more than just another competition. It is an opportunity to celebrate commitment, sportsmanship and the players who helped make the JDCA League a success.</p>
+        <p style="margin:0;font-size:19px;font-weight:700">You supported the league. Now it’s our turn to reward you!</p>
+      </div>
+      <div style="flex:1 1 360px;min-width:0;background:#E8ECED;border-radius:8px;padding:20px 24px">
+        <div class="disp" style="font-size:26px">Participation criteria</div>
+        <ol style="margin:8px 0 0;padding-left:20px;font-size:15px;line-height:1.55"><li style="padding:8px 0">Only teams that participated in the JDCA League are eligible.</li><li style="padding:8px 0">Each eligible team submits a list of a maximum of nine (9) male players and four (4) female players.</li><li style="padding:8px 0">Players selected must have demonstrated commitment and devoted attention to the JDCA League.</li><li style="padding:8px 0">Players must not have participated in any other domino league of a similar nature, in keeping with the participation conditions set at the start of the JDCA League.</li></ol>
+      </div>
+    </div>
   </section>
 
   <section id="teams" style="max-width:1320px;margin:0 auto;padding:48px 24px 72px">
@@ -166,6 +201,14 @@ const F=[
 {d:'TUE',dt:'DEC 8',a:'Soursapp',b:'Masterpiece',v:'Soursapp HQ',ad:'Redhills Boulevard'},
 {d:'WED',dt:'DEC 9',a:'Naggo Head',b:'Land Raiders',v:'Naggo Head Bus Park',ad:'Naggo Head'},
 {d:'THU',dt:'DEC 10',a:'Feluchie',b:'Waterhouse',v:'Feluchie HQ',ad:'Old Harbour'}];
+const F2=[
+{d:'MON',dt:'DEC 14',stage:'Second Round',detail:'8 tables',v:'Waterhouse Ground',ad:'Penn Avenue, Kingston 11'},
+{d:'TUE',dt:'DEC 15',stage:'Second Round',detail:'8 tables',v:'Unity Ground',ad:'Gregory Park, Portmore'},
+{d:'WED',dt:'DEC 16',stage:'Second Round',detail:'8 tables',v:'One Blood Ground',ad:'Route 66 Lounge, 3 Cheniston Drive, Westmore Gardens, Spanish Town'},
+{d:'THU',dt:'DEC 17',stage:'Second Round',detail:'8 tables',v:'Caribbean Classic Ground',ad:'Portmore Lane, Portmore, St Catherine'},
+{d:'MON',dt:'DEC 21',stage:'Round of 32',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'TUE',dt:'DEC 22',stage:'Round of 16 & Quarterfinals',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'WED',dt:'DEC 23',stage:'Semifinals, Final & Closing Ceremony',detail:'Men and women',v:'Mystix Sports Club',ad:''}];
 const T=[
 {n:'Caribbean Classic',m:[],w:[]},
 {n:'Route 27',m:['Paul Brown','Calvin Rowe','Norman Clarke','Oniel Clarke','Kemar Edwards','Stamma','Kemar Evans','Jermaine Hall','One Plumber Boss'],w:['Shanielle Gayle','Twinstar']},
@@ -191,7 +234,7 @@ class Component extends DCLogic {
     const t = T[s];
     const fx = F.find((f) => f.a === t.n || f.b === t.n);
     const vs = fx ? fx.d.charAt(0) + fx.d.slice(1).toLowerCase() + ' ' + fx.dt + ' vs ' + (fx.a === t.n ? fx.b : fx.a) + ' at ' + fx.v : '';
-    return { rubric: this.props.rubric ?? '#CC1F19', fixtures: F, teams: teams,
+    return { knock: F2, rubric: this.props.rubric ?? '#CC1F19', fixtures: F, teams: teams,
       sel: { n: t.n, vs: vs, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length } };
   }
 }

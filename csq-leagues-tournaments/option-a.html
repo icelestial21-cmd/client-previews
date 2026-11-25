@@ -62,11 +62,11 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
           <span style="border:1px solid #3a7590;padding:6px 10px;border-radius:6px;color:#dbe7ec">2ND ANNUAL</span>
         </div>
         <h1 class="disp" style="margin:0;font-size:clamp(52px,11vw,88px);line-height:.9">Christmas Domino League</h1>
-        <p style="margin:0;font-size:18px;line-height:1.5;color:#dbe7ec;max-width:520px">Play. Compete. Enjoy. Fourteen teams, seven match nights, seven venues from Portmore to Old Harbour.</p>
+        <p style="margin:0;font-size:18px;line-height:1.5;color:#dbe7ec;max-width:520px">Play. Compete. Enjoy. The JDCA League’s thank-you to its most committed players: fourteen teams, a cash prize, and a final on December 23.</p>
         <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:520px">
-          <div style="border-top:2px solid {{accent}};padding-top:10px"><div class="disp" style="font-size:34px">7</div><div style="font-size:13px;color:#b9cfd8">Match nights</div></div>
+          <div style="border-top:2px solid {{accent}};padding-top:10px"><div class="disp" style="font-size:34px">14</div><div style="font-size:13px;color:#b9cfd8">Match nights</div></div>
           <div style="border-top:2px solid #3a7590;padding-top:10px"><div class="disp" style="font-size:34px">14</div><div style="font-size:13px;color:#b9cfd8">Teams</div></div>
-          <div style="border-top:2px solid #3a7590;padding-top:10px"><div class="disp" style="font-size:34px">8:00 PM</div><div style="font-size:13px;color:#b9cfd8">Start, sharp</div></div>
+          <div style="border-top:2px solid #3a7590;padding-top:10px"><div class="disp" style="font-size:34px">Dec 23</div><div style="font-size:13px;color:#b9cfd8">Final night</div></div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px">
           <a href="#fixtures" style="min-height:48px;display:inline-flex;align-items:center;padding:0 24px;border-radius:999px;background:#CC1F19;color:#ffffff;font-weight:600">View fixtures</a>
@@ -90,7 +90,8 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
   </section>
 
   <section id="fixtures" style="max-width:1320px;margin:48px auto 0;padding:0 24px">
-    <h2 class="disp" style="margin:0 0 16px;font-size:44px">Fixtures</h2>
+    <h2 class="disp" style="margin:0 0 16px;font-size:44px">First round</h2>
+    <p style="margin:-8px 0 16px;color:#b9cfd8;font-size:15px">Team matches, Nov 30 to Dec 10. Every match starts at 8:00 PM sharp.</p>
     <div style="display:flex;flex-direction:column;gap:10px">
       <sc-for list="{{fixtures}}" as="f" hint-placeholder-count="7">
         <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;background:#14485D;border:1px solid #25607a;border-radius:14px;padding:16px 20px">
@@ -107,6 +108,22 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
             <div style="font-weight:600;font-size:15px">{{f.v}}</div>
             <div style="font-size:13px;color:#b9cfd8;margin-top:2px">{{f.ad}} · 8:00 PM</div>
           </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="road" style="max-width:1320px;margin:56px auto 0;padding:0 24px">
+    <h2 class="disp" style="margin:0 0 6px;font-size:44px">Road to the final</h2>
+    <p style="margin:0 0 16px;color:#b9cfd8;font-size:15px">Second round on 8 tables, then the men’s and women’s knockouts at Mystix Sports Club.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+      <sc-for list="{{knock}}" as="k" hint-placeholder-count="7">
+        <div style="background:#14485D;border:1px solid #25607a;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:{{accent}}">{{k.d}} {{k.dt}}</div>
+          <div class="disp" style="font-size:28px;line-height:1">{{k.stage}}</div>
+          <div style="font-size:13px;color:#dbe7ec">{{k.detail}}</div>
+          <div style="margin-top:6px;font-weight:600;font-size:15px">{{k.v}}</div>
+          <div style="font-size:13px;color:#b9cfd8">{{k.ad}}</div>
         </div>
       </sc-for>
     </div>
@@ -148,11 +165,28 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
     </div>
   </section>
 
+  <section id="about" style="max-width:1320px;margin:56px auto 0;padding:0 24px">
+    <div style="display:flex;flex-wrap:wrap;gap:32px;background:#14485D;border:1px solid #25607a;border-radius:20px;padding:32px">
+      <div style="flex:1 1 420px;min-width:0">
+        <h2 class="disp" style="margin:0 0 12px;font-size:44px">About the league</h2>
+        <p style="margin:0 0 12px;font-size:16px;line-height:1.6;color:#dbe7ec">The Christmas Domino League was established as a gesture of appreciation to recognise and reward the players who participated in, and showed their commitment and support to, the JDCA League.</p>
+        <p style="margin:0 0 20px;font-size:16px;line-height:1.6;color:#dbe7ec">It is our way of saying thank you to the players who stayed dedicated throughout the league season, and a chance to compete for an attractive cash prize during the festive season, making Christmas even more rewarding.</p>
+        <div class="disp" style="font-size:28px;color:{{accent}}">Our appreciation</div>
+        <p style="margin:8px 0 0;font-size:16px;line-height:1.6;color:#dbe7ec">The Christmas Domino League is more than just another competition. It is an opportunity to celebrate commitment, sportsmanship and the players who helped make the JDCA League a success.</p>
+        <p style="margin:10px 0 0;font-size:18px;font-weight:700">You supported the league. Now it’s our turn to reward you!</p>
+      </div>
+      <div style="flex:1 1 380px;min-width:0">
+        <div class="disp" style="font-size:28px">Participation criteria</div>
+        <ul style="margin:8px 0 0;padding:0 0 0 18px;font-size:15px;line-height:1.5;color:#ffffff"><li style="padding:10px 0;border-bottom:1px solid #25607a">Only teams that participated in the JDCA League are eligible.</li><li style="padding:10px 0;border-bottom:1px solid #25607a">Each eligible team submits a list of a maximum of nine (9) male players and four (4) female players.</li><li style="padding:10px 0;border-bottom:1px solid #25607a">Players selected must have demonstrated commitment and devoted attention to the JDCA League.</li><li style="padding:10px 0;border-bottom:1px solid #25607a">Players must not have participated in any other domino league of a similar nature, in keeping with the participation conditions set at the start of the JDCA League.</li></ul>
+      </div>
+    </div>
+  </section>
+
   <section style="max-width:1320px;margin:56px auto 0;padding:0 24px 64px">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
       <div style="background:#14485D;border:1px solid #25607a;border-radius:14px;padding:20px"><div class="disp" style="font-size:26px">Match start 8:00 PM sharp</div><div style="font-size:14px;color:#b9cfd8;margin-top:6px">15-minute grace period.</div></div>
       <div style="background:#14485D;border:1px solid #25607a;border-radius:14px;padding:20px"><div class="disp" style="font-size:26px">Dress code enforced</div><div style="font-size:14px;color:#b9cfd8;margin-top:6px">Dress code should be adhered to.</div></div>
-      <div style="background:#14485D;border:1px solid #25607a;border-radius:14px;padding:20px"><div class="disp" style="font-size:26px">Let the best teams win</div><div style="font-size:14px;color:#b9cfd8;margin-top:6px">Seven match nights, Nov 30 to Dec 10.</div></div>
+      <div style="background:#14485D;border:1px solid #25607a;border-radius:14px;padding:20px"><div class="disp" style="font-size:26px">Let the best teams win</div><div style="font-size:14px;color:#b9cfd8;margin-top:6px">Semifinals, final and closing ceremony on Dec 23.</div></div>
     </div>
   </section>
 <footer style="background:#14485D;color:#ffffff;font-family:Inter,sans-serif">
@@ -176,6 +210,14 @@ const F=[
 {d:'TUE',dt:'DEC 8',a:'Soursapp',b:'Masterpiece',v:'Soursapp HQ',ad:'Redhills Boulevard'},
 {d:'WED',dt:'DEC 9',a:'Naggo Head',b:'Land Raiders',v:'Naggo Head Bus Park',ad:'Naggo Head'},
 {d:'THU',dt:'DEC 10',a:'Feluchie',b:'Waterhouse',v:'Feluchie HQ',ad:'Old Harbour'}];
+const F2=[
+{d:'MON',dt:'DEC 14',stage:'Second Round',detail:'8 tables',v:'Waterhouse Ground',ad:'Penn Avenue, Kingston 11'},
+{d:'TUE',dt:'DEC 15',stage:'Second Round',detail:'8 tables',v:'Unity Ground',ad:'Gregory Park, Portmore'},
+{d:'WED',dt:'DEC 16',stage:'Second Round',detail:'8 tables',v:'One Blood Ground',ad:'Route 66 Lounge, 3 Cheniston Drive, Westmore Gardens, Spanish Town'},
+{d:'THU',dt:'DEC 17',stage:'Second Round',detail:'8 tables',v:'Caribbean Classic Ground',ad:'Portmore Lane, Portmore, St Catherine'},
+{d:'MON',dt:'DEC 21',stage:'Round of 32',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'TUE',dt:'DEC 22',stage:'Round of 16 & Quarterfinals',detail:'Men and women',v:'Mystix Sports Club',ad:''},
+{d:'WED',dt:'DEC 23',stage:'Semifinals, Final & Closing Ceremony',detail:'Men and women',v:'Mystix Sports Club',ad:''}];
 const T=[
 {n:'Caribbean Classic',m:[],w:[]},
 {n:'Route 27',m:['Paul Brown','Calvin Rowe','Norman Clarke','Oniel Clarke','Kemar Edwards','Stamma','Kemar Evans','Jermaine Hall','One Plumber Boss'],w:['Shanielle Gayle','Twinstar']},
@@ -198,7 +240,7 @@ class Component extends DCLogic {
     const s = this.state.sel;
     const teams = T.map((t, i) => { const c = t.m.length + t.w.length; return { n: t.n, count: c ? c + ' players' : 'Roster pending', active: i === s, idle: i !== s, pick: () => this.setState({ sel: i }) }; });
     const t = T[s];
-    return { accent: this.props.accent ?? '#FCAE40', fixtures: F, teams: teams,
+    return { knock: F2, accent: this.props.accent ?? '#FCAE40', fixtures: F, teams: teams,
       sel: { n: t.n, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length } };
   }
 }
