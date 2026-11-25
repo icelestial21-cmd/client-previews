@@ -81,6 +81,18 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
     </div>
   </section>
 
+  <section aria-label="Division" style="position:sticky;top:0;z-index:20;background:#0e3546;border-bottom:1px solid #3a7590">
+    <div style="max-width:1320px;margin:0 auto;padding:10px 24px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between">
+      <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:#b9cfd8">DIVISION · <span style="color:#ffffff">{{divName}}</span></div>
+      <div role="group" aria-label="Choose division" style="display:flex;gap:6px;flex-wrap:wrap">
+        <sc-for list="{{divs}}" as="d" hint-placeholder-count="2">
+          <sc-if value="{{d.on}}" hint-placeholder-val="{{false}}"><button onClick="{{d.pick}}" aria-pressed="true" style="min-height:44px;padding:0 18px;border-radius:999px;border:2px solid #FCAE40;background:#FCAE40;color:#0e3546;font:700 14px Inter,sans-serif;cursor:pointer">{{d.label}} <span style="font-weight:500;opacity:.85">· {{d.cap}}</span></button></sc-if>
+          <sc-if value="{{d.off}}" hint-placeholder-val="{{true}}"><button onClick="{{d.pick}}" aria-pressed="false" style="min-height:44px;padding:0 18px;border-radius:999px;border:2px solid #3a7590;background:transparent;color:#ffffff;font:600 14px Inter,sans-serif;cursor:pointer">{{d.label}} <span style="font-weight:500;opacity:.85">· {{d.cap}}</span></button></sc-if>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
   <section style="max-width:1320px;margin:20px auto 0;padding:0 24px">
     <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;border:1px solid {{accent}};border-radius:14px;padding:18px 24px;background:#14485D">
       <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:{{accent}}">OPENING NIGHT · MON NOV 30 · 8:00 PM</div>
@@ -130,7 +142,7 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
   </section>
 
   <section id="teams" style="max-width:1320px;margin:56px auto 0;padding:0 24px">
-    <h2 class="disp" style="margin:0 0 6px;font-size:44px">Teams &amp; rosters</h2>
+    <h2 class="disp" style="margin:0 0 6px;font-size:44px">{{divShort}} teams &amp; rosters</h2>
     <p style="margin:0 0 18px;color:#b9cfd8;font-size:15px">Select a team to see its players.</p>
     <div style="display:flex;flex-wrap:wrap;gap:24px">
       <div style="flex:1 1 420px;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:start">
@@ -149,16 +161,11 @@ a{color:#ffffff;text-decoration:none}a:hover{color:#ffffff}
       </div>
       <div style="flex:1 1 420px;min-width:0;background:#14485D;border:1px solid #25607a;border-radius:16px;padding:24px;align-self:start">
         <div class="disp" style="font-size:40px;line-height:1">{{sel.n}}</div>
-        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:20px">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin-top:20px">
           <div>
-            <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:{{accent}};margin-bottom:10px">MEN · {{sel.mc}}</div>
-            <sc-for list="{{sel.m}}" as="p" hint-placeholder-count="9"><div style="padding:8px 0;border-bottom:1px solid #25607a;font-size:14px">{{p}}</div></sc-for>
-            <sc-if value="{{sel.noM}}" hint-placeholder-val="{{false}}"><div style="font-size:14px;color:#b9cfd8">Roster to be confirmed</div></sc-if>
-          </div>
-          <div>
-            <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:{{accent}};margin-bottom:10px">WOMEN · {{sel.wc}}</div>
-            <sc-for list="{{sel.w}}" as="p" hint-placeholder-count="3"><div style="padding:8px 0;border-bottom:1px solid #25607a;font-size:14px">{{p}}</div></sc-for>
-            <sc-if value="{{sel.noW}}" hint-placeholder-val="{{false}}"><div style="font-size:14px;color:#b9cfd8">To be confirmed</div></sc-if>
+            <div style="font:600 12px Inter,sans-serif;letter-spacing:.1em;color:{{accent}};margin-bottom:10px">{{sel.label}} · {{sel.lc}}</div>
+            <sc-for list="{{sel.list}}" as="p" hint-placeholder-count="9"><div style="padding:8px 0;border-bottom:1px solid #25607a;font-size:14px">{{p}}</div></sc-for>
+            <sc-if value="{{sel.none}}" hint-placeholder-val="{{false}}"><div style="font-size:14px;color:#b9cfd8">{{sel.noneMsg}}</div></sc-if>
           </div>
         </div>
       </div>
@@ -235,13 +242,18 @@ const T=[
 {n:'Waterhouse',m:[],w:[]}];
 
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { sel: 1 }; }
+  constructor(p){ super(p); var d = 'men'; try { if (new URLSearchParams(location.search).get('div') === 'women') d = 'women'; } catch (e) {} this.state = { sel: 1, div: d }; }
   renderVals() {
+    const dv = this.state.div; const W = dv === 'women'; const key = W ? 'w' : 'm';
+    const divs = [{ id: 'men', label: 'Men’s League', cap: 'up to 9 per team' }, { id: 'women', label: 'Women’s League', cap: 'up to 4 per team' }].map((x) => ({ ...x, on: x.id === dv, off: x.id !== dv, pick: () => this.setState({ div: x.id }) }));
+    const divName = W ? 'Women’s League' : 'Men’s League'; const divShort = W ? 'Women’s' : 'Men’s';
+    const knockD = F2.map((k) => ({ ...k, detail: k.detail === 'Men and women' ? (W ? 'Women’s draw' : 'Men’s draw') : k.detail }));
+    const cnt = (t) => t[key].length ? t[key].length + (W ? ' women' : ' men') : (W ? 'No women listed yet' : 'Roster pending');
     const s = this.state.sel;
-    const teams = T.map((t, i) => { const c = t.m.length + t.w.length; return { n: t.n, count: c ? c + ' players' : 'Roster pending', active: i === s, idle: i !== s, pick: () => this.setState({ sel: i }) }; });
+    const teams = T.map((t, i) => { const c = t.m.length + t.w.length; return { n: t.n, count: cnt(t), active: i === s, idle: i !== s, pick: () => this.setState({ sel: i }) }; });
     const t = T[s];
-    return { knock: F2, accent: this.props.accent ?? '#FCAE40', fixtures: F, teams: teams,
-      sel: { n: t.n, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length } };
+    return { knock: knockD, divs: divs, divName: divName, divShort: divShort, accent: this.props.accent ?? '#FCAE40', fixtures: F, teams: teams,
+      sel: { n: t.n, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length , list: t[key], lc: t[key].length, label: W ? 'WOMEN’S SQUAD' : 'MEN’S SQUAD', none: !t[key].length, noneMsg: W ? 'No women players listed yet' : 'Roster to be confirmed' } };
   }
 }
 
