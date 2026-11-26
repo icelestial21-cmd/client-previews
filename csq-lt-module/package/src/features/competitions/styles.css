@@ -1,0 +1,15 @@
+/* CSQ Leagues & Tournaments module styles (import once). */
+.csq-pips { background-image: radial-gradient(rgba(255,255,255,.09) 2px, transparent 2.6px); background-size: 22px 22px; }
+.csq-lift { transition: transform .15s ease, box-shadow .15s ease; }
+.csq-lift:hover { transform: translateY(-3px); box-shadow: 0 12px 28px hsl(197 65% 22% / .14); }
+.csq-pop { animation: csq-pop .42s ease; }
+@keyframes csq-pop { 0% { transform: scale(.6) } 50% { transform: scale(1.12) } 100% { transform: scale(1) } }
+.csq-spin { transform-box: view-box; transform-origin: 400px 400px; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.csq-spin.is-dragging, .csq-spin.is-dragging .csq-lbl { transition: none; }
+.csq-spin .csq-lbl { transform-box: fill-box; transform-origin: center; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.csq-slot circle { transform-box: fill-box; transform-origin: center; transition: transform .15s ease; }
+.csq-slot:hover circle { transform: scale(1.15); }
+.csq-hub { animation: csq-hub 2.4s ease-in-out infinite; }
+@keyframes csq-hub { 0%,100% { stroke-width: 3 } 50% { stroke-width: 7 } }
+.csq-scroll-x { overflow-x: auto; scrollbar-width: thin; }
+@media (prefers-reduced-motion: reduce) { .csq-pop, .csq-hub, .csq-spin, .csq-lift, .csq-spin .csq-lbl { animation: none !important; transition: none !important; } }

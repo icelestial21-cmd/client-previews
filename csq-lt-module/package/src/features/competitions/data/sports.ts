@@ -1,0 +1,14 @@
+import type { Sport } from "../types";
+
+/** Same presets as the SQL seed. Admins can edit or add sports in the admin section. */
+export const SPORTS: Sport[] = [
+  { key: "domino", name: "Dominoes", scoring_mode: "target", participant: "both", allow_draws: false, points_win: 3, points_draw: 0, points_loss: 0, tiebreakers: ["points", "diff", "for", "name"], target_default: 15, sets_to_win: null, labels: { match: "Set", score: "Points", for: "PF", against: "PA" } },
+  { key: "football", name: "Football", scoring_mode: "score", participant: "team", allow_draws: true, points_win: 3, points_draw: 1, points_loss: 0, tiebreakers: ["points", "diff", "for", "h2h", "name"], target_default: null, sets_to_win: null, labels: { match: "Match", score: "Goals", for: "GF", against: "GA" } },
+  { key: "basketball", name: "Basketball", scoring_mode: "score", participant: "team", allow_draws: false, points_win: 2, points_draw: 0, points_loss: 1, tiebreakers: ["points", "h2h", "diff", "for", "name"], target_default: null, sets_to_win: null, labels: { match: "Game", score: "Points", for: "PF", against: "PA" } },
+  { key: "netball", name: "Netball", scoring_mode: "score", participant: "team", allow_draws: true, points_win: 3, points_draw: 1, points_loss: 0, tiebreakers: ["points", "diff", "for", "name"], target_default: null, sets_to_win: null, labels: { match: "Match", score: "Goals", for: "GF", against: "GA" } },
+  { key: "cricket", name: "Cricket", scoring_mode: "score", participant: "team", allow_draws: true, points_win: 2, points_draw: 1, points_loss: 0, tiebreakers: ["points", "wins", "diff", "name"], target_default: null, sets_to_win: null, labels: { match: "Match", score: "Runs", for: "RF", against: "RA" } },
+  { key: "volleyball", name: "Volleyball", scoring_mode: "sets", participant: "team", allow_draws: false, points_win: 3, points_draw: 0, points_loss: 0, tiebreakers: ["points", "wins", "diff", "name"], target_default: 25, sets_to_win: 3, labels: { match: "Match", score: "Sets", for: "SW", against: "SL" } },
+  { key: "tennis", name: "Tennis", scoring_mode: "sets", participant: "player", allow_draws: false, points_win: 1, points_draw: 0, points_loss: 0, tiebreakers: ["wins", "diff", "name"], target_default: null, sets_to_win: 2, labels: { match: "Match", score: "Sets", for: "SW", against: "SL" } },
+  { key: "athletics", name: "Athletics", scoring_mode: "time", participant: "player", allow_draws: false, points_win: 0, points_draw: 0, points_loss: 0, tiebreakers: ["time", "name"], target_default: null, sets_to_win: null, labels: { match: "Heat", score: "Time" } },
+  { key: "esports", name: "Esports", scoring_mode: "score", participant: "both", allow_draws: false, points_win: 3, points_draw: 0, points_loss: 0, tiebreakers: ["points", "diff", "name"], target_default: null, sets_to_win: null, labels: { match: "Match", score: "Maps", for: "MW", against: "ML" } },
+];
