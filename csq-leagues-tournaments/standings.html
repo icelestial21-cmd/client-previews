@@ -186,7 +186,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
       <div style="background:#14485D;border:2px solid #3a7590;border-radius:16px;padding:16px">
         <div style="font:700 11px Inter,sans-serif;letter-spacing:.1em;color:#FCAE40">1 · STANDINGS</div>
         <div class="disp" style="font-size:26px;line-height:1.05;margin-top:4px">First &amp; Second Round</div>
-        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">Sets to {{sc.setTo}}. Win {{sc.w}} · Loss {{sc.l}}, split by points difference. Nov 30 – Dec 17.</p>
+        <p style="margin:6px 0 0;font-size:13px;color:#dbe7ec">Men to 15, women to 11. Win {{sc.w}} · Loss {{sc.l}}, split by points difference. Nov 30 – Dec 17.</p>
       </div>
       <svg viewBox="0 0 60 120" aria-hidden="true" style="width:60px;height:120px"><path d="M4 30 C30 30 30 20 54 20" stroke="#1f9d6b" stroke-width="3" fill="none"></path><path d="M4 90 C30 90 30 100 54 100" stroke="#FCAE40" stroke-width="3" fill="none"></path><path d="M48 14l7 6-7 6M48 94l7 6-7 6" stroke-width="3" fill="none" stroke="#ffffff"></path></svg>
       <div style="display:flex;flex-direction:column;gap:12px">
@@ -323,12 +323,12 @@ function csqPlayers() {
 }
 
 /* Official competition rules (from the JDCA, Nov 2026). Rules tagged 'scoring' feed the standings settings in RULESET. */
-var RULESET = { win: 3, loss: 0, setTo: 15, derby: 2, derbyMax: 3, latePenalty: 1, playSeconds: 20, start: '7:45 PM', latest: '8:00 PM', grace: 15 };
+var RULESET = { win: 3, loss: 0, setTo: 15, setToMen: 15, setToWomen: 11, derby: 2, derbyMax: 3, latePenalty: 1, playSeconds: 20, start: '7:45 PM', latest: '8:00 PM', grace: 15 };
 var RULES = [
   { id: 'format', title: 'Match format', items: [
     { id: 'f0', text: 'All matches will be played at a venue to be announced. Dominoes will be provided, and all matches will be live-streamed.' },
     { id: 'f1', text: 'The competition will be played in a knockout format until the Final.' },
-    { id: 'f2', text: 'The first player to reach 15 points will be declared winner of the set.', tag: 'scoring' },
+    { id: 'f2', text: 'The first player to reach the target will be declared winner of the set: men play to fifteen (15) points, women play to eleven (11) points.', tag: 'scoring' },
     { id: 'f3', text: 'Matches will begin at 7:45 p.m. There will be a fifteen (15)-minute grace period. Therefore, all matches MUST begin by 8:00 p.m. SHARP.', tag: 'schedule' },
     { id: 'f4', text: 'Each team registers nine (9) male and four (4) female players. The defending men’s champion will start at the Second Round.' },
     { id: 'f5', text: 'The team list submitted upon registration is FINAL.' },
@@ -395,14 +395,14 @@ function rulesVals(self) {
 class Component extends DCLogic {
   constructor(p) {
     super(p);
-    var res = []; try { res = JSON.parse(localStorage.getItem('csq_results_v2') || '[]'); } catch (e) {}
+    var res = []; try { res = JSON.parse(localStorage.getItem('csq_results_v3') || '[]'); } catch (e) {}
     var d = 'men'; try { if (new URLSearchParams(location.search).get('div') === 'women') d = 'women'; } catch (e) {}
     this.state = { div: d, res: res, seats: 32, wc: 4, all: false, msg: '' };
     this.players = csqPlayers();
   }
-  save(res) { try { localStorage.setItem('csq_results_v2', JSON.stringify(res)); } catch (e) {} this.setState({ res: res, msg: '' }); }
+  save(res) { try { localStorage.setItem('csq_results_v3', JSON.stringify(res)); } catch (e) {} this.setState({ res: res, msg: '' }); }
   renderVals() {
-    var self = this, s = this.state, W = s.div === 'women', R = RULESET, SET = R.setTo;
+    var self = this, s = this.state, W = s.div === 'women', R = RULESET, SET = W ? R.setToWomen : R.setToMen;
     var ps = this.players.filter(function (p) { return p.div === s.div; });
     var byId = {}; ps.forEach(function (p) { byId[p.id] = { p: p, P: 0, W: 0, L: 0, PF: 0, PA: 0 }; });
     var mine = s.res.filter(function (r) { return byId[r.a] && byId[r.b]; });
@@ -430,7 +430,7 @@ class Component extends DCLogic {
     var recent = mine.slice(-6).reverse().map(function (r) { return r.sa > r.sb ? nm(r.a) + ' beat ' + nm(r.b) + ' ' + r.sa + '–' + r.sb : nm(r.b) + ' beat ' + nm(r.a) + ' ' + r.sb + '–' + r.sa; });
     return {
       divName: W ? 'Women’s' : 'Men’s', sc: { w: R.win, l: R.loss, setTo: SET }, rules: rulesVals(this), rulesRed: rulesVals(this).openRule('g19', 'play'),
-      scoreRules: [['Set is won by the first to', SET + ' pts', 'f2', 'format'], ['Derby game winner earns', R.derby + ' pts (max ' + R.derbyMax + ')', 'g12', 'play'], ['Bathroom break over 5 minutes', '+' + R.latePenalty + ' to opponent', 'g18', 'play'], ['Red card or unfinished set', 'Rest to opponent', 'g19', 'play'], ['Standings: win / loss', R.win + ' / ' + R.loss, 'f2', 'format']].map(function (x) { return { label: x[0], value: x[1], pick: rulesVals(self).openRule(x[2], x[3]) }; }), rows: rows, total: n, played: mine.length, canMore: !s.all && limit < n, canLess: s.all,
+      scoreRules: [[(W ? 'Women’s' : 'Men’s') + ' set: first to', SET + ' pts', 'f2', 'format'], ['Derby game winner earns', R.derby + ' pts (max ' + R.derbyMax + ')', 'g12', 'play'], ['Bathroom break over 5 minutes', '+' + R.latePenalty + ' to opponent', 'g18', 'play'], ['Red card or unfinished set', 'Rest to opponent', 'g19', 'play'], ['Standings: win / loss', R.win + ' / ' + R.loss, 'f2', 'format']].map(function (x) { return { label: x[0], value: x[1], pick: rulesVals(self).openRule(x[2], x[3]) }; }), rows: rows, total: n, played: mine.length, canMore: !s.all && limit < n, canLess: s.all,
       more: function () { self.setState({ all: true }); }, less: function () { self.setState({ all: false }); },
       z: { seats: seats, wc: wc, direct: direct, pool: pool, poFrom: poFrom, poTo: poTo }, pairs: pairs, opts: opts, optsB: opts.slice(1).concat(opts.slice(0, 1)),
       rec: rec, msg: s.msg, recent: recent, hasRecent: recent.length > 0,

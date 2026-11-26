@@ -141,7 +141,7 @@ button,a{transition:transform .15s ease,box-shadow .15s ease,background-color .1
         <div style="display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 12px;margin-top:10px;font-size:14px">
           <span style="color:#4C6874">Start</span><span style="font-weight:600">7:45 PM</span>
           <span style="color:#4C6874">Grace period</span><span style="font-weight:600">15 min · begin by 8:00 PM sharp</span>
-          <span style="color:#4C6874">Sets</span><span style="font-weight:600">First to 15 points</span>
+          <span style="color:#4C6874">Sets</span><span style="font-weight:600">Men to 15 · women to 11</span>
           <span style="color:#4C6874">Dress code</span><span style="font-weight:600">Enforced · belts must be worn</span>
           <span style="color:#4C6874">Eligibility</span><span style="font-weight:600">JDCA League teams only</span>
           <span style="color:#4C6874">Squads</span><span style="font-weight:600">9 men and 4 women</span>
@@ -267,12 +267,12 @@ const F2=[
 {d:'TUE',dt:'DEC 22',stage:'Round of 16 & Quarterfinals',detail:'Men and women',v:'Mystix Sports Club',ad:''},
 {d:'WED',dt:'DEC 23',stage:'Semifinals, Final & Closing Ceremony',detail:'Men and women',v:'Mystix Sports Club',ad:''}];
 /* Official competition rules (from the JDCA, Nov 2026). Rules tagged 'scoring' feed the standings settings in RULESET. */
-var RULESET = { win: 3, loss: 0, setTo: 15, derby: 2, derbyMax: 3, latePenalty: 1, playSeconds: 20, start: '7:45 PM', latest: '8:00 PM', grace: 15 };
+var RULESET = { win: 3, loss: 0, setTo: 15, setToMen: 15, setToWomen: 11, derby: 2, derbyMax: 3, latePenalty: 1, playSeconds: 20, start: '7:45 PM', latest: '8:00 PM', grace: 15 };
 var RULES = [
   { id: 'format', title: 'Match format', items: [
     { id: 'f0', text: 'All matches will be played at a venue to be announced. Dominoes will be provided, and all matches will be live-streamed.' },
     { id: 'f1', text: 'The competition will be played in a knockout format until the Final.' },
-    { id: 'f2', text: 'The first player to reach 15 points will be declared winner of the set.', tag: 'scoring' },
+    { id: 'f2', text: 'The first player to reach the target will be declared winner of the set: men play to fifteen (15) points, women play to eleven (11) points.', tag: 'scoring' },
     { id: 'f3', text: 'Matches will begin at 7:45 p.m. There will be a fifteen (15)-minute grace period. Therefore, all matches MUST begin by 8:00 p.m. SHARP.', tag: 'schedule' },
     { id: 'f4', text: 'Each team registers nine (9) male and four (4) female players. The defending men’s champion will start at the Second Round.' },
     { id: 'f5', text: 'The team list submitted upon registration is FINAL.' },
@@ -366,7 +366,7 @@ class Component extends DCLogic {
     const t = T[s];
     const fx = F.find((f) => f.a === t.n || f.b === t.n);
     const vs = fx ? fx.d.charAt(0) + fx.d.slice(1).toLowerCase() + ' ' + fx.dt + ' vs ' + (fx.a === t.n ? fx.b : fx.a) + ' at ' + fx.v : '';
-    return { rules: rulesVals(this), glance: [["First to 15 wins the set","f2","format"],["7:45 PM start · 8:00 PM latest","f3","format"],["Double six starts every game","f6","format"],["20 seconds per play","g10","play"],["Derby games: 2 points","g12","play"],["Dress code: belts must be worn","d2","dress"]].map(function (g) { return { label: g[0], pick: rulesVals(this).openRule(g[1], g[2]) }; }, this), knock: knockD, divs: divs, divName: divName, divShort: divShort, rubric: this.props.rubric ?? '#CC1F19', fixtures: F, teams: teams,
+    return { rules: rulesVals(this), glance: [["Sets: men to 15, women to 11","f2","format"],["7:45 PM start · 8:00 PM latest","f3","format"],["Double six starts every game","f6","format"],["20 seconds per play","g10","play"],["Derby games: 2 points","g12","play"],["Dress code: belts must be worn","d2","dress"]].map(function (g) { return { label: g[0], pick: rulesVals(this).openRule(g[1], g[2]) }; }, this), knock: knockD, divs: divs, divName: divName, divShort: divShort, rubric: this.props.rubric ?? '#CC1F19', fixtures: F, teams: teams,
       sel: { i: s, n: t.n, vs: vs, m: t.m, w: t.w, mc: t.m.length, wc: t.w.length, noM: !t.m.length, noW: !t.w.length , list: t[key], lc: t[key].length, label: W ? 'WOMEN’S SQUAD' : 'MEN’S SQUAD', none: !t[key].length, noneMsg: W ? 'No women players listed yet' : 'Roster to be confirmed' } };
   }
 }
