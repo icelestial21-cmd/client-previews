@@ -425,6 +425,7 @@
         <ul class="menu">${toggles.map(([k, l, d]) => `<li><label class="mrow"><span><b>${l}</b><small>${d}</small></span><span class="switch"><input type="checkbox" role="switch" data-alert="${k}" ${state.alerts[k] ? 'checked' : ''}><i aria-hidden="true"></i></span></label></li>`).join('')}</ul></div>
       <div class="sec"><div class="sec-h"><h2 class="h2">Account</h2></div>
         <ul class="menu">
+          <li><button type="button" class="mrow" data-act="install"><span><b>Add to home screen</b><small>Open KOC like an app, full screen</small></span>${icon.chev}</button></li>
           <li><button type="button" class="mrow" data-act="ticket"><span><b>Ticket wallet</b><small>Finals Night and Jamaica 2027 passes</small></span>${icon.chev}</button></li>
           <li><a class="mrow" href="../jamaica.html"><span><b>Register a team</b><small>Kings of the Cage Jamaica 2027</small></span>${icon.chev}</a></li>
           <li><a class="mrow" href="../"><span><b>Visit the website</b><small>Story, community and sponsors</small></span>${icon.chev}</a></li>
@@ -574,6 +575,8 @@
         else toast(url);
         break;
       }
+      case 'install': doInstall(); break;
+      case 'install-dismiss': pop.hidden = true; store.set('koc-install-dismissed', Date.now()); break;
       case 'edit-profile': editProfileSheet(); break;
       case 'save-profile': {
         const name = $('#fName').value.trim() || 'Demo Fan';
@@ -662,6 +665,61 @@
       const pg = $('#prog'); if (pg) pg.style.width = (match.secs / (HALF * 2)) * 100 + '%';
     }
   }, 1000);
+
+  // ---------- install ("Add to Home Screen") ----------
+  // Chrome / Edge / Android fire beforeinstallprompt: we keep it and show our own button and pop-up.
+  // Safari (iPhone) and other browsers have no prompt, so the same button opens short instructions.
+  let deferredInstall = null;
+  const ua = navigator.userAgent;
+  const env = {
+    standalone: window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true,
+    ios: /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1),
+    android: /android/i.test(ua), samsung: /SamsungBrowser/i.test(ua), edge: /Edg\//.test(ua),
+    firefox: /firefox|fxios/i.test(ua), iosOther: /CriOS|FxiOS|EdgiOS/i.test(ua)
+  };
+  const installEls = () => document.querySelectorAll('.install-btn');
+  const pop = $('#installPop');
+  function hideInstall() { installEls().forEach((b) => { b.hidden = true; }); pop.hidden = true; }
+  function showInstall() {
+    if (env.standalone) return hideInstall();
+    installEls().forEach((b) => { b.hidden = false; });
+    const dismissed = store.get('koc-install-dismissed', 0);
+    if (Date.now() - dismissed > 3 * 864e5) setTimeout(() => { if (!env.standalone && sheet.hidden) pop.hidden = false; }, 1600);
+  }
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); deferredInstall = e;
+    $('#installSub').textContent = 'Install it in one tap. It opens full screen, like an app.';
+    showInstall();
+  });
+  window.addEventListener('appinstalled', () => { deferredInstall = null; hideInstall(); toast('Kings of the Cage is on your home screen'); });
+  function installSteps() {
+    const share = '<svg viewBox="0 0 24 24" aria-hidden="true" class="inl"><path d="M12 3v13M7 8l5-5 5 5M5 12v8h14v-8"/></svg>';
+    const dots = '<b class="key">⋮</b>';
+    if (env.ios && env.iosOther) return ['Tap the Share button ' + share + ' in the toolbar.', 'Choose <b>Add to Home Screen</b>.', 'If you don’t see it, open this page in <b>Safari</b> and try again.'];
+    if (env.ios) return ['Tap the Share button ' + share + ' at the bottom of Safari.', 'Scroll down and choose <b>Add to Home Screen</b>.', 'Tap <b>Add</b>. KOC appears on your home screen.'];
+    if (env.samsung) return ['Tap the menu <b class="key">≡</b> at the bottom right.', 'Choose <b>Add page to</b>, then <b>Home screen</b>.', 'Tap <b>Add</b>.'];
+    if (env.android && env.firefox) return ['Tap the menu ' + dots + ' in Firefox.', 'Choose <b>Install</b> or <b>Add to Home screen</b>.', 'Confirm with <b>Add</b>.'];
+    if (env.android) return ['Tap the menu ' + dots + ' at the top right of Chrome.', 'Choose <b>Add to Home screen</b> (or <b>Install app</b>).', 'Tap <b>Install</b> or <b>Add</b>.'];
+    if (env.edge) return ['Click the menu <b class="key">…</b> at the top right of Edge.', 'Go to <b>Apps</b>, then <b>Install this site as an app</b>.', 'Click <b>Install</b>. KOC opens in its own window.'];
+    if (env.firefox) return ['Firefox on computers can’t install web apps.', 'Open this link in <b>Chrome</b> or <b>Edge</b> to install it,', 'or open it on your phone and add it to your home screen.'];
+    return ['Look for the install icon <svg viewBox="0 0 24 24" aria-hidden="true" class="inl"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 8v6M9 11l3 3 3-3M8 21h8"/></svg> at the right end of the address bar,', 'or open the menu ' + dots + ' and choose <b>Cast, save and share</b>, then <b>Install page as app</b>.', 'Click <b>Install</b>. KOC opens in its own window.'];
+  }
+  async function doInstall() {
+    pop.hidden = true;
+    if (deferredInstall) {
+      deferredInstall.prompt();
+      const choice = await deferredInstall.userChoice.catch(() => ({}));
+      deferredInstall = null;
+      if (choice && choice.outcome === 'accepted') hideInstall();
+      return;
+    }
+    openSheet(`<div class="sheet-body"><h2 id="sheetTitle" class="sheet-h">Add KOC to your home screen</h2>
+      <p class="p-desc">It opens full screen like an app, straight to scores, teams and the shop.</p>
+      <ol class="steps">${installSteps().map((s) => `<li>${s}</li>`).join('')}</ol>
+      <button type="button" class="btn" data-act="close" style="width:100%">Got it</button></div>`);
+  }
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+  showInstall();
 
   saveBag();
   route();
