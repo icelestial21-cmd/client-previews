@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOE Studios · Refer a brand that's ready to grow</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="FOE Studios is a creative and strategic marketing studio. Introduce a brand that's ready to grow and you both get rewarded. Design preview by iCelestial.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#061630">
+<link rel="canonical" href="https://icelestial21-cmd.github.io/client-previews/foe-studios-referral/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOE Studios">
+<meta property="og:title" content="FOE Studios · Know a brand that's ready to grow?">
+<meta property="og:description" content="Introduce a brand to FOE Studios, the creative and strategic marketing studio, and you both get rewarded when their project goes ahead.">
+<meta property="og:url" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-referral/">
+<meta property="og:image" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-referral/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FOE Studios Ambassador Programme card with the headline Know a brand that's ready to grow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOE Studios · Know a brand that's ready to grow?">
+<meta name="twitter:description" content="Introduce a brand to FOE Studios, the creative and strategic marketing studio, and you both get rewarded when their project goes ahead.">
+<meta name="twitter:image" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-referral/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* FOE Studios · Version C (referral-led)
+   Reference lock (web-design-references skill):
+   - Leading: Refero "Dub" (dub.co, a referral/affiliate platform): ruled architectural frame, layered
+     interface illustrations of the product, dark atmospheric closing CTA. Not copied: Dub's white canvas,
+     Satoshi type, candy identifiers.
+   - Borrowed: Refero "Atlas" (atlascard.com): invitation-led tone, tiny uppercase mono labels, card-as-object.
+   - Tokens stay FOE's: navy #061630, accent blue #1670C5 / #2186D0, soft gray #F4F6F8, Manrope + Inter.
+   - Components: copy button from Uiverse (vinodjangid07), liquid shader from ThreeUI (Meng To, MIT),
+     3D pass from the iCelestial partner engine, icons from 3dicons (CC0). */
+:root{
+  --navy:#061630; --midnight:#0B1F3A; --royal:#1769AA; --accent:#2186D0; --blue:#1670C5;
+  --paper:#F4F6F8; --white:#fff; --ink:#111827; --muted:#5b6678; --line:#dfe4eb; --line-d:#1c3456;
+  --display:"Manrope","Inter",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{overflow-x:clip;margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.03em;line-height:1.05}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.frame{border-left:1px solid var(--line);border-right:1px solid var(--line)} /* Dub-style ruled frame */
+.rule{border-top:1px solid var(--line)}
+.label{font:500 11px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.label.b{color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border-radius:999px;font:600 15px var(--body);border:1px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.pri{background:var(--blue);color:#fff;box-shadow:0 8px 24px -10px rgba(22,112,197,.8)}
+.btn.pri:hover{background:var(--royal)}
+.btn.ghost{border-color:var(--line);background:#fff}
+.btn.light{background:#fff;color:var(--navy)}
+.btn.line-d{border-color:rgba(255,255,255,.25);color:#fff}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:40;background:rgba(244,246,248,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font:800 19px var(--display);letter-spacing:-.02em}
+.brand img{width:34px;height:34px;border-radius:50%}
+.brand small{display:block;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nav nav{display:flex;gap:26px;margin-left:auto;font-size:14.5px;font-weight:500}
+.nav nav a{color:#334155}.nav nav a:hover{color:var(--blue)}
+.nav nav .hot{color:var(--blue);display:inline-flex;gap:6px;align-items:center}
+.nav nav .hot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(33,134,208,.18)}
+.nav .btn{height:40px;padding:0 16px;font-size:14px}
+.burger{display:none;margin-left:auto;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#fff}
+@media(max-width:900px){.nav nav,.nav .btn{display:none}.burger{display:grid;place-items:center}
+  .nav.open nav{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 16px}
+  .nav.open nav a{padding:12px 0;border-bottom:1px solid var(--line)}}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;min-height:640px}
+.hero-copy{padding:72px 48px 64px 0;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:clamp(42px,6vw,74px);font-weight:800;margin:18px 0 22px}
+.hero h1 span{color:var(--blue)}
+.hero p.lede{font-size:18.5px;color:#3b4658;max-width:520px;margin:0 0 30px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero .assure{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px}
+.hero .assure span{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#475569}
+.hero .assure svg{width:16px;height:16px;color:var(--blue)}
+.stage{position:relative;background:var(--navy);overflow:hidden;border-left:1px solid var(--line)}
+.stage .liquid,.stage .pass{position:absolute;inset:0}
+.stage .liquid canvas{width:100%;height:100%;opacity:.55;display:block}
+.stage .pass canvas{width:100%!important;height:100%!important;display:block}
+.stage .fallback-card{position:absolute;left:50%;top:50%;width:min(78%,380px);aspect-ratio:1.6;transform:translate(-50%,-50%) rotate(-6deg);border-radius:18px;padding:22px;color:#fff;background:linear-gradient(135deg,#2a8fe0,#1670C5 45%,#0d4a8a);box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transition:opacity .4s}
+.stage .pass.ready ~ .fallback-card{opacity:0}
+.fallback-card .label{color:rgba(255,255,255,.75)} .fallback-card b{display:block;font:800 30px var(--display);margin-top:16px}
+.stage-cap{position:absolute;left:20px;bottom:18px;right:20px;display:flex;justify-content:space-between;color:rgba(255,255,255,.6)}
+.stage-cap .label{color:rgba(255,255,255,.6)}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero-copy{padding:48px 0 40px}.stage{min-height:380px;border-left:0;margin:0 -24px}}
+
+/* Logos strip / who */
+.who{display:grid;grid-template-columns:repeat(4,1fr)}
+.who>div{padding:26px 22px;border-right:1px solid var(--line)}.who>div:last-child{border-right:0}
+.who b{display:block;font:700 17px var(--display);letter-spacing:-.02em;margin-top:6px}
+@media(max-width:760px){.who{grid-template-columns:1fr 1fr}.who>div:nth-child(2){border-right:0}.who>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* Sections */
+.sec{padding-top:96px;padding-bottom:96px}
+@media(max-width:640px){.sec{padding-top:64px;padding-bottom:64px}}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(32px,4.4vw,52px);font-weight:800;max-width:720px;margin-top:12px}
+.sec-head p{max-width:420px;color:var(--muted);margin:0}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:#fff;border-radius:22px;overflow:hidden}
+.step{padding:30px 28px 34px;border-right:1px solid var(--line);position:relative}
+.step:last-child{border-right:0}
+.step .ico{width:84px;height:84px;margin:-6px 0 14px -8px;position:relative}
+.step .ico img{width:84px;height:84px;object-fit:contain;position:relative;z-index:1}
+.step .ico svg{position:absolute;inset:14px;width:56px;height:56px;color:var(--blue)}
+.step .ico img+svg{display:none}
+.step .n{position:absolute;top:26px;right:26px;font:500 12px var(--mono);color:var(--muted)}
+.step h3{font-size:23px;font-weight:800;margin-bottom:8px}.step p{color:var(--muted);margin:0;font-size:15px}
+@media(max-width:860px){.steps{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}}
+
+/* Two-sided reward */
+.reward{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-top:22px}
+.rcard{background:var(--navy);color:#fff;border-radius:22px;padding:30px;position:relative;overflow:hidden}
+.rcard.alt{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.rcard .label{color:rgba(255,255,255,.6)}.rcard.alt .label{color:var(--muted)}
+.rcard h3{font-size:30px;font-weight:800;margin:14px 0 6px}
+.rcard .val{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:999px;border:1px dashed rgba(255,255,255,.4);font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.rcard.alt .val{border-color:var(--line);color:var(--muted)}
+.rcard p{margin:0;opacity:.8;font-size:15px}
+.plus{display:grid;place-items:center;width:64px;font:800 30px var(--display);color:var(--blue)}
+.terms-mini{margin-top:16px;font-size:13.5px;color:var(--muted)}
+@media(max-width:860px){.reward{grid-template-columns:1fr}.plus{width:auto;height:44px}}
+
+/* Generator + dashboard */
+.gen{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.gen>*,.hero>*,.form-split>*{min-width:0}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px}
+.panel h3{font-size:24px;font-weight:800;margin:10px 0 18px}
+.field{display:block;margin-bottom:14px}
+.field span{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;height:48px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font:15px var(--body);background:var(--paper);color:var(--ink);transition:border .2s,box-shadow .2s}
+.field textarea{height:96px;padding:12px 14px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(22,112,197,.14);background:#fff}
+.linkbox{display:flex;align-items:center;gap:10px;margin-top:6px;padding:8px 8px 8px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+.linkbox code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 14px var(--mono);color:var(--navy)}
+/* Copy button: from Uiverse.io by vinodjangid07 (MIT), rebuilt in FOE tokens */
+.copyBtn{width:112px;height:42px;flex:none;background:var(--navy);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;position:relative;overflow:hidden;transition-duration:.5s}
+.copyBtn .t{color:#fff;font:700 12px var(--mono);letter-spacing:.12em;z-index:2;transition:color .3s}
+.copyBtn svg{z-index:2;width:13px;height:13px}.copyBtn svg path{fill:#fff;transition:fill .3s}
+.copyBtn .fx{position:absolute;width:10px;height:10px;background:var(--accent);border-radius:50%;z-index:1;opacity:0;transition-duration:.5s}
+.copyBtn:hover .fx,.copyBtn.done .fx{transform:scale(15);opacity:1}
+.copyBtn:hover{box-shadow:0 0 0 4px rgba(33,134,208,.18)}
+.share{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share a{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:500;background:#fff}
+.share a:hover{border-color:var(--blue);color:var(--blue)}
+.share svg{width:16px;height:16px}
+.note{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+.dash{background:var(--navy);color:#fff;border-radius:22px;padding:22px;position:relative;overflow:hidden;box-shadow:0 40px 80px -40px rgba(6,22,48,.7)}
+.dash::before{content:"";position:absolute;inset:-40% -20% auto auto;width:420px;height:420px;background:radial-gradient(circle,rgba(33,134,208,.45),transparent 65%);pointer-events:none}
+.dash-top{display:flex;justify-content:space-between;align-items:center;position:relative}
+.dash-top .label{color:rgba(255,255,255,.55)}
+.chip{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0;position:relative}
+.kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
+.kpi b{display:block;font:800 28px var(--display);letter-spacing:-.03em}
+.kpi .label{color:rgba(255,255,255,.55);font-size:10px}
+.tier{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px}
+.tier-row{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.75);margin-bottom:10px}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--blue),#5fb3f0);transition:width 1.4s var(--ease)}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.tiers div{font-size:12px;color:rgba(255,255,255,.6);border-top:2px solid rgba(255,255,255,.15);padding-top:8px}
+.tiers div.on{color:#fff;border-color:var(--accent)}
+.tiers b{display:block;font:700 14px var(--display);color:#fff}
+.feed{margin-top:12px;position:relative}
+.feed div{display:flex;justify-content:space-between;gap:12px;padding:11px 2px;border-bottom:1px solid rgba(255,255,255,.08);font-size:13.5px}
+.feed span:last-child{color:rgba(255,255,255,.55);font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.dash .sample{position:absolute;right:16px;bottom:12px;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+@media(max-width:960px){.gen{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:1fr 1fr}}
+
+/* Proof */
+.proof{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.proof .img{position:relative;min-height:360px;background:linear-gradient(160deg,var(--midnight),var(--navy))}
+.proof .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.proof .img .label{position:absolute;left:16px;bottom:14px;color:rgba(255,255,255,.8);background:rgba(6,22,48,.6);padding:5px 9px;border-radius:6px}
+.proof .txt{padding:36px}
+.proof h3{font-size:32px;font-weight:800;margin:12px 0 10px}
+.proof p{color:var(--muted)}
+.stats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:22px}
+.stats div{padding:18px 0 4px}.stats div:nth-child(odd){border-right:1px solid var(--line)}.stats div:nth-child(even){padding-left:20px}
+.stats div:nth-child(-n+2){border-bottom:1px solid var(--line);padding-bottom:16px}
+.stats b{display:block;font:800 40px var(--display);letter-spacing:-.04em;color:var(--navy)}
+@media(max-width:640px){.stats b{font-size:30px}.proof .txt{padding:26px}}
+@media(max-width:860px){.proof{grid-template-columns:1fr}.proof .img{min-height:260px}}
+
+/* Services */
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.svcs div{padding:28px 26px 32px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;transition:background .2s}
+.svcs div:hover{background:#f9fbfd}
+.svcs h3{font-size:21px;font-weight:800;margin:12px 0 8px}.svcs p{margin:0;color:var(--muted);font-size:15px}
+@media(max-width:860px){.svcs{grid-template-columns:1fr 1fr}}@media(max-width:560px){.svcs{grid-template-columns:1fr}}
+
+/* Rules + FAQ */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rule-list{list-style:none;margin:0;padding:0;counter-reset:r}
+.rule-list li{counter-increment:r;display:grid;grid-template-columns:44px 1fr;gap:6px;padding:16px 0;border-bottom:1px solid var(--line)}
+.rule-list li::before{content:counter(r,decimal-leading-zero);font:500 12px var(--mono);color:var(--blue);padding-top:3px}
+.rule-list b{display:block;font-family:var(--display);font-size:16.5px;letter-spacing:-.01em}
+.rule-list span{color:var(--muted);font-size:14.5px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:18px 0;font:700 17px var(--display);letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 24px var(--body);color:var(--blue);line-height:1;transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;color:var(--muted);font-size:15px}
+@media(max-width:860px){.rules{grid-template-columns:1fr}}
+
+/* Referral form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.form-grid .full{grid-column:1/-1}
+.form-split{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}
+.fs-head{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:8px 0 12px;grid-column:1/-1}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#334155;margin:6px 0 18px;cursor:pointer}
+.check input{appearance:none;flex:none;width:22px;height:22px;border:1.5px solid #9aa7b8;border-radius:7px;display:grid;place-items:center;margin:0;transition:all .2s;cursor:pointer;background:#fff}
+.check input:checked{background:var(--blue);border-color:var(--blue)}
+.check input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.done-msg{display:none;margin-top:14px;padding:14px 16px;border-radius:12px;background:#e8f2fc;color:var(--navy);font-size:14.5px}
+form.sent .done-msg{display:block}
+@media(max-width:860px){.form-split,.form-grid{grid-template-columns:1fr}}
+
+/* Closing CTA (Dub-style dark atmosphere) */
+.close{position:relative;overflow:hidden;background:var(--navy);color:#fff;border-radius:28px;padding:80px 48px;text-align:center}
+.close::before{content:"";position:absolute;left:50%;top:100%;width:1100px;height:700px;transform:translate(-50%,-55%);background:radial-gradient(closest-side,rgba(33,134,208,.6),rgba(22,112,197,.15) 55%,transparent)}
+.close>*{position:relative}
+.close h2{font-size:clamp(34px,5vw,60px);font-weight:800;max-width:780px;margin:14px auto 18px}
+.close p{color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 30px}
+.close .label{color:rgba(255,255,255,.6)}
+.close .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{padding:64px 0 120px;margin-top:96px;border-top:1px solid var(--line);background:#fff}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.foot h4{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.foot a{display:block;padding:4px 0;font-size:14.5px;color:#334155}.foot a:hover{color:var(--blue)}
+.foot p{color:var(--muted);font-size:14px;max-width:320px}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media(max-width:860px){.foot{grid-template-columns:1fr 1fr}}
+
+.preview-tag{position:fixed;left:16px;bottom:16px;z-index:60;font:12px var(--body);padding:8px 13px;border-radius:999px;background:rgba(6,22,48,.9);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.14)}
+.preview-tag b{color:#fff}
+.feedback{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;background:#1fa855;color:#fff;font:600 14px var(--body);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.feedback svg{width:18px;height:18px}
+@media(max-width:640px){.preview-tag{display:none}}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/foe-icon.png" alt="FOE Studios logo"><span>FOE Studios<small>Family Oriented Empire</small></span></a>
+    <nav><a href="#services">Services</a><a href="#work">Work</a><a class="hot" href="#how">Refer &amp; earn</a><a href="#faq">FAQ</a><a href="#refer">Contact</a></nav>
+    <a class="btn pri" href="#refer">Refer a brand</a>
+    <button class="burger" type="button" aria-label="Open menu" onclick="document.getElementById('nav').classList.toggle('open')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main>
+<section class="wrap frame">
+  <div class="hero">
+    <div class="hero-copy reveal">
+      <span class="label b">FOE Ambassador Programme</span>
+      <h1>Know a brand that's ready to <span>grow?</span> Introduce us.</h1>
+      <p class="lede">FOE Studios builds brands through strategy, branding, content and creative execution. Refer a business, organization or creator, and you both get rewarded when their project goes ahead.</p>
+      <div class="ctas"><a class="btn pri" href="#link">Get your referral link <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="#how">See how it works</a></div>
+      <div class="assure">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Free to join</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Rewards on both sides</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>Track every referral</span>
+      </div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="liquid" id="liquid"></div>
+      <div class="pass" id="pass"></div>
+      <div class="fallback-card"><span class="label">FOE Ambassador</span><b>Your Name</b><span class="label">Code · FOE-AMB-0000</span></div>
+      <div class="stage-cap"><span class="label">Ambassador pass · sample</span><span class="label">Move your cursor</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap frame rule">
+  <div class="who">
+    <div><span class="label">We help</span><b>Businesses</b></div>
+    <div><span class="label">We help</span><b>Organizations</b></div>
+    <div><span class="label">We help</span><b>Individuals</b></div>
+    <div><span class="label">With</span><b>Strategy · Creativity · Execution</b></div>
+  </div>
+</section>
+
+<section class="wrap frame rule sec" id="how">
+  <div class="sec-head reveal"><div><span class="label b">How it works</span><h2>Three steps. One introduction can start a brand's next chapter.</h2></div><p>Share your link, we take it from there, and you see every step in your ambassador dashboard.</p></div>
+  <div class="steps reveal">
+    <div class="step"><span class="n">01</span><div class="ico"><img src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/key-dynamic-premium.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg></div><h3>Get your link</h3><p>Sign up in a minute and receive a personal referral code and link.</p></div>
+    <div class="step"><span class="n">02</span><div class="ico"><img src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/gift-dynamic-premium.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10 3 7.5 4 9 8 12 8Zm0 0s2-5 4.5-4S15 8 12 8Z"/></svg></div><h3>Share it</h3><p>Send it to a brand you believe in, by WhatsApp, email or LinkedIn, or refer them directly with the form.</p></div>
+    <div class="step"><span class="n">03</span><div class="ico"><img src="https://3dicons.sgp1.cdn.digitaloceanspaces.com/v1/dynamic/premium/wallet-dynamic-premium.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16 15h2"/></svg></div><h3>You both get rewarded</h3><p>When their project with FOE goes ahead and is completed, your reward is released, and they get a welcome offer.</p></div>
+  </div>
+
+  <div class="reward reveal">
+    <div class="rcard"><span class="label">You get</span><h3>A referral reward</h3><p>For every referred project that's completed.</p><span class="val">Amount · FOE to set</span></div>
+    <div class="plus">+</div>
+    <div class="rcard alt"><span class="label">They get</span><h3>A welcome offer</h3><p>On their first project with FOE Studios.</p><span class="val">Offer · FOE to set</span></div>
+  </div>
+  <p class="terms-mini">Suggested structure: two-sided rewards, paid on completion of the referred project. Amounts, offer and payment timing to be confirmed by FOE Studios.</p>
+</section>
+
+<section class="wrap frame rule sec" id="link">
+  <div class="sec-head reveal"><div><span class="label b">Your referral link</span><h2>Make your link. Watch it work.</h2></div><p>Try it: type your name and the pass and link update live. Sharing is one tap.</p></div>
+  <div class="gen">
+    <div class="panel reveal">
+      <span class="label">Step 1</span><h3>Create your ambassador link</h3>
+      <label class="field"><span>Your name</span><input id="amb-name" type="text" placeholder="e.g. Jordan Campbell" maxlength="40" autocomplete="name"></label>
+      <span class="label">Your link</span>
+      <div class="linkbox"><code id="amb-link">foestudios.com/r/FOE-AMB-0000</code>
+        <button class="copyBtn" id="copy" type="button" aria-label="Copy referral link"><svg viewBox="0 0 512 512"><path d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"/></svg><span class="t">COPY</span><span class="fx"></span></button>
+      </div>
+      <div class="share">
+        <a id="sh-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3c.2-.4.2-.9.2-1.3-.1-.1-.3-.2-.5-.3Z"/></svg>WhatsApp</a>
+        <a id="sh-li" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg>LinkedIn</a>
+        <a id="sh-em" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+      </div>
+      <p class="note">Preview: the link and code are generated in your browser for demonstration. On the live site, codes are issued when you sign up.</p>
+    </div>
+
+    <div class="dash reveal" aria-label="Sample ambassador dashboard">
+      <div class="dash-top"><div><span class="label">Ambassador dashboard</span><div style="font:800 20px var(--display);margin-top:4px" id="dash-name">Your Name</div></div><span class="chip" id="dash-code">FOE-AMB-0000</span></div>
+      <div class="kpis">
+        <div class="kpi"><b data-count="48">0</b><span class="label">Link clicks</span></div>
+        <div class="kpi"><b data-count="6">0</b><span class="label">Brands referred</span></div>
+        <div class="kpi"><b data-count="2">0</b><span class="label">In progress</span></div>
+        <div class="kpi"><b data-count="1">0</b><span class="label">Completed</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-row"><span>Progress to next tier</span><span>2 of 3 completed referrals</span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <div class="tiers"><div class="on"><b>Ambassador</b>Reward · FOE to set</div><div><b>Silver</b>Reward · FOE to set</div><div><b>Gold</b>Reward · FOE to set</div></div>
+      </div>
+      <div class="feed">
+        <div><span>Referral received · Brand A</span><span>Under review</span></div>
+        <div><span>Discovery call booked · Brand B</span><span>In progress</span></div>
+        <div><span>Project completed · Brand C</span><span>Reward released</span></div>
+      </div>
+      <span class="sample">Sample data</span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap frame rule sec" id="work">
+  <div class="sec-head reveal"><div><span class="label b">Why brands say yes</span><h2>Proof, not promises.</h2></div><p>The work you're introducing people to: real campaigns, real numbers.</p></div>
+  <div class="proof reveal">
+    <div class="img"><img src="https://images.unsplash.com/photo-1762392050936-cf787f78e812?w=1200&q=70&auto=format&fit=crop" alt="Placeholder photo: a swimmer racing butterfly" loading="lazy" onerror="this.remove()"><span class="label">Placeholder image · FOE to supply event photography</span></div>
+    <div class="txt">
+      <span class="label">Case study · Social Media &amp; Content</span>
+      <h3>30th Goodwill Swimming Championships</h3>
+      <p>Social media campaign and event content, delivered over a 10-week project.</p>
+      <div class="stats"><div><b>790.9K</b><span class="label">Views</span></div><div><b>25.4K</b><span class="label">Interactions</span></div><div><b>+930</b><span class="label">Followers gained</span></div><div><b>10 wks</b><span class="label">Project length</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap frame rule sec" id="services">
+  <div class="sec-head reveal"><div><span class="label b">What you're referring</span><h2>Six disciplines. One studio.</h2></div><p>From the first strategy session to the final campaign asset, everything lives under one roof and speaks with one voice.</p></div>
+  <div class="svcs reveal">
+    <div><span class="label">01</span><h3>Consulting &amp; Strategy</h3><p>Strategic planning, brand direction, digital strategy and marketing guidance for organizations at every stage of growth.</p></div>
+    <div><span class="label">02</span><h3>Social Media Management</h3><p>Strategic social media planning, content coordination and audience engagement across key platforms.</p></div>
+    <div><span class="label">03</span><h3>Branding</h3><p>Brand identity development, brand refinement, visual direction and market positioning.</p></div>
+    <div><span class="label">04</span><h3>Content Creation</h3><p>Visual and written content designed to communicate brand stories and capture audience attention.</p></div>
+    <div><span class="label">05</span><h3>Graphic Design</h3><p>Professional design for digital marketing, social media and brand communication.</p></div>
+    <div><span class="label">06</span><h3>Creative Execution</h3><p>Turning strategic concepts into finished campaigns, digital assets and creative experiences.</p></div>
+  </div>
+</section>
+
+<section class="wrap frame rule sec" id="faq">
+  <div class="sec-head reveal"><div><span class="label b">The rules, in plain language</span><h2>Simple terms. No fine print surprises.</h2></div><p>Suggested terms for FOE to review and confirm before launch.</p></div>
+  <div class="rules">
+    <ol class="rule-list reveal">
+      <li><div><b>First introduction counts</b><span>The ambassador whose link or form brings the brand in first is credited.</span></div></li>
+      <li><div><b>A 90-day window</b><span>A referral stays attributed to you for 90 days from the first click or form (window for FOE to confirm).</span></div></li>
+      <li><div><b>Paid on completion</b><span>Rewards are released when the referred project is completed, not when it's signed.</span></div></li>
+      <li><div><b>One-time project fees</b><span>Rewards apply to the project fee, not ongoing monthly retainers.</span></div></li>
+      <li><div><b>Honest referrals only</b><span>Refer people who know you're introducing them. No self-referrals.</span></div></li>
+    </ol>
+    <div class="reveal">
+      <details open><summary>Who can become an ambassador?</summary><p>Clients, partners, friends of the studio: anyone who knows a business, organization or individual that needs strategy, branding or content.</p></details>
+      <details><summary>Do I need to sell anything?</summary><p>No. Make the introduction. FOE Studios handles the discovery call, proposal and the work itself.</p></details>
+      <details><summary>How do I track my referrals?</summary><p>Your ambassador dashboard shows clicks, referrals, projects in progress and rewards released.</p></details>
+      <details><summary>What if the project is cancelled?</summary><p>Rewards are paid on completion, so a project cancelled before completion doesn't earn a reward.</p></details>
+      <details><summary>How much is the reward?</summary><p>Reward amounts and tier levels will be set by FOE Studios and published here before launch.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="wrap frame rule sec" id="refer">
+  <div class="form-split">
+    <div class="reveal"><span class="label b">Refer directly</span><h2 style="font-size:clamp(32px,4.4vw,48px);font-weight:800;margin:12px 0 14px">Rather make the introduction yourself?</h2><p style="color:var(--muted);margin:0 0 18px">Tell us who to talk to. We'll reach out, mention you, and keep you updated in your dashboard.</p>
+      <p style="color:var(--muted);font-size:14px">Starting a project of your own? Use the same form and choose "It's for me".</p></div>
+    <form class="panel reveal" id="ref-form" novalidate>
+      <div class="form-grid">
+        <span class="fs-head">About you</span>
+        <label class="field"><span>Your name</span><input required type="text" autocomplete="name"></label>
+        <label class="field"><span>Your email</span><input required type="email" autocomplete="email"></label>
+        <span class="fs-head">About them</span>
+        <label class="field"><span>Contact name</span><input required type="text"></label>
+        <label class="field"><span>Business or organization</span><input type="text"></label>
+        <label class="field"><span>Their email or phone</span><input required type="text"></label>
+        <label class="field"><span>What they need</span><select><option>Not sure yet</option><option>Consulting &amp; Strategy</option><option>Social Media Management</option><option>Branding</option><option>Content Creation</option><option>Graphic Design</option><option>Creative Execution</option><option>It's for me</option></select></label>
+        <label class="field full"><span>How do you know them? (optional)</span><textarea></textarea></label>
+        <label class="check full"><input type="checkbox" required> They know I'm introducing them, and I agree to the ambassador terms.</label>
+        <div class="full"><button class="btn pri" type="submit">Send referral</button><div class="done-msg">Thanks. This is a design preview, so nothing was sent. On the live site this goes straight to FOE Studios.</div></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="wrap sec" style="padding-top:24px">
+  <div class="close reveal"><span class="label">Strategy · Creativity · Execution</span><h2>Let's build something worth remembering.</h2><p>Start a project with FOE Studios, or introduce a brand that's ready for its next chapter.</p><div class="ctas"><a class="btn light" href="#refer">Start a project</a><a class="btn line-d" href="#link">Get your referral link</a></div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a class="brand" href="#" style="padding:0"><img src="assets/foe-icon.png" alt=""><span>FOE Studios<small>Family Oriented Empire</small></span></a><p>A creative and strategic marketing studio. Strategy, branding, content and execution for brands that intend to grow.</p></div>
+      <div><h4>Studio</h4><a href="#work">Work</a><a href="#services">Services</a><a href="#refer">Contact</a></div>
+      <div><h4>Ambassadors</h4><a href="#how">How it works</a><a href="#link">Get your link</a><a href="#faq">Terms &amp; FAQ</a></div>
+      <div><h4>Connect</h4><a href="#">LinkedIn · link to supply</a><a href="#">Instagram · link to supply</a><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div>
+    </div>
+    <div class="legal"><span>© 2026 Family Oriented Empire Studios™. A subsidiary of Family Oriented Empire LLC.</span><span>Website by iCelestial</span></div>
+  </div>
+</footer>
+
+<div class="preview-tag"><b>Design preview</b> · Version C, referral-led · placeholders marked · iCelestial</div>
+<a class="feedback" href="https://wa.me/18764876913?text=Hi%20iCelestial%2C%20feedback%20on%20FOE%20Studios%20version%20C%20(referral-led)%3A"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>Send feedback</a>
+
+<script>
+(function(){
+  // lite mode for small screens / weak devices (read by the 3D engine)
+  window.__csqLite = /[?&]lite=1/.test(location.search) || matchMedia("(max-width: 720px)").matches || (navigator.hardwareConcurrency||8) <= 4;
+  // reveal on scroll
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el)});
+  // dashboard counters + tier bar
+  var dash = document.querySelector(".dash");
+  new IntersectionObserver(function(es,o){ if(!es[0].isIntersecting) return; o.disconnect();
+    dash.querySelectorAll("[data-count]").forEach(function(b){var n=+b.dataset.count,i=0,t=setInterval(function(){i++;b.textContent=Math.round(n*i/30);if(i>=30)clearInterval(t)},30)});
+    document.getElementById("bar").style.width="66%"; },{threshold:.3}).observe(dash);
+  // referral link generator
+  var nameIn=document.getElementById("amb-name"), linkEl=document.getElementById("amb-link");
+  function code(n){ var s=(n||"").toUpperCase().replace(/[^A-Z]/g,"").slice(0,6)||"AMB"; var h=0; for(var i=0;i<n.length;i++) h=(h*31+n.charCodeAt(i))%10000; return "FOE-"+s+"-"+String(h).padStart(4,"0"); }
+  function update(){
+    var n=nameIn.value.trim(), c=code(n), url="foestudios.com/r/"+c;
+    linkEl.textContent=url; document.getElementById("dash-code").textContent=c; document.getElementById("dash-name").textContent=n||"Your Name";
+    var msg="I've worked with FOE Studios and think they'd be great for your brand: strategy, branding and content under one roof. Here's my link: https://"+url;
+    document.getElementById("sh-wa").href="https://wa.me/?text="+encodeURIComponent(msg);
+    document.getElementById("sh-li").href="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent("https://"+url);
+    document.getElementById("sh-em").href="mailto:?subject="+encodeURIComponent("An introduction: FOE Studios")+"&body="+encodeURIComponent(msg);
+    if(window.__pass&&window.__pass.rename) window.__pass.rename(n||"Your Name",[["Code",c.replace("FOE-","")],["Tier","Ambassador"],["Studio","FOE"]]);
+  }
+  var t; nameIn.addEventListener("input",function(){clearTimeout(t);t=setTimeout(update,180)}); update();
+  var cb=document.getElementById("copy");
+  cb.addEventListener("click",function(){ var v="https://"+linkEl.textContent; (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).catch(function(){}); cb.classList.add("done"); cb.querySelector(".t").textContent="COPIED"; setTimeout(function(){cb.classList.remove("done");cb.querySelector(".t").textContent="COPY"},1600); });
+  // demo form
+  document.getElementById("ref-form").addEventListener("submit",function(e){e.preventDefault(); if(!this.checkValidity()){this.reportValidity();return;} this.classList.add("sent"); this.querySelector("button[type=submit]").disabled=true;});
+})();
+</script>
+<script type="importmap">{"imports":{"three":"../partner-engine/vendor/three.module.min.js","three/addons/environments/RoomEnvironment.js":"../partner-engine/vendor/RoomEnvironment.js"}}</script>
+<script type="module">
+import { mountLiquid } from "./engine/threeui/liquid.js";
+import { mountPass } from "./engine/3d/pass-foe.js";
+const lq = document.getElementById("liquid");
+if (lq) mountLiquid(lq, { tint: [0.13, 0.52, 0.82], bg: [0.024, 0.086, 0.188], speed: 0.5, camera: 6.4 });
+const p = document.getElementById("pass");
+if (p) window.__pass = mountPass(p, { kicker: "FOE Ambassador", title: "Your Name", subtitle: "FOE Studios · Ambassador Programme",
+  rows: [["Code", "AMB-0000"], ["Tier", "Ambassador"], ["Studio", "FOE"]],
+  backKicker: "Referral reward", backTitle: "You both win", backSubtitle: "Paid on project completion",
+  backRows: [["Referrer", "Reward"], ["Referred", "Welcome offer"]] });
+</script>
+</body>
+</html>
