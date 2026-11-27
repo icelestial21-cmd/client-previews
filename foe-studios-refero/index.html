@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOE Studios · Build a brand that moves people</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="FOE Studios is a creative and strategic marketing studio: strategy, branding, content and creative execution for brands that intend to grow.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#061630">
+<link rel="canonical" href="https://icelestial21-cmd.github.io/client-previews/foe-studios-refero/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOE Studios">
+<meta property="og:title" content="FOE Studios · Build a brand that moves people">
+<meta property="og:description" content="A creative and strategic marketing studio. Strategy, branding, content and creative execution for brands that intend to grow.">
+<meta property="og:url" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-refero/">
+<meta property="og:image" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-refero/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FOE Studios: Build a brand that moves people, over a field of blue light">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOE Studios · Build a brand that moves people">
+<meta name="twitter:description" content="A creative and strategic marketing studio. Strategy, branding, content and creative execution for brands that intend to grow.">
+<meta name="twitter:image" content="https://icelestial21-cmd.github.io/client-previews/foe-studios-refero/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+/* FOE Studios · Version C — built from Refero Styles (web-design-references skill)
+   Reference lock
+   - Leading: Refero "Analogue" (analogueagency.com): optical light-field opening with one 40px sentence,
+     floating frosted nav with dot-matrix labels, 60px medium editorial statements (-0.05em),
+     heading + grey action pairs, near-edge media proof panels with tiny capsules,
+     one concentrated colour object at the close, low-left invitation.
+   - Borrowed: Refero "Displace" (displace.agency): small brightly coloured capability tiles and
+     "operating manual" clarity for process.
+   - Kept FOE's own tokens: navy #061630 replaces Analogue's black, FOE blues replace #0038ff,
+     soft gray #F4F6F8 canvas, Inter (FOE primary, also Analogue's Graphik substitute).
+   - Not copied: Analogue's palette, wordmark, artwork, copy; Displace's green/red/violet. */
+:root{
+  --navy:#061630; --midnight:#0B1F3A; --royal:#1769AA; --blue:#1670C5; --bright:#2186D0;
+  --canvas:#F4F6F8; --ink:#111827; --grey:#7a8494; --line:#dde2e9; --white:#fff;
+  --f:"Inter","Helvetica Neue",Arial,sans-serif; --dot:"DotGothic16",ui-monospace,monospace;
+}
+*{box-sizing:border-box;min-width:0} html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--ink);font:500 17px/1.5 var(--f);-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
+h1,h2,h3,p{margin:0}
+.display{font-weight:500;font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.05em}
+.statement{font-weight:500;font-size:clamp(26px,3vw,42px);line-height:1.05;letter-spacing:-.05em}
+.label{font-weight:500;font-size:18px;line-height:1.1;letter-spacing:-.04em}
+.g{color:var(--grey)}
+.gutter{padding-left:20px;padding-right:20px}
+
+/* Floating nav (Analogue) */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;width:min(470px,calc(100% - 32px));height:53px;padding:0 20px;border-radius:20px;background:rgba(232,236,241,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;color:var(--ink)}
+.nav a.dot{font:400 19px/1 var(--dot);letter-spacing:.025em;text-transform:uppercase}
+.nav a.dot:hover{color:var(--blue)}
+.nav .id{display:flex;align-items:center;gap:9px;font-weight:600;font-size:16px;letter-spacing:-.03em}
+.nav .id img{width:30px;height:30px;border-radius:50%}
+
+/* Optical opening */
+.optic{position:relative;background:var(--navy);color:var(--canvas)}
+.scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.optic-copy{position:relative;margin-top:-100vh;margin-top:-100svh}
+.optic-copy>div{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:0 24px}
+.optic h1{font-weight:500;font-size:clamp(30px,3.4vw,44px);line-height:1.05;letter-spacing:-.05em;max-width:640px;text-wrap:balance}
+.optic .second p{max-width:620px;font-weight:500;font-size:clamp(24px,2.8vw,40px);line-height:1.05;letter-spacing:-.05em;text-wrap:balance}
+.optic .second p span{color:#7fa6cc}
+.hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);font:400 14px var(--dot);letter-spacing:.06em;text-transform:uppercase;color:rgba(244,246,248,.55)}
+
+/* Editorial statement */
+.editorial{padding:110px 40px 100px 20px}
+.editorial .display a{color:var(--grey);transition:color .2s}.editorial .display a:hover{color:var(--blue)}
+
+/* Rail */
+.rail{display:grid;grid-template-columns:220px 1fr;border-top:1px solid var(--line);margin:0 20px}
+.rail>.label{padding:18px 20px 18px 0;border-right:1px solid var(--ink)}
+.rail nav{display:flex;flex-wrap:wrap;gap:6px 28px;padding:18px 0 18px 24px}
+.rail nav a{font-weight:500;font-size:18px;letter-spacing:-.04em}.rail nav a:hover{color:var(--blue)}
+
+/* Heading action pair */
+.pair{display:flex;flex-direction:column;text-align:center;padding:110px 20px 40px}
+.pair a.g:hover{color:var(--blue)}
+.pair.left{text-align:left;padding:0}
+
+/* Media proof stack */
+.stack{display:grid;gap:10px;padding:0 20px}
+.panel{position:relative;border-radius:10px;overflow:hidden;min-height:clamp(380px,56vw,780px);background:var(--midnight)}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.panel .ph{position:absolute;inset:0;display:grid;place-items:center;color:rgba(244,246,248,.7);font-size:15px;letter-spacing:-.02em}
+.panel.tex-a{background:radial-gradient(70% 90% at 30% 20%,#2a6fb3 0,transparent 60%),repeating-linear-gradient(115deg,#0d2b52 0 3px,#0b2446 3px 9px)}
+.panel.tex-b{background:radial-gradient(60% 80% at 75% 70%,#e9eef4 0,transparent 55%),repeating-radial-gradient(circle at 20% 30%,#c9d3df 0 2px,#d9e0e8 2px 7px)}
+.panel.tex-b .ph{color:#4b5565}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two .panel{min-height:clamp(320px,40vw,620px)}
+.capsule{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:9999px;background:var(--navy);color:var(--canvas);white-space:nowrap;font-size:15px;letter-spacing:-.02em}
+.capsule i{width:28px;height:28px;border-radius:50%;background:var(--bright);display:block}
+.capsule i.img{background:url(assets/foe-icon.png) center/cover}
+.capsule small{font:400 12px var(--dot);letter-spacing:.06em;text-transform:uppercase;color:#9fb3ca}
+.capsule.light{background:#fff;color:var(--ink)}.capsule.light small{color:var(--grey)}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 20px 0}
+.fact{background:#fff;border-radius:10px;padding:22px 20px}
+.fact b{display:block;font-weight:500;font-size:clamp(30px,3.4vw,48px);letter-spacing:-.05em;line-height:1}
+.fact span{display:block;margin-top:8px;font-size:15px;color:var(--grey);letter-spacing:-.02em}
+.note{padding:12px 20px 0;font-size:14px;color:var(--grey)}
+
+/* Capability tiles (Displace) */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px}
+.tile{border-radius:10px;padding:22px 22px 26px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.tile:hover{transform:translateY(-3px)}
+.tile .n{font:400 14px var(--dot);letter-spacing:.06em}
+.tile h3{font-weight:500;font-size:clamp(24px,2.2vw,32px);line-height:1.02;letter-spacing:-.05em;margin-top:40px}
+.tile p{font-size:15.5px;line-height:1.4;margin-top:10px;opacity:.82;letter-spacing:-.01em}
+.t1{background:var(--navy);color:#fff}.t2{background:var(--blue);color:#fff}.t3{background:#fff;color:var(--ink)}
+.t4{background:#dbe7f4;color:var(--navy)}.t5{background:var(--midnight);color:#fff}.t6{background:var(--bright);color:#fff}
+
+/* Dark capability chapter */
+.chapter{background:var(--navy);color:var(--canvas);margin-top:110px;padding:150px 20px 150px}
+.chapter .rail{margin:0;border-top:0}
+.chapter .rail>.label{border-right-color:rgba(244,246,248,.35);color:#9fb3ca}
+.chapter .lead{padding:0 0 0 24px}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:110px}
+.col h3{font-weight:500;font-size:18px;letter-spacing:-.04em;color:#9fb3ca;margin-bottom:14px}
+.col ul{list-style:none;margin:0;padding:0}
+.col li{padding:12px 0;border-top:1px solid rgba(244,246,248,.18);font-size:16px;line-height:1.35;letter-spacing:-.02em}
+.col li b{display:block;font-weight:500;font-size:20px;letter-spacing:-.04em;margin-bottom:4px;color:#fff}
+.col li span{color:rgba(244,246,248,.7)}
+.belong{margin-top:90px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:rgba(244,246,248,.7);font-size:15px}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:30px;background:var(--bright);color:#fff;font-size:13px;letter-spacing:-.01em}
+
+/* Close */
+.close{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;padding:110px 20px 100px}
+.object{align-self:center;width:min(460px,100%);border-radius:20px;background:var(--blue);color:var(--canvas);padding:16px 18px 22px;box-shadow:0 40px 80px -40px rgba(22,112,197,.7)}
+.object .bar{display:flex;justify-content:space-between;align-items:center;font:400 15px var(--dot);letter-spacing:.04em;text-transform:uppercase;color:rgba(244,246,248,.8)}
+.object .bar span:nth-child(2){font:600 15px var(--f);letter-spacing:-.03em;text-transform:none;color:#fff;display:flex;align-items:center;gap:8px}
+.object .bar img{width:24px;height:24px;border-radius:50%}
+.object .promise{text-align:center;font-weight:500;font-size:clamp(26px,2.6vw,34px);line-height:1.05;letter-spacing:-.05em;margin:110px 0 90px;text-wrap:balance}
+.object form{display:flex;gap:8px}
+.object input{flex:1;height:48px;border-radius:12px;border:0;padding:0 14px;background:rgba(244,246,248,.2);color:#fff;font:500 16px var(--f)}
+.object input::placeholder{color:rgba(244,246,248,.7)}
+.object input:focus{outline:2px solid #fff;outline-offset:2px}
+.object button{height:48px;padding:0 18px;border-radius:12px;border:0;background:var(--canvas);color:var(--navy);font:600 15px var(--f);cursor:pointer}
+.object .done{display:none;text-align:center;margin-top:12px;font-size:14px;color:rgba(244,246,248,.9)}
+.object form.sent+.done{display:block}
+.invite .id{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-weight:600;letter-spacing:-.03em}
+.invite .id img{width:34px;height:34px;border-radius:50%}
+.invite a.g:hover{color:var(--blue)}
+.small-print{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:22px 20px 110px;border-top:1px solid var(--line);margin:0 20px;font-size:14px;color:var(--grey)}
+.small-print nav{display:flex;gap:18px;flex-wrap:wrap}.small-print a:hover{color:var(--blue)}
+
+.preview-tag{position:fixed;left:16px;bottom:16px;z-index:60;font:500 12px var(--f);padding:8px 13px;border-radius:999px;background:rgba(6,22,48,.9);color:rgba(255,255,255,.7)}
+.preview-tag b{color:#fff}
+.feedback{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;background:#1fa855;color:#fff;font:600 14px var(--f);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.feedback svg{width:18px;height:18px}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .tiles{grid-template-columns:1fr 1fr}.cols{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .facts{grid-template-columns:1fr 1fr}.rail{grid-template-columns:140px 1fr}
+}
+@media(max-width:600px){
+  .two,.tiles{grid-template-columns:1fr}.cols{grid-template-columns:1fr}
+  .rail{grid-template-columns:1fr}.rail>.label{border-right:0;border-bottom:1px solid var(--ink);padding-bottom:12px}
+  .chapter .rail>.label{border-bottom-color:rgba(244,246,248,.35)}
+  .rail nav,.chapter .lead{padding-left:0}.editorial{padding:80px 20px 70px}
+  .pair{padding-top:80px}.chapter{padding:100px 20px}.cols{margin-top:70px}
+  .nav a.dot{font-size:16px}.capsule{font-size:13px;max-width:calc(100% - 24px)}.capsule small{display:none}.preview-tag{display:none}.object .promise{margin:70px 0 60px}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="nav"><a class="dot" href="#work">Work</a><a class="id" href="#top"><img src="assets/foe-icon.png" alt="">FOE Studios</a><a class="dot" href="#contact">Contact</a></header>
+
+<main id="top">
+<section class="optic" aria-label="Introduction">
+  <div class="scene" aria-hidden="true"><svg id="rays" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"></svg></div>
+  <div class="optic-copy">
+    <div><h1>Build a brand that moves people.</h1><span class="hint">Scroll</span></div>
+    <div class="second"><p>Strategy, creativity and execution, <span>working as one</span> so your brand doesn't just look strong, it performs.</p></div>
+  </div>
+</section>
+
+<section class="editorial">
+  <p class="display rv">FOE Studios is a creative and strategic marketing studio helping businesses, organizations and individuals grow through <a href="#services">consulting &amp; strategy</a>, <a href="#services">social media</a>, <a href="#services">branding</a>, <a href="#services">content creation</a>, <a href="#services">graphic design</a> and <a href="#services">creative execution</a>.</p>
+</section>
+
+<div class="rail"><span class="label">Jump to</span><nav><a href="#work">Selected work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#contact">Start a project</a></nav></div>
+
+<section id="work">
+  <div class="pair rv"><h2 class="display">Selected work.</h2><a class="display g" href="#contact">Start a project</a></div>
+  <div class="stack">
+    <div class="panel rv"><img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=2000&q=70&auto=format&fit=crop" alt="Placeholder photo: a swimmer mid-stroke" loading="lazy" onerror="this.remove()"><a class="capsule" href="#work"><i class="img"></i>30th Goodwill Swimming Championships<small>Case study</small></a></div>
+  </div>
+  <div class="facts rv"><div class="fact"><b>790.9K</b><span>Views</span></div><div class="fact"><b>25.4K</b><span>Interactions</span></div><div class="fact"><b>+930</b><span>Followers gained</span></div><div class="fact"><b>10 wks</b><span>Social media and event content</span></div></div>
+  <p class="note">Event photo is a placeholder until FOE supplies its own campaign imagery.</p>
+  <div class="stack" style="margin-top:10px">
+    <div class="two">
+      <div class="panel tex-a rv"><span class="ph">Branding project · image to be supplied by FOE</span><span class="capsule"><i></i>Branding project<small>Coming soon</small></span></div>
+      <div class="panel tex-b rv"><span class="ph">Design project · image to be supplied by FOE</span><span class="capsule light"><i></i>Graphic design project<small>Coming soon</small></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="pair rv"><h2 class="display">Six disciplines. One studio.</h2><a class="display g" href="#process">How we work</a></div>
+  <div class="tiles">
+    <div class="tile t1 rv"><span class="n">01</span><div><h3>Consulting &amp; Strategy</h3><p>Strategic planning, brand direction, digital strategy and marketing guidance for organizations at every stage of growth.</p></div></div>
+    <div class="tile t2 rv"><span class="n">02</span><div><h3>Social Media Management</h3><p>Strategic social media planning, content coordination and audience engagement across key platforms.</p></div></div>
+    <div class="tile t3 rv"><span class="n">03</span><div><h3>Branding</h3><p>Brand identity development, brand refinement, visual direction and market positioning.</p></div></div>
+    <div class="tile t4 rv"><span class="n">04</span><div><h3>Content Creation</h3><p>Visual and written content designed to communicate brand stories and capture audience attention.</p></div></div>
+    <div class="tile t5 rv"><span class="n">05</span><div><h3>Graphic Design</h3><p>Professional design for digital marketing, social media and brand communication.</p></div></div>
+    <div class="tile t6 rv"><span class="n">06</span><div><h3>Creative Execution</h3><p>Turning strategic concepts into finished campaigns, digital assets and creative experiences.</p></div></div>
+  </div>
+</section>
+
+<section class="chapter" id="process">
+  <div class="rail"><span class="label">Our approach</span><p class="display lead rv">We start with your goals, your audience and your market, then design the creative to serve them. A partner, not a production line.</p></div>
+  <div class="cols">
+    <div class="col rv"><h3>Process</h3><ul><li><b>Discovery</b><span>We learn the business, the audience and the goals.</span></li><li><b>Strategy</b><span>We define direction, messaging and the right channels.</span></li></ul></div>
+    <div class="col rv"><h3>&nbsp;</h3><ul><li><b>Creation</b><span>We design and produce the work, with your feedback built in.</span></li><li><b>Delivery</b><span>We launch, measure and refine.</span></li></ul></div>
+    <div class="col rv"><h3>Why FOE</h3><ul><li><b>Strategy-first thinking</b><span>Every creative decision traces back to a business goal.</span></li><li><b>Tailored solutions</b><span>No packaged playbooks; every engagement is shaped around your brand.</span></li></ul></div>
+    <div class="col rv"><h3>&nbsp;</h3><ul><li><b>Creative execution</b><span>Ideas carried all the way to finished, polished work.</span></li><li><b>Business-focused outcomes</b><span>Measured by what the work does for the business.</span></li></ul></div>
+  </div>
+  <div class="belong rv"><span class="badge">Family Oriented Empire</span>FOE Studios is a subsidiary of Family Oriented Empire LLC.</div>
+</section>
+
+<section class="close" id="contact">
+  <div class="object rv">
+    <div class="bar"><span>Start</span><span><img src="assets/foe-icon.png" alt="">FOE Studios</span><span>Talk</span></div>
+    <p class="promise">Tell us where your brand is today. We'll reply with a clear next step.</p>
+    <form id="start" novalidate><input type="email" required placeholder="Your email" aria-label="Your email"><button type="submit">Start</button></form>
+    <p class="done">Thanks. This is a design preview, so nothing was sent.</p>
+  </div>
+  <div class="invite rv">
+    <div class="id"><img src="assets/foe-icon.png" alt="">FOE Studios</div>
+    <div class="pair left"><h2 class="display">Let's build something<br>worth remembering.</h2><a class="display g" href="#contact">Start a project</a></div>
+  </div>
+</section>
+</main>
+
+<footer class="small-print"><span>© 2026 Family Oriented Empire Studios™. A subsidiary of Family Oriented Empire LLC.</span><nav><a href="#">LinkedIn · link to supply</a><a href="#">Instagram · link to supply</a><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><span>Website by iCelestial</span></nav></footer>
+
+<div class="preview-tag"><b>Design preview</b> · Version C, Refero styles · placeholders marked · iCelestial</div>
+<a class="feedback" href="https://wa.me/18764876913?text=Hi%20iCelestial%2C%20feedback%20on%20FOE%20Studios%20version%20C%3A"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>Send feedback</a>
+
+<script>
+{
+  // Convergent light field (Analogue recipe), recoloured to FOE blues. Seeded so it renders the same every time.
+  const svg = document.getElementById("rays");
+  let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const cx = 720, cy = 450, R = 1100;
+  let soft = "", bright = "";
+  for (let i = 0; i < 180; i++) {
+    const a = rnd() * Math.PI * 2, r0 = 20 + rnd() * 140, r1 = 500 + rnd() * R;
+    const x0 = cx + Math.cos(a) * r0, y0 = cy + Math.sin(a) * r0, x1 = cx + Math.cos(a) * r1, y1 = cy + Math.sin(a) * r1;
+    const c = rnd() < .55 ? "rgba(244,246,248,0.11)" : "rgba(33,134,208,0.32)";
+    soft += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" stroke="${c}" stroke-width="${(0.5 + rnd() * 1.5).toFixed(2)}"/>`;
+  }
+  for (let i = 0; i < 16; i++) {
+    const a = rnd() * Math.PI * 2, r1 = 600 + rnd() * 600;
+    bright += `<line x1="${cx}" y1="${cy}" x2="${(cx + Math.cos(a) * r1).toFixed(1)}" y2="${(cy + Math.sin(a) * r1).toFixed(1)}" stroke="${rnd() < .5 ? "#2186D0" : "#9fc6ee"}" stroke-width="${(3 + rnd() * 5).toFixed(1)}" stroke-opacity=".35"/>`;
+  }
+  svg.innerHTML = `<defs><filter id="b1" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter><filter id="b2"><feGaussianBlur stdDeviation="22"/></filter>
+    <radialGradient id="vg" cx="50%" cy="50%" r="70%"><stop offset="40%" stop-color="#061630" stop-opacity="0"/><stop offset="100%" stop-color="#030b1a" stop-opacity=".92"/></radialGradient>
+    <radialGradient id="core"><stop offset="0" stop-color="#eaf3ff"/><stop offset=".35" stop-color="#7fb7ec" stop-opacity=".7"/><stop offset="1" stop-color="#1670C5" stop-opacity="0"/></radialGradient></defs>
+    <rect width="1440" height="900" fill="#061630"/><g>${soft}</g><g filter="url(#b1)">${bright}</g>
+    <circle cx="${cx}" cy="${cy}" r="140" fill="url(#core)" filter="url(#b2)" opacity=".85"/>
+    <rect width="1440" height="900" fill="url(#vg)"/>`;
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const g = svg.querySelector("g"); let t0 = performance.now();
+    const spin = (t) => { g.setAttribute("transform", `rotate(${((t - t0) / 1000 * 0.6) % 360} ${cx} ${cy})`); requestAnimationFrame(spin); };
+    requestAnimationFrame(spin);
+  }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .1 });
+  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+  document.getElementById("start").addEventListener("submit", function (e) { e.preventDefault(); if (!this.checkValidity()) { this.reportValidity(); return; } this.classList.add("sent"); this.querySelector("button").disabled = true; });
+}
+</script>
+</body>
+</html>
