@@ -2,7 +2,7 @@
   "name": "Kings of the Cage",
   "short_name": "KOC",
   "description": "Live scores and official merch for Kings of the Cage (demo).",
-  "start_url": "./#live",
+  "start_url": "./#scores",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0a0a0a",
